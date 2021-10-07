@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "937854335704",
+    "project_id": "poket-8a433",
+    "storage_bucket": "poket-8a433.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937854335704:android:fa96440488cd25ea3635ad",
+        "android_client_info": {
+          "package_name": "com.example.poket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937854335704-tcrvm0f1is6ahasu4f6k7qdn79a3r8c2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.poket",
+            "certificate_hash": "d84ad0ca1986cd4feed60932d03ee1499a2e0058"
+          }
+        },
+        {
+          "client_id": "937854335704-hp3mr8oadd7g1rppmuee3ta17eeusojr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzuNTukM4eFhQqYpn4Z7tUyB3Dg08RIbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937854335704-hp3mr8oadd7g1rppmuee3ta17eeusojr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
