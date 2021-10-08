@@ -8,7 +8,7 @@ public class PlanejamentoFinanceiroDTO {
     private String idConta;
     private String conta;
     private String contaValor;
-    private String valorInicial;
+    private String valorAtual;
     private String valorObjetivado;
     private String dataInicial;
     private String dataFinal;
@@ -61,12 +61,12 @@ public class PlanejamentoFinanceiroDTO {
         this.contaValor = contaValor;
     }
 
-    public String getValorInicial() {
-        return valorInicial;
+    public String getValorAtual() {
+        return valorAtual;
     }
 
-    public void setValorInicial(String valorInicial) {
-        this.valorInicial = valorInicial;
+    public void setValorAtual(String valorAtual) {
+        this.valorAtual = valorAtual;
     }
 
     public String getValorObjetivado() {

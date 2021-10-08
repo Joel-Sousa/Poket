@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageViewListarPFVoltar"
+                android:id="@+id/imageViewListaPFVoltar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
@@ -49,7 +49,7 @@
             android:text="list" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Curto  p"
+                android:text="Curto  prazo"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -78,13 +78,66 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="nome pf"
+                android:text="viajar longe"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView59"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Valor atual: "
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView78"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="R$: "
+                android:textColor="#070505"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewListaPFValorAtual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="100,00"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView76"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Valor objetivado: "
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView79"
-                android:layout_width="10dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="R$: "
@@ -92,17 +145,17 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textViewListarPFValorPF"
+                android:id="@+id/textViewListaPFValorObjetivado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:text="500,00"
                 android:textColor="#000000"
                 android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -118,7 +171,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textView76"
+                android:id="@+id/textViewListaPFDataInicio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -144,14 +197,14 @@
                 android:textSize="20sp" />
 
             <ProgressBar
-                android:id="@+id/progressBar"
+                android:id="@+id/progressBarListarPFConcluido"
                 style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"
                 android:layout_width="150dp"
                 android:layout_height="29dp"
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/textView78"
+                android:id="@+id/textViewListarPFPorcentagemInicio"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -161,7 +214,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -177,7 +230,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textView81"
+                android:id="@+id/textViewListarPFDataFinal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -198,19 +251,19 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Data final: "
+                android:text="Resta: "
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
             <ProgressBar
-                android:id="@+id/progressBar2"
+                android:id="@+id/progressBarListarPFResta"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="150dp"
                 android:layout_height="29dp"
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/textView83"
+                android:id="@+id/textViewListarPFPorcentagemResta"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -227,14 +280,14 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonListarPFEditar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Editar" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/buttonListarPFExcluir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

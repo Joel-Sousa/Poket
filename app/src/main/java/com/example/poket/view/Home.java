@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -18,6 +20,7 @@ import com.example.poket.DAO.ContaDAO;
 import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
 import com.example.poket.DAO.UsuarioDAO;
 import com.example.poket.DTO.UsuarioDTO;
+import com.example.poket.MainActivity;
 import com.example.poket.R;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.conta.ListaConta;
@@ -214,19 +217,19 @@ public class Home extends AppCompatActivity {
         });
 
         PlanejamentoFinanceiroDAO daoPF = new PlanejamentoFinanceiroDAO();
-        View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
 
         imageViewAdicionarPFCurto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
                 daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", true, mView);
-
             }
         });
 
         linearLayoutPFCurto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
                 daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", false, mView);
             }
         });
@@ -234,6 +237,7 @@ public class Home extends AppCompatActivity {
         imageViewAdicionarPFMedio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
                 daoPF.planejamentoFinanceiro(Home.this,"Medio prazo", true, mView);
             }
         });
@@ -241,6 +245,7 @@ public class Home extends AppCompatActivity {
         linearLayoutPFMedio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
                 daoPF.planejamentoFinanceiro(Home.this,"Medio prazo", false, mView);
             }
         });
@@ -248,6 +253,7 @@ public class Home extends AppCompatActivity {
         imageViewAdicionarPFLongo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
                 daoPF.planejamentoFinanceiro(Home.this,"Longo prazo", true, mView);
             }
         });
@@ -255,6 +261,7 @@ public class Home extends AppCompatActivity {
         linearLayoutPFLongo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
                 daoPF.planejamentoFinanceiro(Home.this,"Longo prazo", false, mView);
             }
         });

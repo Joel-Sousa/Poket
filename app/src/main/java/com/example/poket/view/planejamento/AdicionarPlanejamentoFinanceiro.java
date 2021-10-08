@@ -22,7 +22,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
 
     ImageView imageViewVoltar;
     TextView textViewIdConta, textViewContaValor, textViewTipoPF;
-    EditText editTextNomePF, editTextTipoPF, editTextValoInicial, editTextValorObjetivado,
+    EditText editTextNomePF, editTextValoAtual, editTextValorObjetivado,
     editTextDataInicial, editTextDataFinal;
     Spinner spinnerConta;
     Button buttonSalvar;
@@ -42,7 +42,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         textViewTipoPF = findViewById(R.id.textViewAdicionarPFTipoPF);
         spinnerConta = findViewById(R.id.spinnerAdicionarPFConta);
         textViewContaValor= findViewById(R.id.textViewAdicionarPFContaValor);
-        editTextValoInicial = findViewById(R.id.editTextAdicionarPFValorInicial);
+        editTextValoAtual = findViewById(R.id.editTextAdicionarPFValorAtual);
         editTextValorObjetivado = findViewById(R.id.editTextAdicionarPFValorObjetivado);
         editTextDataInicial = findViewById(R.id.editTextAdicionarPFDataInicial);
         editTextDataFinal = findViewById(R.id.editTextAdicionarPFDataFinal);
@@ -65,11 +65,11 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dto.setPlanejamentoFinanceiro(editTextNomePF.getText().toString());
-                dto.setTipoPlanejamentoFinanceiro(editTextTipoPF.getText().toString());
+                dto.setTipoPlanejamentoFinanceiro(textViewTipoPF.getText().toString());
                 dto.setIdConta(textViewIdConta.getText().toString());
                 dto.setConta(spinnerConta.getSelectedItem().toString());
                 dto.setContaValor(textViewContaValor.getText().toString());
-                dto.setValorInicial(editTextValoInicial.getText().toString());
+                dto.setValorAtual(editTextValoAtual.getText().toString());
                 dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
                 dto.setDataInicial(editTextDataInicial.getText().toString());
                 dto.setDataFinal(editTextDataFinal.getText().toString());
@@ -91,7 +91,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
     public void mock(){
         editTextNomePF.setText("nomeTst");
 //        editTextTipoPF.setText("Curto prazo");
-        editTextValoInicial.setText("100");
+        editTextValoAtual.setText("100");
         editTextValorObjetivado.setText("900");
         editTextDataFinal.setText("12/12/2021");
 //        editTextDataDespesa.setText("11/11/1111");

@@ -46,40 +46,40 @@ public class MainActivity extends AppCompatActivity {
 //        PlanejamentoFinanceiroDAO daoPF = new PlanejamentoFinanceiroDAO();
 //        daoPF.planejamentoFinanceiro();
 
-//        buttonTst.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-//                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-//                final TextView textViewIdPF = mView.findViewById(R.id.textViewDialogPFUidPF);
-//
-//                final TextView textViewIdConta = mView.findViewById(R.id.textViewDialogAddPFIdConta);
-//                final Spinner spinnerConta = mView.findViewById(R.id.spinnerDialogAddPFConta);
-//                final EditText editTextValor = mView.findViewById(R.id.editTextDialogAddPFValor);
-//                final TextView textViewValorConta = mView.findViewById(R.id.textViewDialogAddPFValorConta);
-//                Button buttonAdicionar = mView.findViewById(R.id.buttonDialogAddPFAdicionar);
-//                Button buttonVoltar = mView.findViewById(R.id.buttonDialogAddPFVoltar);
-//
-//                mBuilder.setView(mView);
-//                final AlertDialog dialog = mBuilder.create();
-//                dialog.show();
-//
-//                buttonAdicionar.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                    }
-//                });
-//
-//                buttonVoltar.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        dialog.dismiss();
-////                        dialog.hide();
-//                    }
-//                });
-//            }
-//        });
+        buttonTst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
+                final TextView textViewIdPF = mView.findViewById(R.id.textViewDialogPFUidPF);
+
+                final TextView textViewIdConta = mView.findViewById(R.id.textViewDialogAddPFIdConta);
+                final Spinner spinnerConta = mView.findViewById(R.id.spinnerDialogAddPFConta);
+                final EditText editTextValor = mView.findViewById(R.id.editTextDialogAddPFValor);
+                final TextView textViewValorConta = mView.findViewById(R.id.textViewDialogAddPFValorConta);
+                Button buttonAdicionar = mView.findViewById(R.id.buttonDialogAddPFAdicionar);
+                Button buttonVoltar = mView.findViewById(R.id.buttonDialogAddPFVoltar);
+
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+
+                buttonAdicionar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+
+                buttonVoltar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+//                        dialog.hide();
+                    }
+                });
+            }
+        });
 
         textViewEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
             @Override
