@@ -26,6 +26,7 @@ import com.example.poket.util.Utilitario;
 import com.example.poket.view.conta.ListaConta;
 import com.example.poket.view.despesa.AdicionarDespesa;
 import com.example.poket.view.despesa.ListaDespesa;
+import com.example.poket.view.planejamento.AdicionarPlanejamentoFinanceiro;
 import com.example.poket.view.renda.AdicionarRenda;
 import com.example.poket.view.renda.ListaRenda;
 import com.example.poket.view.usuario.EditarUsuario;
@@ -223,6 +224,7 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
                 daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", true, mView);
+
             }
         });
 
@@ -231,6 +233,10 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
                 daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", false, mView);
+//                Intent intentAdicionarPF = new Intent(Home.this, AdicionarPlanejamentoFinanceiro.class);
+//                intentAdicionarPF.putExtra("tipoPF", "Curto prazo");
+//                intentAdicionarPF.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intentAdicionarPF);
             }
         });
 

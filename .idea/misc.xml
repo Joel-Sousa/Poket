@@ -19,7 +19,7 @@
         <entry key="app/src/main/res/layout/activity_cadastrar_usuario.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_editar_conta.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_editar_despesa.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_editar_planejamento_financeiro.xml" value="0.178125" />
+        <entry key="app/src/main/res/layout/activity_editar_planejamento_financeiro.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_editar_renda.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_editar_usuario.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_esqueceu_senha.xml" value="0.19322916666666667" />
@@ -30,7 +30,7 @@
         <entry key="app/src/main/res/layout/activity_lista_conta.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_lista_contas.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_lista_despesa.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_lista_planejamento_financeiro.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_lista_planejamento_financeiro.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_lista_renda.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />

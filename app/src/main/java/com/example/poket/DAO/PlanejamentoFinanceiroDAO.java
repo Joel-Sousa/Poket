@@ -64,7 +64,8 @@ public class PlanejamentoFinanceiroDAO {
         dadosPF.put("dataInicial", dto.getDataInicial());
         dadosPF.put("dataFinal", dto.getDataFinal());
 
-        db.collection("planejamentoFinanceiro").document(user.getUid()).collection(user.getUid())
+        db.collection("planejamentoFinanceiro").document(user.getUid())
+                .collection(dto.getTipoPlanejamentoFinanceiro())
                 .document()
                 .set(dadosPF)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -86,24 +87,19 @@ public class PlanejamentoFinanceiroDAO {
 
     public void planejamentoFinanceiro(Activity activity, String tipoPF, boolean addpf, View view){
 
-        db.collection("planejamentoFinanceiro")
-                .document(user.getUid()).collection(user.getUid()).get()
+        db.collection("planejamentoFinanceiro").document(user.getUid())
+                .collection(tipoPF)
+                .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            List<String> tipoPFList = new ArrayList<>();
+//                            boolean bol = task.getResult().isEmpty();
+                            String id = "";
+                            for (QueryDocumentSnapshot document : task.getResult())
+                                id = document.getId();
 
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String tipoPF1 = document.getData().get("tipoPF").toString();
-
-                                if(tipoPF1.equals(tipoPF)){
-                                    tipoPFList.add(document.getId());
-                                    tipoPFList.add(tipoPF1);
-                                }
-                            }
-
-                            if(tipoPFList.isEmpty()){
+                            if(task.getResult().isEmpty()){
                                 Intent intentAdicionarPF = new Intent(activity, AdicionarPlanejamentoFinanceiro.class);
                                 intentAdicionarPF.putExtra("tipoPF", tipoPF);
                                 intentAdicionarPF.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -120,7 +116,7 @@ public class PlanejamentoFinanceiroDAO {
                                 Button buttonAdicionar = view.findViewById(R.id.buttonDialogAddPFAdicionar);
                                 Button buttonVoltar = view.findViewById(R.id.buttonDialogAddPFVoltar);
 
-                                textViewIdPF.setText(tipoPFList.get(0));
+                                textViewIdPF.setText(id);
 
                                 ContaDAO daoC = new ContaDAO();
                                 daoC.listaContaSpinner(spinnerConta, activity, textViewContaValor, textViewIdConta);
@@ -132,7 +128,7 @@ public class PlanejamentoFinanceiroDAO {
                                 buttonAdicionar.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-
+                                        Utilitario.toast(activity.getApplicationContext(), "add");
                                     }
                                 });
 
@@ -142,33 +138,29 @@ public class PlanejamentoFinanceiroDAO {
                                         dialog.dismiss();
                                     }
                                 });
-                            }
-
-                            else{
+                            }else{
                                 Intent intentListarPF = new Intent(activity, ListaPlanejamentoFinanceiro.class);
-                                intentListarPF.putExtra("id", tipoPFList.get(0));
+                                intentListarPF.putExtra("id", id);
+                                intentListarPF.putExtra("tipoPF", tipoPF);
                                 intentListarPF.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 activity.startActivity(intentListarPF);
                             }
 
                         } else {
-                            Log.w(Msg.ERROR, Msg.ERRORM, task.getException());
+                            Log.w(Msg.ERRORM, "Error getting documents.", task.getException());
                         }
                     }
-
                 });
-
     }
 
-    public void lerPlanejamentoFinanceiro(String id, TextView textViewTipoPF, TextView textViewPFPF,
-          TextView textViewValorAtual, TextView textViewValorObjetivado, TextView textViewDataInicio,
-          ProgressBar progressBarConcluido, TextView textViewPorcInicio, TextView textViewDataFinal,
-          ProgressBar progressBarRestante, TextView textViewPorcFinal){
+    public void lerPlanejamentoFinanceiro(String id, String tipoPF, TextView textViewIdConta,TextView textViewTipoPF,
+          TextView textViewPFPF, TextView textViewValorAtual, TextView textViewValorObjetivado,
+          TextView textViewDataInicio, ProgressBar progressBarConcluido, TextView textViewPorcInicio,
+          TextView textViewDataFinal,  ProgressBar progressBarRestante, TextView textViewPorcFinal){
 
-
-        DocumentReference docRef = db.collection("planejamentoFinanceiro")
-                .document(user.getUid()).collection(user.getUid()).document(id);
-        docRef.get()
+     db.collection("planejamentoFinanceiro")
+                .document(user.getUid()).collection(tipoPF).document(id)
+                .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -176,16 +168,58 @@ public class PlanejamentoFinanceiroDAO {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // TODO finalizar o carregamento da tela de ListarPlanejamentoFinanceiro
+                        textViewIdConta.setText(document.getData().get("idConta").toString());
                         textViewTipoPF.setText(document.getData().get("tipoPF").toString());
                         textViewPFPF.setText(document.getData().get("planejamentoFinanceiro").toString());
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                        textViewValorAtual.setText(document.getData().get("valorAtual").toString());
+                        textViewValorObjetivado.setText(document.getData().get("valorObjetivado").toString());
+                        textViewDataInicio.setText(document.getData().get("dataInicial").toString());
+//                        progressBarConcluido.setText(document.getData().get("planejamentoFinanceiro").toString());
+//                        textViewPorcInicio.setText(document.getData().get("planejamentoFinanceiro").toString());
+                        textViewDataFinal.setText(document.getData().get("dataFinal").toString());
+//                        progressBarRestante.setText(document.getData().get("planejamentoFinanceiro").toString());
+//                        textViewPorcFinal.setText(document.getData().get("planejamentoFinanceiro").toString());
                     } else {
-                        Log.d("TAG", "No such document");
+                        Log.d(Msg.INFO, "No such document");
                     }
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());
                 }
             }
         });
+    }
+
+    public void editarPlanejamentoFinanceiro(String id, String tipoPF, TextView textViewTipoPF,
+                                          EditText editTextPFPF, EditText editTextValorAtual, EditText editTextValorObjetivado,
+                                             EditText editTextDataInicio, EditText editTextDataFinal){
+
+        db.collection("planejamentoFinanceiro")
+                .document(user.getUid()).collection(tipoPF).document(id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                // TODO finalizar o carregamento da tela de ListarPlanejamentoFinanceiro
+                                textViewTipoPF.setText(document.getData().get("tipoPF").toString());
+                                editTextPFPF.setText(document.getData().get("planejamentoFinanceiro").toString());
+                                editTextValorAtual.setText(document.getData().get("valorAtual").toString());
+                                editTextValorObjetivado.setText(document.getData().get("valorObjetivado").toString());
+                                editTextDataInicio.setText(document.getData().get("dataInicial").toString());
+//                        progressBarConcluido.setText(document.getData().get("planejamentoFinanceiro").toString());
+//                        textViewPorcInicio.setText(document.getData().get("planejamentoFinanceiro").toString());
+                                editTextDataFinal.setText(document.getData().get("dataFinal").toString());
+//                        progressBarRestante.setText(document.getData().get("planejamentoFinanceiro").toString());
+//                        textViewPorcFinal.setText(document.getData().get("planejamentoFinanceiro").toString());
+                            } else {
+                                Log.d(Msg.INFO, "No such document");
+                            }
+                        } else {
+                            Log.d("TAG", "get failed with ", task.getException());
+                        }
+                    }
+                });
     }
 }

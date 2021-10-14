@@ -198,9 +198,6 @@ public class ContaDAO {
                             spinnerConta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                                    Toast.makeText(context, listConta.get(i).getId()
-//                                    , Toast.LENGTH_SHORT).show();
-//                                    Utilitario.toast(context, listConta.get(i).getId());
                                     textViewIdConta.setText(listConta.get(i).getId());
                                     textViewConta.setText(listConta.get(i).getValor());
                                 }
