@@ -75,6 +75,16 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/textView74"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_weight="1"
+            android:text="R$: "
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/textViewHomeContaValor"
             android:layout_width="60dp"
             android:layout_height="wrap_content"

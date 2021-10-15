@@ -47,4 +47,11 @@ public class Msg {
     public static final String VALOR_RENDA = "Preencha o campo de valor de renda.";
     public static final String TIPO_RENDA = "Preencha o campo de tipo de renda.";
     public static final String DATA_RENDA = "Preencha o campo de data da renda.";
+
+    // Planejamento financeiro
+    public static final String NOME_PF = "Preencha o campo de Planejamento financeiro.";
+    public static final String VALOR_ATUAL = "Preencha o campo de valor atual.";
+    public static final String VALOR_OBJETIVADO = "Preencha o campo de valor objetivado.";
+    public static final String DATA_INICIAL = "Preencha o campo de data inicial.";
+    public static final String DATA_FINAL = "Preencha o campo de data final.";
 }

@@ -46,13 +46,13 @@
             android:id="@+id/textViewListaPFId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="list" />
+            android:text="id" />
 
         <TextView
             android:id="@+id/textViewListaPFIdConta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="idconta" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -68,7 +68,8 @@
                 android:layout_weight="1"
                 android:text="Curto  prazo"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView72"
@@ -104,7 +105,8 @@
                 android:layout_weight="1"
                 android:text="Valor atual: "
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView78"
@@ -139,7 +141,8 @@
                 android:layout_weight="1"
                 android:text="Valor objetivado: "
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView79"
@@ -160,6 +163,14 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black"
+            android:focusable="false" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -174,7 +185,8 @@
                 android:layout_weight="1"
                 android:text="Data de inicio: "
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewListaPFDataInicio"
@@ -200,13 +212,15 @@
                 android:layout_weight="1"
                 android:text="Concluido: "
                 android:textColor="#020000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ProgressBar
                 android:id="@+id/progressBarListarPFConcluido"
-                style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"
-                android:layout_width="150dp"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="140dp"
                 android:layout_height="29dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1" />
 
             <TextView
@@ -214,7 +228,7 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=" 10%"
+                android:text=" 10.10%"
                 android:textColor="#020000"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -233,7 +247,8 @@
                 android:layout_weight="1"
                 android:text="Date final: "
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewListarPFDataFinal"
@@ -257,15 +272,17 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Resta: "
+                android:text="Restante: "
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ProgressBar
                 android:id="@+id/progressBarListarPFResta"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="150dp"
+                android:layout_width="140dp"
                 android:layout_height="29dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1" />
 
             <TextView
@@ -273,7 +290,7 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=" 10%"
+                android:text=" 10.10%"
                 android:textColor="#000000"
                 android:textSize="20sp" />
         </LinearLayout>

@@ -195,6 +195,7 @@ public class ContaDAO {
                                     new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
                                             listConta);
                             spinnerConta.setAdapter(adapterConta);
+
                             spinnerConta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

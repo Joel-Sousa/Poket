@@ -87,8 +87,7 @@ public class AdicionarDespesa extends AppCompatActivity {
 
         if(dto.getDespesa().length() == 0 && dto.getValorDespesa().length() == 0 &&
                 dto.getDataDespesa().length() == 0 ) {
-            Utilitario.toast(getApplicationContext(),
-                    Msg.DADOS_INFORMADOS_N);
+            Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
             editTextDespesa.requestFocus();
         }else if(dto.getDespesa().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DESPESA);
@@ -107,9 +106,7 @@ public class AdicionarDespesa extends AppCompatActivity {
             editTextDataDespesa.requestFocus();
             editTextDataDespesa.setText("");
         }else{
-            String idConta = textViewIdConta.getText().toString();
             dao.cadastarDespesa(dto, AdicionarDespesa.this);
-//            finish();
         }
     }
 

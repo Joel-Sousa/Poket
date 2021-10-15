@@ -16,6 +16,7 @@ import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
 import com.example.poket.DTO.PlanejamentoFinanceiroDTO;
 import com.example.poket.R;
 import com.example.poket.util.MaskEditUtil;
+import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 
 public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
@@ -85,7 +86,30 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
     }
 
     private void validarConta(PlanejamentoFinanceiroDTO dto){
-        dao.cadastrarPlanejamentoFinanceiro(dto, AdicionarPlanejamentoFinanceiro.this);
+
+        if(dto.getPlanejamentoFinanceiro().length() == 0 && dto.getValorAtual().length() == 0 &&
+                dto.getValorObjetivado().length() == 0 && dto.getDataInicial().length() == 0 &&
+                dto.getDataFinal().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
+            editTextNomePF.requestFocus();
+        }else if(dto.getPlanejamentoFinanceiro().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.NOME_PF);
+            editTextNomePF.requestFocus();
+        }else if(dto.getValorAtual().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_ATUAL);
+            editTextValoAtual.requestFocus();
+        }else if(dto.getValorObjetivado().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
+            editTextValorObjetivado.requestFocus();
+        }else if(dto.getDataInicial().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL);
+            editTextDataInicial.requestFocus();
+        }else if(dto.getDataFinal().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
+            editTextDataFinal.requestFocus();
+        }else{
+            dao.cadastrarPlanejamentoFinanceiro(dto, AdicionarPlanejamentoFinanceiro.this);
+        }
     }
 
     public void mock(){

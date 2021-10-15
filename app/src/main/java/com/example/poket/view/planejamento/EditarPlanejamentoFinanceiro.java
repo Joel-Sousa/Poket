@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,8 +12,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.poket.DAO.ContaDAO;
+import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
+import com.example.poket.DTO.PlanejamentoFinanceiroDTO;
 import com.example.poket.R;
 import com.example.poket.util.MaskEditUtil;
+import com.example.poket.util.Msg;
+import com.example.poket.util.Utilitario;
+import com.example.poket.view.renda.EditarRenda;
 
 public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
 
@@ -22,6 +28,11 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
     ImageView imageViewVoltar;
     Spinner spinnerConta;
     Button buttonEditar;
+
+    PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
+
+    String idContaAntiga = "";
+    String valorPFAntigo = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +74,55 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, EditarPlanejamentoFinanceiro.this, textViewContaValor, textViewIdConta);
 
-        //TODO criar logica agora para salvar no DB de editar
+        idContaAntiga = intent.getStringExtra("idConta");
+        valorPFAntigo = intent.getStringExtra("valorAtual");
 
+        buttonEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                PlanejamentoFinanceiroDTO dto = new PlanejamentoFinanceiroDTO();
+                dto.setId(textViewId.getText().toString());
+                dto.setPlanejamentoFinanceiro(editTextNomePF.getText().toString());
+                dto.setTipoPlanejamentoFinanceiro(textViewTipoPF.getText().toString());
+                dto.setIdConta(textViewIdConta.getText().toString());
+                dto.setConta(spinnerConta.getSelectedItem().toString());
+                dto.setContaValor(textViewContaValor.getText().toString());
+                dto.setValorAtual(editTextValorAtual.getText().toString());
+                dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
+                dto.setDataInicial(editTextDataInicial.getText().toString());
+                dto.setDataFinal(editTextDataFinal.getText().toString());
+                validarConta(dto);
+            }
+        });
+
+    }
+
+    private void validarConta(PlanejamentoFinanceiroDTO dto){
+
+        if(dto.getPlanejamentoFinanceiro().length() == 0 && dto.getValorAtual().length() == 0 &&
+                dto.getValorObjetivado().length() == 0 && dto.getDataInicial().length() == 0 &&
+                dto.getDataFinal().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
+            editTextNomePF.requestFocus();
+        }else if(dto.getPlanejamentoFinanceiro().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.NOME_PF);
+            editTextNomePF.requestFocus();
+        }else if(dto.getValorAtual().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_ATUAL);
+            editTextValorAtual.requestFocus();
+        }else if(dto.getValorObjetivado().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
+            editTextValorObjetivado.requestFocus();
+        }else if(dto.getDataInicial().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL);
+            editTextDataInicial.requestFocus();
+        }else if(dto.getDataFinal().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
+            editTextDataFinal.requestFocus();
+        }else {
+            dao.editarPlanejamentoFinanceiro(dto, EditarPlanejamentoFinanceiro.this,
+                    idContaAntiga, valorPFAntigo);
+        }
     }
 }

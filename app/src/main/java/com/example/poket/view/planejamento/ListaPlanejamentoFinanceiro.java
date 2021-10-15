@@ -2,6 +2,8 @@ package com.example.poket.view.planejamento;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +11,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
 import com.example.poket.R;
+import com.example.poket.view.despesa.EditarDespesa;
 
 public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
 
@@ -21,6 +25,11 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
     Button buttonEditar, buttonExcluir;
 
     ImageView imageViewVoltar;
+
+    String id = "";
+    String tipoPF = "";
+
+    PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +50,15 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
         progressBarRestante = findViewById(R.id.progressBarListarPFResta);
         textViewPorcFinal = findViewById(R.id.textViewListarPFPorcentagemResta);
 
-        buttonEditar = findViewById(R.id.buttonListaPFEditar);
         imageViewVoltar = findViewById(R.id.imageViewListaPFVoltar);
+        buttonEditar = findViewById(R.id.buttonListaPFEditar);
+        buttonExcluir = findViewById(R.id.buttonListaPFExcluir);
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        String tipoPF = intent.getStringExtra("tipoPF");
+        id = intent.getStringExtra("id");
+        tipoPF = intent.getStringExtra("tipoPF");
         textViewId.setText(id);
 
-        PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
         dao.lerPlanejamentoFinanceiro(id, tipoPF, textViewIdConta, textViewTipoPF, textViewPFPF, textViewValorAtual,
                 textViewValorObjetivado, textViewDataInicio, progressBarConcluido,
                 textViewPorcInicio, textViewDataFinal, progressBarRestante, textViewPorcFinal);
@@ -72,11 +81,42 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
             }
         });
 
+        buttonExcluir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder confirmacao = new AlertDialog.Builder(ListaPlanejamentoFinanceiro.this);
+                confirmacao.setTitle("Atencao!");
+                confirmacao.setMessage("Você tem certeza que deseja excluir esse dado?");
+                confirmacao.setCancelable(false);
+                confirmacao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dao.deletarPF(textViewId.getText().toString(), textViewTipoPF.getText().toString(),
+                                textViewIdConta.getText().toString(), textViewValorAtual.getText().toString());
+                        Toast.makeText(getApplicationContext(), "Dados excluídos com sucesso!", Toast.LENGTH_LONG).show();
+
+//                        finish();
+                    }
+                });
+                confirmacao.setNegativeButton("Nao",null);
+                confirmacao.create().show();
+            }
+        });
+
         imageViewVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        dao.lerPlanejamentoFinanceiro(id, tipoPF, textViewIdConta, textViewTipoPF, textViewPFPF, textViewValorAtual,
+                textViewValorObjetivado, textViewDataInicio, progressBarConcluido,
+                textViewPorcInicio, textViewDataFinal, progressBarRestante, textViewPorcFinal);
     }
 }

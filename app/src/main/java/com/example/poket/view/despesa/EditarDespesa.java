@@ -156,22 +156,8 @@ public class EditarDespesa extends AppCompatActivity {
             editTextDataDespesa.requestFocus();
             editTextDataDespesa.setText("");
         }else{
-
-//            if(idContaAntiga.equals(dto.getIdConta())){
-//                Utilitario.toast(getApplicationContext(), valorDespesaAntiga);
-//            }else{
-//                Utilitario.toast(getApplicationContext(), "false");
-//            }
-//            valorDespesaAntiga;
-//            String idConta = textViewIdConta.getText().toString();
-//            if(contaAntiga.equals(dto.getConta())){
-//                valorAntigoDespesa
-//                List outraConta = Arrays.asList();
-//            }
-
             dao.editarDespesa(dto, EditarDespesa.this, idContaAntiga, valorDespesaAntiga);
-//        finish();
-    }
+        }
     }
 
 }

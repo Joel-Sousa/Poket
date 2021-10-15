@@ -20,6 +20,7 @@ import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.despesa.AdicionarDespesa;
 import com.example.poket.view.planejamento.AdicionarPlanejamentoFinanceiro;
+import com.example.poket.view.planejamento.EditarPlanejamentoFinanceiro;
 import com.example.poket.view.planejamento.ListaPlanejamentoFinanceiro;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,6 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.text.DecimalFormat;
+
 
 public class PlanejamentoFinanceiroDAO {
 
@@ -72,6 +75,8 @@ public class PlanejamentoFinanceiroDAO {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(Msg.SUCESSO, Msg.DOCUMENTO_S);
+
+                        // TODO IMPLEMENTAR A RETIRADA DO DINHEIRO NA CONTA
 
                         Utilitario.toast(activity.getApplicationContext(), Msg.CADASTRADO);
                         activity.finish();
@@ -128,6 +133,7 @@ public class PlanejamentoFinanceiroDAO {
                                 buttonAdicionar.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
+                                        // TODO IMPLENENTAR A RETIRADA DO DINHEIRO DA CONTA
                                         Utilitario.toast(activity.getApplicationContext(), "add");
                                     }
                                 });
@@ -167,18 +173,30 @@ public class PlanejamentoFinanceiroDAO {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        // TODO finalizar o carregamento da tela de ListarPlanejamentoFinanceiro
+
+                        double valorInicial = Double.valueOf(document.getData().get("valorAtual").toString());
+                        double valorObjetivado = Double.valueOf(document.getData().get("valorObjetivado").toString());
+
+                        DecimalFormat df = new DecimalFormat("#,###.00");
+                        double valorPorcentagem = (valorInicial / valorObjetivado) * 100;
+
+                        String porcentagemConcluido = df.format(valorPorcentagem)+"%";
+                        String porcentagemFinal = df.format((valorPorcentagem - 100) * -1 )+"%";
+
+                        int valorBarraConcluido = (int) valorPorcentagem;
+                        int valorBarraRestante = (int) (valorPorcentagem - 100 ) * -1;
+
                         textViewIdConta.setText(document.getData().get("idConta").toString());
                         textViewTipoPF.setText(document.getData().get("tipoPF").toString());
                         textViewPFPF.setText(document.getData().get("planejamentoFinanceiro").toString());
                         textViewValorAtual.setText(document.getData().get("valorAtual").toString());
                         textViewValorObjetivado.setText(document.getData().get("valorObjetivado").toString());
                         textViewDataInicio.setText(document.getData().get("dataInicial").toString());
-//                        progressBarConcluido.setText(document.getData().get("planejamentoFinanceiro").toString());
-//                        textViewPorcInicio.setText(document.getData().get("planejamentoFinanceiro").toString());
+                        progressBarConcluido.setProgress(valorBarraConcluido);
+                        textViewPorcInicio.setText(porcentagemConcluido);
                         textViewDataFinal.setText(document.getData().get("dataFinal").toString());
-//                        progressBarRestante.setText(document.getData().get("planejamentoFinanceiro").toString());
-//                        textViewPorcFinal.setText(document.getData().get("planejamentoFinanceiro").toString());
+                        progressBarRestante.setProgress(valorBarraRestante);
+                        textViewPorcFinal.setText(porcentagemFinal);
                     } else {
                         Log.d(Msg.INFO, "No such document");
                     }
@@ -189,37 +207,143 @@ public class PlanejamentoFinanceiroDAO {
         });
     }
 
-    public void editarPlanejamentoFinanceiro(String id, String tipoPF, TextView textViewTipoPF,
-                                          EditText editTextPFPF, EditText editTextValorAtual, EditText editTextValorObjetivado,
-                                             EditText editTextDataInicio, EditText editTextDataFinal){
+    public void editarPlanejamentoFinanceiro
+            (PlanejamentoFinanceiroDTO dto, Activity activity,
+             String idContaAntiga, String valorPFAntigo){
 
-        db.collection("planejamentoFinanceiro")
-                .document(user.getUid()).collection(tipoPF).document(id)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                // TODO finalizar o carregamento da tela de ListarPlanejamentoFinanceiro
-                                textViewTipoPF.setText(document.getData().get("tipoPF").toString());
-                                editTextPFPF.setText(document.getData().get("planejamentoFinanceiro").toString());
-                                editTextValorAtual.setText(document.getData().get("valorAtual").toString());
-                                editTextValorObjetivado.setText(document.getData().get("valorObjetivado").toString());
-                                editTextDataInicio.setText(document.getData().get("dataInicial").toString());
-//                        progressBarConcluido.setText(document.getData().get("planejamentoFinanceiro").toString());
-//                        textViewPorcInicio.setText(document.getData().get("planejamentoFinanceiro").toString());
-                                editTextDataFinal.setText(document.getData().get("dataFinal").toString());
-//                        progressBarRestante.setText(document.getData().get("planejamentoFinanceiro").toString());
-//                        textViewPorcFinal.setText(document.getData().get("planejamentoFinanceiro").toString());
-                            } else {
-                                Log.d(Msg.INFO, "No such document");
-                            }
+        Map<String, String> data = new HashMap<>();
+
+        double valorAntigo = 0.0;
+
+        if(idContaAntiga.equals(dto.getIdConta())){
+            valorAntigo = Double.valueOf(dto.getContaValor()) + Double.valueOf(valorPFAntigo);
+            db.collection("contas").document(user.getUid()).collection(user.getUid())
+                    .document(idContaAntiga).update("valor", String.valueOf(valorAntigo));
+
+            data.put("contaValor", String.valueOf(valorAntigo));
+        }else {
+            DocumentReference docRef = db.collection("contas").document(user.getUid())
+                    .collection(user.getUid()).document(idContaAntiga);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+
+                            double valorAntigo1 = Double.valueOf(document.getData().get("valor").toString()) + Double.valueOf(valorPFAntigo);
+                            db.collection("contas").document(user.getUid()).collection(user.getUid())
+                                    .document(idContaAntiga).update("valor", String.valueOf(valorAntigo1));
+
+                            Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
                         } else {
-                            Log.d("TAG", "get failed with ", task.getException());
+                            Log.d(Msg.INFO, "No such document");
                         }
+                    } else {
+                        Log.d(Msg.INFO, "get failed with ", task.getException());
+                    }
+                }
+            });
+
+            data.put("contaValor", dto.getContaValor());
+        }
+
+        data.put("planejamentoFinanceiro", dto.getPlanejamentoFinanceiro());
+        data.put("tipoPF", dto.getTipoPlanejamentoFinanceiro());
+        data.put("idConta", dto.getIdConta());
+        data.put("conta", dto.getConta());
+//        data.put("contaValor", dto.getContaValor());
+        data.put("valorAtual", dto.getValorAtual());
+        data.put("valorObjetivado", dto.getValorObjetivado());
+        data.put("dataInicial", dto.getDataInicial());
+        data.put("dataFinal", dto.getDataFinal());
+
+        db.collection("planejamentoFinanceiro").document(user.getUid())
+                .collection(dto.getTipoPlanejamentoFinanceiro())
+                .document(dto.getId())
+                .set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        double valorAntigo1 = Double.valueOf(data.get("contaValor")) - Double.valueOf(dto.getValorAtual());
+                        db.collection("contas").document(user.getUid()).collection(user.getUid())
+                                .document(dto.getIdConta()).update("valor", String.valueOf(valorAntigo1));
+
+                        Utilitario.toast(activity.getApplicationContext(), Msg.ALTERADO);
+                        activity.finish();
+                        Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
                     }
                 });
     }
+
+    public void deletarPF(String id, String tipoPF, String idConta, String valorConta){
+
+        DocumentReference docRef = db.collection("contas").document(user.getUid())
+                .collection(user.getUid()).document(idConta);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+
+                        double valorAntigo1 = Double.valueOf(document.getData().get("valor").toString()) + Double.valueOf(valorConta);
+                        db.collection("contas").document(user.getUid()).collection(user.getUid())
+                                .document(idConta).update("valor", String.valueOf(valorAntigo1));
+
+                        Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d(Msg.INFO, "No such document");
+                    }
+                } else {
+                    Log.d(Msg.INFO, "get failed with ", task.getException());
+                }
+            }
+        });
+
+        db.collection("planejamentoFinanceiro").document(user.getUid())
+                .collection(tipoPF)
+                .document(id)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+                    }
+                });
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
