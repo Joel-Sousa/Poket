@@ -39,7 +39,6 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         textViewIdConta = findViewById(R.id.textViewAdicionarPFidConta);
 
         editTextNomePF = findViewById(R.id.editTextAdicionarPFNomePF);
-//        editTextTipoPF = findViewById(R.id.editTextAdicionarPFTipoPF);
         textViewTipoPF = findViewById(R.id.textViewAdicionarPFTipoPF);
         spinnerConta = findViewById(R.id.spinnerAdicionarPFConta);
         textViewContaValor= findViewById(R.id.textViewAdicionarPFContaValor);

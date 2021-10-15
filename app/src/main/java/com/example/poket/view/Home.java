@@ -233,10 +233,6 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
                 daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", false, mView);
-//                Intent intentAdicionarPF = new Intent(Home.this, AdicionarPlanejamentoFinanceiro.class);
-//                intentAdicionarPF.putExtra("tipoPF", "Curto prazo");
-//                intentAdicionarPF.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intentAdicionarPF);
             }
         });
 

@@ -56,12 +56,10 @@ public class PlanejamentoFinanceiroDAO {
 
 
     public void cadastrarPlanejamentoFinanceiro(PlanejamentoFinanceiroDTO dto, Activity activity){
+
         Map<String, String> dadosPF = new HashMap<>();
         dadosPF.put("planejamentoFinanceiro", dto.getPlanejamentoFinanceiro());
         dadosPF.put("tipoPF", dto.getTipoPlanejamentoFinanceiro());
-        dadosPF.put("idConta", dto.getIdConta());
-        dadosPF.put("conta", dto.getConta());
-        dadosPF.put("contaValor", dto.getContaValor());
         dadosPF.put("valorAtual", dto.getValorAtual());
         dadosPF.put("valorObjetivado", dto.getValorObjetivado());
         dadosPF.put("dataInicial", dto.getDataInicial());
@@ -69,14 +67,20 @@ public class PlanejamentoFinanceiroDAO {
 
         db.collection("planejamentoFinanceiro").document(user.getUid())
                 .collection(dto.getTipoPlanejamentoFinanceiro())
-                .document()
-                .set(dadosPF)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                .add(dadosPF)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(Msg.SUCESSO, Msg.DOCUMENTO_S);
+                    public void onSuccess(DocumentReference documentReference) {
+                        // TODO IMPLEMENTAR A RETIRADA DO DINHEIRO DA CONTA E COLOCAR NO HISTORICOPF
+                        Log.d("===", "DocumentSnapshot added with ID: " + documentReference.getId());
 
-                        // TODO IMPLEMENTAR A RETIRADA DO DINHEIRO NA CONTA
+
+                        double resultado = Double.valueOf(dto.getContaValor()) - Double.valueOf(dto.getValorAtual());
+                        String valorContaTotal = String.valueOf(resultado);
+
+                        db.collection("contas").document(user.getUid()).collection(user.getUid())
+                                .document(dto.getIdConta())
+                                .update("valor", valorContaTotal);
 
                         Utilitario.toast(activity.getApplicationContext(), Msg.CADASTRADO);
                         activity.finish();
@@ -85,9 +89,11 @@ public class PlanejamentoFinanceiroDAO {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e(Msg.ERROR, Msg.DOCUMENTO_F, e);
+//                        Log.w(TAG, "Error adding document", e);
                     }
                 });
+
+
     }
 
     public void planejamentoFinanceiro(Activity activity, String tipoPF, boolean addpf, View view){
@@ -159,7 +165,7 @@ public class PlanejamentoFinanceiroDAO {
                 });
     }
 
-    public void lerPlanejamentoFinanceiro(String id, String tipoPF, TextView textViewIdConta,TextView textViewTipoPF,
+    public void lerPlanejamentoFinanceiro(String id, String tipoPF, TextView textViewTipoPF,
           TextView textViewPFPF, TextView textViewValorAtual, TextView textViewValorObjetivado,
           TextView textViewDataInicio, ProgressBar progressBarConcluido, TextView textViewPorcInicio,
           TextView textViewDataFinal,  ProgressBar progressBarRestante, TextView textViewPorcFinal){
@@ -186,7 +192,6 @@ public class PlanejamentoFinanceiroDAO {
                         int valorBarraConcluido = (int) valorPorcentagem;
                         int valorBarraRestante = (int) (valorPorcentagem - 100 ) * -1;
 
-                        textViewIdConta.setText(document.getData().get("idConta").toString());
                         textViewTipoPF.setText(document.getData().get("tipoPF").toString());
                         textViewPFPF.setText(document.getData().get("planejamentoFinanceiro").toString());
                         textViewValorAtual.setText(document.getData().get("valorAtual").toString());
@@ -207,52 +212,12 @@ public class PlanejamentoFinanceiroDAO {
         });
     }
 
-    public void editarPlanejamentoFinanceiro
-            (PlanejamentoFinanceiroDTO dto, Activity activity,
-             String idContaAntiga, String valorPFAntigo){
+    public void editarPlanejamentoFinanceiro(PlanejamentoFinanceiroDTO dto, Activity activity){
 
         Map<String, String> data = new HashMap<>();
 
-        double valorAntigo = 0.0;
-
-        if(idContaAntiga.equals(dto.getIdConta())){
-            valorAntigo = Double.valueOf(dto.getContaValor()) + Double.valueOf(valorPFAntigo);
-            db.collection("contas").document(user.getUid()).collection(user.getUid())
-                    .document(idContaAntiga).update("valor", String.valueOf(valorAntigo));
-
-            data.put("contaValor", String.valueOf(valorAntigo));
-        }else {
-            DocumentReference docRef = db.collection("contas").document(user.getUid())
-                    .collection(user.getUid()).document(idContaAntiga);
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-
-                            double valorAntigo1 = Double.valueOf(document.getData().get("valor").toString()) + Double.valueOf(valorPFAntigo);
-                            db.collection("contas").document(user.getUid()).collection(user.getUid())
-                                    .document(idContaAntiga).update("valor", String.valueOf(valorAntigo1));
-
-                            Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
-                        } else {
-                            Log.d(Msg.INFO, "No such document");
-                        }
-                    } else {
-                        Log.d(Msg.INFO, "get failed with ", task.getException());
-                    }
-                }
-            });
-
-            data.put("contaValor", dto.getContaValor());
-        }
-
         data.put("planejamentoFinanceiro", dto.getPlanejamentoFinanceiro());
         data.put("tipoPF", dto.getTipoPlanejamentoFinanceiro());
-        data.put("idConta", dto.getIdConta());
-        data.put("conta", dto.getConta());
-//        data.put("contaValor", dto.getContaValor());
         data.put("valorAtual", dto.getValorAtual());
         data.put("valorObjetivado", dto.getValorObjetivado());
         data.put("dataInicial", dto.getDataInicial());
@@ -265,10 +230,6 @@ public class PlanejamentoFinanceiroDAO {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-
-                        double valorAntigo1 = Double.valueOf(data.get("contaValor")) - Double.valueOf(dto.getValorAtual());
-                        db.collection("contas").document(user.getUid()).collection(user.getUid())
-                                .document(dto.getIdConta()).update("valor", String.valueOf(valorAntigo1));
 
                         Utilitario.toast(activity.getApplicationContext(), Msg.ALTERADO);
                         activity.finish();
@@ -283,30 +244,9 @@ public class PlanejamentoFinanceiroDAO {
                 });
     }
 
-    public void deletarPF(String id, String tipoPF, String idConta, String valorConta){
+    public void deletarPF(String id, String tipoPF){
 
-        DocumentReference docRef = db.collection("contas").document(user.getUid())
-                .collection(user.getUid()).document(idConta);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-
-                        double valorAntigo1 = Double.valueOf(document.getData().get("valor").toString()) + Double.valueOf(valorConta);
-                        db.collection("contas").document(user.getUid()).collection(user.getUid())
-                                .document(idConta).update("valor", String.valueOf(valorAntigo1));
-
-                        Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.d(Msg.INFO, "No such document");
-                    }
-                } else {
-                    Log.d(Msg.INFO, "get failed with ", task.getException());
-                }
-            }
-        });
+        // TODO implementat o acressimo dos valores nas contas que estao no historico
 
         db.collection("planejamentoFinanceiro").document(user.getUid())
                 .collection(tipoPF)
