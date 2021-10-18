@@ -28,7 +28,7 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
     ImageView imageViewVoltar;
 
     String id = "";
-    String tipoPF = "";
+//    String tipoPF = "";
 
     PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
 
@@ -57,12 +57,12 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        tipoPF = intent.getStringExtra("tipoPF");
+//        tipoPF = intent.getStringExtra("tipoPF");
         textViewId.setText(id);
 
         // TODO ARRUMAR O LISTAR PLANEJAMENTO COM O PROGRESS BAR DOS VALORES E DA DATA
 
-        dao.lerPlanejamentoFinanceiro(id, tipoPF, textViewTipoPF, textViewPFPF, textViewValorAtual,
+        dao.lerPlanejamentoFinanceiro(id, textViewTipoPF, textViewPFPF, textViewValorAtual,
                 textViewValorObjetivado, textViewDataInicio, progressBarConcluido,
                 textViewPorcInicio, textViewDataFinal, progressBarRestante, textViewPorcFinal);
 
@@ -92,7 +92,7 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
                 confirmacao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dao.deletarPF(textViewId.getText().toString(), textViewTipoPF.getText().toString());
+                        dao.deletarPF(textViewId.getText().toString());
                         Toast.makeText(getApplicationContext(), Msg.DELETADO, Toast.LENGTH_LONG).show();
 
                         try {
@@ -120,7 +120,7 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        dao.lerPlanejamentoFinanceiro(id, tipoPF, textViewTipoPF, textViewPFPF, textViewValorAtual,
+        dao.lerPlanejamentoFinanceiro(id, textViewTipoPF, textViewPFPF, textViewValorAtual,
                 textViewValorObjetivado, textViewDataInicio, progressBarConcluido,
                 textViewPorcInicio, textViewDataFinal, progressBarRestante, textViewPorcFinal);
     }

@@ -66,14 +66,13 @@ public class PlanejamentoFinanceiroDAO {
         dadosPF.put("dataFinal", dto.getDataFinal());
 
         db.collection("planejamentoFinanceiro").document(user.getUid())
-                .collection(dto.getTipoPlanejamentoFinanceiro())
+                .collection(user.getUid())
                 .add(dadosPF)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         // TODO IMPLEMENTAR A RETIRADA DO DINHEIRO DA CONTA E COLOCAR NO HISTORICOPF
                         Log.d("===", "DocumentSnapshot added with ID: " + documentReference.getId());
-
 
                         double resultado = Double.valueOf(dto.getContaValor()) - Double.valueOf(dto.getValorAtual());
                         String valorContaTotal = String.valueOf(resultado);
@@ -99,18 +98,29 @@ public class PlanejamentoFinanceiroDAO {
     public void planejamentoFinanceiro(Activity activity, String tipoPF, boolean addpf, View view){
 
         db.collection("planejamentoFinanceiro").document(user.getUid())
-                .collection(tipoPF)
+                .collection(user.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 //                            boolean bol = task.getResult().isEmpty();
-                            String id = "";
-                            for (QueryDocumentSnapshot document : task.getResult())
-                                id = document.getId();
+                            List<String> tipoPFList = new ArrayList<>();
 
-                            if(task.getResult().isEmpty()){
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String tipoPF1 = document.getData().get("tipoPF").toString();
+
+                                if(tipoPF1.equals(tipoPF)){
+                                    tipoPFList.add(document.getId());
+                                    tipoPFList.add(tipoPF1);
+                                }
+                            }
+
+//                            String id = "";
+//                            for (QueryDocumentSnapshot document : task.getResult())
+//                                id = document.getId();
+
+                            if(tipoPFList.isEmpty()){
                                 Intent intentAdicionarPF = new Intent(activity, AdicionarPlanejamentoFinanceiro.class);
                                 intentAdicionarPF.putExtra("tipoPF", tipoPF);
                                 intentAdicionarPF.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -127,7 +137,7 @@ public class PlanejamentoFinanceiroDAO {
                                 Button buttonAdicionar = view.findViewById(R.id.buttonDialogAddPFAdicionar);
                                 Button buttonVoltar = view.findViewById(R.id.buttonDialogAddPFVoltar);
 
-                                textViewIdPF.setText(id);
+                                textViewIdPF.setText(tipoPFList.get(0));
 
                                 ContaDAO daoC = new ContaDAO();
                                 daoC.listaContaSpinner(spinnerConta, activity, textViewContaValor, textViewIdConta);
@@ -152,7 +162,7 @@ public class PlanejamentoFinanceiroDAO {
                                 });
                             }else{
                                 Intent intentListarPF = new Intent(activity, ListaPlanejamentoFinanceiro.class);
-                                intentListarPF.putExtra("id", id);
+                                intentListarPF.putExtra("id", tipoPFList.get(0));
                                 intentListarPF.putExtra("tipoPF", tipoPF);
                                 intentListarPF.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 activity.startActivity(intentListarPF);
@@ -165,13 +175,13 @@ public class PlanejamentoFinanceiroDAO {
                 });
     }
 
-    public void lerPlanejamentoFinanceiro(String id, String tipoPF, TextView textViewTipoPF,
+    public void lerPlanejamentoFinanceiro(String id, TextView textViewTipoPF,
           TextView textViewPFPF, TextView textViewValorAtual, TextView textViewValorObjetivado,
           TextView textViewDataInicio, ProgressBar progressBarConcluido, TextView textViewPorcInicio,
           TextView textViewDataFinal,  ProgressBar progressBarRestante, TextView textViewPorcFinal){
 
      db.collection("planejamentoFinanceiro")
-                .document(user.getUid()).collection(tipoPF).document(id)
+                .document(user.getUid()).collection(user.getUid()).document(id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -224,7 +234,7 @@ public class PlanejamentoFinanceiroDAO {
         data.put("dataFinal", dto.getDataFinal());
 
         db.collection("planejamentoFinanceiro").document(user.getUid())
-                .collection(dto.getTipoPlanejamentoFinanceiro())
+                .collection(user.getUid())
                 .document(dto.getId())
                 .set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -244,12 +254,12 @@ public class PlanejamentoFinanceiroDAO {
                 });
     }
 
-    public void deletarPF(String id, String tipoPF){
+    public void deletarPF(String id){
 
         // TODO implementat o acressimo dos valores nas contas que estao no historico
 
         db.collection("planejamentoFinanceiro").document(user.getUid())
-                .collection(tipoPF)
+                .collection(user.getUid())
                 .document(id)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
