@@ -25,10 +25,10 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
     ProgressBar progressBarConcluido, progressBarRestante;
     Button buttonEditar, buttonExcluir;
 
-    ImageView imageViewVoltar;
+    ImageView imageViewVoltar, imageViewHistoricoPF;
 
     String id = "";
-//    String tipoPF = "";
+    String tipoPF = "";
 
     PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
 
@@ -52,19 +52,26 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
         textViewPorcFinal = findViewById(R.id.textViewListarPFPorcentagemResta);
 
         imageViewVoltar = findViewById(R.id.imageViewListaPFVoltar);
+        imageViewHistoricoPF = findViewById(R.id.imageViewListarPFHistorico);
         buttonEditar = findViewById(R.id.buttonListaPFEditar);
         buttonExcluir = findViewById(R.id.buttonListaPFExcluir);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-//        tipoPF = intent.getStringExtra("tipoPF");
+        tipoPF = intent.getStringExtra("tipoPF");
         textViewId.setText(id);
-
-        // TODO ARRUMAR O LISTAR PLANEJAMENTO COM O PROGRESS BAR DOS VALORES E DA DATA
 
         dao.lerPlanejamentoFinanceiro(id, textViewTipoPF, textViewPFPF, textViewValorAtual,
                 textViewValorObjetivado, textViewDataInicio, progressBarConcluido,
                 textViewPorcInicio, textViewDataFinal, progressBarRestante, textViewPorcFinal);
+
+        imageViewHistoricoPF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentListaHistorico = new Intent(ListaPlanejamentoFinanceiro.this, ListaHistoricoPF.class);
+                startActivity(intentListaHistorico);
+            }
+        });
 
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override

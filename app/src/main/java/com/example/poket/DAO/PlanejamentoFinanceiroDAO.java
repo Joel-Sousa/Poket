@@ -2,6 +2,7 @@ package com.example.poket.DAO;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -12,12 +13,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.poket.DTO.ContaDTO;
+import com.example.poket.DTO.DespesaDTO;
+import com.example.poket.DTO.HistoricoPFDTO;
 import com.example.poket.DTO.PlanejamentoFinanceiroDTO;
 import com.example.poket.MainActivity;
 import com.example.poket.R;
+import com.example.poket.adapter.ContaAdapter;
+import com.example.poket.adapter.DespesaAdapter;
+import com.example.poket.adapter.HistoricoPFAdapter;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
+import com.example.poket.view.Home;
 import com.example.poket.view.despesa.AdicionarDespesa;
 import com.example.poket.view.planejamento.AdicionarPlanejamentoFinanceiro;
 import com.example.poket.view.planejamento.EditarPlanejamentoFinanceiro;
@@ -35,7 +45,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +66,6 @@ public class PlanejamentoFinanceiroDAO {
         user = mAuth.getCurrentUser();
     }
 
-
     public void cadastrarPlanejamentoFinanceiro(PlanejamentoFinanceiroDTO dto, Activity activity){
 
         Map<String, String> dadosPF = new HashMap<>();
@@ -71,8 +82,9 @@ public class PlanejamentoFinanceiroDAO {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        // TODO IMPLEMENTAR A RETIRADA DO DINHEIRO DA CONTA E COLOCAR NO HISTORICOPF
+
                         Log.d("===", "DocumentSnapshot added with ID: " + documentReference.getId());
+                        String idPF =  documentReference.getId();
 
                         double resultado = Double.valueOf(dto.getContaValor()) - Double.valueOf(dto.getValorAtual());
                         String valorContaTotal = String.valueOf(resultado);
@@ -80,6 +92,8 @@ public class PlanejamentoFinanceiroDAO {
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
                                 .document(dto.getIdConta())
                                 .update("valor", valorContaTotal);
+
+                        salvarHistoricoPF(idPF, dto.getIdConta(), dto.getConta(), dto.getValorAtual());
 
                         Utilitario.toast(activity.getApplicationContext(), Msg.CADASTRADO);
                         activity.finish();
@@ -93,6 +107,31 @@ public class PlanejamentoFinanceiroDAO {
                 });
 
 
+    }
+
+    private void salvarHistoricoPF(String idPF, String idConta, String nomeConta, String valorAtual){
+
+        Map<String, String> dadosHistoricoPF = new HashMap<>();
+        dadosHistoricoPF.put("idPF", idPF);
+        dadosHistoricoPF.put("idConta", idConta);
+        dadosHistoricoPF.put("nomeConta", nomeConta);
+        dadosHistoricoPF.put("valorConta", valorAtual);
+
+        db.collection("historicoPF").document(user.getUid()).collection(user.getUid())
+                .document()
+                .set(dadosHistoricoPF)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(Msg.SUCESSO, Msg.DOCUMENTO_S);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(Msg.ERROR, Msg.DOCUMENTO_F, e);
+                    }
+                });
     }
 
     public void planejamentoFinanceiro(Activity activity, String tipoPF, boolean addpf, View view){
@@ -149,8 +188,18 @@ public class PlanejamentoFinanceiroDAO {
                                 buttonAdicionar.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        // TODO IMPLENENTAR A RETIRADA DO DINHEIRO DA CONTA
-                                        Utilitario.toast(activity.getApplicationContext(), "add");
+                                        String idPF = tipoPFList.get(0);
+                                        String idConta = textViewIdConta.getText().toString();
+                                        String nomeConta = spinnerConta.getSelectedItem().toString();
+                                        String valorConta = textViewContaValor.getText().toString();
+                                        String valorAtual = editTextValor.getText().toString();
+
+                                        adicionarValor(idPF, idConta , nomeConta, valorConta, valorAtual);
+                                        Utilitario.toast(activity.getApplicationContext(), "Adicionado");
+
+                                        // TODO TEM QUE ATUALIZAR A ACTIVITY PARA MOSTRAR O NOVO VALOR DA CONTA
+
+                                        dialog.dismiss();
                                     }
                                 });
 
@@ -175,6 +224,17 @@ public class PlanejamentoFinanceiroDAO {
                 });
     }
 
+    private void adicionarValor(String idPF, String idConta ,String nomeConta, String valorConta, String valorAtual){
+        double resultado = Double.valueOf(valorConta) - Double.valueOf(valorAtual);
+        String valorContaTotal = String.valueOf(resultado);
+
+        db.collection("contas").document(user.getUid()).collection(user.getUid())
+                .document(idConta)
+                .update("valor", valorContaTotal);
+
+        salvarHistoricoPF(idPF, idConta, nomeConta, valorAtual);
+    }
+
     public void lerPlanejamentoFinanceiro(String id, TextView textViewTipoPF,
           TextView textViewPFPF, TextView textViewValorAtual, TextView textViewValorObjetivado,
           TextView textViewDataInicio, ProgressBar progressBarConcluido, TextView textViewPorcInicio,
@@ -190,28 +250,39 @@ public class PlanejamentoFinanceiroDAO {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
 
-                        double valorInicial = Double.valueOf(document.getData().get("valorAtual").toString());
+                        DecimalFormat df = new DecimalFormat("#,###.00");
+
+                        double valorAtual = Double.valueOf(document.getData().get("valorAtual").toString());
                         double valorObjetivado = Double.valueOf(document.getData().get("valorObjetivado").toString());
 
-                        DecimalFormat df = new DecimalFormat("#,###.00");
-                        double valorPorcentagem = (valorInicial / valorObjetivado) * 100;
+                        double porcentagemValor = (valorAtual / valorObjetivado) * 100;
 
-                        String porcentagemConcluido = df.format(valorPorcentagem)+"%";
-                        String porcentagemFinal = df.format((valorPorcentagem - 100) * -1 )+"%";
+                        String dataInicio = document.getData().get("dataInicial").toString();
+                        String dataAtual = Utilitario.dataAtual();
+                        String dataFinal = document.getData().get("dataFinal").toString();
 
-                        int valorBarraConcluido = (int) valorPorcentagem;
-                        int valorBarraRestante = (int) (valorPorcentagem - 100 ) * -1;
+                        double porcentagemData = porcentagemData(dataInicio, dataAtual, dataFinal);
+
+
+                        int valorBarraAtualValor = (int) porcentagemValor;
+                        String porcentagemValorAtual = df.format(porcentagemValor)+"%";
+
+                        int valorBarraAtualData = (int) porcentagemData;
+                        String porcentagemDataAtual = df.format(porcentagemData)+"%";
+
+                        if(porcentagemData == (0.0))
+                            porcentagemDataAtual = "0%";
 
                         textViewTipoPF.setText(document.getData().get("tipoPF").toString());
                         textViewPFPF.setText(document.getData().get("planejamentoFinanceiro").toString());
                         textViewValorAtual.setText(document.getData().get("valorAtual").toString());
                         textViewValorObjetivado.setText(document.getData().get("valorObjetivado").toString());
-                        textViewDataInicio.setText(document.getData().get("dataInicial").toString());
-                        progressBarConcluido.setProgress(valorBarraConcluido);
-                        textViewPorcInicio.setText(porcentagemConcluido);
-                        textViewDataFinal.setText(document.getData().get("dataFinal").toString());
-                        progressBarRestante.setProgress(valorBarraRestante);
-                        textViewPorcFinal.setText(porcentagemFinal);
+                        textViewDataInicio.setText(dataInicio);
+                        progressBarConcluido.setProgress(valorBarraAtualValor);
+                        textViewPorcInicio.setText(porcentagemValorAtual);
+                        textViewDataFinal.setText(dataFinal);
+                        progressBarRestante.setProgress(valorBarraAtualData);
+                        textViewPorcFinal.setText(porcentagemDataAtual);
                     } else {
                         Log.d(Msg.INFO, "No such document");
                     }
@@ -274,8 +345,175 @@ public class PlanejamentoFinanceiroDAO {
                         Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
                     }
                 });
+
+        db.collection("historicoPF").document(user.getUid())
+                .collection(user.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            List<String> idHistoricoPFList = new ArrayList<>();
+                            List<String> idContaList = new ArrayList<>();
+                            List<String> valorContaList = new ArrayList<>();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                String idPF = document.getData().get("idPF").toString();
+
+                                if(idPF.equals(id)){
+                                    idHistoricoPFList.add(document.getId());
+                                    idContaList.add(document.getData().get("idConta").toString());
+                                    valorContaList.add(document.getData().get("valorConta").toString());
+                                }
+                            }
+
+                            for(String id : idHistoricoPFList)
+                                deletaHistoricoPF(id);
+
+//                                devolverValorConta(idContaList, valorContaList);
+                        } else {
+                            Log.w(Msg.ERRORM, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
+
     }
 
+    private void devolverValorConta(List<String> idContaList, List<String> valorAtual){
+            //TODO FALTA DEVOLVER O VALOR PARA AS CONTAS COM O ID
+//        db.collection("contas").document(user.getUid()).collection(user.getUid())
+//                .document(id)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            if (document.exists()) {
+//                                Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+//
+//                                double valorTotal = Double.valueOf(document.getData().get("valor").toString());
+//                                double valorAtual1 = Double.valueOf(valorAtual);
+//
+//                                double resultado =  valorTotal + valorAtual1;
+//                                String valorContaTotal = String.valueOf(resultado);
+//
+//                                db.collection("contas").document(user.getUid()).collection(user.getUid())
+//                                        .document(id)
+//                                        .update("valor", valorContaTotal);
+//
+//                            } else {
+//                                Log.d("TAG", "No such document");
+//                            }
+//                        } else {
+//                            Log.d("TAG", "get failed with ", task.getException());
+//                        }
+//                    }
+//                });
+
+    }
+
+    private void deletaHistoricoPF(String id){
+        db.collection("historicoPF").document(user.getUid())
+                .collection(user.getUid())
+                .document(id)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+                    }
+                });
+    }
+
+    private double porcentagemData(String dataInicio, String dataAtual, String dataFinal){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date inicio = null;
+        Date atual = null;
+        Date fim = null;
+
+        try {
+            inicio = sdf.parse(dataInicio);
+            atual = sdf.parse(dataAtual);
+            fim = sdf.parse(dataFinal);
+        } catch (java.text.ParseException e) { e.getMessage(); }
+
+        long diferencaMes = atual.getTime() - inicio.getTime();
+        long diferencaSegundos = diferencaMes / 1000;
+        long diferencaMinutos = diferencaSegundos / 60;
+        long diferencaHoras = diferencaMinutos / 60;
+        long diferencaDias = diferencaHoras / 24;
+
+        long diferencaMes1 = fim.getTime() - inicio.getTime();
+        long diferencaSegundos1 = diferencaMes1 / 1000;
+        long diferencaMinutos1 = diferencaSegundos1 / 60;
+        long diferencaHoras1 = diferencaMinutos1 / 60;
+        long diferencaDias1 = diferencaHoras1 / 24;
+
+        double resultado =  ((float) diferencaDias/diferencaDias1) * 100;
+        return resultado;
+    }
+
+    public void lerHistorico(RecyclerView recyclerView, Context context){
+        List<HistoricoPFDTO> historicoPFList = new ArrayList<HistoricoPFDTO>();
+
+        db.collection("historicoPF")
+                .document(user.getUid()).collection(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            RecyclerView.Adapter  adapter;
+                            RecyclerView.LayoutManager layoutManager;
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                HistoricoPFDTO dto = new HistoricoPFDTO();
+                                dto.setIdHistorico(document.getId());
+                                dto.setIdPF(document.getData().get("idPF").toString());
+                                dto.setIdConta(document.getData().get("idConta").toString());
+                                dto.setNomeConta(document.getData().get("nomeConta").toString());
+                                dto.setValorConta(document.getData().get("valorConta").toString());
+                                historicoPFList.add(dto);
+                                Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
+                            }
+
+                            List<String> idHistoricoList = new ArrayList<>();
+                            List<String> idPFList = new ArrayList<>();
+                            List<String> idContaList = new ArrayList<>();
+                            List<String> nomeContaList = new ArrayList<>();
+                            List<String> valorContaList = new ArrayList<>();
+
+                            for(HistoricoPFDTO historico : historicoPFList){
+                                idHistoricoList.add(historico.getIdHistorico());
+                                idPFList.add(historico.getIdPF());
+                                idContaList.add(historico.getIdConta());
+                                nomeContaList.add(historico.getNomeConta());
+                                valorContaList.add(historico.getValorConta());
+                            }
+
+                            layoutManager = new LinearLayoutManager(context);
+                            recyclerView.setLayoutManager((layoutManager));
+                            adapter = new HistoricoPFAdapter(context,
+                                    idHistoricoList, idPFList, idContaList, nomeContaList, valorContaList);
+                            recyclerView.setAdapter(adapter);
+
+                        } else {
+                            Log.w(Msg.ERROR, Msg.ERRORM, task.getException());
+                        }
+                    }
+
+                });
+    }
 }
 
 

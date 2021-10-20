@@ -1,10 +1,12 @@
 package com.example.poket;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,16 @@ import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.usuario.AdicionarUsuario;
 import com.example.poket.view.usuario.EsqueceuSenha;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.type.DateTime;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -132,4 +144,44 @@ public class MainActivity extends AppCompatActivity {
         editTextEmail.setText("ana@email.com");
         editTextSenha.setText("123123");
     }
+
+//    FirebaseFirestore db;
+//    FirebaseAuth mAuth;
+//    FirebaseUser user;
+//
+//    db = FirebaseFirestore.getInstance();
+//    mAuth = FirebaseAuth.getInstance();
+//    user = mAuth.getCurrentUser();
+//
+//    DocumentSnapshot doc = db.collection("contas").document("cXPEJ6kvlLMGIcTMEsHrFLNnG3E3")
+//            .collection("cXPEJ6kvlLMGIcTMEsHrFLNnG3E3")
+//            .document("4w8nsXYF9LWnSV0aYqVF")
+//            .get(). getResult();
+    //                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            if (document.exists()) {
+//                                Log.d("---", "DocumentSnapshot data: " + document.getData());
+//
+////                                double valorTotal = Double.valueOf(document.getData().get("valor").toString());
+////                                double valorAtual1 = Double.valueOf(valorAtual);
+////
+////                                double resultado =  valorTotal + valorAtual1;
+////                                String valorContaTotal = String.valueOf(resultado);
+////
+////                                db.collection("contas").document(user.getUid()).collection(user.getUid())
+////                                        .document(id)
+////                                        .update("valor", valorContaTotal);
+//
+//                            } else {
+//                                Log.d("TAG", "No such document");
+//                            }
+//                        } else {
+//                            Log.d("TAG", "get failed with ", task.getException());
+//                        }
+//                    }
+//                });
+//    String tp = "";
 }

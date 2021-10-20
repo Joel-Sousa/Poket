@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Poket">
         <activity
+            android:name=".view.planejamento.ListaHistoricoPF"
+            android:exported="true" />
+        <activity
             android:name=".view.planejamento.EditarPlanejamentoFinanceiro"
             android:exported="true" />
         <activity

@@ -31,6 +31,7 @@
         <entry key="app/src/main/res/layout/activity_lista_conta.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_lista_contas.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_lista_despesa.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_lista_historico_pf.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_lista_planejamento_financeiro.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_lista_renda.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.19322916666666667" />
@@ -39,6 +40,7 @@
         <entry key="app/src/main/res/layout/recyclerview_items_conta.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recyclerview_listaconta_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recyclerview_listadespesa_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/recyclerview_listahistorico_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recyclerview_listarenda_item.xml" value="0.25" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.209375" />
       </map>

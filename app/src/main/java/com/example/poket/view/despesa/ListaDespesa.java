@@ -100,7 +100,6 @@ public class ListaDespesa extends AppCompatActivity {
         barDataSet.setColor(Color.RED);
         barDataSet.setValueTextSize(10f);
 
-
         BarData barData = new BarData();
         barData.addDataSet(barDataSet);
 
