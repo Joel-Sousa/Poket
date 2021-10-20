@@ -117,8 +117,9 @@ public class PlanejamentoFinanceiroDAO {
         dadosHistoricoPF.put("nomeConta", nomeConta);
         dadosHistoricoPF.put("valorConta", valorAtual);
 
-        db.collection("historicoPF").document(user.getUid()).collection(user.getUid())
-                .document()
+        db.collection("planejamentoFinanceiro").document(user.getUid())
+                .collection(user.getUid())
+                .document(idPF).collection(idPF).document()
                 .set(dadosHistoricoPF)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -134,7 +135,7 @@ public class PlanejamentoFinanceiroDAO {
                 });
     }
 
-    public void planejamentoFinanceiro(Activity activity, String tipoPF, boolean addpf, View view){
+    public void planejamentoFinanceiro(Activity activity, String tipoPF, boolean addpf, View view, Intent intent){
 
         db.collection("planejamentoFinanceiro").document(user.getUid())
                 .collection(user.getUid())
@@ -143,7 +144,6 @@ public class PlanejamentoFinanceiroDAO {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-//                            boolean bol = task.getResult().isEmpty();
                             List<String> tipoPFList = new ArrayList<>();
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
@@ -197,7 +197,11 @@ public class PlanejamentoFinanceiroDAO {
                                         adicionarValor(idPF, idConta , nomeConta, valorConta, valorAtual);
                                         Utilitario.toast(activity.getApplicationContext(), "Adicionado");
 
-                                        // TODO TEM QUE ATUALIZAR A ACTIVITY PARA MOSTRAR O NOVO VALOR DA CONTA
+//                                        activityoverridePendingTransition(0, 0);
+
+                                        activity.overridePendingTransition(0, 0);
+                                        activity.finish();
+                                        activity.startActivity(intent);
 
                                         dialog.dismiss();
                                     }
@@ -263,7 +267,6 @@ public class PlanejamentoFinanceiroDAO {
 
                         double porcentagemData = porcentagemData(dataInicio, dataAtual, dataFinal);
 
-
                         int valorBarraAtualValor = (int) porcentagemValor;
                         String porcentagemValorAtual = df.format(porcentagemValor)+"%";
 
@@ -325,13 +328,48 @@ public class PlanejamentoFinanceiroDAO {
                 });
     }
 
-    public void deletarPF(String id){
+    public void deletarPF(String idPF, Activity activity){
 
-        // TODO implementat o acressimo dos valores nas contas que estao no historico
+        db.collection("planejamentoFinanceiro").document(user.getUid())
+                .collection(user.getUid()).document(idPF).collection(idPF)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            List<String> idHistoricoPFList = new ArrayList<>();
+                            Map<String, Double> contaList = new HashMap<>();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                idHistoricoPFList.add(document.getId());
+                                String idConta = document.getData().get("idConta").toString();
+
+                                double valorConta = Double.valueOf(document.getData().get("valorConta").toString());
+
+                                if(!contaList.containsKey(idConta))
+                                    contaList.put(idConta, valorConta);
+                                else
+                                    contaList.put(idConta, Double.valueOf(contaList.get(idConta)) + valorConta);
+                            }
+
+                            for(Map.Entry<String, Double> conta : contaList.entrySet()){
+                                devolverValorConta(conta.getKey(), conta.getValue());
+                            }
+
+                            for(String id : idHistoricoPFList)
+                                deletaHistoricoPF(id, activity);
+
+                        } else {
+                            Log.w(Msg.ERRORM, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
 
         db.collection("planejamentoFinanceiro").document(user.getUid())
                 .collection(user.getUid())
-                .document(id)
+                .document(idPF)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -345,86 +383,49 @@ public class PlanejamentoFinanceiroDAO {
                         Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
                     }
                 });
+    }
 
-        db.collection("historicoPF").document(user.getUid())
-                .collection(user.getUid())
+    private void devolverValorConta(String idConta, Double valorAtual){
+
+        db.collection("contas").document(user.getUid()).collection(user.getUid())
+                .document(idConta)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Log.d("TAG", "DocumentSnapshot data: " + document.getData());
 
-                            List<String> idHistoricoPFList = new ArrayList<>();
-                            List<String> idContaList = new ArrayList<>();
-                            List<String> valorContaList = new ArrayList<>();
+                                double valorTotal = Double.valueOf(document.getData().get("valor").toString());
 
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                double resultado =  valorTotal + valorAtual;
+                                String valorContaTotal = String.valueOf(resultado);
 
-                                String idPF = document.getData().get("idPF").toString();
-
-                                if(idPF.equals(id)){
-                                    idHistoricoPFList.add(document.getId());
-                                    idContaList.add(document.getData().get("idConta").toString());
-                                    valorContaList.add(document.getData().get("valorConta").toString());
-                                }
+                                db.collection("contas").document(user.getUid()).collection(user.getUid())
+                                        .document(idConta)
+                                        .update("valor", valorContaTotal);
+                            } else {
+                                Log.d("TAG", "No such document");
                             }
-
-                            for(String id : idHistoricoPFList)
-                                deletaHistoricoPF(id);
-
-//                                devolverValorConta(idContaList, valorContaList);
                         } else {
-                            Log.w(Msg.ERRORM, "Error getting documents.", task.getException());
+                            Log.d("TAG", "get failed with ", task.getException());
                         }
                     }
                 });
-
-
     }
 
-    private void devolverValorConta(List<String> idContaList, List<String> valorAtual){
-            //TODO FALTA DEVOLVER O VALOR PARA AS CONTAS COM O ID
-//        db.collection("contas").document(user.getUid()).collection(user.getUid())
-//                .document(id)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            if (document.exists()) {
-//                                Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-//
-//                                double valorTotal = Double.valueOf(document.getData().get("valor").toString());
-//                                double valorAtual1 = Double.valueOf(valorAtual);
-//
-//                                double resultado =  valorTotal + valorAtual1;
-//                                String valorContaTotal = String.valueOf(resultado);
-//
-//                                db.collection("contas").document(user.getUid()).collection(user.getUid())
-//                                        .document(id)
-//                                        .update("valor", valorContaTotal);
-//
-//                            } else {
-//                                Log.d("TAG", "No such document");
-//                            }
-//                        } else {
-//                            Log.d("TAG", "get failed with ", task.getException());
-//                        }
-//                    }
-//                });
-
-    }
-
-    private void deletaHistoricoPF(String id){
-        db.collection("historicoPF").document(user.getUid())
-                .collection(user.getUid())
-                .document(id)
+    private void deletaHistoricoPF(String idPF, Activity activity){
+        db.collection("planejamentoFinanceiro").document(user.getUid())
+                .collection(user.getUid()).document(idPF).collection(idPF)
+                .document(idPF)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+                        activity.finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -464,11 +465,12 @@ public class PlanejamentoFinanceiroDAO {
         return resultado;
     }
 
-    public void lerHistorico(RecyclerView recyclerView, Context context){
+    public void lerHistorico(RecyclerView recyclerView, Context context, String idPF){
         List<HistoricoPFDTO> historicoPFList = new ArrayList<HistoricoPFDTO>();
 
-        db.collection("historicoPF")
-                .document(user.getUid()).collection(user.getUid()).get()
+        db.collection("planejamentoFinanceiro")
+                .document(user.getUid()).collection(user.getUid()).document(idPF).collection(idPF)
+                .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

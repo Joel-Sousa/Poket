@@ -218,12 +218,12 @@ public class Home extends AppCompatActivity {
         });
 
         PlanejamentoFinanceiroDAO daoPF = new PlanejamentoFinanceiroDAO();
-
+        Intent intent = getIntent();
         imageViewAdicionarPFCurto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", true, mView);
+                daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", true, mView, intent);
 
             }
         });
@@ -232,7 +232,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", false, mView);
+                daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", false, mView, intent);
             }
         });
 
@@ -240,7 +240,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Medio prazo", true, mView);
+                daoPF.planejamentoFinanceiro(Home.this,"Medio prazo", true, mView, intent);
             }
         });
 
@@ -248,7 +248,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Medio prazo", false, mView);
+                daoPF.planejamentoFinanceiro(Home.this,"Medio prazo", false, mView, intent);
             }
         });
 
@@ -256,7 +256,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Longo prazo", true, mView);
+                daoPF.planejamentoFinanceiro(Home.this,"Longo prazo", true, mView, intent);
             }
         });
 
@@ -264,7 +264,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Longo prazo", false, mView);
+                daoPF.planejamentoFinanceiro(Home.this,"Longo prazo", false, mView, intent);
             }
         });
     }

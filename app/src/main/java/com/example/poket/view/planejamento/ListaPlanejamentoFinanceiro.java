@@ -69,6 +69,8 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentListaHistorico = new Intent(ListaPlanejamentoFinanceiro.this, ListaHistoricoPF.class);
+                intentListaHistorico.putExtra("idPF", id);
+                intentListaHistorico.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentListaHistorico);
             }
         });
@@ -99,15 +101,8 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
                 confirmacao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dao.deletarPF(textViewId.getText().toString());
+                        dao.deletarPF(textViewId.getText().toString(), ListaPlanejamentoFinanceiro.this);
                         Toast.makeText(getApplicationContext(), Msg.DELETADO, Toast.LENGTH_LONG).show();
-
-                        try {
-                            new Thread().sleep(1000);
-                            finish();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
                     }
                 });
                 confirmacao.setNegativeButton("Nao",null);

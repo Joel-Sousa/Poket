@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,8 +30,11 @@ public class ListaHistoricoPF extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaHistoricoPF);
 
+        Intent intent = getIntent();
+        String idPF = intent.getStringExtra("idPF");
+
         PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
-        dao.lerHistorico(recyclerView, context);
+        dao.lerHistorico(recyclerView, context, idPF);
 
         imageViewVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
