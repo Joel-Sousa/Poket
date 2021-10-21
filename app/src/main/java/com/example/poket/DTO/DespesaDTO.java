@@ -4,13 +4,14 @@ public class DespesaDTO {
 
     private String id;
     private String despesa;
-    private String idConta;
-    private String conta;
-    private String contaValor;
     private String valorDespesa;
     private String tipoDespesa;
     private String dataDespesa;
     private String observacao;
+
+    private String idConta;
+    private String conta;
+    private String contaValor;
 //    private String despesaFixa;
 
     public String getId() {

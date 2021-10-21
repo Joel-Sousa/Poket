@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.poket.DAO.ContaDAO;
 import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
+import com.example.poket.DTO.HistoricoPFDTO;
 import com.example.poket.DTO.PlanejamentoFinanceiroDTO;
 import com.example.poket.R;
 import com.example.poket.util.MaskEditUtil;
@@ -25,11 +26,12 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
     TextView textViewIdConta, textViewContaValor, textViewTipoPF;
     EditText editTextNomePF, editTextValoAtual, editTextValorObjetivado,
     editTextDataInicial, editTextDataFinal;
-    Spinner spinnerConta;
+    Spinner spinnerConta, spinnerTipoPF;
     Button buttonSalvar;
 
     PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
     PlanejamentoFinanceiroDTO dto = new PlanejamentoFinanceiroDTO();
+    HistoricoPFDTO hdto = new HistoricoPFDTO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +39,20 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         setContentView(R.layout.activity_adicionar_planejamento_financeiro);
 
         textViewIdConta = findViewById(R.id.textViewAdicionarPFidConta);
-
-        editTextNomePF = findViewById(R.id.editTextAdicionarPFNomePF);
-        textViewTipoPF = findViewById(R.id.textViewAdicionarPFTipoPF);
         spinnerConta = findViewById(R.id.spinnerAdicionarPFConta);
         textViewContaValor= findViewById(R.id.textViewAdicionarPFContaValor);
+
+        editTextNomePF = findViewById(R.id.editTextAdicionarPFNomePF);
+        spinnerTipoPF = findViewById(R.id.spinnerAdicionarPFTipoPF);
         editTextValoAtual = findViewById(R.id.editTextAdicionarPFValorAtual);
         editTextValorObjetivado = findViewById(R.id.editTextAdicionarPFValorObjetivado);
         editTextDataInicial = findViewById(R.id.editTextAdicionarPFDataInicial);
         editTextDataFinal = findViewById(R.id.editTextAdicionarPFDataFinal);
+
         buttonSalvar = findViewById(R.id.buttonAdicionarPFSalvar);
         imageViewVoltar = findViewById(R.id.imageViewAdicionarPFVoltar);
 
-        Intent intent = getIntent();
-        textViewTipoPF.setText(intent.getStringExtra("tipoPF"));
+        Utilitario.listaTipoPF(spinnerTipoPF, getApplicationContext());
 
         editTextDataInicial.addTextChangedListener(MaskEditUtil.mask(editTextDataInicial, MaskEditUtil.FORMAT_DATE));
         editTextDataInicial.setText(Utilitario.dataAtual());
@@ -64,16 +66,20 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dto.setPlanejamentoFinanceiro(editTextNomePF.getText().toString());
-                dto.setTipoPlanejamentoFinanceiro(textViewTipoPF.getText().toString());
-                dto.setIdConta(textViewIdConta.getText().toString());
-                dto.setConta(spinnerConta.getSelectedItem().toString());
-                dto.setContaValor(textViewContaValor.getText().toString());
+                dto.setNomePF(editTextNomePF.getText().toString());
+                dto.setTipoPF(spinnerTipoPF.getSelectedItem().toString());
                 dto.setValorAtual(editTextValoAtual.getText().toString());
                 dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
                 dto.setDataInicial(editTextDataInicial.getText().toString());
                 dto.setDataFinal(editTextDataFinal.getText().toString());
-                validarConta(dto);
+
+                hdto.setIdConta(textViewIdConta.getText().toString());
+                hdto.setNomeConta(spinnerConta.getSelectedItem().toString());
+                hdto.setValorConta(textViewContaValor.getText().toString());
+
+                hdto.setValorHistoricoPF(editTextValoAtual.getText().toString());
+
+                validarConta(dto, hdto);
             }
         });
         imageViewVoltar.setOnClickListener(new View.OnClickListener() {
@@ -84,14 +90,14 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         });
     }
 
-    private void validarConta(PlanejamentoFinanceiroDTO dto){
+    private void validarConta(PlanejamentoFinanceiroDTO dto, HistoricoPFDTO hdto){
 
-        if(dto.getPlanejamentoFinanceiro().length() == 0 && dto.getValorAtual().length() == 0 &&
+        if(dto.getNomePF().length() == 0 && dto.getValorAtual().length() == 0 &&
                 dto.getValorObjetivado().length() == 0 && dto.getDataInicial().length() == 0 &&
                 dto.getDataFinal().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
             editTextNomePF.requestFocus();
-        }else if(dto.getPlanejamentoFinanceiro().length() == 0) {
+        }else if(dto.getNomePF().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.NOME_PF);
             editTextNomePF.requestFocus();
         }else if(dto.getValorAtual().length() == 0) {
@@ -107,7 +113,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
             editTextDataFinal.requestFocus();
         }else{
-            dao.cadastrarPlanejamentoFinanceiro(dto, AdicionarPlanejamentoFinanceiro.this);
+            dao.cadastrarPlanejamentoFinanceiro(dto, hdto, AdicionarPlanejamentoFinanceiro.this);
         }
     }
 

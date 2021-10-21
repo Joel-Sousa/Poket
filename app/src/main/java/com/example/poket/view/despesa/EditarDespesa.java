@@ -57,7 +57,6 @@ public class EditarDespesa extends AppCompatActivity {
         spinnerTipoDespesa = findViewById(R.id.spinnerEditarDespesaTipoDespesa);
         editTextDataDespesa = findViewById(R.id.editTextEditarDespesaDataDespesa);
         editTextObservacao = findViewById(R.id.editTextEditarDespesaObservacao);
-        switchDespesaFixa = findViewById(R.id.switchEditarDespesaDespesaFixa);
         imageViewVoltar = findViewById(R.id.imageViewEditarDespesaVoltar);
         buttonEditar = findViewById(R.id.buttonEditarDespesaEditar);
         buttonExcluir = findViewById(R.id.buttonEditarDespesaExcluir);

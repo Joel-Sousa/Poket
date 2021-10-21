@@ -44,6 +44,8 @@ public class ListaDespesa extends AppCompatActivity {
 
     BarChart barChartDespesa;
 
+    DespesaDAO dao = new DespesaDAO();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,6 @@ public class ListaDespesa extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaDespesa);
 
-        DespesaDAO dao = new DespesaDAO();
         dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal);
 
         graficoBarChartDespesa();
@@ -77,7 +78,6 @@ public class ListaDespesa extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaDespesa);
 
-        DespesaDAO dao = new DespesaDAO();
         dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal);
     }
 

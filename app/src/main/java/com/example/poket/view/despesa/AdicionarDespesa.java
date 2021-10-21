@@ -25,12 +25,11 @@ public class AdicionarDespesa extends AppCompatActivity {
     EditText editTextDespesa, editTextValorDespesa, editTextDataDespesa, editTextObservacao;
     TextView textViewIdConta, textViewContaValor;
     Spinner spinnerConta, spinnerTipoDespesa;
-//    Switch switchDespesaFixa;
     ImageView imageViewVoltar;
     Button buttonSalvar;
 
-    DespesaDTO dto = new DespesaDTO();
     DespesaDAO dao = new DespesaDAO();
+    DespesaDTO dto = new DespesaDTO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +37,15 @@ public class AdicionarDespesa extends AppCompatActivity {
         setContentView(R.layout.activity_adicionar_despesa);
 
         editTextDespesa = findViewById(R.id.editTextAdicionarDespesaDespesa);
-        textViewIdConta = findViewById(R.id.textViewAdicionarDespesaIdConta);
-        spinnerConta = findViewById(R.id.spinnerAdicionarDespesaConta);
-        textViewContaValor = findViewById(R.id.textViewAdicionarDespesaContaValor);
         editTextValorDespesa = findViewById(R.id.editTextAdicionarDespesaValorDespesa);
         spinnerTipoDespesa = findViewById(R.id.spinnerAdicionarDespesaTipoDespesa);
         editTextDataDespesa = findViewById(R.id.editTextAdicionarDespesaDataDespesa);
         editTextObservacao = findViewById(R.id.editTextAdicionarDespesaObservacao);
-//        switchDespesaFixa = findViewById(R.id.switchAdicionarDespesaDespesaFixa);
+
+        textViewIdConta = findViewById(R.id.textViewAdicionarDespesaIdConta);
+        spinnerConta = findViewById(R.id.spinnerAdicionarDespesaConta);
+        textViewContaValor = findViewById(R.id.textViewAdicionarDespesaContaValor);
+
         imageViewVoltar = findViewById(R.id.imageViewAdicionarDespesaVoltar);
         buttonSalvar = findViewById(R.id.buttonAdicionarDespesaSalvar);
 

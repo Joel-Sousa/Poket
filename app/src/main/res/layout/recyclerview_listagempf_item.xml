@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -19,60 +20,64 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="261dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewRecyclerListaHistoricoIdHistorico"
+                    android:id="@+id/textViewRecyclerListagemPFIDPF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="idhistorico"
+                    android:text="idpf"
                     android:textColor="#000000" />
 
                 <TextView
-                    android:id="@+id/textViewRecyclerListaHistoricoIdPF"
+                    android:id="@+id/textViewRecyclerListagemPFNomePF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="idplanejamento"
+                    android:text="nomepf"
                     android:textColor="#000000" />
 
                 <TextView
-                    android:id="@+id/textViewRecyclerListaHistoricoIdConta"
+                    android:id="@+id/textViewRecyclerListagemPFTipoPF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="idconta"
+                    android:text="tipopf"
                     android:textColor="#000000" />
 
                 <TextView
-                    android:id="@+id/textViewRecyclerListaHistoricoNomeConta"
+                    android:id="@+id/textViewRecyclerListagemPFValorAtual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="nomeconta"
+                    android:text="valorAtual"
                     android:textColor="#000000" />
 
                 <TextView
-                    android:id="@+id/textViewRecyclerListaHistoricoValorConta"
+                    android:id="@+id/textViewRecyclerListagemPFDataFinal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="valorconta"
+                    android:text="dataFinal"
                     android:textColor="#000000" />
-
-                <TextView
-                    android:id="@+id/textViewRecyclerListaHistoricoDataHistorico"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="dataHistorico"
-                    android:textColor="#000000" />
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:focusable="false" />
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageViewRecyclerListagemPFAdicionarValorPF"
+                android:layout_width="31dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_add"/>
+
         </LinearLayout>
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:focusable="false" />
+
     </LinearLayout>
+
 </LinearLayout>

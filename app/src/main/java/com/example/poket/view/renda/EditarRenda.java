@@ -55,7 +55,6 @@ public class EditarRenda extends AppCompatActivity {
         spinnerTipoRenda = findViewById(R.id.spinnerEditarRendaTipoRenda);
         editTextDataRenda = findViewById(R.id.editTextEditarRendaDataRenda);
         editTextObservacao = findViewById(R.id.editTextEditarRendaObservacao);
-        switchRendaFixa = findViewById(R.id.switchEditarRendaRendaFixa);
         imageViewVoltar = findViewById(R.id.imageViewEditarRendaVoltar);
         buttonEditar = findViewById(R.id.buttonEditarRendaEditar);
         buttonExcluir = findViewById(R.id.buttonEditarRendaExcluir);

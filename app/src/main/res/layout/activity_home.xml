@@ -96,6 +96,14 @@
             android:textSize="20sp" />
     </LinearLayout>
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/black"
+        android:focusable="false" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -120,13 +128,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/black"
-                android:focusable="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -385,258 +386,266 @@
                     android:background="@color/black"
                     android:focusable="false" />
 
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Planejamento Financeiro"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/buttonHomePF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Planejamento Financeiro" />
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="Planejamento Financeiro"
-                android:textColor="#000000"
-                android:textSize="20sp" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:orientation="horizontal">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/linearLayoutHomeCurtoPrazo"-->
+<!--                    android:layout_width="115dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="5dp"-->
+<!--                    android:layout_marginRight="5dp"-->
+<!--                    android:background="@drawable/brd"-->
+<!--                    android:orientation="vertical">-->
 
-                <LinearLayout
-                    android:id="@+id/linearLayoutHomeCurtoPrazo"
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/brd"
-                    android:orientation="vertical">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView29"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="3dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Curto\nprazo"-->
+<!--                            android:textColor="#000000" />-->
 
-                        <TextView
-                            android:id="@+id/textView29"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:layout_weight="1"
-                            android:text="Curto\nprazo"
-                            android:textColor="#000000" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageViewHomeAdicionarPFCurto"-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            app:srcCompat="@drawable/ic_add" />-->
 
-                        <ImageView
-                            android:id="@+id/imageViewHomeAdicionarPFCurto"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/ic_add" />
+<!--                    </LinearLayout>-->
 
-                    </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView27"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:text="Viajar"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView27"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Viajar"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView44"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:text="Data inicial:"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView44"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:text="Data inicial:"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textViewPFCPDI"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:text="11/11/1111"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="3dp"
-                        android:text="11/11/1111"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView440"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:text="Data final:"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView440"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Data final:"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textViewPFCPDF"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:text="11/11/1111"-->
+<!--                        android:textColor="#000000" />-->
+<!--                </LinearLayout>-->
 
-                    <TextView
-                        android:id="@+id/textView280"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="3dp"
-                        android:text="11/11/1111"
-                        android:textColor="#000000" />
-                </LinearLayout>
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/linearLayoutHomeMedioPrazo"-->
+<!--                    android:layout_width="115dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="5dp"-->
+<!--                    android:layout_marginRight="5dp"-->
+<!--                    android:background="@drawable/brd"-->
+<!--                    android:orientation="vertical">-->
 
-                <LinearLayout
-                    android:id="@+id/linearLayoutHomeMedioPrazo"
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/brd"
-                    android:orientation="vertical">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView30"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="3dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Medio\nprazo"-->
+<!--                            android:textColor="#000000" />-->
 
-                        <TextView
-                            android:id="@+id/textView30"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:layout_weight="1"
-                            android:text="Medio\nprazo"
-                            android:textColor="#000000" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageViewHomeAdicionarPFMedio"-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            app:srcCompat="@drawable/ic_add" />-->
 
-                        <ImageView
-                            android:id="@+id/imageViewHomeAdicionarPFMedio"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/ic_add" />
+<!--                    </LinearLayout>-->
 
-                    </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView32"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:text="Viajar"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView32"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Viajar"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView52"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:text="Data inicial:"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView52"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:text="Data inicial:"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textViewPFMPDI"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:text="11/11/1111"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView33"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="3dp"
-                        android:text="11/11/1111"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView441"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:text="Data final:"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView441"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Data final:"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textViewPFMPDF"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:text="11/11/1111"-->
+<!--                        android:textColor="#000000" />-->
+<!--                </LinearLayout>-->
 
-                    <TextView
-                        android:id="@+id/textView281"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="3dp"
-                        android:text="11/11/1111"
-                        android:textColor="#000000" />
-                </LinearLayout>
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/linearLayoutHomeLongoPrazo"-->
+<!--                    android:layout_width="115dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="5dp"-->
+<!--                    android:layout_marginRight="5dp"-->
+<!--                    android:background="@drawable/brd"-->
+<!--                    android:orientation="vertical">-->
 
-                <LinearLayout
-                    android:id="@+id/linearLayoutHomeLongoPrazo"
-                    android:layout_width="115dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/brd"
-                    android:orientation="vertical">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView31"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="3dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Longo\nprazo"-->
+<!--                            android:textColor="#000000" />-->
 
-                        <TextView
-                            android:id="@+id/textView31"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:layout_weight="1"
-                            android:text="Longo\nprazo"
-                            android:textColor="#000000" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageViewHomeAdicionarPFLongo"-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            app:srcCompat="@drawable/ic_add" />-->
 
-                        <ImageView
-                            android:id="@+id/imageViewHomeAdicionarPFLongo"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/ic_add" />
+<!--                    </LinearLayout>-->
 
-                    </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView341"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:text="Viajar"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView34"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Viajar"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView561"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:text="Data inicial:"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView56"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:text="Data inicial:"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textViewPFLPDI"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:text="11/11/1111"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView35"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="3dp"
-                        android:text="11/11/1111"
-                        android:textColor="#000000" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView4421"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:text="Data final:"-->
+<!--                        android:textColor="#000000" />-->
 
-                    <TextView
-                        android:id="@+id/textView442"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Data final:"
-                        android:textColor="#000000" />
-
-                    <TextView
-                        android:id="@+id/textView282"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="3dp"
-                        android:text="11/11/1111"
-                        android:textColor="#000000" />
-                </LinearLayout>
-            </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/textViewPFLPDF"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        android:text="11/11/1111"-->
+<!--                        android:textColor="#000000" />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
 
         </LinearLayout>
     </ScrollView>

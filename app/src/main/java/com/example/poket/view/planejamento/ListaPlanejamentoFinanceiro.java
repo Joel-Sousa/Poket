@@ -16,19 +16,18 @@ import android.widget.Toast;
 import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
 import com.example.poket.R;
 import com.example.poket.util.Msg;
-import com.example.poket.view.despesa.EditarDespesa;
 
 public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
 
-    TextView textViewId, textViewTipoPF, textViewPFPF, textViewValorAtual, textViewValorObjetivado,
-            textViewDataInicio, textViewDataFinal, textViewPorcInicio, textViewPorcFinal;
-    ProgressBar progressBarConcluido, progressBarRestante;
+    TextView textViewIdPF, textViewNomePF, textViewTipoPF, textViewValorAtual,
+             textViewValorObjetivado, textViewDataInicio, textViewDataFinal,
+             textViewPorcentagemValor, textViewPorcentagemData;
+    ProgressBar progressBarValor, progressBarData;
     Button buttonEditar, buttonExcluir;
 
     ImageView imageViewVoltar, imageViewHistoricoPF;
 
-    String id = "";
-    String tipoPF = "";
+    String idPF = "";
 
     PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
 
@@ -37,39 +36,38 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_planejamento_financeiro);
 
-        textViewId = findViewById(R.id.textViewListaPFId);
-//        textViewIdConta = findViewById(R.id.textViewListaPFIdConta);
-
+        textViewIdPF = findViewById(R.id.textViewListaPFId);
+        textViewNomePF = findViewById(R.id.textViewListaPFNomePF);
         textViewTipoPF = findViewById(R.id.textViewListaPFTipoPF);
-        textViewPFPF = findViewById(R.id.textViewListaPFPlanejamentoF);
         textViewValorAtual = findViewById(R.id.textViewListaPFValorAtual);
         textViewValorObjetivado = findViewById(R.id.textViewListaPFValorObjetivado);
         textViewDataInicio = findViewById(R.id.textViewListaPFDataInicio);
-        progressBarConcluido = findViewById(R.id.progressBarListarPFConcluido);
-        textViewPorcInicio = findViewById(R.id.textViewListarPFPorcentagemInicio);
         textViewDataFinal = findViewById(R.id.textViewListarPFDataFinal);
-        progressBarRestante = findViewById(R.id.progressBarListarPFResta);
-        textViewPorcFinal = findViewById(R.id.textViewListarPFPorcentagemResta);
+
+        textViewPorcentagemValor = findViewById(R.id.textViewListarPFPorcentagemValor);
+        textViewPorcentagemData = findViewById(R.id.textViewListarPFPorcentagemData);
+        progressBarValor = findViewById(R.id.progressBarListarPFValor);
+        progressBarData = findViewById(R.id.progressBarListarPFData);
 
         imageViewVoltar = findViewById(R.id.imageViewListaPFVoltar);
         imageViewHistoricoPF = findViewById(R.id.imageViewListarPFHistorico);
+
         buttonEditar = findViewById(R.id.buttonListaPFEditar);
         buttonExcluir = findViewById(R.id.buttonListaPFExcluir);
 
         Intent intent = getIntent();
-        id = intent.getStringExtra("id");
-        tipoPF = intent.getStringExtra("tipoPF");
-        textViewId.setText(id);
+        idPF = intent.getStringExtra("idPF");
+        textViewIdPF.setText(idPF);
 
-        dao.lerPlanejamentoFinanceiro(id, textViewTipoPF, textViewPFPF, textViewValorAtual,
-                textViewValorObjetivado, textViewDataInicio, progressBarConcluido,
-                textViewPorcInicio, textViewDataFinal, progressBarRestante, textViewPorcFinal);
+        dao.visualizarPlanejamentoFinanceiro(idPF, textViewTipoPF, textViewNomePF, textViewValorAtual,
+                textViewValorObjetivado, textViewDataInicio, textViewDataFinal ,textViewPorcentagemValor,
+                textViewPorcentagemData, progressBarValor, progressBarData);
 
         imageViewHistoricoPF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentListaHistorico = new Intent(ListaPlanejamentoFinanceiro.this, ListaHistoricoPF.class);
-                intentListaHistorico.putExtra("idPF", id);
+                intentListaHistorico.putExtra("idPF", idPF);
                 intentListaHistorico.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentListaHistorico);
             }
@@ -79,8 +77,8 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentEditarPF = new Intent(ListaPlanejamentoFinanceiro.this, EditarPlanejamentoFinanceiro.class);
-                intentEditarPF.putExtra("id", textViewId.getText().toString());
-                intentEditarPF.putExtra("PF", textViewPFPF.getText().toString());
+                intentEditarPF.putExtra("idPF", textViewIdPF.getText().toString());
+                intentEditarPF.putExtra("nomePF", textViewNomePF.getText().toString());
                 intentEditarPF.putExtra("tipoPF", textViewTipoPF.getText().toString());
                 intentEditarPF.putExtra("valorAtual", textViewValorAtual.getText().toString());
                 intentEditarPF.putExtra("valorObjetivado", textViewValorObjetivado.getText().toString());
@@ -101,7 +99,8 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
                 confirmacao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dao.deletarPF(textViewId.getText().toString(), ListaPlanejamentoFinanceiro.this);
+//                        dao.deletarPF(idPF);
+                        dao.deletarPF(textViewIdPF.getText().toString(), ListaPlanejamentoFinanceiro.this);
                         Toast.makeText(getApplicationContext(), Msg.DELETADO, Toast.LENGTH_LONG).show();
                     }
                 });
@@ -122,8 +121,8 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        dao.lerPlanejamentoFinanceiro(id, textViewTipoPF, textViewPFPF, textViewValorAtual,
-                textViewValorObjetivado, textViewDataInicio, progressBarConcluido,
-                textViewPorcInicio, textViewDataFinal, progressBarRestante, textViewPorcFinal);
+        dao.visualizarPlanejamentoFinanceiro(idPF, textViewTipoPF, textViewNomePF, textViewValorAtual,
+                textViewValorObjetivado, textViewDataInicio, textViewDataFinal ,textViewPorcentagemValor,
+                textViewPorcentagemData, progressBarValor, progressBarData);
     }
 }

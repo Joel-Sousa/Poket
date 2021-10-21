@@ -26,24 +26,26 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
     List<String> idContaList = new ArrayList<>();
     List<String> nomeContaList = new ArrayList<>();
     List<String> valorContaList = new ArrayList<>();
+    List<String> dataHistoricoList = new ArrayList<>();
 
     View viewOnCreate;
     HistoricoPFAdapter.ViewHolder viewHolderLocal;
 
     public HistoricoPFAdapter(Context context,
                           List<String> idHistoricoList, List<String> idPFList, List<String> idContaList,
-                          List<String> nomeContaList, List<String> valorContaList){
+                          List<String> nomeContaList, List<String> valorContaList, List<String> dataHistoricoList){
         this.context = context;
         this.idHistoricoList.addAll(idHistoricoList);
         this.idPFList.addAll(idPFList);
         this.idContaList.addAll(idContaList);
         this.nomeContaList.addAll(nomeContaList);
         this.valorContaList.addAll(valorContaList);
+        this.dataHistoricoList.addAll(dataHistoricoList);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView textViewIdHistorico, textViewIdPF, textViewIdConta, textViewNomeConta,
-                textViewValorConta;
+                textViewValorConta, textViewdataHistorico;
 //        public ImageView imageViewEditar;
 
         public ViewHolder(@NonNull View itemView) {
@@ -54,7 +56,7 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
             textViewIdConta = itemView.findViewById(R.id.textViewRecyclerListaHistoricoIdConta);
             textViewNomeConta = itemView.findViewById(R.id.textViewRecyclerListaHistoricoNomeConta);
             textViewValorConta = itemView.findViewById(R.id.textViewRecyclerListaHistoricoValorConta);
-//            imageViewEditar = itemView.findViewById(R.id.imageViewListaDespesaEditar);
+            textViewdataHistorico = itemView.findViewById(R.id.textViewRecyclerListaHistoricoDataHistorico);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,6 +89,7 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
         holder.textViewIdConta.setText(idContaList.get(position));
         holder.textViewNomeConta.setText(nomeContaList.get(position));
         holder.textViewValorConta.setText(valorContaList.get(position));
+        holder.textViewdataHistorico.setText(dataHistoricoList.get(position));
 
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override

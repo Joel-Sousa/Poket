@@ -27,6 +27,8 @@ public class ListaConta extends AppCompatActivity {
     Context context;
     RecyclerView recyclerView;
 
+    ContaDAO dao = new ContaDAO();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,6 @@ public class ListaConta extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaConta);
 
-        ContaDAO dao = new ContaDAO();
         dao.lerContas(recyclerView, context, textViewContaValor);
 
 //        buscaBanco();
@@ -78,7 +79,6 @@ public class ListaConta extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaConta);
 
-        ContaDAO dao = new ContaDAO();
         dao.lerContas(recyclerView, context, textViewContaValor);
     }
 }

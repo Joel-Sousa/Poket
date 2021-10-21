@@ -81,7 +81,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textViewListaPFPlanejamentoF"
+                android:id="@+id/textViewListaPFNomePF"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -200,7 +200,7 @@
             android:orientation="horizontal">
 
             <ProgressBar
-                android:id="@+id/progressBarListarPFConcluido"
+                android:id="@+id/progressBarListarPFValor"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="240dp"
                 android:layout_height="29dp"
@@ -208,7 +208,7 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/textViewListarPFPorcentagemInicio"
+                android:id="@+id/textViewListarPFPorcentagemValor"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -216,15 +216,6 @@
                 android:textColor="#020000"
                 android:textSize="20sp" />
         </LinearLayout>
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/black"
-            android:focusable="false" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -295,7 +286,7 @@
             android:orientation="horizontal">
 
             <ProgressBar
-                android:id="@+id/progressBarListarPFResta"
+                android:id="@+id/progressBarListarPFData"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="240dp"
                 android:layout_height="29dp"
@@ -303,7 +294,7 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/textViewListarPFPorcentagemResta"
+                android:id="@+id/textViewListarPFPorcentagemData"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

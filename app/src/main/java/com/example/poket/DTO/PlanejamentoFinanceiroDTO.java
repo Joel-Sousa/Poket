@@ -2,63 +2,36 @@ package com.example.poket.DTO;
 
 public class PlanejamentoFinanceiroDTO {
 
-    private String id;
-    private String planejamentoFinanceiro;
-    private String tipoPlanejamentoFinanceiro;
-    private String idConta;
-    private String conta;
-    private String contaValor;
+    private String idPF;
+    private String nomePF;
+    private String tipoPF;
     private String valorAtual;
     private String valorObjetivado;
     private String dataInicial;
     private String dataFinal;
 
-    public String getId() {
-        return id;
+    public String getIdPF() {
+        return idPF;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdPF(String idPF) {
+        this.idPF = idPF;
     }
 
-    public String getPlanejamentoFinanceiro() {
-        return planejamentoFinanceiro;
+    public String getNomePF() {
+        return nomePF;
     }
 
-    public void setPlanejamentoFinanceiro(String planejamentoFinanceiro) {
-        this.planejamentoFinanceiro = planejamentoFinanceiro;
+    public void setNomePF(String nomePF) {
+        this.nomePF = nomePF;
     }
 
-    public String getTipoPlanejamentoFinanceiro() {
-        return tipoPlanejamentoFinanceiro;
+    public String getTipoPF() {
+        return tipoPF;
     }
 
-    public void setTipoPlanejamentoFinanceiro(String tipoPlanejamentoFinanceiro) {
-        this.tipoPlanejamentoFinanceiro = tipoPlanejamentoFinanceiro;
-    }
-
-    public String getIdConta() {
-        return idConta;
-    }
-
-    public void setIdConta(String idConta) {
-        this.idConta = idConta;
-    }
-
-    public String getConta() {
-        return conta;
-    }
-
-    public void setConta(String conta) {
-        this.conta = conta;
-    }
-
-    public String getContaValor() {
-        return contaValor;
-    }
-
-    public void setContaValor(String contaValor) {
-        this.contaValor = contaValor;
+    public void setTipoPF(String tipoPF) {
+        this.tipoPF = tipoPF;
     }
 
     public String getValorAtual() {

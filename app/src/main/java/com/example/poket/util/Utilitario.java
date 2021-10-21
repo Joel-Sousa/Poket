@@ -59,6 +59,15 @@ public class Utilitario {
                 android.R.layout.simple_list_item_1, listTipoGasto);
         spinner.setAdapter(adapter_spinner);
     }
+
+    public static void listaTipoPF(Spinner spinner, Context context) {
+        List<String> listTipoPF = Arrays.asList(
+                "Curto Prazo", "Medio Prazo", "Longo Prazo");
+
+        ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
+                android.R.layout.simple_list_item_1, listTipoPF);
+        spinner.setAdapter(adapter_spinner);
+    }
     public static void logError(Context context){
 
     }

@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -20,13 +19,12 @@ import com.example.poket.DAO.ContaDAO;
 import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
 import com.example.poket.DAO.UsuarioDAO;
 import com.example.poket.DTO.UsuarioDTO;
-import com.example.poket.MainActivity;
 import com.example.poket.R;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.conta.ListaConta;
 import com.example.poket.view.despesa.AdicionarDespesa;
 import com.example.poket.view.despesa.ListaDespesa;
-import com.example.poket.view.planejamento.AdicionarPlanejamentoFinanceiro;
+import com.example.poket.view.planejamento.ListagemPlanejamentoFinanceiro;
 import com.example.poket.view.renda.AdicionarRenda;
 import com.example.poket.view.renda.ListaRenda;
 import com.example.poket.view.usuario.EditarUsuario;
@@ -66,6 +64,8 @@ public class Home extends AppCompatActivity {
             intentPFCurto, intentPFMedio, intentPFLongo,
             intentPFAdicionarCurto, intentPFAdicionarMedio, intentPFAdicionarLongo;
 
+    Button buttonPF;
+
     LinearLayout linearLayoutPFCurto,  linearLayoutPFMedio,  linearLayoutPFLongo;
 
     BarChart barChart;
@@ -76,6 +76,10 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        PlanejamentoFinanceiroDAO pfDAO = new PlanejamentoFinanceiroDAO();
+//        pfDAO.lerDatasPF(textViewCPDI, textViewCPDF, textViewMPDI,
+//                         textViewMPDF, textViewLPDI, textViewLPDF);
 
         textViewTst = findViewById(R.id.textViewTst);
         textViewIdConta = findViewById(R.id.textViewHomeIdConta);
@@ -91,18 +95,20 @@ public class Home extends AppCompatActivity {
         imageViewAdicionarDespesa = findViewById(R.id.imageViewHomeAdicionarDespesaAdicionar);
         imageViewHistoricoRenda = findViewById(R.id.imageViewHomeHistoricoRenda);
         imageViewAdicionarRenda = findViewById(R.id.imageViewHomeAdicionarRendaAdicionar);
+        buttonPF = findViewById(R.id.buttonHomePF);
 
-        imageViewAdicionarPFCurto = findViewById(R.id.imageViewHomeAdicionarPFCurto);
-        imageViewAdicionarPFMedio = findViewById(R.id.imageViewHomeAdicionarPFMedio);
-        imageViewAdicionarPFLongo = findViewById(R.id.imageViewHomeAdicionarPFLongo);
+//        imageViewAdicionarPFCurto = findViewById(R.id.imageViewHomeAdicionarPFCurto);
+//        imageViewAdicionarPFMedio = findViewById(R.id.imageViewHomeAdicionarPFMedio);
+//        imageViewAdicionarPFLongo = findViewById(R.id.imageViewHomeAdicionarPFLongo);
+//
+//        linearLayoutPFCurto = findViewById(R.id.linearLayoutHomeCurtoPrazo);
+//        linearLayoutPFMedio = findViewById(R.id.linearLayoutHomeMedioPrazo);
+//        linearLayoutPFLongo = findViewById(R.id.linearLayoutHomeLongoPrazo);
 
         barChart = findViewById(R.id.barChartHomeDespesaRenda);
         pieChartDespesa = findViewById(R.id.pieChartHomeDespesa);
         pieChartRenda = findViewById(R.id.pieChartHomeRenda);
 
-        linearLayoutPFCurto = findViewById(R.id.linearLayoutHomeCurtoPrazo);
-        linearLayoutPFMedio = findViewById(R.id.linearLayoutHomeMedioPrazo);
-        linearLayoutPFLongo = findViewById(R.id.linearLayoutHomeLongoPrazo);
 
         graficoBarChartDespesaRenda();
         graficoPieChartDespesa();
@@ -217,56 +223,66 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        buttonPF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentListagemPF = new Intent(Home.this, ListagemPlanejamentoFinanceiro.class);
+                startActivity(intentListagemPF);
+            }
+        });
+
         PlanejamentoFinanceiroDAO daoPF = new PlanejamentoFinanceiroDAO();
         Intent intent = getIntent();
-        imageViewAdicionarPFCurto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", true, mView, intent);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
 
-            }
-        });
-
-        linearLayoutPFCurto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", false, mView, intent);
-            }
-        });
-
-        imageViewAdicionarPFMedio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Medio prazo", true, mView, intent);
-            }
-        });
-
-        linearLayoutPFMedio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Medio prazo", false, mView, intent);
-            }
-        });
-
-        imageViewAdicionarPFLongo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Longo prazo", true, mView, intent);
-            }
-        });
-
-        linearLayoutPFLongo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-                daoPF.planejamentoFinanceiro(Home.this,"Longo prazo", false, mView, intent);
-            }
-        });
+//        imageViewAdicionarPFCurto.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
+//                daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", true, mView, intent);
+//
+//            }
+//        });
+//
+//        linearLayoutPFCurto.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
+//                daoPF.planejamentoFinanceiro(Home.this,"Curto prazo", false, mView, intent);
+//            }
+//        });
+//
+//        imageViewAdicionarPFMedio.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
+//                daoPF.planejamentoFinanceiro(Home.this,"Medio prazo", true, mView, intent);
+//            }
+//        });
+//
+//        linearLayoutPFMedio.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
+//                daoPF.planejamentoFinanceiro(Home.this,"Medio prazo", false, mView, intent);
+//            }
+//        });
+//
+//        imageViewAdicionarPFLongo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
+//                daoPF.planejamentoFinanceiro(Home.this,"Longo prazo", true, mView, intent);
+//            }
+//        });
+//
+//        linearLayoutPFLongo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                View mView = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
+//                daoPF.planejamentoFinanceiro(Home.this,"Longo prazo", false, mView, intent);
+//            }
+//        });
     }
 
     @Override
