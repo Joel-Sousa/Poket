@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -140,7 +141,8 @@ public class PlanejamentoFinanceiroDAO {
                 });
     }
 
-    public void lerPlanejamentoFinanceiro(RecyclerView recyclerView, Context context, Activity activity, View view){
+    public void lerPlanejamentoFinanceiro(RecyclerView recyclerView, Context context,
+                                          Activity activity, View view){
         List<PlanejamentoFinanceiroDTO> pfList = new ArrayList<PlanejamentoFinanceiroDTO>();
 
         db.collection("planejamentoFinanceiro")
@@ -486,9 +488,9 @@ public class PlanejamentoFinanceiroDAO {
     }
 
     public void adicionarValorPF(Activity activity, View view, String idPF){
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
 
-        final TextView textViewIdPF = view.findViewById(R.id.textViewDialogPFUidPF);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
+//        final TextView textViewIdPF = view.findViewById(R.id.textViewDialogPFUidPF);
 
         final TextView textViewIdConta = view.findViewById(R.id.textViewDialogAddPFIdConta);
         final Spinner spinnerConta = view.findViewById(R.id.spinnerDialogAddPFConta);
@@ -497,7 +499,7 @@ public class PlanejamentoFinanceiroDAO {
         Button buttonAdicionar = view.findViewById(R.id.buttonDialogAddPFAdicionar);
         Button buttonVoltar = view.findViewById(R.id.buttonDialogAddPFVoltar);
 
-        textViewIdPF.setText(idPF);
+//        textViewIdPF.setText(idPF);
 
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, activity, textViewContaValor, textViewIdConta);
@@ -598,12 +600,77 @@ public class PlanejamentoFinanceiroDAO {
                         }
                     }
                 });
-//        db.collection("planejamentoFinanceiro").document(user.getUid())
-//                .collection(user.getUid())
-//                .document(idConta)
-//                .update("valorAtual", valorContaTotal);
+    }
 
+    public void buscarPlanejamentoFinanceiro(RecyclerView recyclerView, Context context,
+                Activity activity, View view, String busca){
+        List<PlanejamentoFinanceiroDTO> pfList = new ArrayList<PlanejamentoFinanceiroDTO>();
 
+        db.collection("planejamentoFinanceiro").document(user.getUid())
+                .collection(user.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            RecyclerView.Adapter  adapter;
+                            RecyclerView.LayoutManager layoutManager;
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PlanejamentoFinanceiroDTO dto = new PlanejamentoFinanceiroDTO();
+                                dto.setIdPF(document.getId());
+                                dto.setNomePF(document.getData().get("nomePF").toString());
+                                dto.setTipoPF(document.getData().get("tipoPF").toString());
+                                dto.setValorAtual(document.getData().get("valorAtual").toString());
+                                dto.setValorObjetivado(document.getData().get("valorObjetivado").toString());
+                                dto.setDataInicial(document.getData().get("dataInicial").toString());
+                                dto.setDataFinal(document.getData().get("dataFinal").toString());
+                                pfList.add(dto);
+//                                Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
+                            }
+
+                            List<String> idPFList = new ArrayList<>();
+                            List<String> nomePFList = new ArrayList<>();
+                            List<String> tipoPFList = new ArrayList<>();
+                            List<String> valorAtualList = new ArrayList<>();
+                            List<String> valorObjetivadoList = new ArrayList<>();
+                            List<String> dataInicialList = new ArrayList<>();
+                            List<String> dataFinalList = new ArrayList<>();
+
+                            for(PlanejamentoFinanceiroDTO pf : pfList){
+                                if(pf.getNomePF().equals(busca)){
+
+                                    idPFList.add(pf.getIdPF());
+                                    nomePFList.add(pf.getNomePF());
+                                    tipoPFList.add(pf.getTipoPF());
+                                    valorAtualList.add(pf.getValorAtual());
+                                    valorObjetivadoList.add(pf.getValorObjetivado());
+                                    dataInicialList.add(pf.getDataInicial());
+                                    dataFinalList.add(pf.getDataFinal());
+//                                    valorConta += Double.valueOf(pf.get Valor());
+//                                  Log.i("---", conta.getId());
+                                }else if(busca.equals("")){
+//
+                                    lerPlanejamentoFinanceiro(recyclerView, context ,activity, view);
+                                }
+                            }
+
+                            if(!busca.equals("")){
+//                                textViewContaValor.setText(String.valueOf(valorConta));
+                                layoutManager = new LinearLayoutManager(context);
+                                recyclerView.setLayoutManager((layoutManager));
+                                adapter = new PlanejamentoFinanceiroAdapter(context,
+                                        idPFList, nomePFList, tipoPFList, valorAtualList,
+                                        valorObjetivadoList, dataInicialList, dataFinalList, activity, view);
+                                recyclerView.setAdapter(adapter);
+                            }
+
+                        } else {
+                            Log.w(Msg.ERROR, Msg.DOCUMENTO_F, task.getException());
+                        }
+                    }
+                });
     }
 }
 

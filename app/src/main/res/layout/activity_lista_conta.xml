@@ -54,18 +54,9 @@
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="62dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Pesquisar:"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
             <EditText
                 android:id="@+id/editTextListaContaBuscar"
-                android:layout_width="137dp"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -81,9 +72,9 @@
 
         <Button
             android:id="@+id/buttonListaContaAdicionar"
-            android:layout_width="match_parent"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="250dp"
+            android:layout_marginLeft="270dp"
             android:text="Adicionar" />
 
         <LinearLayout

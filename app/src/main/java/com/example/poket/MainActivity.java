@@ -27,6 +27,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.type.DateTime;
 
 import java.text.SimpleDateFormat;
@@ -130,6 +132,25 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+            // [START get_multiple]
+            db.collection("contas")
+                    .document("cXPEJ6kvlLMGIcTMEsHrFLNnG3E3")
+                    .collection("cXPEJ6kvlLMGIcTMEsHrFLNnG3E3")
+                    .whereEqualTo("conta", "Itau")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("TAG-", document.getId() + " --- " + document.getData());
+                                }
+                            } else {
+                                Log.d("TAG-", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+            // [END get_multiple]
 
     }
 
@@ -152,49 +173,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public void mock(){
         editTextEmail.setText("ana@email.com");
         editTextSenha.setText("123123");
     }
-
-//    FirebaseFirestore db;
-//    FirebaseAuth mAuth;
-//    FirebaseUser user;
-//
-//    db = FirebaseFirestore.getInstance();
-//    mAuth = FirebaseAuth.getInstance();
-//    user = mAuth.getCurrentUser();
-//
-//    DocumentSnapshot doc = db.collection("contas").document("cXPEJ6kvlLMGIcTMEsHrFLNnG3E3")
-//            .collection("cXPEJ6kvlLMGIcTMEsHrFLNnG3E3")
-//            .document("4w8nsXYF9LWnSV0aYqVF")
-//            .get(). getResult();
-    //                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            if (document.exists()) {
-//                                Log.d("---", "DocumentSnapshot data: " + document.getData());
-//
-////                                double valorTotal = Double.valueOf(document.getData().get("valor").toString());
-////                                double valorAtual1 = Double.valueOf(valorAtual);
-////
-////                                double resultado =  valorTotal + valorAtual1;
-////                                String valorContaTotal = String.valueOf(resultado);
-////
-////                                db.collection("contas").document(user.getUid()).collection(user.getUid())
-////                                        .document(id)
-////                                        .update("valor", valorContaTotal);
-//
-//                            } else {
-//                                Log.d("TAG", "No such document");
-//                            }
-//                        } else {
-//                            Log.d("TAG", "get failed with ", task.getException());
-//                        }
-//                    }
-//                });
-//    String tp = "";
 }

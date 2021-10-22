@@ -128,15 +128,8 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
             public void onClick(View view) {
                 Log.d("---", idPFList.get(position));
                 PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
+
                 dao.adicionarValorPF(activity, mView, idPFList.get(position));
-//                Intent intent = new Intent(context, EditarPlanejamentoFinanceiro.class);
-//                intent.putExtra("idPF", idPFList.get(position));
-//                intent.putExtra("nomePF", nomePFList.get(position));
-//                intent.putExtra("tipoPF", tipoPFList.get(position));
-//                intent.putExtra("valorAtual", valorAtualList.get(position));
-//                intent.putExtra("dataFinal", dataFinalList.get(position));
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                view.getContext().startActivity(intent);
             }
         });
     }

@@ -231,6 +231,7 @@ public class ContaDAO {
     public void buscarConta(RecyclerView recyclerView, Context context,TextView textViewContaValor,
                             String busca){
         List<ContaDTO> listConta = new ArrayList<ContaDTO>();
+
         db.collection("contas").document(user.getUid()).collection(user.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
