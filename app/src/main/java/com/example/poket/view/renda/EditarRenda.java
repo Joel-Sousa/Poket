@@ -28,7 +28,7 @@ import com.example.poket.view.despesa.EditarDespesa;
 public class EditarRenda extends AppCompatActivity {
 
     EditText editTextRenda, editTextValorRenda, editTextDataRenda, editTextObservacao;
-    TextView textViewIdConta, textViewContaValor, textViewId;
+    TextView textViewIdConta, textViewValorConta, textViewId;
     Spinner spinnerConta, spinnerTipoRenda;
     Switch switchRendaFixa;
     ImageView imageViewVoltar;
@@ -48,13 +48,15 @@ public class EditarRenda extends AppCompatActivity {
         textViewId = findViewById(R.id.textViewEditarRendaUid);
 
         editTextRenda = findViewById(R.id.editTextEditarRendaRenda);
-        textViewIdConta = findViewById(R.id.textViewEditarRendaIdConta);
-        spinnerConta = findViewById(R.id.spinnerEditarRendaConta);
-        textViewContaValor = findViewById(R.id.textViewEditarRendaContaValor);
         editTextValorRenda = findViewById(R.id.editTextEditarRendaValorRenda);
         spinnerTipoRenda = findViewById(R.id.spinnerEditarRendaTipoRenda);
         editTextDataRenda = findViewById(R.id.editTextEditarRendaDataRenda);
         editTextObservacao = findViewById(R.id.editTextEditarRendaObservacao);
+
+        textViewIdConta = findViewById(R.id.textViewEditarRendaIdConta);
+        spinnerConta = findViewById(R.id.spinnerEditarRendaConta);
+        textViewValorConta = findViewById(R.id.textViewEditarRendaContaValor);
+
         imageViewVoltar = findViewById(R.id.imageViewEditarRendaVoltar);
         buttonEditar = findViewById(R.id.buttonEditarRendaEditar);
         buttonExcluir = findViewById(R.id.buttonEditarRendaExcluir);
@@ -63,21 +65,17 @@ public class EditarRenda extends AppCompatActivity {
         Utilitario.listaTipoRenda(spinnerTipoRenda, getApplicationContext());
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, EditarRenda.this, textViewContaValor, textViewIdConta);
+        daoC.listaContaSpinner(spinnerConta, EditarRenda.this, textViewValorConta, textViewIdConta);
 
         Intent intent = getIntent();
         textViewId.setText(intent.getStringExtra("id"));
         editTextRenda.setText(intent.getStringExtra("renda"));
-//        spinnerConta.setText(intent.getStringExtra("conta"));
-//        textViewContaValor.setText(intent.getStringExtra("contaValor"));
         editTextValorRenda.setText(intent.getStringExtra("valorRenda"));
-//        spinnerTipoRenda.setText(intent.getStringExtra("tipoRenda"));
         editTextDataRenda.setText(intent.getStringExtra("dataRenda"));
         editTextObservacao.setText(intent.getStringExtra("observacao"));
-//        switchRendaFixa.setText(intent.getStringExtra("rendaFixa"));
 
         idContaAntiga = intent.getStringExtra("idConta");
-        contaValorAntigo = intent.getStringExtra("contaValor");
+        contaValorAntigo = intent.getStringExtra("valorConta");
         valorRendaAntiga = intent.getStringExtra("valorRenda");
 
 //        Utilitario.toast(getApplicationContext(), valorRendaAntiga);
@@ -88,14 +86,15 @@ public class EditarRenda extends AppCompatActivity {
                 RendaDTO dto = new RendaDTO();
                 dto.setId(textViewId.getText().toString());
                 dto.setRenda(editTextRenda.getText().toString());
-                dto.setIdConta(textViewIdConta.getText().toString());
-                dto.setConta(spinnerConta.getSelectedItem().toString());
-                dto.setContaValor(textViewContaValor.getText().toString());
                 dto.setValorRenda(editTextValorRenda.getText().toString());
                 dto.setTipoRenda(spinnerTipoRenda.getSelectedItem().toString());
                 dto.setDataRenda(editTextDataRenda.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
-//                dto.setRendaFixa(switchRendaFixa.getText().toString());
+
+                dto.setIdConta(textViewIdConta.getText().toString());
+                dto.setConta(spinnerConta.getSelectedItem().toString());
+                dto.setValorConta(textViewValorConta.getText().toString());
+
                 validarCampos(dto);
             }
         });

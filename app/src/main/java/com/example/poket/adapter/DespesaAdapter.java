@@ -26,34 +26,35 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
 
     List<String> idList = new ArrayList<>();
     List<String> despesaList = new ArrayList<>();
-    List<String> idContaList = new ArrayList<>();
-    List<String> contaList = new ArrayList<>();
-    List<String> contaValorList = new ArrayList<>();
     List<String> valorDespesaList = new ArrayList<>();
     List<String> tipoDespesaList = new ArrayList<>();
     List<String> dataDespesaList = new ArrayList<>();
     List<String> observacaoList = new ArrayList<>();
-//    List<String> despesaFixaList = new ArrayList<>();
+
+    List<String> idContaList = new ArrayList<>();
+    List<String> contaList = new ArrayList<>();
+//    List<String> contaValorList = new ArrayList<>();
 
     View viewOnCreate;
     DespesaAdapter.ViewHolder viewHolderLocal;
 
     public DespesaAdapter(Context context,
-                          List<String> idList, List<String> despesaList, List<String> idContaList,
-                          List<String> contaList,
-                          List<String> contaValorList,List<String>  valorDespesaList,List<String>  tipoDespesaList,
-                          List<String>  dataDespesaList,List<String>  observacaoList){
+                          List<String> idList, List<String> despesaList,List<String>  valorDespesaList,
+                          List<String>  tipoDespesaList, List<String>  dataDespesaList,
+                          List<String>  observacaoList,
+                          List<String> idContaList, List<String> contaList){
+
         this.context = context;
         this.idList.addAll(idList);
-        this.idContaList.addAll(idContaList);
         this.despesaList.addAll(despesaList);
-        this.contaList.addAll(contaList);
-        this.contaValorList.addAll(contaValorList);
         this.valorDespesaList.addAll(valorDespesaList);
         this.tipoDespesaList.addAll(tipoDespesaList);
         this.dataDespesaList.addAll(dataDespesaList);
         this.observacaoList.addAll(observacaoList);
-//        this.despesaFixaList.addAll(despesaFixaList);
+
+        this.idContaList.addAll(idContaList);
+        this.contaList.addAll(contaList);
+//        this.contaValorList.addAll(contaValorList);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -113,14 +114,15 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
                 Intent intent = new Intent(context, EditarDespesa.class);
                 intent.putExtra("id", idList.get(position));
                 intent.putExtra("despesa", despesaList.get(position));
-                intent.putExtra("idConta", idContaList.get(position));
-                intent.putExtra("conta", contaList.get(position));
-                intent.putExtra("contaValor", contaValorList.get(position));
                 intent.putExtra("valorDespesa", valorDespesaList.get(position));
                 intent.putExtra("tipoDespesa", tipoDespesaList.get(position));
                 intent.putExtra("dataDespesa", dataDespesaList.get(position));
                 intent.putExtra("observacao", observacaoList.get(position));
-//                intent.putExtra("despesaFixa", despesaFixaList.get(position));
+
+                intent.putExtra("idConta", idContaList.get(position));
+                intent.putExtra("conta", contaList.get(position));
+//                intent.putExtra("valorConta", contaValorList.get(position));
+
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 view.getContext().startActivity(intent);
             }

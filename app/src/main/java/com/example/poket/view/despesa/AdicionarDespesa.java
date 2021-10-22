@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,7 @@ import com.example.poket.util.Utilitario;
 public class AdicionarDespesa extends AppCompatActivity {
 
     EditText editTextDespesa, editTextValorDespesa, editTextDataDespesa, editTextObservacao;
-    TextView textViewIdConta, textViewContaValor;
+    TextView textViewIdConta, textViewValorConta;
     Spinner spinnerConta, spinnerTipoDespesa;
     ImageView imageViewVoltar;
     Button buttonSalvar;
@@ -44,7 +43,7 @@ public class AdicionarDespesa extends AppCompatActivity {
 
         textViewIdConta = findViewById(R.id.textViewAdicionarDespesaIdConta);
         spinnerConta = findViewById(R.id.spinnerAdicionarDespesaConta);
-        textViewContaValor = findViewById(R.id.textViewAdicionarDespesaContaValor);
+        textViewValorConta = findViewById(R.id.textViewAdicionarDespesaValorConta);
 
         imageViewVoltar = findViewById(R.id.imageViewAdicionarDespesaVoltar);
         buttonSalvar = findViewById(R.id.buttonAdicionarDespesaSalvar);
@@ -54,7 +53,7 @@ public class AdicionarDespesa extends AppCompatActivity {
         Utilitario.listaTipoDespesa(spinnerTipoDespesa, getApplicationContext());
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, AdicionarDespesa.this, textViewContaValor, textViewIdConta);
+        daoC.listaContaSpinner(spinnerConta, AdicionarDespesa.this, textViewValorConta, textViewIdConta);
 
         mock();
 
@@ -62,14 +61,15 @@ public class AdicionarDespesa extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dto.setDespesa(editTextDespesa.getText().toString());
-                dto.setIdConta(textViewIdConta.getText().toString());
-                dto.setConta(spinnerConta.getSelectedItem().toString());
-                dto.setContaValor(textViewContaValor.getText().toString());
                 dto.setValorDespesa(editTextValorDespesa.getText().toString());
                 dto.setTipoDespesa(spinnerTipoDespesa.getSelectedItem().toString());
                 dto.setDataDespesa(editTextDataDespesa.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
-//                dto.setDespesaFixa(String.valueOf(switchDespesaFixa.isChecked()));
+
+                dto.setIdConta(textViewIdConta.getText().toString());
+                dto.setConta(spinnerConta.getSelectedItem().toString());
+                dto.setValorConta(textViewValorConta.getText().toString());
+
                 validarConta(dto);
             }
         });

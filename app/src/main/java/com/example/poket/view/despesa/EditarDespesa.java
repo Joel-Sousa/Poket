@@ -22,22 +22,18 @@ import com.example.poket.R;
 import com.example.poket.util.MaskEditUtil;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
-import com.example.poket.view.conta.EditarConta;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class EditarDespesa extends AppCompatActivity {
 
     EditText editTextDespesa, editTextValorDespesa, editTextDataDespesa, editTextObservacao;
-    TextView textViewIdConta, textViewContaValor, textViewUid;
+    TextView textViewIdConta, textViewValorConta, textViewUid;
     Spinner spinnerConta, spinnerTipoDespesa;
     Switch switchDespesaFixa;
     ImageView imageViewVoltar;
     Button buttonEditar, buttonExcluir;
 
     String idContaAntiga = "";
-    String contaValorAntigo = "";
+//    String contaValorAntigo = "";
     String valorDespesaAntiga = "";
 
     DespesaDAO dao = new DespesaDAO();
@@ -50,13 +46,15 @@ public class EditarDespesa extends AppCompatActivity {
         textViewUid = findViewById(R.id.textViewEditarDespesaUid);
 
         editTextDespesa = findViewById(R.id.editTextEditarDespesaDespesa);
-        textViewIdConta = findViewById(R.id.textViewEditarDespesaIdConta);
-        spinnerConta = findViewById(R.id.spinnerEditarDespesaConta);
-        textViewContaValor = findViewById(R.id.textViewEditarDespesaContaValor);
         editTextValorDespesa = findViewById(R.id.editTextEditarDespesaValorDespesa);
         spinnerTipoDespesa = findViewById(R.id.spinnerEditarDespesaTipoDespesa);
         editTextDataDespesa = findViewById(R.id.editTextEditarDespesaDataDespesa);
         editTextObservacao = findViewById(R.id.editTextEditarDespesaObservacao);
+
+        textViewIdConta = findViewById(R.id.textViewEditarDespesaIdConta);
+        spinnerConta = findViewById(R.id.spinnerEditarDespesaConta);
+        textViewValorConta = findViewById(R.id.textViewEditarDespesaValorConta);
+
         imageViewVoltar = findViewById(R.id.imageViewEditarDespesaVoltar);
         buttonEditar = findViewById(R.id.buttonEditarDespesaEditar);
         buttonExcluir = findViewById(R.id.buttonEditarDespesaExcluir);
@@ -65,23 +63,16 @@ public class EditarDespesa extends AppCompatActivity {
         editTextDataDespesa.addTextChangedListener(MaskEditUtil.mask(editTextDataDespesa, MaskEditUtil.FORMAT_DATE));
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, EditarDespesa.this, textViewContaValor, textViewIdConta);
+        daoC.listaContaSpinner(spinnerConta, EditarDespesa.this, textViewValorConta, textViewIdConta);
 
         Intent intent = getIntent();
         textViewUid.setText(intent.getStringExtra("id"));
         editTextDespesa.setText(intent.getStringExtra("despesa"));
-//        spinnerConta.setText(intent.getStringExtra("conta"));
-//        textViewContaValor.setText(intent.getStringExtra("contaValor"));
         editTextValorDespesa.setText(intent.getStringExtra("valorDespesa"));
-//        spinnerTipoDespesa.setText(intent.getStringExtra("tipoDespesa"));
         editTextDataDespesa.setText(intent.getStringExtra("dataDespesa"));
         editTextObservacao.setText(intent.getStringExtra("observacao"));
-//        switchDespesaFixa.setText(intent.getStringExtra("despesaFixa"));
-
-//        Utilitario.toast(getApplicationContext(), intent.getStringExtra("idConta"));
 
         idContaAntiga = intent.getStringExtra("idConta");
-        contaValorAntigo = intent.getStringExtra("contaValor");
         valorDespesaAntiga = intent.getStringExtra("valorDespesa");
 
         buttonEditar.setOnClickListener(new View.OnClickListener() {
@@ -90,14 +81,15 @@ public class EditarDespesa extends AppCompatActivity {
                 DespesaDTO dto = new DespesaDTO();
                 dto.setId(textViewUid.getText().toString());
                 dto.setDespesa(editTextDespesa.getText().toString());
-                dto.setIdConta(textViewIdConta.getText().toString());
-                dto.setConta(spinnerConta.getSelectedItem().toString());
-                dto.setContaValor(textViewContaValor.getText().toString());
                 dto.setValorDespesa(editTextValorDespesa.getText().toString());
                 dto.setTipoDespesa(spinnerTipoDespesa.getSelectedItem().toString());
                 dto.setDataDespesa(editTextDataDespesa.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
-//                dto.setDespesaFixa(switchDespesaFixa.getText().toString());
+
+                dto.setIdConta(textViewIdConta.getText().toString());
+                dto.setConta(spinnerConta.getSelectedItem().toString());
+                dto.setValorConta(textViewValorConta.getText().toString());
+
                 validarCampos(dto);
             }
         });

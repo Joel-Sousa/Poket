@@ -25,34 +25,35 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
 
     List<String> idList = new ArrayList<>();
     List<String> rendaList = new ArrayList<>();
-    List<String> idContaList = new ArrayList<>();
-    List<String> contaList = new ArrayList<>();
-    List<String> contaValorList = new ArrayList<>();
     List<String> valorRendaList = new ArrayList<>();
     List<String> tipoRendaList = new ArrayList<>();
     List<String> dataRendaList = new ArrayList<>();
     List<String> observacaoList = new ArrayList<>();
-//    List<String> rendaFixaList = new ArrayList<>();
+
+    List<String> idContaList = new ArrayList<>();
+    List<String> contaList = new ArrayList<>();
+    List<String> valorContaList = new ArrayList<>();
 
     View viewOnCreate;
     RendaAdapter.ViewHolder viewHolderLocal;
 
     public RendaAdapter(Context context,
-                        List<String> idList, List<String> rendaList,List<String> idContaList,
-                        List<String> contaList,
-                        List<String> contaValorList,List<String>  valorRendaList,List<String>  tipoRendaList,
-                        List<String>  dataRendaList,List<String>  observacaoList){
+                        List<String> idList, List<String> rendaList,List<String>  valorRendaList,
+                        List<String>  tipoRendaList, List<String>  dataRendaList,
+                        List<String>  observacaoList,
+                        List<String> idContaList, List<String> contaList, List<String> valorContaList){
+
         this.context = context;
         this.idList.addAll(idList);
         this.rendaList.addAll(rendaList);
-        this.idContaList.addAll(idContaList);
-        this.contaList.addAll(contaList);
-        this.contaValorList.addAll(contaValorList);
         this.valorRendaList.addAll(valorRendaList);
         this.tipoRendaList.addAll(tipoRendaList);
         this.dataRendaList.addAll(dataRendaList);
         this.observacaoList.addAll(observacaoList);
-//        this.rendaFixaList.addAll(rendaFixaList);
+
+        this.idContaList.addAll(idContaList);
+        this.contaList.addAll(contaList);
+        this.valorContaList.addAll(valorContaList);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -112,14 +113,15 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
                 Intent intent = new Intent(context, EditarRenda.class);
                 intent.putExtra("id", idList.get(position));
                 intent.putExtra("renda", rendaList.get(position));
-                intent.putExtra("idConta", idContaList.get(position));
-                intent.putExtra("conta", contaList.get(position));
-                intent.putExtra("contaValor", contaValorList.get(position));
                 intent.putExtra("valorRenda", valorRendaList.get(position));
                 intent.putExtra("tipoRenda", tipoRendaList.get(position));
                 intent.putExtra("dataRenda", dataRendaList.get(position));
                 intent.putExtra("observacao", observacaoList.get(position));
-//                intent.putExtra("rendaFixa", rendaFixaList.get(position));
+
+                intent.putExtra("idConta", idContaList.get(position));
+                intent.putExtra("conta", contaList.get(position));
+                intent.putExtra("valorConta", valorContaList.get(position));
+
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 view.getContext().startActivity(intent);
             }

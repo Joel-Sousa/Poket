@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,7 @@ import com.example.poket.util.Utilitario;
 public class AdicionarRenda extends AppCompatActivity {
 
     EditText editTextRenda, editTextValorRenda, editTextDataRenda, editTextObservacao;
-    TextView textViewIdConta, textViewContaValor;
+    TextView textViewIdConta, textViewValorConta;
     Spinner spinnerConta, spinnerTipoRenda;
 //    Switch switchRendaFixa;
     ImageView imageViewVoltar;
@@ -38,14 +37,15 @@ public class AdicionarRenda extends AppCompatActivity {
         setContentView(R.layout.activity_adicionar_renda);
 
         editTextRenda = findViewById(R.id.editTextAdicionarRendaRenda);
-        textViewIdConta = findViewById(R.id.textViewAdicionarRendaIdConta);
-        spinnerConta = findViewById(R.id.spinnerAdicionarRendaConta);
-        textViewContaValor = findViewById(R.id.textViewAdicionarRendaContaValor);
         editTextValorRenda = findViewById(R.id.editTextAdicionarRendaValorRenda);
         spinnerTipoRenda = findViewById(R.id.spinnerAdicionarRendaTipoRenda);
         editTextDataRenda = findViewById(R.id.editTextAdicionarRendaDataRenda);
         editTextObservacao = findViewById(R.id.editTextAdicionarRendaObservacao);
-//        switchRendaFixa = findViewById(R.id.switchAdicionarRendaRendaFixa);
+
+        textViewIdConta = findViewById(R.id.textViewAdicionarRendaIdConta);
+        spinnerConta = findViewById(R.id.spinnerAdicionarRendaConta);
+        textViewValorConta = findViewById(R.id.textViewAdicionarRendaValorConta);
+
         imageViewVoltar = findViewById(R.id.imageViewAdidionarRendaVoltar);
         buttonSalvar = findViewById(R.id.buttonAdicionarRendaSalvar);
 
@@ -54,7 +54,7 @@ public class AdicionarRenda extends AppCompatActivity {
         editTextDataRenda.setText(Utilitario.dataAtual());
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, AdicionarRenda.this, textViewContaValor, textViewIdConta);
+        daoC.listaContaSpinner(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta);
 
         mock();
 
@@ -62,14 +62,15 @@ public class AdicionarRenda extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dto.setRenda(editTextRenda.getText().toString());
-                dto.setIdConta(textViewIdConta.getText().toString());
-                dto.setConta(spinnerConta.getSelectedItem().toString());
-                dto.setContaValor(textViewContaValor.getText().toString());
                 dto.setValorRenda(editTextValorRenda.getText().toString());
                 dto.setTipoRenda(spinnerTipoRenda.getSelectedItem().toString());
                 dto.setDataRenda(editTextDataRenda.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
-//                dto.setRendaFixa(String.valueOf(switchRendaFixa.isChecked()));
+
+                dto.setIdConta(textViewIdConta.getText().toString());
+                dto.setConta(spinnerConta.getSelectedItem().toString());
+                dto.setValorConta(textViewValorConta.getText().toString());
+
                 validarConta(dto);
             }
         });

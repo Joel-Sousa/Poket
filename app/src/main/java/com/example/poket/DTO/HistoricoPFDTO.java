@@ -3,11 +3,12 @@ package com.example.poket.DTO;
 public class HistoricoPFDTO {
     private String idHistorico;
     private String idPF;
+    private String valorHistoricoPF;
+    private String dataHistorico;
+
     private String idConta;
     private String nomeConta;
     private String valorConta;
-    private String valorHistoricoPF;
-    private String dataHistorico;
 
     public String getIdHistorico() {
         return idHistorico;

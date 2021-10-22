@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.type.DateTime;
 
 import java.text.SimpleDateFormat;
@@ -118,6 +119,18 @@ public class MainActivity extends AppCompatActivity {
                 validaCampos(dto);
             }
         });
+
+        //
+
+        FirebaseFirestore db;
+        FirebaseAuth mAuth;
+        FirebaseUser user;
+
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+
+
     }
 
     private void validaCampos(UsuarioDTO dto){

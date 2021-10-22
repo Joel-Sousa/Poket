@@ -48,14 +48,14 @@ public class RendaDAO {
     public void cadastarRenda(RendaDTO dto, Activity activity) {
         Map<String, String> dadosRenda = new HashMap<>();
         dadosRenda.put("renda", dto.getRenda());
-        dadosRenda.put("idConta", dto.getIdConta());
-        dadosRenda.put("conta", dto.getConta());
-        dadosRenda.put("contaValor", dto.getContaValor());
         dadosRenda.put("valorRenda", dto.getValorRenda());
         dadosRenda.put("tipoRenda", dto.getTipoRenda());
         dadosRenda.put("dataRenda", dto.getDataRenda());
         dadosRenda.put("observacao", dto.getObservacao());
-//        dadosRenda.put("rendaFixa", dto.getRendaFixa());
+
+        dadosRenda.put("idConta", dto.getIdConta());
+        dadosRenda.put("conta", dto.getConta());
+//        dadosRenda.put("valorConta", dto.getValorConta());
 
         db.collection("rendas").document(user.getUid()).collection(user.getUid())
                 .document()
@@ -65,7 +65,7 @@ public class RendaDAO {
                     public void onSuccess(Void unused) {
                         Log.d(Msg.SUCESSO, Msg.DOCUMENTO_S);
 
-                         double resultado = Double.valueOf(dto.getContaValor()) + Double.valueOf(dto.getValorRenda());
+                        double resultado = Double.valueOf(dto.getValorConta()) + Double.valueOf(dto.getValorRenda());
                         String valorContaTotal = String.valueOf(resultado);
 
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
@@ -101,14 +101,15 @@ public class RendaDAO {
                                 RendaDTO dto = new RendaDTO();
                                 dto.setId(document.getId());
                                 dto.setRenda(document.getData().get("renda").toString());
-                                dto.setIdConta(document.getData().get("idConta").toString());
-                                dto.setConta(document.getData().get("conta").toString());
-                                dto.setContaValor(document.getData().get("contaValor").toString());
                                 dto.setValorRenda(document.getData().get("valorRenda").toString());
                                 dto.setTipoRenda(document.getData().get("tipoRenda").toString());
                                 dto.setDataRenda(document.getData().get("dataRenda").toString());
                                 dto.setObservacao(document.getData().get("observacao").toString());
-//                                dto.setRendaFixa(document.getData().get("rendaFixa").toString());
+
+                                dto.setIdConta(document.getData().get("idConta").toString());
+                                dto.setConta(document.getData().get("conta").toString());
+                                dto.setValorConta(document.getData().get("valorConta").toString());
+
                                 listRenda.add(dto);
                                 valorRenda += Double.valueOf(document.getData().get("valorRenda").toString());
                                 Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
@@ -118,35 +119,33 @@ public class RendaDAO {
 
                             List<String> idList = new ArrayList<>();
                             List<String> rendaList = new ArrayList<>();
-                            List<String> idContaList = new ArrayList<>();
-                            List<String> contaList = new ArrayList<>();
-                            List<String> contaValorList = new ArrayList<>();
                             List<String> valorRendaList = new ArrayList<>();
                             List<String> tipoRendaList = new ArrayList<>();
                             List<String> dataRendaList = new ArrayList<>();
                             List<String> observacaoList = new ArrayList<>();
-//                            List<String> rendaFixaList = new ArrayList<>();
 
+                            List<String> idContaList = new ArrayList<>();
+                            List<String> contaList = new ArrayList<>();
+                            List<String> valorContaList = new ArrayList<>();
 
                             for(RendaDTO renda : listRenda){
                                 idList.add(renda.getId());
                                 rendaList.add(renda.getRenda());
-                                idContaList.add(renda.getIdConta());
-                                contaList.add(renda.getConta());
-                                contaValorList.add(renda.getContaValor());
                                 valorRendaList.add(renda.getValorRenda());
                                 tipoRendaList.add(renda.getTipoRenda());
                                 dataRendaList.add(renda.getDataRenda());
                                 observacaoList.add(renda.getObservacao());
-//                                rendaFixaList.add(renda.getRendaFixa());
+
+                                idContaList.add(renda.getIdConta());
+                                contaList.add(renda.getConta());
+                                valorContaList.add(renda.getValorConta());
                             }
 
                             layoutManager = new LinearLayoutManager(context);
                             recyclerView.setLayoutManager((layoutManager));
-                            adapter = new RendaAdapter(context, idList, rendaList, idContaList,
-                                    contaList,
-                                    contaValorList, valorRendaList, tipoRendaList,
-                                    dataRendaList, observacaoList);
+                            adapter = new RendaAdapter(context, idList, rendaList,  valorRendaList,
+                                    tipoRendaList, dataRendaList, observacaoList,
+                                    idContaList, contaList, valorContaList);
                             recyclerView.setAdapter(adapter);
 
                         } else {
@@ -164,20 +163,20 @@ public class RendaDAO {
         double valorAntigo = 0.0;
 
         if(idContaAntiga.equals(dto.getIdConta())){
-            valorAntigo = Double.valueOf(dto.getContaValor()) - Double.valueOf(valorRendaAntiga);
+            valorAntigo = Double.valueOf(dto.getValorConta()) - Double.valueOf(valorRendaAntiga);
             db.collection("contas").document(user.getUid()).collection(user.getUid())
                     .document(idContaAntiga).update("valor", String.valueOf(valorAntigo));
 
-            data.put("contaValor", String.valueOf(valorAntigo));
+            data.put("valorConta", String.valueOf(valorAntigo));
         }else {
 
-            DocumentReference docRef = db.collection("contas").document(user.getUid())
-                    .collection(user.getUid()).document(idContaAntiga);
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+             db.collection("contas").document(user.getUid()).collection(user.getUid())
+                     .document(idContaAntiga).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
+
                         if (document.exists()) {
 
                             double valorAntigo1 = Double.valueOf(document.getData().get("valor").toString()) - Double.valueOf(valorRendaAntiga);
@@ -194,18 +193,17 @@ public class RendaDAO {
                 }
             });
 
-            data.put("contaValor", dto.getContaValor());
+            data.put("valorConta", dto.getValorConta());
         }
 
         data.put("renda", dto.getRenda());
-        data.put("idConta", dto.getIdConta());
-        data.put("conta", dto.getConta());
-//        data.put("contaValor", dto.getContaValor());
         data.put("valorRenda", dto.getValorRenda());
         data.put("tipoRenda", dto.getTipoRenda());
         data.put("dataRenda", dto.getDataRenda());
         data.put("observacao", dto.getObservacao());
-//        data.put("rendaFixa", dto.getRendaFixa());
+
+        data.put("idConta", dto.getIdConta());
+        data.put("conta", dto.getConta());
 
         db.collection("rendas").document(user.getUid()).collection(user.getUid())
                 .document(dto.getId())
@@ -214,7 +212,7 @@ public class RendaDAO {
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        double valorAntigo1 = Double.valueOf(data.get("contaValor")) + Double.valueOf(dto.getValorRenda());
+                        double valorAntigo1 = Double.valueOf(data.get("valorConta")) + Double.valueOf(dto.getValorRenda());
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
                                 .document(dto.getIdConta()).update("valor", String.valueOf(valorAntigo1));
 
@@ -233,9 +231,8 @@ public class RendaDAO {
 
     public void deletarRenda(String id, String idConta, String valorRenda){
 
-        DocumentReference docRef = db.collection("contas").document(user.getUid())
-                .collection(user.getUid()).document(idConta);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("contas").document(user.getUid()).collection(user.getUid())
+                .document(idConta).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {

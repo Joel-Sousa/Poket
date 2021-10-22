@@ -11,7 +11,7 @@ public class DespesaDTO {
 
     private String idConta;
     private String conta;
-    private String contaValor;
+    private String valorConta;
 //    private String despesaFixa;
 
     public String getId() {
@@ -78,12 +78,12 @@ public class DespesaDTO {
         this.conta = conta;
     }
 
-    public String getContaValor() {
-        return contaValor;
+    public String getValorConta() {
+        return valorConta;
     }
 
-    public void setContaValor(String contaValor) {
-        this.contaValor = contaValor;
+    public void setValorConta(String contaValor) {
+        this.valorConta = contaValor;
     }
 
     public String getIdConta() {

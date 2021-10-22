@@ -3,20 +3,11 @@ package com.example.poket.DTO;
 import java.util.Objects;
 
 public class ContaDTO {
-    private String uid;
     private String id;
     private String conta;
     private String valor;
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getConta() {
+     public String getConta() {
         return conta;
     }
 
@@ -44,12 +35,12 @@ public class ContaDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContaDTO contaDTO = (ContaDTO) o;
-        return Objects.equals(uid, contaDTO.uid) && Objects.equals(id, contaDTO.id) && Objects.equals(conta, contaDTO.conta) && Objects.equals(valor, contaDTO.valor);
+        return Objects.equals(id, contaDTO.id) && Objects.equals(conta, contaDTO.conta) && Objects.equals(valor, contaDTO.valor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, id, conta, valor);
+        return Objects.hash( id, conta, valor);
     }
 
     @Override
