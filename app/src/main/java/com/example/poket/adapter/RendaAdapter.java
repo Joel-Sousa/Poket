@@ -32,7 +32,6 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
 
     List<String> idContaList = new ArrayList<>();
     List<String> contaList = new ArrayList<>();
-    List<String> valorContaList = new ArrayList<>();
 
     View viewOnCreate;
     RendaAdapter.ViewHolder viewHolderLocal;
@@ -41,7 +40,7 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
                         List<String> idList, List<String> rendaList,List<String>  valorRendaList,
                         List<String>  tipoRendaList, List<String>  dataRendaList,
                         List<String>  observacaoList,
-                        List<String> idContaList, List<String> contaList, List<String> valorContaList){
+                        List<String> idContaList, List<String> contaList){
 
         this.context = context;
         this.idList.addAll(idList);
@@ -53,7 +52,6 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
 
         this.idContaList.addAll(idContaList);
         this.contaList.addAll(contaList);
-        this.valorContaList.addAll(valorContaList);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -120,7 +118,6 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
 
                 intent.putExtra("idConta", idContaList.get(position));
                 intent.putExtra("conta", contaList.get(position));
-                intent.putExtra("valorConta", valorContaList.get(position));
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 view.getContext().startActivity(intent);

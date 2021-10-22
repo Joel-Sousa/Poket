@@ -37,7 +37,7 @@ public class EditarRenda extends AppCompatActivity {
     RendaDAO dao = new RendaDAO();
 
     String idContaAntiga = "";
-    String contaValorAntigo = "";
+//    String contaValorAntigo = "";
     String valorRendaAntiga = "";
 
     @Override
@@ -75,7 +75,7 @@ public class EditarRenda extends AppCompatActivity {
         editTextObservacao.setText(intent.getStringExtra("observacao"));
 
         idContaAntiga = intent.getStringExtra("idConta");
-        contaValorAntigo = intent.getStringExtra("valorConta");
+//        contaValorAntigo = intent.getStringExtra("valorConta");
         valorRendaAntiga = intent.getStringExtra("valorRenda");
 
 //        Utilitario.toast(getApplicationContext(), valorRendaAntiga);
