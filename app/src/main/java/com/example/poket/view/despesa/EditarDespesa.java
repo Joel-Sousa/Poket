@@ -43,6 +43,8 @@ public class EditarDespesa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_despesa);
 
+        // TODO SO NAO PODE EDIAR CONTA E VALOR DA DESPESA
+
         textViewUid = findViewById(R.id.textViewEditarDespesaUid);
 
         editTextDespesa = findViewById(R.id.editTextEditarDespesaDespesa);

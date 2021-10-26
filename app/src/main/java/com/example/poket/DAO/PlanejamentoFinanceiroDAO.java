@@ -116,6 +116,8 @@ public class PlanejamentoFinanceiroDAO {
 
     private void salvarHistoricoPF(HistoricoPFDTO hdto){
 
+        // TODO alterar "nomeConta" para "conta"
+
         Map<String, String> dadosHistoricoPF = new HashMap<>();
         dadosHistoricoPF.put("idPF", hdto.getIdPF());
         dadosHistoricoPF.put("idConta", hdto.getIdConta());
@@ -431,7 +433,7 @@ public class PlanejamentoFinanceiroDAO {
                 });
     }
 
-    public void lerHistorico(RecyclerView recyclerView, Context context, String idPF){
+    public void lerHistorico(RecyclerView recyclerView, Context context, Activity activity, String idPF){
         List<HistoricoPFDTO> historicoPFList = new ArrayList<HistoricoPFDTO>();
 
         db.collection("planejamentoFinanceiro")
@@ -474,7 +476,7 @@ public class PlanejamentoFinanceiroDAO {
 
                             layoutManager = new LinearLayoutManager(context);
                             recyclerView.setLayoutManager((layoutManager));
-                            adapter = new HistoricoPFAdapter(context,
+                            adapter = new HistoricoPFAdapter(context, activity,
                                     idHistoricoList, idPFList, idContaList, nomeContaList,
                                     valorContaList, dataHistoricoList);
                             recyclerView.setAdapter(adapter);

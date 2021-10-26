@@ -49,6 +49,8 @@ public class ListaRenda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_renda);
 
+        // TODO IMPLEMENTAR A BUSCA DE RENDA
+
         imageViewVoltar = findViewById(R.id.imageViewListaRendaVoltar);
         textViewRendaValorTotal = findViewById(R.id.textViewListaRendaValorTotal);
 

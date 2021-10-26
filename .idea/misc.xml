@@ -37,6 +37,8 @@
         <entry key="app/src/main/res/layout/activity_listagem_planejamento_financeiro.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_ver_despesa.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_ver_renda.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_addpf.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recyclerview_items_conta.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recyclerview_listaconta_item.xml" value="0.25" />

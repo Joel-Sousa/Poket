@@ -1,18 +1,24 @@
 package com.example.poket.adapter;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.poket.R;
 import com.example.poket.util.Msg;
+import com.example.poket.view.despesa.EditarDespesa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +26,7 @@ import java.util.List;
 public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.ViewHolder>{
 
     Context context;
+    Activity activity;
 
     List<String> idHistoricoList = new ArrayList<>();
     List<String> idPFList = new ArrayList<>();
@@ -31,10 +38,11 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
     View viewOnCreate;
     HistoricoPFAdapter.ViewHolder viewHolderLocal;
 
-    public HistoricoPFAdapter(Context context,
+    public HistoricoPFAdapter(Context context, Activity activity,
                           List<String> idHistoricoList, List<String> idPFList, List<String> idContaList,
                           List<String> nomeContaList, List<String> valorContaList, List<String> dataHistoricoList){
         this.context = context;
+        this.activity = activity;
         this.idHistoricoList.addAll(idHistoricoList);
         this.idPFList.addAll(idPFList);
         this.idContaList.addAll(idContaList);
@@ -46,7 +54,7 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView textViewIdHistorico, textViewIdPF, textViewIdConta, textViewNomeConta,
                 textViewValorConta, textViewdataHistorico;
-//        public ImageView imageViewEditar;
+        public ImageView imageViewExcluir;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,6 +65,8 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
             textViewNomeConta = itemView.findViewById(R.id.textViewRecyclerListaHistoricoNomeConta);
             textViewValorConta = itemView.findViewById(R.id.textViewRecyclerListaHistoricoValorConta);
             textViewdataHistorico = itemView.findViewById(R.id.textViewRecyclerListaHistoricoDataHistorico);
+            imageViewExcluir = itemView.findViewById(R.id.imageViewRecyclerListaHistoricoExcluir);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -98,24 +108,26 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
             }
         });
 
-//        holder.imageViewEditar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(context, EditarDespesa.class);
-//                intent.putExtra("id", idList.get(position));
-//                intent.putExtra("despesa", despesaList.get(position));
-//                intent.putExtra("idConta", idContaList.get(position));
-//                intent.putExtra("conta", contaList.get(position));
-//                intent.putExtra("contaValor", contaValorList.get(position));
-//                intent.putExtra("valorDespesa", valorDespesaList.get(position));
-//                intent.putExtra("tipoDespesa", tipoDespesaList.get(position));
-//                intent.putExtra("dataDespesa", dataDespesaList.get(position));
-//                intent.putExtra("observacao", observacaoList.get(position));
-////                intent.putExtra("despesaFixa", despesaFixaList.get(position));
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                view.getContext().startActivity(intent);
-//            }
-//        });
+        holder.imageViewExcluir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder confirmacao = new AlertDialog.Builder(activity);
+                confirmacao.setTitle("Atencao!");
+                confirmacao.setMessage("Você tem certeza que deseja excluir esse dado?");
+                confirmacao.setCancelable(false);
+                confirmacao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // TODO IMPLEMENTAR A EXCLUSAO DO HISTORICO
+                        Toast.makeText(context, idHistoricoList.get(position)+"", Toast.LENGTH_LONG).show();
+
+                        activity.finish();
+                    }
+                });
+                confirmacao.setNegativeButton("Nao",null);
+                confirmacao.create().show();
+            }
+        });
     }
 
     @Override

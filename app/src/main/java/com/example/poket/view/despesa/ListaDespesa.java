@@ -51,6 +51,8 @@ public class ListaDespesa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_despesa);
 
+        // TODO IMPLEMENTAR A BUSCA DE DESPESA
+
         imageViewVoltar = findViewById(R.id.imageViewListaDespesaVoltar);
         textViewDespesaValorTotal = findViewById(R.id.textViewListaDespesaValorTotal);
 

@@ -61,6 +61,7 @@ public class ListagemPlanejamentoFinanceiro extends AppCompatActivity {
 
                 dao.buscarPlanejamentoFinanceiro(recyclerView, context, ListagemPlanejamentoFinanceiro.this,
                         view1, busca);
+
             }
         });
 

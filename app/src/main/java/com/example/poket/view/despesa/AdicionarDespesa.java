@@ -35,6 +35,8 @@ public class AdicionarDespesa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_despesa);
 
+        // TODO trocar data para o padrao americano yyyy-MM-dd
+
         editTextDespesa = findViewById(R.id.editTextAdicionarDespesaDespesa);
         editTextValorDespesa = findViewById(R.id.editTextAdicionarDespesaValorDespesa);
         spinnerTipoDespesa = findViewById(R.id.spinnerAdicionarDespesaTipoDespesa);

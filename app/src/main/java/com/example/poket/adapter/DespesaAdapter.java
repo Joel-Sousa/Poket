@@ -16,6 +16,8 @@ import com.example.poket.R;
 import com.example.poket.util.Msg;
 import com.example.poket.view.conta.EditarConta;
 import com.example.poket.view.despesa.EditarDespesa;
+import com.example.poket.view.despesa.VerDespesa;
+import com.example.poket.view.planejamento.ListaPlanejamentoFinanceiro;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +106,18 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(Msg.INFO, "Click1");
+                Intent intent = new Intent(context, VerDespesa.class);
+                intent.putExtra("id", idList.get(position));
+//                intent.putExtra("nomePF", nomePFList.get(position));
+//                intent.putExtra("tipoPF", tipoPFList.get(position));
+//                intent.putExtra("valorAtual", valorAtualList.get(position));
+//                intent.putExtra("valorObjetivado", valorObjetivadoList.get(position));
+//                intent.putExtra("dataInicial", dataInicialList.get(position));
+//                intent.putExtra("dataFinal", dataFinalList.get(position));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                view.getContext().startActivity(intent);
+
+//                Log.d(Msg.INFO, "Click1");
             }
         });
 

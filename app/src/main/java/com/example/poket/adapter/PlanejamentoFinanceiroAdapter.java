@@ -119,7 +119,7 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 view.getContext().startActivity(intent);
 
-                Log.d(Msg.INFO, "Click1");
+//                Log.d(Msg.INFO, "Click1");
             }
         });
 

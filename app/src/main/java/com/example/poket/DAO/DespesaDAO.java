@@ -25,6 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -272,5 +274,41 @@ public class DespesaDAO {
                         Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
                     }
                 });
+    }
+
+    public void verDespesa(String id, TextView textViewNomeDespesa, TextView textViewNomeConta,
+                           TextView textViewValorDespesa, TextView textViewTipoDespesa,
+                           TextView textViewDataDespesa, TextView textViewObservacao){
+
+        db.collection("despesas").document(user.getUid()).collection(user.getUid())
+                .document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+
+                        textViewNomeDespesa.setText(document.getData().get("despesa").toString());
+                        textViewNomeConta.setText(document.getData().get("conta").toString());
+                        textViewValorDespesa.setText(document.getData().get("valorDespesa").toString());
+                        textViewTipoDespesa.setText(document.getData().get("tipoDespesa").toString());
+                        textViewDataDespesa.setText(document.getData().get("dataDespesa").toString());
+                        textViewObservacao.setText(document.getData().get("observacao").toString());
+
+//                         Double.valueOf(document.getData().get("valor").toString());
+////                        db.collection("contas").document(user.getUid()).collection(user.getUid())
+////                                .document(idConta).update("valor", String.valueOf(valorAntigo1));
+
+                        Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d(Msg.INFO, "No such document");
+                    }
+                } else {
+                    Log.d(Msg.INFO, "get failed with ", task.getException());
+                }
+            }
+        });
+
     }
 }

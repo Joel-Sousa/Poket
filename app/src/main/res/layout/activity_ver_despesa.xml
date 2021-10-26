@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.renda.AdicionarRenda">
+    tools:context=".view.despesa.VerDespesa">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,34 +26,34 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageViewAdidionarRendaVoltar"
+                android:id="@+id/imageViewVerDespesaVoltar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_voltar" />
 
             <TextView
-                android:id="@+id/textView451"
+                android:id="@+id/textView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="Adicionar Renda"
+                android:text="Despesa"
                 android:textColor="#000000"
                 android:textSize="24sp" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textViewAdicionarRendaIdConta"
+            android:id="@+id/textViewVerDespesaId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -62,50 +62,17 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView461"
+                android:id="@+id/textView28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Renda:"
-                android:textColor="#070505"
+                android:text="Despesa: "
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/editTextAdicionarRendaRenda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-
             <TextView
-                android:id="@+id/textView471"
-                android:layout_width="10dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Conta:"
-                android:textColor="#070505"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/spinnerAdicionarRendaConta"
+                android:id="@+id/textViewVerDespesaNomeDespesa"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/textViewAdicionarRendaValorConta"
-                android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView"
@@ -114,7 +81,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -123,25 +90,26 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView481"
+                android:id="@+id/textView30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Valor da renda:"
-                android:textColor="#070505"
+                android:text="Conta: "
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/editTextAdicionarRendaValorRenda"
+            <TextView
+                android:id="@+id/textViewVerDespesaNomeConta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -150,23 +118,26 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView491"
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Tipo de renda:"
-                android:textColor="#070505"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/spinnerAdicionarRendaTipoRenda"
+                android:id="@+id/textView33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="Valor da despesa: "
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewVerDespesaValorDespesa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -175,26 +146,26 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView501"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Data da renda:"
-                android:textColor="#070505"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/editTextAdicionarRendaDataRenda"
+                android:id="@+id/textView35"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10"
-                android:hint="dd/mm/aaaa"
-                android:inputType="textPersonName" />
+                android:text="Tipo da despesa: "
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewVerDespesaTipoDespesa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -203,25 +174,26 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView511"
+                android:id="@+id/textView52"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Observacao:"
-                android:textColor="#070505"
+                android:text="Data da despesa: "
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/editTextAdicionarRendaObservacao"
+            <TextView
+                android:id="@+id/textViewVerDespesaDataDespesa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -229,13 +201,23 @@
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/buttonAdicionarRendaSalvar"
+            <TextView
+                android:id="@+id/textView82"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Salvar" />
+                android:text="Observacao: "
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewVerDespesaObservacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

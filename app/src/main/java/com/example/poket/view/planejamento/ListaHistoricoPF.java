@@ -34,7 +34,7 @@ public class ListaHistoricoPF extends AppCompatActivity {
         String idPF = intent.getStringExtra("idPF");
 
         PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
-        dao.lerHistorico(recyclerView, context, idPF);
+        dao.lerHistorico(recyclerView, context, ListaHistoricoPF.this, idPF);
 
         imageViewVoltar.setOnClickListener(new View.OnClickListener() {
             @Override

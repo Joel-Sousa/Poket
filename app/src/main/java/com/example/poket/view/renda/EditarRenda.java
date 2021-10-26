@@ -45,6 +45,8 @@ public class EditarRenda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_renda);
 
+        // TODO SO NAO PODE EDIAR CONTA E VALOR DA RENDA
+
         textViewId = findViewById(R.id.textViewEditarRendaUid);
 
         editTextRenda = findViewById(R.id.editTextEditarRendaRenda);

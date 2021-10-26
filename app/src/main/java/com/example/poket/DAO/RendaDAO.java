@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.poket.DTO.ContaDTO;
-import com.example.poket.DTO.DespesaDTO;
+import com.example.poket.DTO.RendaDTO;
 import com.example.poket.DTO.RendaDTO;
 import com.example.poket.adapter.ContaAdapter;
 import com.example.poket.adapter.RendaAdapter;
@@ -263,5 +263,41 @@ public class RendaDAO {
                         Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
                     }
                 });
+    }
+
+    public void verRenda(String id, TextView textViewNomeRenda, TextView textViewNomeConta,
+                           TextView textViewValorRenda, TextView textViewTipoRenda,
+                           TextView textViewDataRenda, TextView textViewObservacao){
+
+        db.collection("rendas").document(user.getUid()).collection(user.getUid())
+                .document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+
+                        textViewNomeRenda.setText(document.getData().get("renda").toString());
+                        textViewNomeConta.setText(document.getData().get("conta").toString());
+                        textViewValorRenda.setText(document.getData().get("valorRenda").toString());
+                        textViewTipoRenda.setText(document.getData().get("tipoRenda").toString());
+                        textViewDataRenda.setText(document.getData().get("dataRenda").toString());
+                        textViewObservacao.setText(document.getData().get("observacao").toString());
+
+//                         Double.valueOf(document.getData().get("valor").toString());
+////                        db.collection("contas").document(user.getUid()).collection(user.getUid())
+////                                .document(idConta).update("valor", String.valueOf(valorAntigo1));
+
+                        Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d(Msg.INFO, "No such document");
+                    }
+                } else {
+                    Log.d(Msg.INFO, "get failed with ", task.getException());
+                }
+            }
+        });
+
     }
 }
