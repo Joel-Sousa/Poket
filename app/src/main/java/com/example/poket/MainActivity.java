@@ -41,12 +41,15 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextEmail, editTextSenha;
     Button buttonLogin;
 
+    Spinner spinnerTipoDespesa;
     // TODO RETIRAR TODOS OS IDS
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        spinnerTipoDespesa = findViewById(R.id.spinnerTst);
+//        Utilitario.listaTipoDespesa(spinnerTipoDespesa, getApplicationContext());
 
         editTextEmail = findViewById(R.id.editTexMainActivityEmail);
         editTextSenha = findViewById(R.id.editTextMainActivitySenha);

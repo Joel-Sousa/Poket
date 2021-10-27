@@ -33,6 +33,8 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
     PlanejamentoFinanceiroDTO dto = new PlanejamentoFinanceiroDTO();
     HistoricoPFDTO hdto = new HistoricoPFDTO();
 
+    String tipoPF = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         buttonSalvar = findViewById(R.id.buttonAdicionarPFSalvar);
         imageViewVoltar = findViewById(R.id.imageViewAdicionarPFVoltar);
 
-        Utilitario.listaTipoPF(spinnerTipoPF, getApplicationContext());
+        Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
 
         editTextDataInicial.addTextChangedListener(MaskEditUtil.mask(editTextDataInicial, MaskEditUtil.FORMAT_DATE));
         editTextDataInicial.setText(Utilitario.dataAtual());

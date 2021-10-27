@@ -22,13 +22,16 @@ import com.example.poket.view.renda.EditarRenda;
 
 public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
 
-    TextView textViewIdPF, textViewTipoPF, textViewValorAtual;
+    TextView textViewIdPF, textViewValorAtual;
     EditText editTextNomePF, editTextValorObjetivado,
             editTextDataInicial, editTextDataFinal;
+    Spinner spinnerTipoPF;
     ImageView imageViewVoltar;
     Button buttonEditar;
 
     PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
+
+    String tipoPF = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         textViewIdPF = findViewById(R.id.textViewEditarPFId);
 
         editTextNomePF = findViewById(R.id.editTextEditarPFNomePF);
-        textViewTipoPF = findViewById(R.id.textViewEditarPFTipoPF);
+        spinnerTipoPF = findViewById(R.id.spinnerEditarPFTipoPF);
         textViewValorAtual = findViewById(R.id.textViewEditarPFValorAtual);
         editTextValorObjetivado = findViewById(R.id.editTextEditarPFValorObjetivado);
         editTextDataInicial = findViewById(R.id.editTextEditarPFDataInicial);
@@ -46,14 +49,18 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         buttonEditar = findViewById(R.id.buttonEditarPFEditar);
         imageViewVoltar = findViewById(R.id.imageViewEditarPFVoltar);
 
+
         Intent intent = getIntent();
         textViewIdPF.setText(intent.getStringExtra("idPF"));
         editTextNomePF.setText(intent.getStringExtra("nomePF"));
-        textViewTipoPF.setText(intent.getStringExtra("tipoPF"));
+        tipoPF = intent.getStringExtra("tipoPF");
+//        textViewTipoPF.setText(intent.getStringExtra("tipoPF"));
         textViewValorAtual.setText(intent.getStringExtra("valorAtual"));
         editTextValorObjetivado.setText(intent.getStringExtra("valorObjetivado"));
         editTextDataInicial.setText(intent.getStringExtra("dataInicio"));
         editTextDataFinal.setText(intent.getStringExtra("dataFinal"));
+
+        Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
 
         editTextDataInicial.addTextChangedListener(MaskEditUtil.mask(editTextDataInicial, MaskEditUtil.FORMAT_DATE));
         editTextDataFinal.addTextChangedListener(MaskEditUtil.mask(editTextDataFinal, MaskEditUtil.FORMAT_DATE));
@@ -72,7 +79,7 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
                 PlanejamentoFinanceiroDTO dto = new PlanejamentoFinanceiroDTO();
                 dto.setIdPF(textViewIdPF.getText().toString());
                 dto.setNomePF(editTextNomePF.getText().toString());
-                dto.setTipoPF(textViewTipoPF.getText().toString());
+                dto.setTipoPF(spinnerTipoPF.getSelectedItem().toString());
                 dto.setValorAtual(textViewValorAtual.getText().toString());
                 dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
                 dto.setDataInicial(editTextDataInicial.getText().toString());

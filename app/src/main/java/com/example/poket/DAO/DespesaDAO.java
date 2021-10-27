@@ -49,8 +49,6 @@ public class DespesaDAO {
 
     public void cadastarDespesa(DespesaDTO dto, Activity activity) {
 
-
-
         Map<String, String> dadosDespesa = new HashMap<>();
 
         dadosDespesa.put("despesa", dto.getDespesa());

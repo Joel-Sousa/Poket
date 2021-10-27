@@ -53,15 +53,20 @@ public class Utilitario {
         ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
                 android.R.layout.simple_list_item_1, listTipoGasto);
         spinner.setAdapter(adapter_spinner);
+
+//        spinner.setSelection(adapter_spinner.getPosition("Moradia"));
     }
 
-    public static void listaTipoPF(Spinner spinner, Context context) {
+    public static void listaTipoPF(Spinner spinner, String tipoPF, Context context) {
         List<String> listTipoPF = Arrays.asList(
                 "Curto Prazo", "Medio Prazo", "Longo Prazo");
 
         ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
                 android.R.layout.simple_list_item_1, listTipoPF);
         spinner.setAdapter(adapter_spinner);
+
+        if(!tipoPF.equals(""))
+            spinner.setSelection(adapter_spinner.getPosition(tipoPF));
     }
 
     public static String dataAtual(){

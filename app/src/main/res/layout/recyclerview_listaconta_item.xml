@@ -39,15 +39,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView44"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Nome: "
-                        android:textColor="#000000"
-                        android:textStyle="bold" />
-
-                    <TextView
                         android:id="@+id/textViewRecyclerContaConta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -59,15 +50,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView86"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Valor: "
-                        android:textColor="#000000"
-                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textViewRecyclerContaValor"
