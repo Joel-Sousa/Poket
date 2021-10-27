@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,8 +38,10 @@ import java.util.ArrayList;
 
 public class ListaRenda extends AppCompatActivity {
 
+    EditText editTextBusca;
     ImageView imageViewVoltar;
     TextView textViewRendaValorTotal;
+    Button buttonBuscar;
 
     Context context;
     RecyclerView recyclerView;
@@ -49,8 +53,9 @@ public class ListaRenda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_renda);
 
-        // TODO IMPLEMENTAR A BUSCA DE RENDA
+        editTextBusca = findViewById(R.id.editTextListaRendaBusca);
 
+        buttonBuscar = findViewById(R.id.buttonListaRendaBusca);
         imageViewVoltar = findViewById(R.id.imageViewListaRendaVoltar);
         textViewRendaValorTotal = findViewById(R.id.textViewListaRendaValorTotal);
 
@@ -63,6 +68,14 @@ public class ListaRenda extends AppCompatActivity {
         dao.lerRendas(recyclerView, context, textViewRendaValorTotal);
 
         graficoBarChartRenda();
+
+        buttonBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String busca = editTextBusca.getText().toString();
+                dao.buscarRenda(recyclerView, context, textViewRendaValorTotal, busca);
+            }
+        });
 
         imageViewVoltar.setOnClickListener(new View.OnClickListener() {
             @Override

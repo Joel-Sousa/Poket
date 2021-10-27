@@ -107,8 +107,6 @@ public class PlanejamentoFinanceiroDAO {
 //                        Log.w(TAG, "Error adding document", e);
                     }
                 });
-
-
     }
 
     private void salvarHistoricoPF(HistoricoPFDTO hdto){

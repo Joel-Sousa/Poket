@@ -40,18 +40,21 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/editTextListaDespesaBusca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonListaDespesaBusca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -98,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView"
+                    android:text="100,00"
                     android:textColor="#0C0505"
                     android:textSize="20sp" />
             </LinearLayout>

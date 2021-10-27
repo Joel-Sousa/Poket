@@ -7,6 +7,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +38,10 @@ import java.util.ArrayList;
 
 public class ListaDespesa extends AppCompatActivity {
 
+    EditText editTextBusca;
     ImageView imageViewVoltar;
     TextView textViewDespesaValorTotal;
+    Button buttonBuscar;
 
     Context context;
     RecyclerView recyclerView;
@@ -51,8 +55,9 @@ public class ListaDespesa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_despesa);
 
-        // TODO IMPLEMENTAR A BUSCA DE DESPESA
+        editTextBusca = findViewById(R.id.editTextListaDespesaBusca);
 
+        buttonBuscar = findViewById(R.id.buttonListaDespesaBusca);
         imageViewVoltar = findViewById(R.id.imageViewListaDespesaVoltar);
         textViewDespesaValorTotal = findViewById(R.id.textViewListaDespesaValorTotal);
 
@@ -64,6 +69,14 @@ public class ListaDespesa extends AppCompatActivity {
         dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal);
 
         graficoBarChartDespesa();
+
+        buttonBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String busca = editTextBusca.getText().toString();
+                dao.buscarDespesa(recyclerView, context, textViewDespesaValorTotal, busca);
+            }
+        });
 
         imageViewVoltar.setOnClickListener(new View.OnClickListener() {
             @Override

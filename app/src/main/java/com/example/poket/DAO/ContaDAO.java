@@ -254,7 +254,8 @@ public class ContaDAO {
                             List<String> valorList = new ArrayList<>();
 
                             for(ContaDTO conta : listConta){
-                                if(conta.getConta().equals(busca)){
+                                if(conta.getConta().equalsIgnoreCase(busca)){
+//                                if(conta.getConta().contains(busca)){
                                     idList.add(conta.getId());
                                     contaList.add(conta.getConta());
                                     valorList.add(conta.getValor());

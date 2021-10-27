@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.poket.DTO.ContaDTO;
+import com.example.poket.DTO.DespesaDTO;
 import com.example.poket.DTO.RendaDTO;
 import com.example.poket.DTO.RendaDTO;
 import com.example.poket.adapter.ContaAdapter;
+import com.example.poket.adapter.DespesaAdapter;
 import com.example.poket.adapter.RendaAdapter;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
@@ -254,5 +256,84 @@ public class RendaDAO {
             }
         });
 
+    }
+
+    public void buscarRenda(RecyclerView recyclerView, Context context,TextView textViewValor,
+                              String busca){
+
+        List<RendaDTO> listRenda = new ArrayList<RendaDTO>();
+
+        db.collection("rendas").document(user.getUid()).collection(user.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            RecyclerView.Adapter  adapter;
+                            RecyclerView.LayoutManager layoutManager;
+                            double valorRenda = 0.0;
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                RendaDTO dto = new RendaDTO();
+                                dto.setId(document.getId());
+                                dto.setRenda(document.getData().get("renda").toString());
+                                dto.setValorRenda(document.getData().get("valorRenda").toString());
+                                dto.setTipoRenda(document.getData().get("tipoRenda").toString());
+                                dto.setDataRenda(document.getData().get("dataRenda").toString());
+                                dto.setObservacao(document.getData().get("observacao").toString());
+
+                                dto.setIdConta(document.getData().get("idConta").toString());
+                                dto.setConta(document.getData().get("conta").toString());
+
+                                listRenda.add(dto);
+//                                valorRenda += Double.valueOf(document.getData().get("valorRenda").toString());
+//                                Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
+                            }
+
+                            List<String> idList = new ArrayList<>();
+                            List<String> rendaList = new ArrayList<>();
+                            List<String> valorRendaList = new ArrayList<>();
+                            List<String> tipoRendaList = new ArrayList<>();
+                            List<String> dataRendaList = new ArrayList<>();
+                            List<String> observacaoList = new ArrayList<>();
+
+                            List<String> idContaList = new ArrayList<>();
+                            List<String> contaList = new ArrayList<>();
+
+                            for(RendaDTO renda : listRenda){
+                                if(renda.getRenda().equalsIgnoreCase(busca)){
+//                                if(conta.getConta().contains(busca)){
+                                    idList.add(renda.getId());
+                                    rendaList.add(renda.getRenda());
+                                    valorRendaList.add(renda.getValorRenda());
+                                    tipoRendaList.add(renda.getTipoRenda());
+                                    dataRendaList.add(renda.getDataRenda());
+                                    observacaoList.add(renda.getObservacao());
+
+                                    idContaList.add(renda.getIdConta());
+                                    contaList.add(renda.getConta());
+
+                                    valorRenda = Double.valueOf(renda.getValorRenda());
+                                }else if(busca.equals("")){
+                                    lerRendas(recyclerView, context ,textViewValor);
+                                }
+                            }
+
+                            if(!busca.equals("")){
+                                textViewValor.setText(String.valueOf(valorRenda));
+                                layoutManager = new LinearLayoutManager(context);
+                                recyclerView.setLayoutManager((layoutManager));
+                                adapter = new RendaAdapter(context, idList, rendaList, valorRendaList,
+                                        tipoRendaList, dataRendaList, observacaoList,
+                                        idContaList, contaList);
+                                recyclerView.setAdapter(adapter);
+                            }
+
+                        } else {
+                            Log.w(Msg.ERROR, Msg.DOCUMENTO_F, task.getException());
+                        }
+                    }
+                });
     }
 }
