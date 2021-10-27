@@ -7,7 +7,7 @@ public class HistoricoPFDTO {
     private String dataHistorico;
 
     private String idConta;
-    private String nomeConta;
+    private String conta;
     private String valorConta;
 
     public String getIdHistorico() {
@@ -34,12 +34,12 @@ public class HistoricoPFDTO {
         this.idConta = idConta;
     }
 
-    public String getNomeConta() {
-        return nomeConta;
+    public String getConta() {
+        return conta;
     }
 
-    public void setNomeConta(String nomeConta) {
-        this.nomeConta = nomeConta;
+    public void setConta(String conta) {
+        this.conta = conta;
     }
 
     public String getValorHistoricoPF() {

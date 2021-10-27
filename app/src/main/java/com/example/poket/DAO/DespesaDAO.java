@@ -46,7 +46,11 @@ public class DespesaDAO {
     }
 
     public void cadastarDespesa(DespesaDTO dto, Activity activity) {
+
+
+
         Map<String, String> dadosDespesa = new HashMap<>();
+
         dadosDespesa.put("despesa", dto.getDespesa());
         dadosDespesa.put("valorDespesa", dto.getValorDespesa());
         dadosDespesa.put("tipoDespesa", dto.getTipoDespesa());
@@ -55,7 +59,6 @@ public class DespesaDAO {
 
         dadosDespesa.put("idConta", dto.getIdConta());
         dadosDespesa.put("conta", dto.getConta());
-//        dadosDespesa.put("valorConta", dto.getValorConta());
 
             db.collection("despesas").document(user.getUid()).collection(user.getUid())
                     .document()
@@ -72,7 +75,6 @@ public class DespesaDAO {
                                     .document(dto.getIdConta())
                                     .update("valor", valorContaTotal);
 
-    //                        alterarValorConta(idConta, dto.getContaValor(), dto.getValorDespesa());
                             Utilitario.toast(activity.getApplicationContext(), Msg.CADASTRADO);
                             activity.finish();
                         }
@@ -109,7 +111,6 @@ public class DespesaDAO {
 
                                 dto.setIdConta(document.getData().get("idConta").toString());
                                 dto.setConta(document.getData().get("conta").toString());
-//                                dto.setValorConta(document.getData().get("valorConta").toString());
 
                                 listDespesa.add(dto);
                                 valorDespesa += Double.valueOf(document.getData().get("valorDespesa").toString());
@@ -127,7 +128,6 @@ public class DespesaDAO {
 
                             List<String> idContaList = new ArrayList<>();
                             List<String> contaList = new ArrayList<>();
-//                            List<String> valorContaList = new ArrayList<>();
 
                             for(DespesaDTO despesa : listDespesa){
                                 idList.add(despesa.getId());
@@ -139,7 +139,6 @@ public class DespesaDAO {
 
                                 idContaList.add(despesa.getIdConta());
                                 contaList.add(despesa.getConta());
-//                                valorContaList.add(despesa.getValorConta());
                             }
 
                             layoutManager = new LinearLayoutManager(context);
@@ -158,50 +157,7 @@ public class DespesaDAO {
                 });
     }
 
-    public void editarDespesa(DespesaDTO dto, Activity activity,
-                              String idContaAntiga, String valorDespesaAntiga){
-
-        double valorConta = 0.0;
-
-        if(idContaAntiga.equals(dto.getIdConta())){
-            valorConta = (Double.valueOf(dto.getValorConta()) + Double.valueOf(valorDespesaAntiga)) - Double.valueOf(dto.getValorDespesa());
-
-            db.collection("contas").document(user.getUid()).collection(user.getUid())
-                    .document(idContaAntiga).update("valor", String.valueOf(valorConta));
-        }else{
-
-            db.collection("contas")
-                    .document(user.getUid()).collection(user.getUid()).document(idContaAntiga)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-//                                                  double valorAtual = Double.valueOf(document.getData().get("valorAtual").toString());
-
-                                    String valorAtualConta = document.getData().get("valor").toString();
-
-                                    double valorDevolverConta = Double.valueOf(valorAtualConta) + Double.valueOf(valorDespesaAntiga);
-
-                                    db.collection("contas").document(user.getUid()).collection(user.getUid())
-                                            .document(idContaAntiga).update("valor", String.valueOf(valorDevolverConta));
-
-                                } else {
-                                    Log.d(Msg.INFO, "No such document");
-                                }
-                            } else {
-                                Log.d("TAG", "get failed with ", task.getException());
-                            }
-                        }
-                    });
-
-            double valorNovoConta = Double.valueOf(dto.getValorConta()) - Double.valueOf(dto.getValorDespesa());
-
-            db.collection("contas").document(user.getUid()).collection(user.getUid())
-                    .document(dto.getIdConta()).update("valor", String.valueOf(valorNovoConta));
-        }
+    public void editarDespesa(DespesaDTO dto, Activity activity){
 
         Map<String, String> data = new HashMap<>();
 
@@ -295,10 +251,6 @@ public class DespesaDAO {
                         textViewTipoDespesa.setText(document.getData().get("tipoDespesa").toString());
                         textViewDataDespesa.setText(document.getData().get("dataDespesa").toString());
                         textViewObservacao.setText(document.getData().get("observacao").toString());
-
-//                         Double.valueOf(document.getData().get("valor").toString());
-////                        db.collection("contas").document(user.getUid()).collection(user.getUid())
-////                                .document(idConta).update("valor", String.valueOf(valorAntigo1));
 
                         Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
                     } else {

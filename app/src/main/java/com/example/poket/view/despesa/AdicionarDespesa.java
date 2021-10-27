@@ -35,8 +35,6 @@ public class AdicionarDespesa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_despesa);
 
-        // TODO trocar data para o padrao americano yyyy-MM-dd
-
         editTextDespesa = findViewById(R.id.editTextAdicionarDespesaDespesa);
         editTextValorDespesa = findViewById(R.id.editTextAdicionarDespesaValorDespesa);
         spinnerTipoDespesa = findViewById(R.id.spinnerAdicionarDespesaTipoDespesa);
@@ -62,6 +60,7 @@ public class AdicionarDespesa extends AppCompatActivity {
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dto.setDespesa(editTextDespesa.getText().toString());
                 dto.setValorDespesa(editTextValorDespesa.getText().toString());
                 dto.setTipoDespesa(spinnerTipoDespesa.getSelectedItem().toString());
@@ -108,6 +107,7 @@ public class AdicionarDespesa extends AppCompatActivity {
             editTextDataDespesa.requestFocus();
             editTextDataDespesa.setText("");
         }else{
+            dto.setDataDespesa(Utilitario.convertBrToUsa(dto.getDataDespesa()));
             dao.cadastarDespesa(dto, AdicionarDespesa.this);
         }
     }
@@ -115,7 +115,6 @@ public class AdicionarDespesa extends AppCompatActivity {
     public void mock(){
         editTextDespesa.setText("carroTst");
         editTextValorDespesa.setText("100");
-//        editTextDataDespesa.setText("11/11/1111");
         editTextObservacao.setText("pagoTst");
     }
 }

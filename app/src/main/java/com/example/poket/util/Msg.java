@@ -54,4 +54,6 @@ public class Msg {
     public static final String VALOR_OBJETIVADO = "Preencha o campo de valor objetivado.";
     public static final String DATA_INICIAL = "Preencha o campo de data inicial.";
     public static final String DATA_FINAL = "Preencha o campo de data final.";
+    public static final String DATA_INICIAL_VALIDA = "Insira uma data inicial valida.";
+    public static final String DATA_FINAL_VALIDA = "Insira uma data final valida.";
 }

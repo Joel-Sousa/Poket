@@ -28,11 +28,6 @@ public class Utilitario {
         Toast.makeText(context, mensagem, Toast.LENGTH_LONG).show();
     }
 
-//    public static void toastValidador(Context context, String mensagem, EditText editText){
-//        Toast.makeText(context, mensagem, Toast.LENGTH_LONG).show();
-//        editText.requestFocus();
-//    }
-
     public static void semConta(){
         List<ContaDTO> listConta = new ArrayList<>();
         ContaDTO d = new ContaDTO();
@@ -68,12 +63,19 @@ public class Utilitario {
                 android.R.layout.simple_list_item_1, listTipoPF);
         spinner.setAdapter(adapter_spinner);
     }
-    public static void logError(Context context){
-
-    }
 
     public static String dataAtual(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(new Date());
+    }
+
+    public static String convertBrToUsa(String dataConveter){
+        String[] parts = dataConveter.split("/");
+        return parts[2]+"-"+parts[1]+"-"+parts[0];
+    }
+
+    public static String convertUsaToBr(String dataConveter){
+        String[] parts = dataConveter.split("-");
+        return parts[2]+"/"+parts[1]+"/"+parts[0];
     }
 }

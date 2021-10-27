@@ -165,7 +165,6 @@ public class ContaDAO {
 
     public void listaContaSpinner(Spinner spinnerConta, Context context, TextView textViewConta,
                                   TextView textViewIdConta){
-//        List<ContaDTO> listConta = new ArrayList<ContaDTO>();
 
         db.collection("contas")
                 .document(user.getUid()).collection(user.getUid()).get()
@@ -188,8 +187,6 @@ public class ContaDAO {
                             if(listConta.isEmpty()){
                                 semConta();
                             }
-
-//                            Log.d("tst", listConta.toString());
 
                             ArrayAdapter<ContaDTO> adapterConta =
                                     new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,

@@ -48,8 +48,6 @@ public class ListagemPlanejamentoFinanceiro extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListagemPF);
 
-//        View view = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
-
         View view = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
         dao.lerPlanejamentoFinanceiro(recyclerView, context , ListagemPlanejamentoFinanceiro.this, view);
 

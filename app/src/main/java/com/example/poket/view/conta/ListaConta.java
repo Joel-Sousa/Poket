@@ -46,8 +46,6 @@ public class ListaConta extends AppCompatActivity {
 
         dao.lerContas(recyclerView, context, textViewContaValor);
 
-//        buscaBanco();
-
         buttonAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -74,7 +74,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
                 dto.setDataFinal(editTextDataFinal.getText().toString());
 
                 hdto.setIdConta(textViewIdConta.getText().toString());
-                hdto.setNomeConta(spinnerConta.getSelectedItem().toString());
+                hdto.setConta(spinnerConta.getSelectedItem().toString());
                 hdto.setValorConta(textViewContaValor.getText().toString());
 
                 hdto.setValorHistoricoPF(editTextValoAtual.getText().toString());
@@ -112,17 +112,25 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         }else if(dto.getDataFinal().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
             editTextDataFinal.requestFocus();
+        }else if(dto.getDataInicial().length() < 10){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL_VALIDA);
+            editTextDataInicial.requestFocus();
+            editTextDataInicial.setText("");
+        }else if(dto.getDataFinal().length() < 10){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL_VALIDA);
+            editTextDataFinal.requestFocus();
+            editTextDataFinal.setText("");
         }else{
+            dto.setDataInicial(Utilitario.convertBrToUsa(dto.getDataInicial()));
+            dto.setDataFinal(Utilitario.convertBrToUsa(dto.getDataFinal()));
             dao.cadastrarPlanejamentoFinanceiro(dto, hdto, AdicionarPlanejamentoFinanceiro.this);
         }
     }
 
     public void mock(){
         editTextNomePF.setText("nomeTst");
-//        editTextTipoPF.setText("Curto prazo");
         editTextValoAtual.setText("100");
         editTextValorObjetivado.setText("900");
         editTextDataFinal.setText("12/12/2021");
-//        editTextDataDespesa.setText("11/11/1111");
     }
 }

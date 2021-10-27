@@ -108,16 +108,8 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
             public void onClick(View view) {
                 Intent intent = new Intent(context, VerDespesa.class);
                 intent.putExtra("id", idList.get(position));
-//                intent.putExtra("nomePF", nomePFList.get(position));
-//                intent.putExtra("tipoPF", tipoPFList.get(position));
-//                intent.putExtra("valorAtual", valorAtualList.get(position));
-//                intent.putExtra("valorObjetivado", valorObjetivadoList.get(position));
-//                intent.putExtra("dataInicial", dataInicialList.get(position));
-//                intent.putExtra("dataFinal", dataFinalList.get(position));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 view.getContext().startActivity(intent);
-
-//                Log.d(Msg.INFO, "Click1");
             }
         });
 
@@ -134,7 +126,6 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
 
                 intent.putExtra("idConta", idContaList.get(position));
                 intent.putExtra("conta", contaList.get(position));
-//                intent.putExtra("valorConta", contaValorList.get(position));
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 view.getContext().startActivity(intent);

@@ -12,7 +12,6 @@ public class DespesaDTO {
     private String idConta;
     private String conta;
     private String valorConta;
-//    private String despesaFixa;
 
     public String getId() {
         return id;
@@ -61,14 +60,6 @@ public class DespesaDTO {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
-
-//    public String getDespesaFixa() {
-//        return despesaFixa;
-//    }
-
-//    public void setDespesaFixa(String despesaFixa) {
-//        this.despesaFixa = despesaFixa;
-//    }
 
     public String getConta() {
         return conta;

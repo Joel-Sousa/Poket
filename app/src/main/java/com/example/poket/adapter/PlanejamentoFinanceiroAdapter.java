@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
 import com.example.poket.R;
 import com.example.poket.util.Msg;
+import com.example.poket.util.Utilitario;
 import com.example.poket.view.despesa.EditarDespesa;
 import com.example.poket.view.planejamento.EditarPlanejamentoFinanceiro;
 import com.example.poket.view.planejamento.ListaPlanejamentoFinanceiro;
@@ -103,23 +104,15 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
         holder.textViewNomePF.setText(nomePFList.get(position));
         holder.textViewTipoPF.setText(tipoPFList.get(position));
         holder.textViewValorAtual.setText(valorAtualList.get(position));
-        holder.textViewDataFinal.setText(dataFinalList.get(position));
+        holder.textViewDataFinal.setText(Utilitario.convertUsaToBr(dataFinalList.get(position)));
 
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ListaPlanejamentoFinanceiro.class);
                 intent.putExtra("idPF", idPFList.get(position));
-//                intent.putExtra("nomePF", nomePFList.get(position));
-//                intent.putExtra("tipoPF", tipoPFList.get(position));
-//                intent.putExtra("valorAtual", valorAtualList.get(position));
-//                intent.putExtra("valorObjetivado", valorObjetivadoList.get(position));
-//                intent.putExtra("dataInicial", dataInicialList.get(position));
-//                intent.putExtra("dataFinal", dataFinalList.get(position));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 view.getContext().startActivity(intent);
-
-//                Log.d(Msg.INFO, "Click1");
             }
         });
 

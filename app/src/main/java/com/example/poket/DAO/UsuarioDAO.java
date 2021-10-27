@@ -120,7 +120,6 @@ public class UsuarioDAO {
                                 });
                     }
                 });
-        // [END reauthenticate]
     }
 
     public void autenticarUsuario(UsuarioDTO dto, Activity activity) {
@@ -164,7 +163,6 @@ public class UsuarioDAO {
 
             reautenticacao(dto.getApelido(), dto.getEmail(), dto.getSenha(), false);
 
-//            activity.finish();
             Log.i(Msg.SUCESSO, Msg.ALTERADO);
 
             Utilitario.toast(activity.getApplicationContext(), Msg.ALTERADO);

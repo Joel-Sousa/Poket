@@ -77,6 +77,7 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
                 dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
                 dto.setDataInicial(editTextDataInicial.getText().toString());
                 dto.setDataFinal(editTextDataFinal.getText().toString());
+
                 validarConta(dto);
             }
         });
@@ -102,7 +103,17 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         }else if(dto.getDataFinal().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
             editTextDataFinal.requestFocus();
+        }else if(dto.getDataInicial().length() < 10){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL_VALIDA);
+            editTextDataInicial.requestFocus();
+            editTextDataInicial.setText("");
+        }else if(dto.getDataFinal().length() < 10){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL_VALIDA);
+            editTextDataFinal.requestFocus();
+            editTextDataFinal.setText("");
         }else {
+            dto.setDataInicial(Utilitario.convertBrToUsa(dto.getDataInicial()));
+            dto.setDataFinal(Utilitario.convertBrToUsa(dto.getDataFinal()));
             dao.editarPlanejamentoFinanceiro(dto, EditarPlanejamentoFinanceiro.this);
         }
     }

@@ -123,31 +123,6 @@ public class EditarUsuario extends AppCompatActivity {
         }
     }
 
-//    private void lerElementos(){
-//
-//        DocumentReference docRef = db.collection("usuarios").document(user.getUid());
-//
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Log.i(Msg.INFO, "DocumentSnapshot data: " + document.getData());
-//
-//                        editTextApelido.setText(document.getData().get("apelido").toString());
-//                        editTextEmail.setText(document.getData().get("email").toString());
-//
-//                    } else {
-//                        Log.e(Msg.ERROR, "No such document");
-//                    }
-//                } else {
-//                    Log.e(Msg.ERROR, "get failed with ", task.getException());
-//                }
-//            }
-//        });
-//    }
-
     public void mock(){
         editTextSenha.setText("123123");
         editTextRepetirSenha.setText("123123");

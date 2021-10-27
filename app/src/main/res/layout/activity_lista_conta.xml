@@ -46,7 +46,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -56,7 +56,7 @@
 
             <EditText
                 android:id="@+id/editTextListaContaBuscar"
-                android:layout_width="290dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -68,14 +68,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Buscar" />
-        </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonListaContaAdicionar"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="270dp"
-            android:text="Adicionar" />
+            <Button
+                android:id="@+id/buttonListaContaAdicionar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adicionar" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

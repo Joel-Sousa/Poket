@@ -61,7 +61,7 @@
             android:text="TextView" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Renda:"
+                android:text="Renda: "
                 android:textColor="#070505"
                 android:textSize="20sp" />
 
@@ -88,7 +88,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -98,32 +98,32 @@
 
             <TextView
                 android:id="@+id/textView4734"
-                android:layout_width="30dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Conta:"
+                android:text="Conta: "
                 android:textColor="#070505"
                 android:textSize="20sp" />
 
-            <Spinner
-                android:id="@+id/spinnerEditarRendaConta"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+            <!--            <Spinner-->
+            <!--                android:id="@+id/spinnerEditarRendaConta"-->
+            <!--                android:layout_width="100dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="1" />-->
 
             <TextView
-                android:id="@+id/textViewEditarRendaContaValor"
-                android:layout_width="30dp"
+                android:id="@+id/textViewEditarRendaNomeConta"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
-                android:textColor="#090303"
+                android:text="nomeConta"
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -136,21 +136,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Valor da renda:"
+                android:text="Valor da renda R$: "
                 android:textColor="#070505"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/editTextEditarRendaValorRenda"
+            <TextView
+                android:id="@+id/textViewEditarRendaValorRenda"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                android:text="100,00"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -160,10 +162,10 @@
 
             <TextView
                 android:id="@+id/textView4934"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Tipo de renda:"
+                android:text="Tipo de renda: "
                 android:textColor="#070505"
                 android:textSize="20sp" />
 
@@ -175,7 +177,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -188,7 +190,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Data da renda:"
+                android:text="Data da renda: "
                 android:textColor="#070505"
                 android:textSize="20sp" />
 
@@ -203,7 +205,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -216,7 +218,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Observacao:"
+                android:text="Observacao: "
                 android:textColor="#070505"
                 android:textSize="20sp" />
 
@@ -230,9 +232,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
@@ -242,6 +244,8 @@
                 android:id="@+id/buttonEditarRendaEditar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:text="Editar" />
 
@@ -249,6 +253,8 @@
                 android:id="@+id/buttonEditarRendaExcluir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:text="Excluir" />
         </LinearLayout>

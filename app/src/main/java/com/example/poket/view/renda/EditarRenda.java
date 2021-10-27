@@ -27,37 +27,34 @@ import com.example.poket.view.despesa.EditarDespesa;
 
 public class EditarRenda extends AppCompatActivity {
 
-    EditText editTextRenda, editTextValorRenda, editTextDataRenda, editTextObservacao;
-    TextView textViewIdConta, textViewValorConta, textViewId;
-    Spinner spinnerConta, spinnerTipoRenda;
-    Switch switchRendaFixa;
+    EditText editTextRenda, editTextDataRenda, editTextObservacao;
+    TextView textViewIdConta, textViewId, textViewConta, textViewValorRenda;
+    Spinner spinnerTipoRenda;
     ImageView imageViewVoltar;
     Button buttonEditar, buttonExcluir;
 
     RendaDAO dao = new RendaDAO();
 
-    String idContaAntiga = "";
-//    String contaValorAntigo = "";
+    String idConta = "";
     String valorRendaAntiga = "";
+
+    // TODO MARCAR O SPINER SELECIONADO
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_renda);
 
-        // TODO SO NAO PODE EDIAR CONTA E VALOR DA RENDA
-
         textViewId = findViewById(R.id.textViewEditarRendaUid);
 
         editTextRenda = findViewById(R.id.editTextEditarRendaRenda);
-        editTextValorRenda = findViewById(R.id.editTextEditarRendaValorRenda);
+        textViewValorRenda = findViewById(R.id.textViewEditarRendaValorRenda);
         spinnerTipoRenda = findViewById(R.id.spinnerEditarRendaTipoRenda);
         editTextDataRenda = findViewById(R.id.editTextEditarRendaDataRenda);
         editTextObservacao = findViewById(R.id.editTextEditarRendaObservacao);
 
         textViewIdConta = findViewById(R.id.textViewEditarRendaIdConta);
-        spinnerConta = findViewById(R.id.spinnerEditarRendaConta);
-        textViewValorConta = findViewById(R.id.textViewEditarRendaContaValor);
+        textViewConta = findViewById(R.id.textViewEditarRendaNomeConta);
 
         imageViewVoltar = findViewById(R.id.imageViewEditarRendaVoltar);
         buttonEditar = findViewById(R.id.buttonEditarRendaEditar);
@@ -66,21 +63,17 @@ public class EditarRenda extends AppCompatActivity {
         editTextDataRenda.addTextChangedListener(MaskEditUtil.mask(editTextDataRenda, MaskEditUtil.FORMAT_DATE));
         Utilitario.listaTipoRenda(spinnerTipoRenda, getApplicationContext());
 
-        ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, EditarRenda.this, textViewValorConta, textViewIdConta);
-
         Intent intent = getIntent();
         textViewId.setText(intent.getStringExtra("id"));
         editTextRenda.setText(intent.getStringExtra("renda"));
-        editTextValorRenda.setText(intent.getStringExtra("valorRenda"));
-        editTextDataRenda.setText(intent.getStringExtra("dataRenda"));
+        textViewValorRenda.setText(intent.getStringExtra("valorRenda"));
+        editTextDataRenda.setText(Utilitario.convertUsaToBr(intent.getStringExtra("dataRenda")));
         editTextObservacao.setText(intent.getStringExtra("observacao"));
 
-        idContaAntiga = intent.getStringExtra("idConta");
-//        contaValorAntigo = intent.getStringExtra("valorConta");
-        valorRendaAntiga = intent.getStringExtra("valorRenda");
+        textViewConta.setText(intent.getStringExtra("conta"));
 
-//        Utilitario.toast(getApplicationContext(), valorRendaAntiga);
+        idConta = intent.getStringExtra("idConta");
+        valorRendaAntiga = intent.getStringExtra("valorRenda");
 
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,14 +81,13 @@ public class EditarRenda extends AppCompatActivity {
                 RendaDTO dto = new RendaDTO();
                 dto.setId(textViewId.getText().toString());
                 dto.setRenda(editTextRenda.getText().toString());
-                dto.setValorRenda(editTextValorRenda.getText().toString());
+                dto.setValorRenda(textViewValorRenda.getText().toString());
                 dto.setTipoRenda(spinnerTipoRenda.getSelectedItem().toString());
                 dto.setDataRenda(editTextDataRenda.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
 
-                dto.setIdConta(textViewIdConta.getText().toString());
-                dto.setConta(spinnerConta.getSelectedItem().toString());
-                dto.setValorConta(textViewValorConta.getText().toString());
+                dto.setIdConta(idConta);
+                dto.setConta(textViewConta.getText().toString());
 
                 validarCampos(dto);
             }
@@ -111,7 +103,7 @@ public class EditarRenda extends AppCompatActivity {
                 confirmacao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dao.deletarRenda(textViewId.getText().toString(), idContaAntiga, valorRendaAntiga);
+                        dao.deletarRenda(textViewId.getText().toString(), idConta, valorRendaAntiga);
                         Toast.makeText(getApplicationContext(), "Dados excluídos com sucesso!", Toast.LENGTH_LONG).show();
 
                         finish();
@@ -140,22 +132,16 @@ public class EditarRenda extends AppCompatActivity {
         }else if(dto.getRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.RENDA);
             editTextRenda.requestFocus();
-        }else if(dto.getValorRenda().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_RENDA);
-            editTextValorRenda.requestFocus();
-        }else if(dto.getTipoRenda().length() == 0){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_RENDA, Toast.LENGTH_LONG).show();
-            spinnerTipoRenda.requestFocus();
         }else if(dto.getDataRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
             editTextDataRenda.requestFocus();
         }else if(dto.getDataRenda().length() < 10){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA_VALIDA);
+            Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
             editTextDataRenda.requestFocus();
             editTextDataRenda.setText("");
         }else {
-            dao.editarRenda(dto, EditarRenda.this, idContaAntiga, valorRendaAntiga);
-//            finish();
+            dto.setDataRenda(Utilitario.convertBrToUsa(dto.getDataRenda()));
+            dao.editarRenda(dto, EditarRenda.this);
         }
     }
 }

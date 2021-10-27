@@ -77,14 +77,6 @@ public class RendaDTO{
         this.observacao = observacao;
     }
 
-//    public String getRendaFixa() {
-//        return rendaFixa;
-//    }
-
-//    public void setRendaFixa(String rendaFixa) {
-//        this.rendaFixa = rendaFixa;
-//    }
-
     public String getIdConta() { return idConta;}
 
     public void setIdConta(String idConta) {

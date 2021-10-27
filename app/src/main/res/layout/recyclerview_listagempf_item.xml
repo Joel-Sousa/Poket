@@ -31,33 +31,94 @@
                     android:text="idpf"
                     android:textColor="#000000" />
 
-                <TextView
-                    android:id="@+id/textViewRecyclerListagemPFNomePF"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="nomepf"
-                    android:textColor="#000000" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textViewRecyclerListagemPFTipoPF"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="tipopf"
-                    android:textColor="#000000" />
+                    <TextView
+                        android:id="@+id/textView97"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nome PF: "
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textViewRecyclerListagemPFValorAtual"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="valorAtual"
-                    android:textColor="#000000" />
+                    <TextView
+                        android:id="@+id/textViewRecyclerListagemPFNomePF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="nomepf"
+                        android:textColor="#000000" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textViewRecyclerListagemPFDataFinal"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="dataFinal"
-                    android:textColor="#000000" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView99"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tipo PF: "
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewRecyclerListagemPFTipoPF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="tipopf"
+                        android:textColor="#000000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView100"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Valor R$: "
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewRecyclerListagemPFValorAtual"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="valorAtual"
+                        android:textColor="#000000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView101"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Data Final: "
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewRecyclerListagemPFDataFinal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="dataFinal"
+                        android:textColor="#000000" />
+                </LinearLayout>
 
             </LinearLayout>
 

@@ -151,48 +151,7 @@ public class RendaDAO {
 
                 });
     }
-    public void editarRenda(RendaDTO dto, Activity activity,
-                            String idContaAntiga, String valorRendaAntiga){
-
-        double valorConta = 0.0;
-
-        if(idContaAntiga.equals(dto.getIdConta())){
-            valorConta = (Double.valueOf(dto.getValorConta()) - Double.valueOf(valorRendaAntiga)) + Double.valueOf(dto.getValorRenda());
-
-            db.collection("contas").document(user.getUid()).collection(user.getUid())
-                    .document(idContaAntiga).update("valor", String.valueOf(valorConta));
-        }else{
-
-            db.collection("contas")
-                    .document(user.getUid()).collection(user.getUid()).document(idContaAntiga)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    String valorAtualConta = document.getData().get("valor").toString();
-
-                                    double valorDevolverConta = Double.valueOf(valorAtualConta) - Double.valueOf(valorRendaAntiga);
-
-                                    db.collection("contas").document(user.getUid()).collection(user.getUid())
-                                            .document(idContaAntiga).update("valor", String.valueOf(valorDevolverConta));
-
-                                } else {
-                                    Log.d(Msg.INFO, "No such document");
-                                }
-                            } else {
-                                Log.d("TAG", "get failed with ", task.getException());
-                            }
-                        }
-                    });
-
-            double valorNovoConta = Double.valueOf(dto.getValorConta()) + Double.valueOf(dto.getValorRenda());
-
-            db.collection("contas").document(user.getUid()).collection(user.getUid())
-                    .document(dto.getIdConta()).update("valor", String.valueOf(valorNovoConta));
-        }
+    public void editarRenda(RendaDTO dto, Activity activity){
 
         Map<String, String> data = new HashMap<>();
 
@@ -284,10 +243,6 @@ public class RendaDAO {
                         textViewTipoRenda.setText(document.getData().get("tipoRenda").toString());
                         textViewDataRenda.setText(document.getData().get("dataRenda").toString());
                         textViewObservacao.setText(document.getData().get("observacao").toString());
-
-//                         Double.valueOf(document.getData().get("valor").toString());
-////                        db.collection("contas").document(user.getUid()).collection(user.getUid())
-////                                .document(idConta).update("valor", String.valueOf(valorAntigo1));
 
                         Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
                     } else {

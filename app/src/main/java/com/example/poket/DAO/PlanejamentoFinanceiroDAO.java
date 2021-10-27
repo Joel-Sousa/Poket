@@ -86,9 +86,6 @@ public class PlanejamentoFinanceiroDAO {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
 
-                        Log.d("===", "DocumentSnapshot added with ID: " + documentReference.getId());
-//                        String idPF =  documentReference.getId();
-
                         double resultado = Double.valueOf(hdto.getValorConta()) - Double.valueOf(dto.getValorAtual());
                         String valorContaTotal = String.valueOf(resultado);
 
@@ -116,14 +113,12 @@ public class PlanejamentoFinanceiroDAO {
 
     private void salvarHistoricoPF(HistoricoPFDTO hdto){
 
-        // TODO alterar "nomeConta" para "conta"
-
         Map<String, String> dadosHistoricoPF = new HashMap<>();
         dadosHistoricoPF.put("idPF", hdto.getIdPF());
         dadosHistoricoPF.put("idConta", hdto.getIdConta());
-        dadosHistoricoPF.put("nomeConta", hdto.getNomeConta());
+        dadosHistoricoPF.put("conta", hdto.getConta());
         dadosHistoricoPF.put("valorHistoricoPF", hdto.getValorHistoricoPF());
-        dadosHistoricoPF.put("dataHistorico", Utilitario.dataAtual());
+        dadosHistoricoPF.put("dataHistorico", Utilitario.convertBrToUsa(Utilitario.dataAtual()));
 
         db.collection("planejamentoFinanceiro").document(user.getUid())
                 .collection(user.getUid())
@@ -194,8 +189,6 @@ public class PlanejamentoFinanceiroDAO {
                                     valorObjetivadoList, dataInicialList, dataFinalList, activity, view);
                             recyclerView.setAdapter(adapter);
 
-//                            adicionarValorPF(activity, view);
-
                         } else {
                             Log.w(Msg.ERROR, Msg.ERRORM, task.getException());
                         }
@@ -228,9 +221,9 @@ public class PlanejamentoFinanceiroDAO {
 
                         double porcentagemValor = (valorAtual / valorObjetivado) * 100;
 
-                        String dataInicio = document.getData().get("dataInicial").toString();
+                        String dataInicio = Utilitario.convertUsaToBr(document.getData().get("dataInicial").toString());
                         String dataAtual = Utilitario.dataAtual();
-                        String dataFinal = document.getData().get("dataFinal").toString();
+                        String dataFinal = Utilitario.convertUsaToBr(document.getData().get("dataFinal").toString());
 
                         double porcentagemData = porcentagemData(dataInicio, dataAtual, dataFinal);
 
@@ -451,7 +444,7 @@ public class PlanejamentoFinanceiroDAO {
                                 dto.setIdHistorico(document.getId());
                                 dto.setIdPF(document.getData().get("idPF").toString());
                                 dto.setIdConta(document.getData().get("idConta").toString());
-                                dto.setNomeConta(document.getData().get("nomeConta").toString());
+                                dto.setConta(document.getData().get("conta").toString());
                                 dto.setValorConta(document.getData().get("valorHistoricoPF").toString());
                                 dto.setDataHistorico(document.getData().get("dataHistorico").toString());
                                 historicoPFList.add(dto);
@@ -461,7 +454,7 @@ public class PlanejamentoFinanceiroDAO {
                             List<String> idHistoricoList = new ArrayList<>();
                             List<String> idPFList = new ArrayList<>();
                             List<String> idContaList = new ArrayList<>();
-                            List<String> nomeContaList = new ArrayList<>();
+                            List<String> contaList = new ArrayList<>();
                             List<String> valorContaList = new ArrayList<>();
                             List<String> dataHistoricoList = new ArrayList<>();
 
@@ -469,7 +462,7 @@ public class PlanejamentoFinanceiroDAO {
                                 idHistoricoList.add(historico.getIdHistorico());
                                 idPFList.add(historico.getIdPF());
                                 idContaList.add(historico.getIdConta());
-                                nomeContaList.add(historico.getNomeConta());
+                                contaList.add(historico.getConta());
                                 valorContaList.add(historico.getValorConta());
                                 dataHistoricoList.add(historico.getDataHistorico());
                             }
@@ -477,7 +470,7 @@ public class PlanejamentoFinanceiroDAO {
                             layoutManager = new LinearLayoutManager(context);
                             recyclerView.setLayoutManager((layoutManager));
                             adapter = new HistoricoPFAdapter(context, activity,
-                                    idHistoricoList, idPFList, idContaList, nomeContaList,
+                                    idHistoricoList, idPFList, idContaList, contaList,
                                     valorContaList, dataHistoricoList);
                             recyclerView.setAdapter(adapter);
 
@@ -515,7 +508,7 @@ public class PlanejamentoFinanceiroDAO {
             public void onClick(View view) {
 //                String idPF = tipoPFList.get(0);
                 String idConta = textViewIdConta.getText().toString();
-                String nomeConta = spinnerConta.getSelectedItem().toString();
+                String conta = spinnerConta.getSelectedItem().toString();
                 String valorConta = textViewContaValor.getText().toString();
                 String valorAtual = editTextValor.getText().toString();
 
@@ -524,17 +517,23 @@ public class PlanejamentoFinanceiroDAO {
                     editTextValor.requestFocus();
                 }else{
 
-                    adicionarValor(idPF, idConta , nomeConta, valorConta, valorAtual);
+                    adicionarValor(idPF, idConta , conta, valorConta, valorAtual);
                     Utilitario.toast(activity.getApplicationContext(), "Adicionado");
 
-//                    activity.recreate();
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    activity.finish();
-                    activity.overridePendingTransition(0, 0);
-                    activity.startActivity(activity.getIntent());
-                    activity.overridePendingTransition(0, 0);
+                    try {
+                        new Thread().sleep(1000);
 
-                    dialog.dismiss();
+                        activity.finish();
+                        activity.overridePendingTransition(0, 0);
+                        activity.startActivity(activity.getIntent());
+                        activity.overridePendingTransition(0, 0);
+
+                        dialog.dismiss();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
                 }
             }
         });
@@ -543,7 +542,6 @@ public class PlanejamentoFinanceiroDAO {
             @Override
             public void onClick(View view) {
 
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 activity.finish();
                 activity.overridePendingTransition(0, 0);
                 activity.startActivity(activity.getIntent());
@@ -554,7 +552,7 @@ public class PlanejamentoFinanceiroDAO {
 
     }
 
-    private void adicionarValor(String idPF, String idConta ,String nomeConta, String valorConta,
+    private void adicionarValor(String idPF, String idConta ,String conta, String valorConta,
                                 String valorAtual){
 
         double resultado = Double.valueOf(valorConta) - Double.valueOf(valorAtual);
@@ -590,7 +588,7 @@ public class PlanejamentoFinanceiroDAO {
                                 HistoricoPFDTO hdto = new HistoricoPFDTO();
                                 hdto.setIdPF(idPF);
                                 hdto.setIdConta(idConta);
-                                hdto.setNomeConta(nomeConta);
+                                hdto.setConta(conta);
                                 hdto.setValorHistoricoPF(valorAtual);
 
                                 salvarHistoricoPF(hdto);
@@ -674,24 +672,71 @@ public class PlanejamentoFinanceiroDAO {
                     }
                 });
     }
+
+    public void deletarHistoricoPF(String idPF, String idPFH, String idConta, String valorHistorico){
+
+        db.collection("contas").document(user.getUid()).collection(user.getUid())
+                .document(idConta).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+
+                        double valorAntigo1 = Double.valueOf(document.getData().get("valor").toString()) + Double.valueOf(valorHistorico);
+                        db.collection("contas").document(user.getUid()).collection(user.getUid())
+                                .document(idConta).update("valor", String.valueOf(valorAntigo1));
+
+                        Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d(Msg.INFO, "No such document");
+                    }
+                } else {
+                    Log.d(Msg.INFO, "get failed with ", task.getException());
+                }
+            }
+        });
+
+        db.collection("planejamentoFinanceiro").document(user.getUid()).collection(user.getUid())
+                .document(idPF).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+
+                        double valorAntigo1 = Double.valueOf(document.getData().get("valorAtual").toString()) - Double.valueOf(valorHistorico);
+                        db.collection("planejamentoFinanceiro").document(user.getUid()).collection(user.getUid())
+                                .document(idPF).update("valorAtual", String.valueOf(valorAntigo1));
+
+                        Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d(Msg.INFO, "No such document");
+                    }
+                } else {
+                    Log.d(Msg.INFO, "get failed with ", task.getException());
+                }
+            }
+        });
+
+        db.collection("planejamentoFinanceiro").document(user.getUid())
+                .collection(user.getUid()).document(idPF).collection(idPF)
+                .document(idPFH)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+//                        activity.finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+                    }
+                });
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -24,7 +24,6 @@ public class AdicionarRenda extends AppCompatActivity {
     EditText editTextRenda, editTextValorRenda, editTextDataRenda, editTextObservacao;
     TextView textViewIdConta, textViewValorConta;
     Spinner spinnerConta, spinnerTipoRenda;
-//    Switch switchRendaFixa;
     ImageView imageViewVoltar;
     Button buttonSalvar;
 
@@ -106,17 +105,19 @@ public class AdicionarRenda extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA_VALIDA);
             editTextDataRenda.requestFocus();
             editTextDataRenda.setText("");
+        }else if(dto.getDataRenda().length() < 10){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
+            editTextDataRenda.requestFocus();
+            editTextDataRenda.setText("");
         }else{
-//            String idConta = textViewIdConta.getText().toString();
+            dto.setDataRenda(Utilitario.convertBrToUsa(dto.getDataRenda()));
             dao.cadastarRenda(dto, AdicionarRenda.this);
-//          finish();
         }
     }
 
     public void mock(){
         editTextRenda.setText("aluguelTst");
         editTextValorRenda.setText("200");
-//        editTextDataRenda.setText("11/11/1111");
         editTextObservacao.setText("observacaoTst");
     }
 }

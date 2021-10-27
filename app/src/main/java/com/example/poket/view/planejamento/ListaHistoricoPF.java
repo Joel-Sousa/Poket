@@ -20,6 +20,10 @@ public class ListaHistoricoPF extends AppCompatActivity {
     Context context;
     RecyclerView recyclerView;
 
+    PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
+
+    String idPF = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +35,8 @@ public class ListaHistoricoPF extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewListaHistoricoPF);
 
         Intent intent = getIntent();
-        String idPF = intent.getStringExtra("idPF");
+        idPF = intent.getStringExtra("idPF");
 
-        PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
         dao.lerHistorico(recyclerView, context, ListaHistoricoPF.this, idPF);
 
         imageViewVoltar.setOnClickListener(new View.OnClickListener() {
@@ -42,5 +45,13 @@ public class ListaHistoricoPF extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+//        PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
+//        dao.lerHistorico(recyclerView, context, ListaHistoricoPF.this, idPF);
     }
 }

@@ -20,7 +20,6 @@ public class AdicionarUsuario extends AppCompatActivity {
     EditText editTextApelido, editTextEmail, editTextSenha, editTextRepetirSenha;
     Button buttonCadastrar;
     ImageView imageViewVoltar;
-    ProgressBar load;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,6 @@ public class AdicionarUsuario extends AppCompatActivity {
         buttonCadastrar = findViewById(R.id.buttonAdicionarUsuarioAdicionar);
         imageViewVoltar = findViewById(R.id.imageViewAdicionarUsuarioVoltar);
 
-        load = findViewById(R.id.progressBarCadastrarUsuario);
 
         mock();
 
@@ -97,35 +95,6 @@ public class AdicionarUsuario extends AppCompatActivity {
         }
     }
 
-//    private void criarConta(UsuarioDTO dto){
-//
-//        Map<String, String> dadosUsuario = new HashMap<>();
-//        dadosUsuario.put("apelido", dto.getApelido());
-//        dadosUsuario.put("email", dto.getEmail());
-//        dadosUsuario.put("uid", dto.getUid());
-//
-//        db.collection("usuarios").document(dto.getUid())
-//                .set(dadosUsuario)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void unused) {
-//                        Utilitario.progresso(false, load);
-//
-//                        Log.d(Msg.INFO, "DocumentSnapshot successfully written!");
-//
-//                        Utilitario.toast(getApplicationContext(), Msg.CADASTRADO);
-//                        finish();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Utilitario.progresso(false, load);
-//
-//                        Log.e(Msg.ERROR, "Error adding document", e);
-//                    }
-//                });
-//    }
     public void mock(){
         editTextApelido.setText("ana");
         editTextEmail.setText("ana@email.com");

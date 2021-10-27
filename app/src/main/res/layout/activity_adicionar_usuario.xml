@@ -9,7 +9,7 @@
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:layout_marginLeft="10dp"
       android:layout_marginTop="10dp"
       android:layout_marginRight="10dp"
@@ -45,8 +45,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -57,7 +57,7 @@
           android:id="@+id/textView2"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Apelido:"
+          android:text="Apelido: "
           android:textColor="#000000"
           android:textSize="20sp" />
 
@@ -70,8 +70,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -82,7 +82,7 @@
           android:id="@+id/textView3"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Email:"
+          android:text="Email: "
           android:textColor="#000000"
           android:textSize="20sp" />
 
@@ -95,8 +95,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -107,7 +107,7 @@
           android:id="@+id/textView6"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Senha:"
+          android:text="Senha: "
           android:textColor="#000000"
           android:textSize="20sp" />
 
@@ -120,8 +120,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -132,7 +132,7 @@
           android:id="@+id/textView7"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Repetir Senha:"
+          android:text="Repetir Senha: "
           android:textColor="#000000"
           android:textSize="20sp" />
 
@@ -145,7 +145,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
@@ -157,16 +157,13 @@
           android:id="@+id/buttonAdicionarUsuarioAdicionar"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_marginLeft="100dp"
+          android:layout_marginTop="5dp"
+          android:layout_marginBottom="5dp"
           android:layout_weight="1"
-          android:text="Adicionar" />
+          android:text="Salvar" />
 
     </LinearLayout>
   </LinearLayout>
 
-  <ProgressBar
-      android:id="@+id/progressBarCadastrarUsuario"
-      style="?android:attr/progressBarStyle"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="visible" />
 </LinearLayout>
