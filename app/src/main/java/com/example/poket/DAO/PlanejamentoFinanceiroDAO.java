@@ -170,6 +170,8 @@ public class PlanejamentoFinanceiroDAO {
                             List<String> dataInicialList = new ArrayList<>();
                             List<String> dataFinalList = new ArrayList<>();
 
+                            // TODO PASSAR DOIS PARAMETROS POR LISTAS POCENTAGEM DE VALOR E DATA
+
                             for(PlanejamentoFinanceiroDTO pf : pfList){
                                 idPFList.add(pf.getIdPF());
                                 nomePFList.add(pf.getNomePF());
@@ -635,6 +637,8 @@ public class PlanejamentoFinanceiroDAO {
                             List<String> valorObjetivadoList = new ArrayList<>();
                             List<String> dataInicialList = new ArrayList<>();
                             List<String> dataFinalList = new ArrayList<>();
+
+                            // TODO PASSAR OS VALORES DE PORCENTAGEM DE VALOR E DATA AQUI TAMBEM
 
                             for(PlanejamentoFinanceiroDTO pf : pfList){
                                 if(pf.getNomePF().equals(busca)){
