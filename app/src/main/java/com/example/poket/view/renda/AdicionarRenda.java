@@ -30,6 +30,8 @@ public class AdicionarRenda extends AppCompatActivity {
     RendaDTO dto = new RendaDTO();
     RendaDAO dao = new RendaDAO();
 
+    String tipoPF = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,7 @@ public class AdicionarRenda extends AppCompatActivity {
         imageViewVoltar = findViewById(R.id.imageViewAdidionarRendaVoltar);
         buttonSalvar = findViewById(R.id.buttonAdicionarRendaSalvar);
 
-        Utilitario.listaTipoRenda(spinnerTipoRenda, getApplicationContext());
+        Utilitario.listaTipoRenda(spinnerTipoRenda, tipoPF, getApplicationContext());
         editTextDataRenda.addTextChangedListener(MaskEditUtil.mask(editTextDataRenda, MaskEditUtil.FORMAT_DATE));
         editTextDataRenda.setText(Utilitario.dataAtual());
 

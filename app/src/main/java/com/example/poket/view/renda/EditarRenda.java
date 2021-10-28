@@ -38,7 +38,7 @@ public class EditarRenda extends AppCompatActivity {
     String idConta = "";
     String valorRendaAntiga = "";
 
-    // TODO MARCAR O SPINER SELECIONADO
+    String tipoPF = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +61,12 @@ public class EditarRenda extends AppCompatActivity {
         buttonExcluir = findViewById(R.id.buttonEditarRendaExcluir);
 
         editTextDataRenda.addTextChangedListener(MaskEditUtil.mask(editTextDataRenda, MaskEditUtil.FORMAT_DATE));
-        Utilitario.listaTipoRenda(spinnerTipoRenda, getApplicationContext());
 
         Intent intent = getIntent();
         textViewId.setText(intent.getStringExtra("id"));
         editTextRenda.setText(intent.getStringExtra("renda"));
         textViewValorRenda.setText(intent.getStringExtra("valorRenda"));
+        tipoPF = intent.getStringExtra("tipoRenda");
         editTextDataRenda.setText(Utilitario.convertUsaToBr(intent.getStringExtra("dataRenda")));
         editTextObservacao.setText(intent.getStringExtra("observacao"));
 
@@ -74,6 +74,8 @@ public class EditarRenda extends AppCompatActivity {
 
         idConta = intent.getStringExtra("idConta");
         valorRendaAntiga = intent.getStringExtra("valorRenda");
+
+        Utilitario.listaTipoRenda(spinnerTipoRenda, tipoPF, getApplicationContext());
 
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override

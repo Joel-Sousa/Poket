@@ -37,16 +37,19 @@ public class Utilitario {
         listConta.add(d);
     }
 
-    public static void listaTipoRenda(Spinner spinner, Context context) {
+    public static void listaTipoRenda(Spinner spinner, String tipoPF, Context context) {
         List<String> listTipoGasto = Arrays.asList(
                 "Salario", "Servicos", "Presente", "Aluguel", "Outros");
 
         ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
                 android.R.layout.simple_list_item_1, listTipoGasto);
         spinner.setAdapter(adapter_spinner);
+
+        if(!tipoPF.equals(""))
+            spinner.setSelection(adapter_spinner.getPosition(tipoPF));
     }
 
-    public static void listaTipoDespesa(Spinner spinner, Context context) {
+    public static void listaTipoDespesa(Spinner spinner, String tipoPF, Context context) {
         List<String> listTipoGasto = Arrays.asList(
                 "Alimentaçao", "Veiculo", "Moradia", "Lazer", "Outros");
 
@@ -54,7 +57,8 @@ public class Utilitario {
                 android.R.layout.simple_list_item_1, listTipoGasto);
         spinner.setAdapter(adapter_spinner);
 
-//        spinner.setSelection(adapter_spinner.getPosition("Moradia"));
+        if(!tipoPF.equals(""))
+            spinner.setSelection(adapter_spinner.getPosition(tipoPF));
     }
 
     public static void listaTipoPF(Spinner spinner, String tipoPF, Context context) {

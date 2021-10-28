@@ -36,7 +36,7 @@ public class EditarDespesa extends AppCompatActivity {
 
     DespesaDAO dao = new DespesaDAO();
 
-    // TODO MARCAR O SPINER SELECIONADO
+    String tipoPF = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +58,12 @@ public class EditarDespesa extends AppCompatActivity {
         buttonEditar = findViewById(R.id.buttonEditarDespesaEditar);
         buttonExcluir = findViewById(R.id.buttonEditarDespesaExcluir);
 
-        Utilitario.listaTipoDespesa(spinnerTipoDespesa, getApplicationContext());
         editTextDataDespesa.addTextChangedListener(MaskEditUtil.mask(editTextDataDespesa, MaskEditUtil.FORMAT_DATE));
 
         Intent intent = getIntent();
         textViewUid.setText(intent.getStringExtra("id"));
         editTextDespesa.setText(intent.getStringExtra("despesa"));
+        tipoPF = intent.getStringExtra("tipoDespesa");
         textViewValorDespesa.setText(intent.getStringExtra("valorDespesa"));
         editTextDataDespesa.setText(Utilitario.convertUsaToBr(intent.getStringExtra("dataDespesa")));
         editTextObservacao.setText(intent.getStringExtra("observacao"));
@@ -72,6 +72,8 @@ public class EditarDespesa extends AppCompatActivity {
 
         idConta = intent.getStringExtra("idConta");
         valorDespesaAntiga = intent.getStringExtra("valorDespesa");
+
+        Utilitario.listaTipoDespesa(spinnerTipoDespesa, tipoPF, getApplicationContext());
 
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override

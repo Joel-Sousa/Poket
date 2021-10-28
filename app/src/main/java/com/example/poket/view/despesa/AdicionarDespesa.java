@@ -30,6 +30,8 @@ public class AdicionarDespesa extends AppCompatActivity {
     DespesaDAO dao = new DespesaDAO();
     DespesaDTO dto = new DespesaDTO();
 
+    String tipoPF = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,8 @@ public class AdicionarDespesa extends AppCompatActivity {
 
         editTextDataDespesa.addTextChangedListener(MaskEditUtil.mask(editTextDataDespesa, MaskEditUtil.FORMAT_DATE));
         editTextDataDespesa.setText(Utilitario.dataAtual());
-        Utilitario.listaTipoDespesa(spinnerTipoDespesa, getApplicationContext());
+
+        Utilitario.listaTipoDespesa(spinnerTipoDespesa, tipoPF, getApplicationContext());
 
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarDespesa.this, textViewValorConta, textViewIdConta);
