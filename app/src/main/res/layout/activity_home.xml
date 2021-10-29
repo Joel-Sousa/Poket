@@ -27,6 +27,14 @@
             android:textColor="#020202"
             android:textSize="20sp" />
 
+        <ImageView
+            android:id="@+id/imageViewHomeEdit"
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/edit" />
+
         <TextView
             android:id="@+id/textViewHomeApelido"
             android:layout_width="170dp"
@@ -36,13 +44,6 @@
             android:text="apelido"
             android:textColor="#020202"
             android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/imageViewHomeEdit"
-            android:layout_width="14dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/edit" />
 
         <ImageView
             android:id="@+id/imageViewHomeSair"
@@ -91,7 +92,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="18dp"
             android:layout_weight="1"
-            android:text="TextView"
+            android:text="1000,00"
             android:textColor="#020202"
             android:textSize="20sp" />
     </LinearLayout>
@@ -118,16 +119,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewTst"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tst" />
-
-            <TextView
                 android:id="@+id/textViewHomeIdConta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -174,37 +170,37 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="5dp"
-                            android:orientation="horizontal">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_marginLeft="5dp"-->
+<!--                            android:orientation="horizontal">-->
 
-                            <TextView
-                                android:id="@+id/textView37"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Status: "
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
+<!--                            <TextView-->
+<!--                                android:id="@+id/textView37"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:text="Status: "-->
+<!--                                android:textColor="#000000"-->
+<!--                                android:textSize="18sp" />-->
 
-                            <TextView
-                                android:id="@+id/textView40"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="TextView"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
-                        </LinearLayout>
+<!--                            <TextView-->
+<!--                                android:id="@+id/textView40"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:text="TextView"-->
+<!--                                android:textColor="#000000"-->
+<!--                                android:textSize="18sp" />-->
+<!--                        </LinearLayout>-->
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="240dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/brd"
                     android:orientation="horizontal">
@@ -240,29 +236,29 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:orientation="horizontal">-->
 
-                            <TextView
-                                android:id="@+id/textView42"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Status: "
-                                android:textColor="#020101"
-                                android:textSize="18sp" />
+                        <!--                            <TextView-->
+                        <!--                                android:id="@+id/textView42"-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_weight="1"-->
+                        <!--                                android:text="Status: "-->
+                        <!--                                android:textColor="#020101"-->
+                        <!--                                android:textSize="18sp" />-->
 
-                            <TextView
-                                android:id="@+id/textView38"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:text="TextView"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
-                        </LinearLayout>
+                        <!--                            <TextView-->
+                        <!--                                android:id="@+id/textView38"-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_marginLeft="3dp"-->
+                        <!--                                android:text="TextView"-->
+                        <!--                                android:textColor="#000000"-->
+                        <!--                                android:textSize="18sp" />-->
+                        <!--                        </LinearLayout>-->
                     </LinearLayout>
 
                     <LinearLayout
@@ -329,29 +325,29 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal">-->
 
-                            <TextView
-                                android:id="@+id/textView43"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Status: "
-                                android:textColor="#020101"
-                                android:textSize="18sp" />
+<!--                            <TextView-->
+<!--                                android:id="@+id/textView43"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:text="Status: "-->
+<!--                                android:textColor="#020101"-->
+<!--                                android:textSize="18sp" />-->
 
-                            <TextView
-                                android:id="@+id/textView41"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:text="TextView"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
-                        </LinearLayout>
+<!--                            <TextView-->
+<!--                                android:id="@+id/textView41"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginLeft="3dp"-->
+<!--                                android:text="TextView"-->
+<!--                                android:textColor="#000000"-->
+<!--                                android:textSize="18sp" />-->
+<!--                        </LinearLayout>-->
                     </LinearLayout>
 
                     <LinearLayout

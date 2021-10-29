@@ -58,7 +58,7 @@ public class AdicionarDespesa extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarDespesa.this, textViewValorConta, textViewIdConta);
 
-        mock();
+//        mock();
 
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override

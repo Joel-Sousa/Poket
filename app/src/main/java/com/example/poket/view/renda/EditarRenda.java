@@ -28,7 +28,7 @@ import com.example.poket.view.despesa.EditarDespesa;
 public class EditarRenda extends AppCompatActivity {
 
     EditText editTextRenda, editTextDataRenda, editTextObservacao;
-    TextView textViewIdConta, textViewId, textViewConta, textViewValorRenda;
+    TextView textViewId, textViewConta, textViewValorRenda;
     Spinner spinnerTipoRenda;
     ImageView imageViewVoltar;
     Button buttonEditar, buttonExcluir;
@@ -53,7 +53,6 @@ public class EditarRenda extends AppCompatActivity {
         editTextDataRenda = findViewById(R.id.editTextEditarRendaDataRenda);
         editTextObservacao = findViewById(R.id.editTextEditarRendaObservacao);
 
-        textViewIdConta = findViewById(R.id.textViewEditarRendaIdConta);
         textViewConta = findViewById(R.id.textViewEditarRendaNomeConta);
 
         imageViewVoltar = findViewById(R.id.imageViewEditarRendaVoltar);

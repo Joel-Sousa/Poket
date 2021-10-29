@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="Lista Planejamento Financeiro"
+                android:text="Planejamento Financeiro"
                 android:textColor="#000000"
                 android:textSize="24sp" />
         </LinearLayout>
@@ -72,6 +72,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="200dp"
             android:text="Adicionar Planejamento" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/black"
+            android:focusable="false" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewListagemPF"

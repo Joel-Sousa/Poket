@@ -2,6 +2,8 @@ package com.example.poket.view.planejamento;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.poket.DAO.ContaDAO;
 import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
@@ -22,12 +25,11 @@ import com.example.poket.view.renda.EditarRenda;
 
 public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
 
-    TextView textViewIdPF, textViewValorAtual;
-    EditText editTextNomePF, editTextValorObjetivado,
-            editTextDataInicial, editTextDataFinal;
+    TextView textViewIdPF, textViewValorAtual, textViewDataInicial;
+    EditText editTextNomePF, editTextValorObjetivado, editTextDataFinal;
     Spinner spinnerTipoPF;
     ImageView imageViewVoltar;
-    Button buttonEditar;
+    Button buttonEditar, buttonExcluir;
 
     PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
 
@@ -44,25 +46,25 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         spinnerTipoPF = findViewById(R.id.spinnerEditarPFTipoPF);
         textViewValorAtual = findViewById(R.id.textViewEditarPFValorAtual);
         editTextValorObjetivado = findViewById(R.id.editTextEditarPFValorObjetivado);
-        editTextDataInicial = findViewById(R.id.editTextEditarPFDataInicial);
+        textViewDataInicial = findViewById(R.id.textViewEditarPFDataInicial);
         editTextDataFinal = findViewById(R.id.editTextEditarPFDataFinal);
-        buttonEditar = findViewById(R.id.buttonEditarPFEditar);
-        imageViewVoltar = findViewById(R.id.imageViewEditarPFVoltar);
 
+        buttonEditar = findViewById(R.id.buttonEditarPFEditar);
+        buttonExcluir = findViewById(R.id.buttonEditarPFExcluir);
+        imageViewVoltar = findViewById(R.id.imageViewEditarPFVoltar);
 
         Intent intent = getIntent();
         textViewIdPF.setText(intent.getStringExtra("idPF"));
         editTextNomePF.setText(intent.getStringExtra("nomePF"));
         tipoPF = intent.getStringExtra("tipoPF");
-//        textViewTipoPF.setText(intent.getStringExtra("tipoPF"));
         textViewValorAtual.setText(intent.getStringExtra("valorAtual"));
         editTextValorObjetivado.setText(intent.getStringExtra("valorObjetivado"));
-        editTextDataInicial.setText(intent.getStringExtra("dataInicio"));
+        textViewDataInicial.setText(intent.getStringExtra("dataInicio"));
         editTextDataFinal.setText(intent.getStringExtra("dataFinal"));
 
         Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
 
-        editTextDataInicial.addTextChangedListener(MaskEditUtil.mask(editTextDataInicial, MaskEditUtil.FORMAT_DATE));
+//        editTextDataInicial.addTextChangedListener(MaskEditUtil.mask(editTextDataInicial, MaskEditUtil.FORMAT_DATE));
         editTextDataFinal.addTextChangedListener(MaskEditUtil.mask(editTextDataFinal, MaskEditUtil.FORMAT_DATE));
 
         imageViewVoltar.setOnClickListener(new View.OnClickListener() {
@@ -82,10 +84,29 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
                 dto.setTipoPF(spinnerTipoPF.getSelectedItem().toString());
                 dto.setValorAtual(textViewValorAtual.getText().toString());
                 dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
-                dto.setDataInicial(editTextDataInicial.getText().toString());
+                dto.setDataInicial(textViewDataInicial.getText().toString());
                 dto.setDataFinal(editTextDataFinal.getText().toString());
 
                 validarConta(dto);
+            }
+        });
+
+        buttonExcluir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder confirmacao = new AlertDialog.Builder(EditarPlanejamentoFinanceiro.this);
+                confirmacao.setTitle("Atencao!");
+                confirmacao.setMessage("Você tem certeza que deseja excluir esse dado?");
+                confirmacao.setCancelable(false);
+                confirmacao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dao.deletarPF(textViewIdPF.getText().toString(), EditarPlanejamentoFinanceiro.this);
+                        Toast.makeText(getApplicationContext(), Msg.DELETADO, Toast.LENGTH_LONG).show();
+                    }
+                });
+                confirmacao.setNegativeButton("Nao",null);
+                confirmacao.create().show();
             }
         });
 
@@ -104,16 +125,9 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         }else if(dto.getValorObjetivado().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
             editTextValorObjetivado.requestFocus();
-        }else if(dto.getDataInicial().length() == 0) {
-            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL);
-            editTextDataInicial.requestFocus();
         }else if(dto.getDataFinal().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
             editTextDataFinal.requestFocus();
-        }else if(dto.getDataInicial().length() < 10){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL_VALIDA);
-            editTextDataInicial.requestFocus();
-            editTextDataInicial.setText("");
         }else if(dto.getDataFinal().length() < 10){
             Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL_VALIDA);
             editTextDataFinal.requestFocus();

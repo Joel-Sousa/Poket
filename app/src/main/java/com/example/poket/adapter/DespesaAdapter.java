@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.poket.R;
 import com.example.poket.util.Msg;
+import com.example.poket.util.Utilitario;
 import com.example.poket.view.conta.EditarConta;
 import com.example.poket.view.despesa.EditarDespesa;
 import com.example.poket.view.despesa.VerDespesa;
@@ -35,7 +36,6 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
 
     List<String> idContaList = new ArrayList<>();
     List<String> contaList = new ArrayList<>();
-//    List<String> contaValorList = new ArrayList<>();
 
     View viewOnCreate;
     DespesaAdapter.ViewHolder viewHolderLocal;
@@ -60,7 +60,8 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView textViewId, textViewDespesa, textViewConta, textViewValorDespesa;
+        public TextView textViewId, textViewDespesa, textViewConta, textViewValorDespesa,
+                textViewDataDespesa;
         public ImageView imageViewEditar;
 
         public ViewHolder(@NonNull View itemView) {
@@ -70,6 +71,7 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
             textViewDespesa = itemView.findViewById(R.id.textViewRecyclerDespesaDespesa);
             textViewConta = itemView.findViewById(R.id.textViewRecyclerDespesaConta);
             textViewValorDespesa = itemView.findViewById(R.id.textViewRecyclerDespesaValorDespesa);
+            textViewDataDespesa = itemView.findViewById(R.id.textViewRecyclerDespesaDataDespesa);
             imageViewEditar = itemView.findViewById(R.id.imageViewListaDespesaEditar);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +104,7 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
         holder.textViewDespesa.setText(despesaList.get(position));
         holder.textViewConta.setText(contaList.get(position));
         holder.textViewValorDespesa.setText(valorDespesaList.get(position));
+        holder.textViewDataDespesa.setText(Utilitario.convertUsaToBr(dataDespesaList.get(position)));
 
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override

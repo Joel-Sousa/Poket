@@ -20,6 +20,7 @@ import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.despesa.EditarDespesa;
 import com.example.poket.view.planejamento.EditarPlanejamentoFinanceiro;
+import com.example.poket.view.planejamento.ListaHistoricoPF;
 import com.example.poket.view.planejamento.ListaPlanejamentoFinanceiro;
 
 import java.util.ArrayList;
@@ -40,6 +41,9 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
     List<String> porcentagemValorList = new ArrayList<>();
     List<String> porcentagemDataList = new ArrayList<>();
 
+    List<Integer> porcentagemBarValorList = new ArrayList<>();
+    List<Integer> porcentagemBarDataList = new ArrayList<>();
+
     Activity activity;
     View mView;
 
@@ -51,6 +55,7 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
                           List<String> valorAtualList, List<String> valorObjetivadoList,
                           List<String>  dataIncialList,List<String>  dataFinalList,
                           List<String> porcentagemValorList, List<String> porcentagemDataList,
+                          List<Integer> porcentagemBarValorList, List<Integer> porcentagemBarDataList,
                           Activity activity, View mView){
         this.context = context;
         this.idPFList.addAll(idPFList);
@@ -64,17 +69,21 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
         this.porcentagemValorList.addAll(porcentagemValorList);
         this.porcentagemDataList.addAll(porcentagemDataList);
 
+        this.porcentagemBarValorList.addAll(porcentagemBarValorList);
+        this.porcentagemBarDataList.addAll(porcentagemBarDataList);
+
         this.activity = activity;
         this.mView = mView;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
         public TextView textViewIdPF, textViewNomePF, textViewTipoPF, textViewValorAtual,
                 textViewValorObjetivado, textViewDataInicial,textViewDataFinal,
                 textViewPorcentagemValor, textViewPorcentagemData;
-
         public ProgressBar progressBarValor, progressBarData;
-        public ImageView imageViewAdicionarValor;
+
+        public ImageView imageViewAdicionarValor, imageViewEditar, imageViewHistoricoPF;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,7 +99,12 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
             textViewPorcentagemValor = itemView.findViewById(R.id.textViewRecyclerListagemPFPorcentagemValor);
             textViewPorcentagemData = itemView.findViewById(R.id.textViewRecyclerListagemPFPorcentagemData);
 
+            progressBarValor = itemView.findViewById(R.id.progressBarRecyclerListagemPFValor);
+            progressBarData = itemView.findViewById(R.id.progressBarRecyclerListagemPFData);
+
             imageViewAdicionarValor = itemView.findViewById(R.id.imageViewRecyclerListagemPFAdicionarValorPF);
+            imageViewEditar = itemView.findViewById(R.id.imageViewRecyclerListagemPFEditar);
+            imageViewHistoricoPF = itemView.findViewById(R.id.imageViewRecyclerListagemPFHistoricoPF);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -129,6 +143,9 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
         holder.textViewPorcentagemValor.setText(porcentagemValorList.get(position));
         holder.textViewPorcentagemData.setText(porcentagemDataList.get(position));
 
+        holder.progressBarValor.setProgress(porcentagemBarValorList.get(position));
+        holder.progressBarData.setProgress(porcentagemBarDataList.get(position));
+
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,6 +163,33 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
                 PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
 
                 dao.adicionarValorPF(activity, mView, idPFList.get(position));
+            }
+        });
+
+        holder.imageViewEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EditarPlanejamentoFinanceiro.class);
+                intent.putExtra("idPF", idPFList.get(position));
+                intent.putExtra("nomePF", nomePFList.get(position));
+                intent.putExtra("tipoPF", tipoPFList.get(position));
+                intent.putExtra("valorAtual", valorAtualList.get(position));
+                intent.putExtra("valorObjetivado", valorObjetivadoList.get(position));
+                intent.putExtra("dataInicio", Utilitario.convertUsaToBr(dataInicialList.get(position)));
+                intent.putExtra("dataFinal", Utilitario.convertUsaToBr(dataFinalList.get(position)));
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                view.getContext().startActivity(intent);
+            }
+        });
+
+        holder.imageViewHistoricoPF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ListaHistoricoPF.class);
+                intent.putExtra("idPF", idPFList.get(position));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                view.getContext().startActivity(intent);
             }
         });
     }

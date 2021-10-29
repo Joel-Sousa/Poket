@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.poket.R;
 import com.example.poket.util.Msg;
+import com.example.poket.util.Utilitario;
 import com.example.poket.view.despesa.VerDespesa;
 import com.example.poket.view.renda.EditarRenda;
 import com.example.poket.view.renda.VerRenda;
@@ -57,7 +58,8 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView textViewId, textViewRenda, textViewConta, textViewValorRenda;
+        public TextView textViewId, textViewRenda, textViewConta, textViewValorRenda,
+        textViewDataRenda;
         public ImageView imageViewEditar;
 
         public ViewHolder(@NonNull View itemView) {
@@ -67,6 +69,7 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
             textViewRenda = itemView.findViewById(R.id.textViewRecyclerRendaRenda);
             textViewConta = itemView.findViewById(R.id.textViewRecyclerRendaConta);
             textViewValorRenda = itemView.findViewById(R.id.textViewRecyclerRendaValorRenda);
+            textViewDataRenda = itemView.findViewById(R.id.textViewRecyclerRendaDataRenda);
             imageViewEditar = itemView.findViewById(R.id.imageViewListaRendaEditar);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +102,7 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
         holder.textViewRenda.setText(rendaList.get(position));
         holder.textViewConta.setText(contaList.get(position));
         holder.textViewValorRenda.setText(valorRendaList.get(position));
+        holder.textViewDataRenda.setText(Utilitario.convertUsaToBr(dataRendaList.get(position)));
 
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override

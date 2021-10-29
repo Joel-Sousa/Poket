@@ -172,8 +172,8 @@ public class PlanejamentoFinanceiroDAO {
 
                             List<String> porcentagemValorList = new ArrayList<>();
                             List<String> porcentagemDataList = new ArrayList<>();
-                            List<String> porcentagemBarValorList = new ArrayList<>();
-                            List<String> porcentagemBarDataList = new ArrayList<>();
+                            List<Integer> porcentagemBarValorList = new ArrayList<>();
+                            List<Integer> porcentagemBarDataList = new ArrayList<>();
 
                             // TODO PASSAR os valores dos bar para o recycler
 
@@ -204,6 +204,8 @@ public class PlanejamentoFinanceiroDAO {
                                 else
                                     porcentagemDataList.add(df.format(porcentagemData)+"%");
 
+                                porcentagemBarValorList.add((int) porcentagemValor);
+                                porcentagemBarDataList.add((int) porcentagemData);
                             }
 
                             layoutManager = new LinearLayoutManager(context);
@@ -212,6 +214,7 @@ public class PlanejamentoFinanceiroDAO {
                                     idPFList, nomePFList, tipoPFList, valorAtualList,
                                     valorObjetivadoList, dataInicialList, dataFinalList
                                     ,porcentagemValorList, porcentagemDataList,
+                                    porcentagemBarValorList, porcentagemBarDataList,
                                     activity, view);
                             recyclerView.setAdapter(adapter);
 
@@ -222,8 +225,6 @@ public class PlanejamentoFinanceiroDAO {
 
                 });
     }
-
-
 
     public void editarPlanejamentoFinanceiro(PlanejamentoFinanceiroDTO dto, Activity activity){
 
@@ -566,7 +567,6 @@ public class PlanejamentoFinanceiroDAO {
                                 dto.setDataInicial(document.getData().get("dataInicial").toString());
                                 dto.setDataFinal(document.getData().get("dataFinal").toString());
                                 pfList.add(dto);
-//                                Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
                             }
 
                             List<String> idPFList = new ArrayList<>();
@@ -577,7 +577,14 @@ public class PlanejamentoFinanceiroDAO {
                             List<String> dataInicialList = new ArrayList<>();
                             List<String> dataFinalList = new ArrayList<>();
 
+                            List<String> porcentagemValorList = new ArrayList<>();
+                            List<String> porcentagemDataList = new ArrayList<>();
+                            List<Integer> porcentagemBarValorList = new ArrayList<>();
+                            List<Integer> porcentagemBarDataList = new ArrayList<>();
+
                             // TODO PASSAR OS VALORES DE PORCENTAGEM DE VALOR E DATA AQUI TAMBEM
+
+                            DecimalFormat df = new DecimalFormat("#,###.00");
 
                             for(PlanejamentoFinanceiroDTO pf : pfList){
                                 if(pf.getNomePF().equals(busca)){
@@ -589,22 +596,40 @@ public class PlanejamentoFinanceiroDAO {
                                     valorObjetivadoList.add(pf.getValorObjetivado());
                                     dataInicialList.add(pf.getDataInicial());
                                     dataFinalList.add(pf.getDataFinal());
-//                                    valorConta += Double.valueOf(pf.get Valor());
-//                                  Log.i("---", conta.getId());
+
+                                    double porcentagemValor = porcentagemValor(pf.getValorAtual(), pf.getValorObjetivado());
+
+                                    String dataInicial = Utilitario.convertUsaToBr(pf.getDataInicial());
+                                    String dataAtual = Utilitario.dataAtual();
+                                    String dataFinal = Utilitario.convertUsaToBr(pf.getDataFinal());
+
+                                    double porcentagemData = porcentagemData(dataInicial, dataAtual, dataFinal);
+
+                                    porcentagemValorList.add(df.format(porcentagemValor)+"%");
+
+                                    if(porcentagemData == (0.0))
+                                        porcentagemDataList.add(0+"%");
+                                    else
+                                        porcentagemDataList.add(df.format(porcentagemData)+"%");
+
+                                    porcentagemBarValorList.add((int) porcentagemValor);
+                                    porcentagemBarDataList.add((int) porcentagemData);
+
                                 }else if(busca.equals("")){
-//
                                     lerPlanejamentoFinanceiro(recyclerView, context ,activity, view);
                                 }
                             }
 
                             if(!busca.equals("")){
-//                                textViewContaValor.setText(String.valueOf(valorConta));
-//                                layoutManager = new LinearLayoutManager(context);
-//                                recyclerView.setLayoutManager((layoutManager));
-//                                adapter = new PlanejamentoFinanceiroAdapter(context,
-//                                        idPFList, nomePFList, tipoPFList, valorAtualList,
-//                                        valorObjetivadoList, dataInicialList, dataFinalList, activity, view);
-//                                recyclerView.setAdapter(adapter);
+                                layoutManager = new LinearLayoutManager(context);
+                                recyclerView.setLayoutManager((layoutManager));
+                                adapter = new PlanejamentoFinanceiroAdapter(context,
+                                        idPFList, nomePFList, tipoPFList, valorAtualList,
+                                        valorObjetivadoList, dataInicialList, dataFinalList
+                                        ,porcentagemValorList, porcentagemDataList,
+                                        porcentagemBarValorList, porcentagemBarDataList,
+                                        activity, view);
+                                recyclerView.setAdapter(adapter);
                             }
 
                         } else {

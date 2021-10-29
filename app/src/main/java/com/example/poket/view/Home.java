@@ -51,7 +51,8 @@ import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
 
-    TextView textViewTst, textViewApelido, textViewIdConta, textViewConta;
+    TextView textViewApelido, textViewIdConta, textViewContaValor;
+
     Spinner spinnerConta;
     ImageView imageViewEditarUsuario, imageViewConta, imageViewSair,
     imageViewHistoricoDespesa, imageViewAdicionarDespesa,
@@ -72,11 +73,11 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        textViewTst = findViewById(R.id.textViewTst);
+//        textViewTst = findViewById(R.id.textViewTst);
         textViewIdConta = findViewById(R.id.textViewHomeIdConta);
 
         textViewApelido = findViewById(R.id.textViewHomeApelido);
-        textViewConta = findViewById(R.id.textViewHomeContaValor);
+        textViewContaValor = findViewById(R.id.textViewHomeContaValor);
 
         imageViewEditarUsuario = findViewById(R.id.imageViewHomeEdit);
         imageViewConta = findViewById(R.id.imageViewHomeConta);
@@ -100,9 +101,9 @@ public class Home extends AppCompatActivity {
         UsuarioDTO dto = dao.obterUsuario();
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, Home.this, textViewConta, textViewIdConta);
+        daoC.listaContaSpinner(spinnerConta, Home.this, textViewContaValor, textViewIdConta);
 
-        textViewTst.setText(dto.getUid());
+//        textViewTst.setText(dto.getUid());
         textViewApelido.setText(dto.getApelido());
 
         imageViewEditarUsuario.setOnClickListener(new View.OnClickListener() {
@@ -219,10 +220,10 @@ public class Home extends AppCompatActivity {
         super.onResume();
 
         spinnerConta = findViewById(R.id.spinnerHomeContas);
-        textViewConta = findViewById(R.id.textViewHomeContaValor);
+        textViewContaValor = findViewById(R.id.textViewHomeContaValor);
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, Home.this, textViewConta, textViewIdConta);
+        daoC.listaContaSpinner(spinnerConta, Home.this, textViewContaValor, textViewIdConta);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();

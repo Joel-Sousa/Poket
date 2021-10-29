@@ -33,8 +33,7 @@ public class AdicionarUsuario extends AppCompatActivity {
         buttonCadastrar = findViewById(R.id.buttonAdicionarUsuarioAdicionar);
         imageViewVoltar = findViewById(R.id.imageViewAdicionarUsuarioVoltar);
 
-
-        mock();
+//        mock();
 
         buttonCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,16 +74,22 @@ public class AdicionarUsuario extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(),
                     Msg.EMAIL_VALIDO);
             editTextEmail.requestFocus();
-        }else if(dto.getSenha().length() == 0 || dto.getSenha().length() <= 5){
+        }else if(dto.getSenha().length() == 0){
             Utilitario.toast(getApplicationContext(),
                     Msg.SENHA);
             editTextSenha.requestFocus();
-
-        }else if(dto.getRepetirSenha().length() == 0 || dto.getRepetirSenha().length() <= 5){
+        }else if(dto.getSenha().length() <= 5){
+            Utilitario.toast(getApplicationContext(),
+                    Msg.SENHA_INSUFICIENTE);
+            editTextSenha.requestFocus();
+        }else if(dto.getRepetirSenha().length() == 0){
             Utilitario.toast(getApplicationContext(),
                     Msg.REPETIR_SENHA);
             editTextRepetirSenha.requestFocus();
-
+        }else if(dto.getRepetirSenha().length() <= 5){
+            Utilitario.toast(getApplicationContext(),
+                    Msg.SENHA_INSUFICIENTE_R);
+            editTextRepetirSenha.requestFocus();
         }else if(!dto.getSenha().equals(dto.getRepetirSenha())){
             Utilitario.toast(getApplicationContext(),
                     Msg.COMPARAR_SENHA);

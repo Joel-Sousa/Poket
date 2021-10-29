@@ -243,7 +243,7 @@ public class RendaDAO {
                         textViewNomeConta.setText(document.getData().get("conta").toString());
                         textViewValorRenda.setText(document.getData().get("valorRenda").toString());
                         textViewTipoRenda.setText(document.getData().get("tipoRenda").toString());
-                        textViewDataRenda.setText(document.getData().get("dataRenda").toString());
+                        textViewDataRenda.setText(Utilitario.convertUsaToBr(document.getData().get("dataRenda").toString()));
                         textViewObservacao.setText(document.getData().get("observacao").toString());
 
                         Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());

@@ -249,7 +249,7 @@ public class DespesaDAO {
                         textViewNomeConta.setText(document.getData().get("conta").toString());
                         textViewValorDespesa.setText(document.getData().get("valorDespesa").toString());
                         textViewTipoDespesa.setText(document.getData().get("tipoDespesa").toString());
-                        textViewDataDespesa.setText(document.getData().get("dataDespesa").toString());
+                        textViewDataDespesa.setText(Utilitario.convertUsaToBr(document.getData().get("dataDespesa").toString()));
                         textViewObservacao.setText(document.getData().get("observacao").toString());
 
                         Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());

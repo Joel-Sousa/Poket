@@ -11,11 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.poket.DAO.ContaDAO;
 import com.example.poket.DAO.DespesaDAO;
 import com.example.poket.DTO.DespesaDTO;
 import com.example.poket.R;
@@ -26,7 +24,7 @@ import com.example.poket.util.Utilitario;
 public class EditarDespesa extends AppCompatActivity {
 
     EditText editTextDespesa, editTextDataDespesa, editTextObservacao;
-    TextView textViewIdConta, textViewUid, textViewConta, textViewValorDespesa;
+    TextView textViewId, textViewConta, textViewValorDespesa;
     Spinner spinnerTipoDespesa;
     ImageView imageViewVoltar;
     Button buttonEditar, buttonExcluir;
@@ -43,7 +41,7 @@ public class EditarDespesa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_despesa);
 
-        textViewUid = findViewById(R.id.textViewEditarDespesaUid);
+        textViewId = findViewById(R.id.textViewEditarDespesaId);
 
         editTextDespesa = findViewById(R.id.editTextEditarDespesaDespesa);
         textViewValorDespesa = findViewById(R.id.textViewEditarDespesaValorDespesa);
@@ -51,7 +49,6 @@ public class EditarDespesa extends AppCompatActivity {
         editTextDataDespesa = findViewById(R.id.editTextEditarDespesaDataDespesa);
         editTextObservacao = findViewById(R.id.editTextEditarDespesaObservacao);
 
-        textViewIdConta = findViewById(R.id.textViewEditarDespesaIdConta);
         textViewConta = findViewById(R.id.textViewEditarDespesaConta);
 
         imageViewVoltar = findViewById(R.id.imageViewEditarDespesaVoltar);
@@ -61,7 +58,7 @@ public class EditarDespesa extends AppCompatActivity {
         editTextDataDespesa.addTextChangedListener(MaskEditUtil.mask(editTextDataDespesa, MaskEditUtil.FORMAT_DATE));
 
         Intent intent = getIntent();
-        textViewUid.setText(intent.getStringExtra("id"));
+        textViewId.setText(intent.getStringExtra("id"));
         editTextDespesa.setText(intent.getStringExtra("despesa"));
         tipoPF = intent.getStringExtra("tipoDespesa");
         textViewValorDespesa.setText(intent.getStringExtra("valorDespesa"));
@@ -79,7 +76,7 @@ public class EditarDespesa extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DespesaDTO dto = new DespesaDTO();
-                dto.setId(textViewUid.getText().toString());
+                dto.setId(textViewId.getText().toString());
                 dto.setDespesa(editTextDespesa.getText().toString());
                 dto.setValorDespesa(textViewValorDespesa.getText().toString());
                 dto.setTipoDespesa(spinnerTipoDespesa.getSelectedItem().toString());
@@ -103,7 +100,7 @@ public class EditarDespesa extends AppCompatActivity {
                 confirmacao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dao.deletarDespesa(textViewUid.getText().toString(), idConta, valorDespesaAntiga);
+                        dao.deletarDespesa(textViewId.getText().toString(), idConta, valorDespesaAntiga);
                         Toast.makeText(getApplicationContext(), "Dados excluídos com sucesso!", Toast.LENGTH_LONG).show();
 
                         finish();

@@ -31,6 +31,8 @@ public class Msg {
     public static final String EMAIL_EXISTENTE = "Email ja existe.";
     public static final String SENHA = "Preencha o campo de senha.";
     public static final String REPETIR_SENHA = "Preencha o campo de Repetir Senha.";
+    public static final String SENHA_INSUFICIENTE = "O campo de senha precisa ter pelomenos 6 caracteres.";
+    public static final String SENHA_INSUFICIENTE_R = "O campo de repetir senha precisa ter pelomenos 6 caracteres.";
     public static final String COMPARAR_SENHA = "Os campos de senha e Repetir Senha nao sao iguais.";
     public static final String EMAIL_SENHA = "Email e senha nao informados.";
     public static final String EMAIL_SENHAI = "Email ou senha invalidos.";

@@ -63,7 +63,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarPlanejamentoFinanceiro.this, textViewContaValor, textViewIdConta);
 
-        mock();
+//        mock();
 
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
