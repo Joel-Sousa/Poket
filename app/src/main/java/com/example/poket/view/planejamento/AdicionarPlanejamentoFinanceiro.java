@@ -24,7 +24,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
 
     ImageView imageViewVoltar;
     TextView textViewIdConta, textViewContaValor, textViewTipoPF;
-    EditText editTextNomePF, editTextValoAtual, editTextValorObjetivado,
+    EditText editTextNomePF, editTextValorAtual, editTextValorObjetivado,
     editTextDataInicial, editTextDataFinal;
     Spinner spinnerConta, spinnerTipoPF;
     Button buttonSalvar;
@@ -46,7 +46,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
 
         editTextNomePF = findViewById(R.id.editTextAdicionarPFNomePF);
         spinnerTipoPF = findViewById(R.id.spinnerAdicionarPFTipoPF);
-        editTextValoAtual = findViewById(R.id.editTextAdicionarPFValorAtual);
+        editTextValorAtual = findViewById(R.id.editTextAdicionarPFValorAtual);
         editTextValorObjetivado = findViewById(R.id.editTextAdicionarPFValorObjetivado);
         editTextDataInicial = findViewById(R.id.editTextAdicionarPFDataInicial);
         editTextDataFinal = findViewById(R.id.editTextAdicionarPFDataFinal);
@@ -70,7 +70,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
             public void onClick(View view) {
                 dto.setNomePF(editTextNomePF.getText().toString());
                 dto.setTipoPF(spinnerTipoPF.getSelectedItem().toString());
-                dto.setValorAtual(editTextValoAtual.getText().toString());
+                dto.setValorAtual(editTextValorAtual.getText().toString());
                 dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
                 dto.setDataInicial(editTextDataInicial.getText().toString());
                 dto.setDataFinal(editTextDataFinal.getText().toString());
@@ -79,7 +79,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
                 hdto.setConta(spinnerConta.getSelectedItem().toString());
                 hdto.setValorConta(textViewContaValor.getText().toString());
 
-                hdto.setValorHistoricoPF(editTextValoAtual.getText().toString());
+                hdto.setValorHistoricoPF(editTextValorAtual.getText().toString());
 
                 validarConta(dto, hdto);
             }
@@ -104,7 +104,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
             editTextNomePF.requestFocus();
         }else if(dto.getValorAtual().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ATUAL);
-            editTextValoAtual.requestFocus();
+            editTextValorAtual.requestFocus();
         }else if(dto.getValorObjetivado().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
             editTextValorObjetivado.requestFocus();
@@ -122,6 +122,12 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL_VALIDA);
             editTextDataFinal.requestFocus();
             editTextDataFinal.setText("");
+        }else if(dto.getValorAtual().equals("0")){
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+            editTextValorAtual.requestFocus();
+        }else if(dto.getValorObjetivado().equals("0")){
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+            editTextValorObjetivado.requestFocus();
         }else{
             dto.setDataInicial(Utilitario.convertBrToUsa(dto.getDataInicial()));
             dto.setDataFinal(Utilitario.convertBrToUsa(dto.getDataFinal()));
@@ -131,7 +137,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
 
     public void mock(){
         editTextNomePF.setText("nomeTst");
-        editTextValoAtual.setText("100");
+        editTextValorAtual.setText("100");
         editTextValorObjetivado.setText("900");
         editTextDataFinal.setText("12/12/2021");
     }

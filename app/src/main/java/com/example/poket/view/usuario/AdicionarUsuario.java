@@ -3,6 +3,7 @@ package com.example.poket.view.usuario;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import com.example.poket.DTO.UsuarioDTO;
 import com.example.poket.R;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
+import com.example.poket.view.Home;
 
 public class AdicionarUsuario extends AppCompatActivity {
 

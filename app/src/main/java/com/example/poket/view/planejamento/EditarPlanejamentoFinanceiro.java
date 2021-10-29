@@ -132,6 +132,9 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL_VALIDA);
             editTextDataFinal.requestFocus();
             editTextDataFinal.setText("");
+        }else if(dto.getValorObjetivado().equals("0")){
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+            editTextValorObjetivado.requestFocus();
         }else {
             dto.setDataInicial(Utilitario.convertBrToUsa(dto.getDataInicial()));
             dto.setDataFinal(Utilitario.convertBrToUsa(dto.getDataFinal()));

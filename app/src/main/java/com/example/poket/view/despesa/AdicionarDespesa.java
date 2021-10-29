@@ -109,6 +109,9 @@ public class AdicionarDespesa extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA_VALIDA);
             editTextDataDespesa.requestFocus();
             editTextDataDespesa.setText("");
+        }else if(dto.getValorDespesa().equals("0")){
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+            editTextValorDespesa.requestFocus();
         }else{
             dto.setDataDespesa(Utilitario.convertBrToUsa(dto.getDataDespesa()));
             dao.cadastarDespesa(dto, AdicionarDespesa.this);

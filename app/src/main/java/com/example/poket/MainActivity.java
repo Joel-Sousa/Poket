@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextEmail, editTextSenha;
     Button buttonLogin;
 
-    // TODO RETIRAR TODOS OS IDS
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

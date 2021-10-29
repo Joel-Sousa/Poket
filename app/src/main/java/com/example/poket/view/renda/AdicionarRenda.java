@@ -55,7 +55,7 @@ public class AdicionarRenda extends AppCompatActivity {
         editTextDataRenda.setText(Utilitario.dataAtual());
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta);
+        daoC.listaContaSpinnerAll(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta);
 
 //        mock();
 
@@ -111,6 +111,9 @@ public class AdicionarRenda extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
             editTextDataRenda.requestFocus();
             editTextDataRenda.setText("");
+        }else if(dto.getValorRenda().equals("0")){
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+            editTextValorRenda.requestFocus();
         }else{
             dto.setDataRenda(Utilitario.convertBrToUsa(dto.getDataRenda()));
             dao.cadastarRenda(dto, AdicionarRenda.this);

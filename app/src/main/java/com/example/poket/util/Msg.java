@@ -14,6 +14,7 @@ public class Msg {
     public static final String ALTERADO = "Dados alterados com sucesso.";
     public static final String DELETADO = "Dados excluídos com sucesso.";
     public static final String ERRORM= "Algo deu errado.";
+    public static final String VALOR_ZERADO = "Insira um valor maior que zero.";
 
     // FB
     public static final String DOCUMENTO_S = "DocumentSnapshot successfully.";

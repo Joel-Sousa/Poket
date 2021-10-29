@@ -172,7 +172,60 @@ public class ContaDAO {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-//                            List<ContaDTO> listConta = new ArrayList<>();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ContaDTO dto = new ContaDTO();
+
+                                double valor = Double.valueOf(document.getData().get("valor").toString());
+
+                                if(valor > 0){
+                                    dto.setId(document.getId());
+                                    dto.setConta(document.getData().get("conta").toString());
+                                    dto.setValor(document.getData().get("valor").toString());
+                                    listConta.add(dto);
+                                }
+                            }
+
+                            if(listConta.isEmpty()){
+                                semConta();
+                            }
+
+                            ArrayAdapter<ContaDTO> adapterConta =
+                                    new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
+                                            listConta);
+                            spinnerConta.setAdapter(adapterConta);
+
+                            spinnerConta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    textViewIdConta.setText(listConta.get(i).getId());
+                                    textViewConta.setText(listConta.get(i).getValor());
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
+
+                        } else {
+                            Log.w(Msg.ERROR, Msg.DOCUMENTO_F, task.getException());
+                        }
+                    }
+
+                });
+
+    }
+
+    public void listaContaSpinnerAll(Spinner spinnerConta, Context context, TextView textViewConta,
+                                  TextView textViewIdConta){
+
+        db.collection("contas")
+                .document(user.getUid()).collection(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 ContaDTO dto = new ContaDTO();
@@ -180,8 +233,6 @@ public class ContaDAO {
                                 dto.setConta(document.getData().get("conta").toString());
                                 dto.setValor(document.getData().get("valor").toString());
                                 listConta.add(dto);
-
-                                Log.d(Msg.INFO, document.getId() + " => " + document.getData());
                             }
 
                             if(listConta.isEmpty()){

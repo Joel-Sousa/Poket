@@ -175,9 +175,6 @@ public class PlanejamentoFinanceiroDAO {
                             List<Integer> porcentagemBarValorList = new ArrayList<>();
                             List<Integer> porcentagemBarDataList = new ArrayList<>();
 
-                            // TODO PASSAR os valores dos bar para o recycler
-
-
                             DecimalFormat df = new DecimalFormat("#,###.00");
                             for(PlanejamentoFinanceiroDTO pf : pfList){
 
@@ -443,6 +440,11 @@ public class PlanejamentoFinanceiroDAO {
         final AlertDialog dialog = mBuilder.create();
         dialog.show();
 
+        if(editTextValor.getText().toString().equals("0")){
+            Utilitario.toast(activity.getApplicationContext(), Msg.VALOR_ZERADO);
+            editTextValor.requestFocus();
+        }
+
         buttonAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -454,6 +456,9 @@ public class PlanejamentoFinanceiroDAO {
 
                 if(editTextValor.getText().length() == 0){
                     Utilitario.toast(activity.getApplicationContext(), "Preencha o campo com um valor!");
+                    editTextValor.requestFocus();
+                }else if(editTextValor.getText().toString().equals("0")){
+                    Utilitario.toast(activity.getApplicationContext(), Msg.VALOR_ZERADO);
                     editTextValor.requestFocus();
                 }else{
 
@@ -581,8 +586,6 @@ public class PlanejamentoFinanceiroDAO {
                             List<String> porcentagemDataList = new ArrayList<>();
                             List<Integer> porcentagemBarValorList = new ArrayList<>();
                             List<Integer> porcentagemBarDataList = new ArrayList<>();
-
-                            // TODO PASSAR OS VALORES DE PORCENTAGEM DE VALOR E DATA AQUI TAMBEM
 
                             DecimalFormat df = new DecimalFormat("#,###.00");
 
