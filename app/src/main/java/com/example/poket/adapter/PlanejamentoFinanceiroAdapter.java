@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,9 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
     List<String> dataInicialList = new ArrayList<>();
     List<String> dataFinalList = new ArrayList<>();
 
+    List<String> porcentagemValorList = new ArrayList<>();
+    List<String> porcentagemDataList = new ArrayList<>();
+
     Activity activity;
     View mView;
 
@@ -46,6 +50,7 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
                           List<String> idPFList, List<String> nomePFList, List<String> tipoPFList,
                           List<String> valorAtualList, List<String> valorObjetivadoList,
                           List<String>  dataIncialList,List<String>  dataFinalList,
+                          List<String> porcentagemValorList, List<String> porcentagemDataList,
                           Activity activity, View mView){
         this.context = context;
         this.idPFList.addAll(idPFList);
@@ -55,12 +60,20 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
         this.valorObjetivadoList.addAll(valorObjetivadoList);
         this.dataInicialList.addAll(dataIncialList);
         this.dataFinalList.addAll(dataFinalList);
+
+        this.porcentagemValorList.addAll(porcentagemValorList);
+        this.porcentagemDataList.addAll(porcentagemDataList);
+
         this.activity = activity;
         this.mView = mView;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView textViewIdPF, textViewNomePF, textViewTipoPF, textViewValorAtual, textViewDataFinal;
+        public TextView textViewIdPF, textViewNomePF, textViewTipoPF, textViewValorAtual,
+                textViewValorObjetivado, textViewDataInicial,textViewDataFinal,
+                textViewPorcentagemValor, textViewPorcentagemData;
+
+        public ProgressBar progressBarValor, progressBarData;
         public ImageView imageViewAdicionarValor;
 
         public ViewHolder(@NonNull View itemView) {
@@ -70,7 +83,12 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
             textViewNomePF = itemView.findViewById(R.id.textViewRecyclerListagemPFNomePF);
             textViewTipoPF = itemView.findViewById(R.id.textViewRecyclerListagemPFTipoPF);
             textViewValorAtual = itemView.findViewById(R.id.textViewRecyclerListagemPFValorAtual);
+            textViewValorObjetivado = itemView.findViewById(R.id.textViewRecyclerListagemPFValorObjetivado);
+            textViewDataInicial = itemView.findViewById(R.id.textViewRecyclerListagemPFDataInicial);
             textViewDataFinal = itemView.findViewById(R.id.textViewRecyclerListagemPFDataFinal);
+
+            textViewPorcentagemValor = itemView.findViewById(R.id.textViewRecyclerListagemPFPorcentagemValor);
+            textViewPorcentagemData = itemView.findViewById(R.id.textViewRecyclerListagemPFPorcentagemData);
 
             imageViewAdicionarValor = itemView.findViewById(R.id.imageViewRecyclerListagemPFAdicionarValorPF);
 
@@ -104,15 +122,20 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
         holder.textViewNomePF.setText(nomePFList.get(position));
         holder.textViewTipoPF.setText(tipoPFList.get(position));
         holder.textViewValorAtual.setText(valorAtualList.get(position));
+        holder.textViewValorObjetivado.setText(valorObjetivadoList.get(position));
+        holder.textViewDataInicial.setText(Utilitario.convertUsaToBr(dataInicialList.get(position)));
         holder.textViewDataFinal.setText(Utilitario.convertUsaToBr(dataFinalList.get(position)));
+
+        holder.textViewPorcentagemValor.setText(porcentagemValorList.get(position));
+        holder.textViewPorcentagemData.setText(porcentagemDataList.get(position));
 
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ListaPlanejamentoFinanceiro.class);
-                intent.putExtra("idPF", idPFList.get(position));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                view.getContext().startActivity(intent);
+//                Intent intent = new Intent(context, ListaPlanejamentoFinanceiro.class);
+//                intent.putExtra("idPF", idPFList.get(position));
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                view.getContext().startActivity(intent);
             }
         });
 

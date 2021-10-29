@@ -139,7 +139,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/textView44"
+                        android:id="@+id/textViewRecyclerListagemPFValorObjetivado"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -158,19 +158,19 @@
                 <ProgressBar
                     android:id="@+id/progressBar2"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="350dp"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp" />
 
                 <TextView
-                    android:id="@+id/textView97"
+                    android:id="@+id/textViewRecyclerListagemPFPorcentagemValor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:text="10%"
+                    android:text="11,11%"
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -189,9 +189,10 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewRecyclerListagemPFDataFinal"
+                    android:id="@+id/textViewRecyclerListagemPFDataInicial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="11/11/1111"
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -201,39 +202,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="                                                             " />
+                    android:text="                                                           " />
 
                 <TextView
-                    android:id="@+id/textView87"
+                    android:id="@+id/textViewRecyclerListagemPFDataFinal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:text="11/11/1111"
                     android:textColor="#000000"
                     android:textSize="16sp" />
+
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <ProgressBar
                     android:id="@+id/progressBar3"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="350dp"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp" />
 
                 <TextView
-                    android:id="@+id/textView99"
+                    android:id="@+id/textViewRecyclerListagemPFPorcentagemData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:text="20%"
+                    android:text="11,11%"
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </LinearLayout>

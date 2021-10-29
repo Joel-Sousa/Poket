@@ -59,9 +59,9 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
         idPF = intent.getStringExtra("idPF");
         textViewIdPF.setText(idPF);
 
-        dao.visualizarPlanejamentoFinanceiro(idPF, textViewTipoPF, textViewNomePF, textViewValorAtual,
-                textViewValorObjetivado, textViewDataInicio, textViewDataFinal ,textViewPorcentagemValor,
-                textViewPorcentagemData, progressBarValor, progressBarData);
+//        dao.visualizarPlanejamentoFinanceiro(idPF, textViewTipoPF, textViewNomePF, textViewValorAtual,
+//                textViewValorObjetivado, textViewDataInicio, textViewDataFinal ,textViewPorcentagemValor,
+//                textViewPorcentagemData, progressBarValor, progressBarData);
 
         imageViewHistoricoPF.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,8 +121,8 @@ public class ListaPlanejamentoFinanceiro extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        dao.visualizarPlanejamentoFinanceiro(idPF, textViewTipoPF, textViewNomePF, textViewValorAtual,
-                textViewValorObjetivado, textViewDataInicio, textViewDataFinal ,textViewPorcentagemValor,
-                textViewPorcentagemData, progressBarValor, progressBarData);
+//        dao.visualizarPlanejamentoFinanceiro(idPF, textViewTipoPF, textViewNomePF, textViewValorAtual,
+//                textViewValorObjetivado, textViewDataInicio, textViewDataFinal ,textViewPorcentagemValor,
+//                textViewPorcentagemData, progressBarValor, progressBarData);
     }
 }

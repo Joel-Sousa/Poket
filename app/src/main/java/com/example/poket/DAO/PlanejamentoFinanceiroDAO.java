@@ -170,9 +170,17 @@ public class PlanejamentoFinanceiroDAO {
                             List<String> dataInicialList = new ArrayList<>();
                             List<String> dataFinalList = new ArrayList<>();
 
-                            // TODO PASSAR DOIS PARAMETROS POR LISTAS POCENTAGEM DE VALOR E DATA
+                            List<String> porcentagemValorList = new ArrayList<>();
+                            List<String> porcentagemDataList = new ArrayList<>();
+                            List<String> porcentagemBarValorList = new ArrayList<>();
+                            List<String> porcentagemBarDataList = new ArrayList<>();
 
+                            // TODO PASSAR os valores dos bar para o recycler
+
+
+                            DecimalFormat df = new DecimalFormat("#,###.00");
                             for(PlanejamentoFinanceiroDTO pf : pfList){
+
                                 idPFList.add(pf.getIdPF());
                                 nomePFList.add(pf.getNomePF());
                                 tipoPFList.add(pf.getTipoPF());
@@ -180,13 +188,31 @@ public class PlanejamentoFinanceiroDAO {
                                 valorObjetivadoList.add(pf.getValorObjetivado());
                                 dataInicialList.add(pf.getDataInicial());
                                 dataFinalList.add(pf.getDataFinal());
+
+                                double porcentagemValor = porcentagemValor(pf.getValorAtual(), pf.getValorObjetivado());
+
+                                String dataInicial = Utilitario.convertUsaToBr(pf.getDataInicial());
+                                String dataAtual = Utilitario.dataAtual();
+                                String dataFinal = Utilitario.convertUsaToBr(pf.getDataFinal());
+
+                                double porcentagemData = porcentagemData(dataInicial, dataAtual, dataFinal);
+
+                                porcentagemValorList.add(df.format(porcentagemValor)+"%");
+
+                                if(porcentagemData == (0.0))
+                                    porcentagemDataList.add(0+"%");
+                                else
+                                    porcentagemDataList.add(df.format(porcentagemData)+"%");
+
                             }
 
                             layoutManager = new LinearLayoutManager(context);
                             recyclerView.setLayoutManager((layoutManager));
                             adapter = new PlanejamentoFinanceiroAdapter(context,
                                     idPFList, nomePFList, tipoPFList, valorAtualList,
-                                    valorObjetivadoList, dataInicialList, dataFinalList, activity, view);
+                                    valorObjetivadoList, dataInicialList, dataFinalList
+                                    ,porcentagemValorList, porcentagemDataList,
+                                    activity, view);
                             recyclerView.setAdapter(adapter);
 
                         } else {
@@ -198,93 +224,6 @@ public class PlanejamentoFinanceiroDAO {
     }
 
 
-
-    public void visualizarPlanejamentoFinanceiro(String idPF, TextView textViewTipoPF,
-             TextView textViewNomePF, TextView textViewValorAtual, TextView textViewValorObjetivado,
-             TextView textViewDataInicio, TextView textViewDataFinal , TextView textViewPorcentagemValor,
-             TextView textViewPorcentagemData, ProgressBar progressBarValor, ProgressBar progressBarData){
-
-        db.collection("planejamentoFinanceiro")
-                .document(user.getUid()).collection(user.getUid()).document(idPF)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-
-                        DecimalFormat df = new DecimalFormat("#,###.00");
-
-                        double valorAtual = Double.valueOf(document.getData().get("valorAtual").toString());
-                        double valorObjetivado = Double.valueOf(document.getData().get("valorObjetivado").toString());
-
-                        double porcentagemValor = (valorAtual / valorObjetivado) * 100;
-
-                        String dataInicio = Utilitario.convertUsaToBr(document.getData().get("dataInicial").toString());
-                        String dataAtual = Utilitario.dataAtual();
-                        String dataFinal = Utilitario.convertUsaToBr(document.getData().get("dataFinal").toString());
-
-                        double porcentagemData = porcentagemData(dataInicio, dataAtual, dataFinal);
-
-                        int valorBarraAtualValor = (int) porcentagemValor;
-                        String porcentagemValorAtual = df.format(porcentagemValor)+"%";
-
-                        int valorBarraAtualData = (int) porcentagemData;
-                        String porcentagemDataAtual = df.format(porcentagemData)+"%";
-
-                        if(porcentagemData == (0.0))
-                            porcentagemDataAtual = "0%";
-
-                        textViewNomePF.setText(document.getData().get("nomePF").toString());
-                        textViewTipoPF.setText(document.getData().get("tipoPF").toString());
-                        textViewValorAtual.setText(document.getData().get("valorAtual").toString());
-                        textViewValorObjetivado.setText(document.getData().get("valorObjetivado").toString());
-                        textViewDataInicio.setText(dataInicio);
-                        textViewDataFinal.setText(dataFinal);
-                        textViewPorcentagemValor.setText(porcentagemValorAtual);
-                        textViewPorcentagemData.setText(porcentagemDataAtual);
-                        progressBarValor.setProgress(valorBarraAtualValor);
-                        progressBarData.setProgress(valorBarraAtualData);
-                    } else {
-                        Log.d(Msg.INFO, "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });
-
-    }
-
-    private double porcentagemData(String dataInicio, String dataAtual, String dataFinal){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        Date inicio = null;
-        Date atual = null;
-        Date fim = null;
-
-        try {
-            inicio = sdf.parse(dataInicio);
-            atual = sdf.parse(dataAtual);
-            fim = sdf.parse(dataFinal);
-        } catch (java.text.ParseException e) { e.getMessage(); }
-
-        long diferencaMes = atual.getTime() - inicio.getTime();
-        long diferencaSegundos = diferencaMes / 1000;
-        long diferencaMinutos = diferencaSegundos / 60;
-        long diferencaHoras = diferencaMinutos / 60;
-        long diferencaDias = diferencaHoras / 24;
-
-        long diferencaMes1 = fim.getTime() - inicio.getTime();
-        long diferencaSegundos1 = diferencaMes1 / 1000;
-        long diferencaMinutos1 = diferencaSegundos1 / 60;
-        long diferencaHoras1 = diferencaMinutos1 / 60;
-        long diferencaDias1 = diferencaHoras1 / 24;
-
-        double resultado =  ((float) diferencaDias/diferencaDias1) * 100;
-        return resultado;
-    }
 
     public void editarPlanejamentoFinanceiro(PlanejamentoFinanceiroDTO dto, Activity activity){
 
@@ -660,12 +599,12 @@ public class PlanejamentoFinanceiroDAO {
 
                             if(!busca.equals("")){
 //                                textViewContaValor.setText(String.valueOf(valorConta));
-                                layoutManager = new LinearLayoutManager(context);
-                                recyclerView.setLayoutManager((layoutManager));
-                                adapter = new PlanejamentoFinanceiroAdapter(context,
-                                        idPFList, nomePFList, tipoPFList, valorAtualList,
-                                        valorObjetivadoList, dataInicialList, dataFinalList, activity, view);
-                                recyclerView.setAdapter(adapter);
+//                                layoutManager = new LinearLayoutManager(context);
+//                                recyclerView.setLayoutManager((layoutManager));
+//                                adapter = new PlanejamentoFinanceiroAdapter(context,
+//                                        idPFList, nomePFList, tipoPFList, valorAtualList,
+//                                        valorObjetivadoList, dataInicialList, dataFinalList, activity, view);
+//                                recyclerView.setAdapter(adapter);
                             }
 
                         } else {
@@ -740,5 +679,47 @@ public class PlanejamentoFinanceiroDAO {
                         Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
                     }
                 });
+    }
+
+    private double porcentagemValor(String valorAtual, String valorObjetivado){
+        double valorNewAtual = Double.valueOf(valorAtual);
+        double valorNewObjetivado = Double.valueOf(valorObjetivado);
+
+        return (valorNewAtual / valorNewObjetivado) * 100;
+    }
+
+    private double porcentagemData(String dataInicio, String dataAtual, String dataFinal){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+//        String dataAtual = Utilitario.dataAtual();
+
+        Date inicio = null;
+        Date atual = null;
+        Date fim = null;
+
+        try {
+            inicio = sdf.parse(dataInicio);
+            atual = sdf.parse(dataAtual);
+            fim = sdf.parse(dataFinal);
+        } catch (java.text.ParseException e) { e.getMessage(); }
+
+        long diferencaMes = atual.getTime() - inicio.getTime();
+        long diferencaSegundos = diferencaMes / 1000;
+        long diferencaMinutos = diferencaSegundos / 60;
+        long diferencaHoras = diferencaMinutos / 60;
+        long diferencaDias = diferencaHoras / 24;
+
+        long diferencaMes1 = fim.getTime() - inicio.getTime();
+        long diferencaSegundos1 = diferencaMes1 / 1000;
+        long diferencaMinutos1 = diferencaSegundos1 / 60;
+        long diferencaHoras1 = diferencaMinutos1 / 60;
+        long diferencaDias1 = diferencaHoras1 / 24;
+
+        double resultado =  ((float) diferencaDias/diferencaDias1) * 100;
+
+//        if(resultado == (0.0))
+//            resultado = 0;
+
+        return resultado;
     }
 }
