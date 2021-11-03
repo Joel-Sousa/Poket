@@ -15,6 +15,8 @@ public class Msg {
     public static final String DELETADO = "Dados excluídos com sucesso.";
     public static final String ERRORM= "Algo deu errado.";
     public static final String VALOR_ZERADO = "Insira um valor maior que zero.";
+    public static final String DATA_ATUAL = "Impossivel inserir uma data que ja passou.";
+    public static final String DATA_IGUAL = "Esta data e igual a data atual.";
 
     // FB
     public static final String DOCUMENTO_S = "DocumentSnapshot successfully.";
@@ -37,19 +39,20 @@ public class Msg {
     public static final String COMPARAR_SENHA = "Os campos de senha e Repetir Senha nao sao iguais.";
     public static final String EMAIL_SENHA = "Email e senha nao informados.";
     public static final String EMAIL_SENHAI = "Email ou senha invalidos.";
+    public static final String VERIFICAR_EMAIL = "Verifique seu email para obter o link de redefinicao de senha.";
 
     // Despesa
     public static final String DESPESA = "Preencha o campo de despesa.";
     public static final String VALOR_DESPESA = "Preencha o campo de valor de despesa.";
-    public static final String TIPO_DESPESA = "Selecione o campo de tipo de despesa.";
+    public static final String TIPO_DESPESA = "Selecione um tipo de despesa.";
     public static final String DATA_DESPESA = "Preencha o campo de data da despesa.";
     public static final String DATA_DESPESA_VALIDA = "Insira uma data valida.";
 
     // Renda
     public static final String RENDA = "Preencha o campo de renda.";
     public static final String VALOR_RENDA = "Preencha o campo de valor de renda.";
-    public static final String TIPO_RENDA = "Preencha o campo de tipo de renda.";
     public static final String DATA_RENDA = "Preencha o campo de data da renda.";
+    public static final String TIPO_RENDA = "Selecione um tipo de renda.";
 
     // Planejamento financeiro
     public static final String NOME_PF = "Preencha o campo de Planejamento financeiro.";

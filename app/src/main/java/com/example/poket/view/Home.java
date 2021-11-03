@@ -23,6 +23,7 @@ import com.example.poket.DTO.UsuarioDTO;
 import com.example.poket.MainActivity;
 import com.example.poket.R;
 import com.example.poket.util.Utilitario;
+import com.example.poket.view.conta.AdicionarConta;
 import com.example.poket.view.conta.ListaConta;
 import com.example.poket.view.despesa.AdicionarDespesa;
 import com.example.poket.view.despesa.ListaDespesa;
@@ -144,6 +145,30 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        imageViewAdicionarDespesa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String selecaoConta = spinnerConta.getSelectedItem().toString();
+
+                if(selecaoConta.equals(".:Sem Conta:.")){
+                    AlertDialog.Builder dialogo = new AlertDialog.Builder(Home.this);
+                    dialogo.setMessage("Insira uma conta para cadastrar uma despesa.");
+                    dialogo.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Home.this, AdicionarConta.class);
+                            startActivity(intent);
+                        }
+                    });
+                    dialogo.setTitle("Aviso");
+                    dialogo.show();
+                }else{
+                intentAdicionarDespesa = new Intent(Home.this, AdicionarDespesa.class);
+                startActivity(intentAdicionarDespesa);
+                }
+            }
+        });
+
         imageViewHistoricoDespesa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,11 +177,27 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        imageViewAdicionarDespesa.setOnClickListener(new View.OnClickListener() {
+        imageViewAdicionarRenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                   intentAdicionarDespesa = new Intent(Home.this, AdicionarDespesa.class);
-                   startActivity(intentAdicionarDespesa);
+                String selecaoConta = spinnerConta.getSelectedItem().toString();
+
+                if(selecaoConta.equals(".:Sem Conta:.")){
+                    AlertDialog.Builder dialogo = new AlertDialog.Builder(Home.this);
+                    dialogo.setMessage("Insira uma conta para cadastrar uma renda.");
+                    dialogo.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Home.this, AdicionarConta.class);
+                            startActivity(intent);
+                        }
+                    });
+                    dialogo.setTitle("Aviso");
+                    dialogo.show();
+                }else{
+                intentAdicionarRenda = new Intent(Home.this, AdicionarRenda.class);
+                startActivity(intentAdicionarRenda);
+                }
             }
         });
 
@@ -165,14 +206,6 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 intentListaRenda = new Intent(Home.this, ListaRenda.class);
                 startActivity(intentListaRenda);
-            }
-        });
-
-        imageViewAdicionarRenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intentAdicionarRenda = new Intent(Home.this, AdicionarRenda.class);
-                startActivity(intentAdicionarRenda);
             }
         });
 
@@ -211,8 +244,24 @@ public class Home extends AppCompatActivity {
         buttonPF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String selecaoConta = spinnerConta.getSelectedItem().toString();
+
+                if(selecaoConta.equals(".:Sem Conta:.")){
+                    AlertDialog.Builder dialogo = new AlertDialog.Builder(Home.this);
+                    dialogo.setMessage("Insira uma conta para cadastrar um planejamento financeiro.");
+                    dialogo.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Home.this, AdicionarConta.class);
+                            startActivity(intent);
+                        }
+                    });
+                    dialogo.setTitle("Aviso");
+                    dialogo.show();
+                }else{
                 Intent intentListagemPF = new Intent(Home.this, ListagemPlanejamentoFinanceiro.class);
                 startActivity(intentListagemPF);
+                }
             }
         });
     }

@@ -187,7 +187,11 @@ public class ContaDAO {
                             }
 
                             if(listConta.isEmpty()){
-                                semConta();
+                                ContaDTO d = new ContaDTO();
+                                d.setId("0");
+                                d.setConta(".:Sem Conta:.");
+                                d.setValor("0");
+                                listConta.add(d);
                             }
 
                             ArrayAdapter<ContaDTO> adapterConta =
@@ -236,7 +240,12 @@ public class ContaDAO {
                             }
 
                             if(listConta.isEmpty()){
-                                semConta();
+//                                List<ContaDTO> listConta = new ArrayList<>();
+                                ContaDTO d = new ContaDTO();
+                                d.setId("0");
+                                d.setConta(".:Sem Conta:.");
+                                d.setValor("0");
+                                listConta.add(d);
                             }
 
                             ArrayAdapter<ContaDTO> adapterConta =
@@ -267,12 +276,7 @@ public class ContaDAO {
     }
 
     public void semConta(){
-        List<ContaDTO> listConta = new ArrayList<>();
-        ContaDTO d = new ContaDTO();
-        d.setId("0");
-        d.setConta(".:Sem Conta:.");
-        d.setValor("0");
-        listConta.add(d);
+
     }
 
 

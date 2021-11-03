@@ -63,7 +63,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarPlanejamentoFinanceiro.this, textViewContaValor, textViewIdConta);
 
-//        mock();
+        mock();
 
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,29 +105,37 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         }else if(dto.getValorAtual().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ATUAL);
             editTextValorAtual.requestFocus();
-        }else if(dto.getValorObjetivado().length() == 0) {
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
-            editTextValorObjetivado.requestFocus();
-        }else if(dto.getDataInicial().length() == 0) {
-            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL);
-            editTextDataInicial.requestFocus();
-        }else if(dto.getDataFinal().length() == 0) {
-            Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
-            editTextDataFinal.requestFocus();
-        }else if(dto.getDataInicial().length() < 10){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL_VALIDA);
-            editTextDataInicial.requestFocus();
-            editTextDataInicial.setText("");
-        }else if(dto.getDataFinal().length() < 10){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL_VALIDA);
-            editTextDataFinal.requestFocus();
-            editTextDataFinal.setText("");
         }else if(dto.getValorAtual().equals("0")){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
             editTextValorAtual.requestFocus();
         }else if(dto.getValorObjetivado().equals("0")){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
             editTextValorObjetivado.requestFocus();
+        }else if(dto.getValorObjetivado().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
+            editTextValorObjetivado.requestFocus();
+        }else if(dto.getDataInicial().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL);
+            editTextDataInicial.requestFocus();
+        }else if(dto.getDataInicial().length() < 10){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL_VALIDA);
+            editTextDataInicial.requestFocus();
+            editTextDataInicial.setText("");
+        }else if(dto.getDataFinal().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
+            editTextDataFinal.requestFocus();
+        }else if(dto.getDataFinal().length() < 10){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL_VALIDA);
+            editTextDataFinal.requestFocus();
+            editTextDataFinal.setText("");
+        }else if(Utilitario.comparaDatas(editTextDataFinal.getText().toString() , Utilitario.dataAtual())){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_ATUAL);
+            editTextDataFinal.requestFocus();
+            editTextDataFinal.setText("");
+        }else if(editTextDataFinal.getText().toString().equals(Utilitario.dataAtual())){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_IGUAL);
+            editTextDataFinal.requestFocus();
+            editTextDataFinal.setText("");
         }else{
             dto.setDataInicial(Utilitario.convertBrToUsa(dto.getDataInicial()));
             dto.setDataFinal(Utilitario.convertBrToUsa(dto.getDataFinal()));

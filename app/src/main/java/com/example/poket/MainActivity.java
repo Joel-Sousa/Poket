@@ -2,20 +2,27 @@ package com.example.poket;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.poket.DAO.UsuarioDAO;
+import com.example.poket.DTO.ContaDTO;
 import com.example.poket.DTO.UsuarioDTO;
+import com.example.poket.adapter.ContaAdapter;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.usuario.AdicionarUsuario;
@@ -31,16 +38,22 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.type.DateTime;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     Intent intentEsqueceuSenha, intentCadastrarUsuario, intentLogin;
     TextView textViewEsqueceuSenha, textViewCadastrarUsuario;
-    EditText editTextEmail, editTextSenha;
+    EditText editTextEmail, editTextSenha, editTextDt;
     Button buttonLogin;
+    DatePickerDialog picker;
 
+    UsuarioDAO dao = new UsuarioDAO();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +70,15 @@ public class MainActivity extends AppCompatActivity {
         textViewEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intentEsqueceuSenha = new Intent(MainActivity.this , EsqueceuSenha.class);
-                startActivity(intentEsqueceuSenha);
+                if(editTextEmail.length() == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.EMAIL);
+                    editTextEmail.requestFocus();
+                }else if(!editTextEmail.getText().toString().trim().contains("@")){
+                    Utilitario.toast(getApplicationContext(), Msg.EMAIL_VALIDO);
+                    editTextEmail.requestFocus();
+                }else{
+                    dao.resetSenha(editTextEmail.getText().toString(), MainActivity.this);
+                }
             }
         });
 
@@ -74,11 +94,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 UsuarioDTO dto = new UsuarioDTO();
-                dto.setEmail(editTextEmail.getText().toString());
+                dto.setEmail(editTextEmail.getText().toString().trim());
                 dto.setSenha(editTextSenha.getText().toString());
                 validaCampos(dto);
             }
         });
+
+         fb();
     }
 
     private void validaCampos(UsuarioDTO dto){
@@ -95,13 +117,28 @@ public class MainActivity extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(), Msg.SENHA);
             editTextSenha.requestFocus();
         }else{
-            UsuarioDAO dao = new UsuarioDAO();
             dao.autenticarUsuario(dto, MainActivity.this);
         }
     }
 
     public void mock(){
-        editTextEmail.setText("ana@email.com");
+        editTextEmail.setText("any@email.com");
         editTextSenha.setText("123123");
+    }
+
+    private void fb(){
+        FirebaseFirestore db;
+        FirebaseAuth mAuth;
+        FirebaseUser user;
+
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+
+
+
+        boolean b = mAuth.isSignInWithEmailLink("any@email.com");
+        mAuth. isSignInWithEmailLink("any@email.com");
+        Log.d("---", b+"");
     }
 }

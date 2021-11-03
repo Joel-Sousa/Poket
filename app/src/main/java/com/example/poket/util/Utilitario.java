@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.poket.DTO.ContaDTO;
 import com.example.poket.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public class Utilitario {
 
     public static void listaTipoRenda(Spinner spinner, String tipoPF, Context context) {
         List<String> listTipoGasto = Arrays.asList(
-                "Salario", "Servicos", "Presente", "Aluguel", "Outros");
+                ".:Selecione:.", "Salario", "Servicos", "Presente", "Aluguel", "Outros");
 
         ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
                 android.R.layout.simple_list_item_1, listTipoGasto);
@@ -51,7 +52,7 @@ public class Utilitario {
 
     public static void listaTipoDespesa(Spinner spinner, String tipoPF, Context context) {
         List<String> listTipoGasto = Arrays.asList(
-                "Alimentaçao", "Veiculo", "Moradia", "Lazer", "Outros");
+               ".:Selecione:.", "Alimentaçao", "Veiculo", "Moradia", "Lazer", "Outros");
 
         ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
                 android.R.layout.simple_list_item_1, listTipoGasto);
@@ -86,5 +87,30 @@ public class Utilitario {
     public static String convertUsaToBr(String dataConveter){
         String[] parts = dataConveter.split("-");
         return parts[2]+"/"+parts[1]+"/"+parts[0];
+    }
+
+    public static boolean comparaDatas(String dataRecebida, String dataHoje) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat ("dd/MM/yyyy");
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            date1 = dateFormat.parse(dataRecebida);
+            date2 = dateFormat.parse(dataHoje);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(date2.after(date1)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static String maiuscula(String palavra){
+        String nome = ""+palavra.charAt(0);
+        nome = nome.toUpperCase();
+
+        return null;
     }
 }

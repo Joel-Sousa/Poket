@@ -129,6 +129,9 @@ public class EditarDespesa extends AppCompatActivity {
         }else if(dto.getDespesa().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DESPESA);
             editTextDespesa.requestFocus();
+        }else if(spinnerTipoDespesa.getSelectedItem().toString().equals(".:Selecione:.")){
+            Utilitario.toast(getApplicationContext(), Msg.TIPO_DESPESA);
+            spinnerTipoDespesa.performClick();
         }else if(dto.getDataDespesa().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA);
             editTextDataDespesa.requestFocus();

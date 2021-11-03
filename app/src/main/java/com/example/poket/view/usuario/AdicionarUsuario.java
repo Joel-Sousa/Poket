@@ -35,14 +35,14 @@ public class AdicionarUsuario extends AppCompatActivity {
         buttonCadastrar = findViewById(R.id.buttonAdicionarUsuarioAdicionar);
         imageViewVoltar = findViewById(R.id.imageViewAdicionarUsuarioVoltar);
 
-//        mock();
+        mock();
 
         buttonCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UsuarioDTO dto = new UsuarioDTO();
                 dto.setApelido(editTextApelido.getText().toString());
-                dto.setEmail(editTextEmail.getText().toString());
+                dto.setEmail(editTextEmail.getText().toString().trim());
                 dto.setSenha(editTextSenha.getText().toString());
                 dto.setRepetirSenha(editTextRepetirSenha.getText().toString());
                 validarUsuario(dto);

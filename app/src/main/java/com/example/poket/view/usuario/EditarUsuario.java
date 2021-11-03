@@ -57,7 +57,7 @@ public class EditarUsuario extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             dto.setApelido(editTextApelido.getText().toString());
-            dto.setEmail(editTextEmail.getText().toString());
+            dto.setEmail(editTextEmail.getText().toString().trim());
             dto.setSenha(editTextSenha.getText().toString());
             dto.setRepetirSenha(editTextRepetirSenha.getText().toString());
             validarCampos(dto);

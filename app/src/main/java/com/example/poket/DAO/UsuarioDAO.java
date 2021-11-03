@@ -14,6 +14,8 @@ import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthCredential;
@@ -65,9 +67,7 @@ public class UsuarioDAO {
                             Log.i(Msg.SUCESSO, Msg.CADASTRADO);
 
                             Utilitario.toast(activity.getApplicationContext(), Msg.CADASTRADO);
-
                             reautenticacao(dto.getApelido(), dto.getEmail(), dto.getSenha(), true);
-
                             activity.finish();
                         }else{
                             try{
@@ -154,22 +154,37 @@ public class UsuarioDAO {
 
     public void atualizarUsuario(UsuarioDTO dto, Activity activity){
         try {
+
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(dto.getApelido()).build();
 
-            user.updateProfile(profileUpdates);
-            user.updateEmail(dto.getEmail());
-            user.updatePassword(dto.getSenha());
+            user.updateEmail(dto.getEmail())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(Msg.INFO, "User email address updated.");
+                                    user.updateProfile(profileUpdates);
+//                                    user.updateEmail(dto.getEmail());
+                                    user.updatePassword(dto.getSenha());
 
-            reautenticacao(dto.getApelido(), dto.getEmail(), dto.getSenha(), false);
+                                    reautenticacao(dto.getApelido(), dto.getEmail(), dto.getSenha(), false);
 
-            Log.i(Msg.SUCESSO, Msg.ALTERADO);
+                                    Log.i(Msg.SUCESSO, Msg.ALTERADO);
 
-            Utilitario.toast(activity.getApplicationContext(), Msg.ALTERADO);
+                                    Utilitario.toast(activity.getApplicationContext(), Msg.ALTERADO);
+
+                            }else{
+                                Utilitario.toast(activity.getApplicationContext(), Msg.EMAIL_EXISTENTE);
+                            }
+                        }
+                    });
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
+
 
     public void excluirUsuario(Context context){
         user.delete()
@@ -239,5 +254,19 @@ public class UsuarioDAO {
         } else {
             Log.e(Msg.SUCESSO, "Usuario saiu!");
         }
+    }
+
+    public void resetSenha(String email, Activity activity){
+        mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Utilitario.toast(activity.getApplicationContext(), Msg.VERIFICAR_EMAIL);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Utilitario.toast(activity.getApplicationContext(), Msg.ERRORM);
+            }
+        });
     }
 }

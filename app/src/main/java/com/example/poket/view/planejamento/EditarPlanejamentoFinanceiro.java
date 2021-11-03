@@ -25,8 +25,8 @@ import com.example.poket.view.renda.EditarRenda;
 
 public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
 
-    TextView textViewIdPF, textViewValorAtual, textViewDataInicial;
-    EditText editTextNomePF, editTextValorObjetivado, editTextDataFinal;
+    TextView textViewIdPF, textViewValorAtual;
+    EditText editTextNomePF, editTextValorObjetivado, editTextDataFinal, editTextDataInicial;
     Spinner spinnerTipoPF;
     ImageView imageViewVoltar;
     Button buttonEditar, buttonExcluir;
@@ -46,7 +46,8 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         spinnerTipoPF = findViewById(R.id.spinnerEditarPFTipoPF);
         textViewValorAtual = findViewById(R.id.textViewEditarPFValorAtual);
         editTextValorObjetivado = findViewById(R.id.editTextEditarPFValorObjetivado);
-        textViewDataInicial = findViewById(R.id.textViewEditarPFDataInicial);
+        editTextDataInicial = findViewById(R.id.editTextEditarPFDataInicial);
+//        textViewDataInicial = findViewById(R.id.textViewEditarPFDataInicial);
         editTextDataFinal = findViewById(R.id.editTextEditarPFDataFinal);
 
         buttonEditar = findViewById(R.id.buttonEditarPFEditar);
@@ -59,12 +60,12 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         tipoPF = intent.getStringExtra("tipoPF");
         textViewValorAtual.setText(intent.getStringExtra("valorAtual"));
         editTextValorObjetivado.setText(intent.getStringExtra("valorObjetivado"));
-        textViewDataInicial.setText(intent.getStringExtra("dataInicio"));
+        editTextDataInicial.setText(intent.getStringExtra("dataInicio"));
         editTextDataFinal.setText(intent.getStringExtra("dataFinal"));
 
         Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
 
-//        editTextDataInicial.addTextChangedListener(MaskEditUtil.mask(editTextDataInicial, MaskEditUtil.FORMAT_DATE));
+        editTextDataInicial.addTextChangedListener(MaskEditUtil.mask(editTextDataInicial, MaskEditUtil.FORMAT_DATE));
         editTextDataFinal.addTextChangedListener(MaskEditUtil.mask(editTextDataFinal, MaskEditUtil.FORMAT_DATE));
 
         imageViewVoltar.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +85,7 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
                 dto.setTipoPF(spinnerTipoPF.getSelectedItem().toString());
                 dto.setValorAtual(textViewValorAtual.getText().toString());
                 dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
-                dto.setDataInicial(textViewDataInicial.getText().toString());
+                dto.setDataInicial(editTextDataInicial.getText().toString());
                 dto.setDataFinal(editTextDataFinal.getText().toString());
 
                 validarConta(dto);
@@ -125,6 +126,16 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         }else if(dto.getValorObjetivado().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
             editTextValorObjetivado.requestFocus();
+        }else if(dto.getValorObjetivado().equals("0")){
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+            editTextValorObjetivado.requestFocus();
+        }else if(dto.getDataInicial().length() == 0) {
+            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL);
+            editTextDataInicial.requestFocus();
+        }else if(dto.getDataInicial().length() < 10){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL_VALIDA);
+            editTextDataInicial.requestFocus();
+            editTextDataInicial.setText("");
         }else if(dto.getDataFinal().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
             editTextDataFinal.requestFocus();
@@ -132,9 +143,14 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL_VALIDA);
             editTextDataFinal.requestFocus();
             editTextDataFinal.setText("");
-        }else if(dto.getValorObjetivado().equals("0")){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
-            editTextValorObjetivado.requestFocus();
+        }else if(Utilitario.comparaDatas(editTextDataFinal.getText().toString() , Utilitario.dataAtual())){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_ATUAL);
+            editTextDataFinal.requestFocus();
+            editTextDataFinal.setText("");
+        }else if(editTextDataFinal.getText().toString().equals(Utilitario.dataAtual())){
+            Utilitario.toast(getApplicationContext(), Msg.DATA_IGUAL);
+            editTextDataFinal.requestFocus();
+            editTextDataFinal.setText("");
         }else {
             dto.setDataInicial(Utilitario.convertBrToUsa(dto.getDataInicial()));
             dto.setDataFinal(Utilitario.convertBrToUsa(dto.getDataFinal()));

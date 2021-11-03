@@ -57,7 +57,7 @@ public class AdicionarRenda extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinnerAll(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta);
 
-//        mock();
+        mock();
 
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,9 +97,12 @@ public class AdicionarRenda extends AppCompatActivity {
         }else if(dto.getValorRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_RENDA);
             editTextValorRenda.requestFocus();
-        }else if(dto.getTipoRenda().length() == 0){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_RENDA, Toast.LENGTH_LONG).show();
-            spinnerTipoRenda.requestFocus();
+        }else if(dto.getValorRenda().equals("0")){
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+            editTextValorRenda.requestFocus();
+        }else if(spinnerTipoRenda.getSelectedItem().toString().equals(".:Selecione:.")){
+            Utilitario.toast(getApplicationContext(), Msg.TIPO_RENDA);
+            spinnerTipoRenda.performClick();
         }else if(dto.getDataRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
             editTextDataRenda.requestFocus();
@@ -111,9 +114,6 @@ public class AdicionarRenda extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
             editTextDataRenda.requestFocus();
             editTextDataRenda.setText("");
-        }else if(dto.getValorRenda().equals("0")){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
-            editTextValorRenda.requestFocus();
         }else{
             dto.setDataRenda(Utilitario.convertBrToUsa(dto.getDataRenda()));
             dao.cadastarRenda(dto, AdicionarRenda.this);

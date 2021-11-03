@@ -133,6 +133,9 @@ public class EditarRenda extends AppCompatActivity {
         }else if(dto.getRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.RENDA);
             editTextRenda.requestFocus();
+        }else if(spinnerTipoRenda.getSelectedItem().toString().equals(".:Selecione:.")){
+            Utilitario.toast(getApplicationContext(), Msg.TIPO_RENDA);
+            spinnerTipoRenda.performClick();
         }else if(dto.getDataRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
             editTextDataRenda.requestFocus();
