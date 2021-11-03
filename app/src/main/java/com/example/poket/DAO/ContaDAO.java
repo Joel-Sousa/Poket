@@ -164,7 +164,7 @@ public class ContaDAO {
 
 
     public void listaContaSpinner(Spinner spinnerConta, Context context, TextView textViewConta,
-                                  TextView textViewIdConta){
+                                  TextView textViewIdConta, boolean contaZerada){
 
         db.collection("contas")
                 .document(user.getUid()).collection(user.getUid()).get()
@@ -177,8 +177,14 @@ public class ContaDAO {
                                 ContaDTO dto = new ContaDTO();
 
                                 double valor = Double.valueOf(document.getData().get("valor").toString());
-
-                                if(valor > 0){
+                                if(contaZerada){
+                                    if(valor > 0){
+                                        dto.setId(document.getId());
+                                        dto.setConta(document.getData().get("conta").toString());
+                                        dto.setValor(document.getData().get("valor").toString());
+                                        listConta.add(dto);
+                                    }
+                                }else{
                                     dto.setId(document.getId());
                                     dto.setConta(document.getData().get("conta").toString());
                                     dto.setValor(document.getData().get("valor").toString());
@@ -218,67 +224,7 @@ public class ContaDAO {
                     }
 
                 });
-
     }
-
-    public void listaContaSpinnerAll(Spinner spinnerConta, Context context, TextView textViewConta,
-                                  TextView textViewIdConta){
-
-        db.collection("contas")
-                .document(user.getUid()).collection(user.getUid()).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                ContaDTO dto = new ContaDTO();
-                                dto.setId(document.getId());
-                                dto.setConta(document.getData().get("conta").toString());
-                                dto.setValor(document.getData().get("valor").toString());
-                                listConta.add(dto);
-                            }
-
-                            if(listConta.isEmpty()){
-//                                List<ContaDTO> listConta = new ArrayList<>();
-                                ContaDTO d = new ContaDTO();
-                                d.setId("0");
-                                d.setConta(".:Sem Conta:.");
-                                d.setValor("0");
-                                listConta.add(d);
-                            }
-
-                            ArrayAdapter<ContaDTO> adapterConta =
-                                    new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
-                                            listConta);
-                            spinnerConta.setAdapter(adapterConta);
-
-                            spinnerConta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                    textViewIdConta.setText(listConta.get(i).getId());
-                                    textViewConta.setText(listConta.get(i).getValor());
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                }
-                            });
-
-                        } else {
-                            Log.w(Msg.ERROR, Msg.DOCUMENTO_F, task.getException());
-                        }
-                    }
-
-                });
-
-    }
-
-    public void semConta(){
-
-    }
-
 
     public void buscarConta(RecyclerView recyclerView, Context context,TextView textViewContaValor,
                             String busca){

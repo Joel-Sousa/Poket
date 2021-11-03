@@ -2,9 +2,12 @@ package com.example.poket.view.renda;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -18,6 +21,9 @@ import com.example.poket.R;
 import com.example.poket.util.MaskEditUtil;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
+import com.example.poket.view.despesa.EditarDespesa;
+
+import java.util.Calendar;
 
 public class AdicionarRenda extends AppCompatActivity {
 
@@ -26,6 +32,7 @@ public class AdicionarRenda extends AppCompatActivity {
     Spinner spinnerConta, spinnerTipoRenda;
     ImageView imageViewVoltar;
     Button buttonSalvar;
+    DatePickerDialog picker;
 
     RendaDTO dto = new RendaDTO();
     RendaDAO dao = new RendaDAO();
@@ -51,11 +58,11 @@ public class AdicionarRenda extends AppCompatActivity {
         buttonSalvar = findViewById(R.id.buttonAdicionarRendaSalvar);
 
         Utilitario.listaTipoRenda(spinnerTipoRenda, tipoPF, getApplicationContext());
-        editTextDataRenda.addTextChangedListener(MaskEditUtil.mask(editTextDataRenda, MaskEditUtil.FORMAT_DATE));
         editTextDataRenda.setText(Utilitario.dataAtual());
+        editTextDataRenda.setInputType(InputType.TYPE_NULL);
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinnerAll(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta);
+        daoC.listaContaSpinner(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta, false);
 
         mock();
 
@@ -82,6 +89,26 @@ public class AdicionarRenda extends AppCompatActivity {
                 finish();
             }
         });
+
+        editTextDataRenda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+
+                picker = new DatePickerDialog(AdicionarRenda.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+
+                        editTextDataRenda.setText(day + "/" + (i1 + 1) + "/" + i);
+                    }
+                }, year, month, day);
+                picker.show();
+            }
+        });
     }
 
     private void validarConta(RendaDTO dto){
@@ -106,14 +133,6 @@ public class AdicionarRenda extends AppCompatActivity {
         }else if(dto.getDataRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
             editTextDataRenda.requestFocus();
-        }else if(dto.getDataRenda().length() < 10){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA_VALIDA);
-            editTextDataRenda.requestFocus();
-            editTextDataRenda.setText("");
-        }else if(dto.getDataRenda().length() < 10){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
-            editTextDataRenda.requestFocus();
-            editTextDataRenda.setText("");
         }else{
             dto.setDataRenda(Utilitario.convertBrToUsa(dto.getDataRenda()));
             dao.cadastarRenda(dto, AdicionarRenda.this);

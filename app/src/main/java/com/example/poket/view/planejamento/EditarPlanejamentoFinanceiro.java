@@ -3,11 +3,14 @@ package com.example.poket.view.planejamento;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -23,6 +26,8 @@ import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.renda.EditarRenda;
 
+import java.util.Calendar;
+
 public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
 
     TextView textViewIdPF, textViewValorAtual;
@@ -30,6 +35,7 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
     Spinner spinnerTipoPF;
     ImageView imageViewVoltar;
     Button buttonEditar, buttonExcluir;
+    DatePickerDialog picker;
 
     PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
 
@@ -65,8 +71,8 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
 
         Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
 
-        editTextDataInicial.addTextChangedListener(MaskEditUtil.mask(editTextDataInicial, MaskEditUtil.FORMAT_DATE));
-        editTextDataFinal.addTextChangedListener(MaskEditUtil.mask(editTextDataFinal, MaskEditUtil.FORMAT_DATE));
+        editTextDataInicial.setInputType(InputType.TYPE_NULL);
+        editTextDataFinal.setInputType(InputType.TYPE_NULL);
 
         imageViewVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +117,45 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
             }
         });
 
+        editTextDataInicial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+
+                picker = new DatePickerDialog(EditarPlanejamentoFinanceiro.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+
+                        editTextDataInicial.setText(day + "/" + (i1 + 1) + "/" + i);
+                    }
+                }, year, month, day);
+                picker.show();
+            }
+        });
+
+        editTextDataFinal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+
+                picker = new DatePickerDialog(EditarPlanejamentoFinanceiro.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+
+                        editTextDataFinal.setText(day + "/" + (i1 + 1) + "/" + i);
+                    }
+                }, year, month, day);
+                picker.show();
+            }
+        });
     }
 
     private void validarConta(PlanejamentoFinanceiroDTO dto){

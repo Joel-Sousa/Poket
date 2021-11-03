@@ -60,14 +60,13 @@ public class AdicionarDespesa extends AppCompatActivity {
         imageViewVoltar = findViewById(R.id.imageViewAdicionarDespesaVoltar);
         buttonSalvar = findViewById(R.id.buttonAdicionarDespesaSalvar);
 
-//        editTextDataDespesa.addTextChangedListener(MaskEditUtil.mask(editTextDataDespesa, MaskEditUtil.FORMAT_DATE));
         editTextDataDespesa.setText(Utilitario.dataAtual());
         editTextDataDespesa.setInputType(InputType.TYPE_NULL);
 
         Utilitario.listaTipoDespesa(spinnerTipoDespesa, tipoPF, getApplicationContext());
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, AdicionarDespesa.this, textViewValorConta, textViewIdConta);
+        daoC.listaContaSpinner(spinnerConta, AdicionarDespesa.this, textViewValorConta, textViewIdConta, true);
 
         mock();
 

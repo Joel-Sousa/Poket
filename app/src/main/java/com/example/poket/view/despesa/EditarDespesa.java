@@ -3,11 +3,14 @@ package com.example.poket.view.despesa;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -21,6 +24,8 @@ import com.example.poket.util.MaskEditUtil;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 
+import java.util.Calendar;
+
 public class EditarDespesa extends AppCompatActivity {
 
     EditText editTextDespesa, editTextDataDespesa, editTextObservacao;
@@ -28,12 +33,12 @@ public class EditarDespesa extends AppCompatActivity {
     Spinner spinnerTipoDespesa;
     ImageView imageViewVoltar;
     Button buttonEditar, buttonExcluir;
-
-    String idConta = "";
-    String valorDespesaAntiga = "";
+    DatePickerDialog picker;
 
     DespesaDAO dao = new DespesaDAO();
 
+    String idConta = "";
+    String valorDespesaAntiga = "";
     String tipoPF = "";
 
     @Override
@@ -55,8 +60,6 @@ public class EditarDespesa extends AppCompatActivity {
         buttonEditar = findViewById(R.id.buttonEditarDespesaEditar);
         buttonExcluir = findViewById(R.id.buttonEditarDespesaExcluir);
 
-        editTextDataDespesa.addTextChangedListener(MaskEditUtil.mask(editTextDataDespesa, MaskEditUtil.FORMAT_DATE));
-
         Intent intent = getIntent();
         textViewId.setText(intent.getStringExtra("id"));
         editTextDespesa.setText(intent.getStringExtra("despesa"));
@@ -69,6 +72,8 @@ public class EditarDespesa extends AppCompatActivity {
 
         idConta = intent.getStringExtra("idConta");
         valorDespesaAntiga = intent.getStringExtra("valorDespesa");
+
+        editTextDataDespesa.setInputType(InputType.TYPE_NULL);
 
         Utilitario.listaTipoDespesa(spinnerTipoDespesa, tipoPF, getApplicationContext());
 
@@ -117,6 +122,26 @@ public class EditarDespesa extends AppCompatActivity {
                 finish();
             }
         });
+
+        editTextDataDespesa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+
+                picker = new DatePickerDialog(EditarDespesa.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+
+                        editTextDataDespesa.setText(day + "/" + (i1 + 1) + "/" + i);
+                    }
+                }, year, month, day);
+                picker.show();
+            }
+        });
     }
 
     public void validarCampos(DespesaDTO dto) {
@@ -135,10 +160,6 @@ public class EditarDespesa extends AppCompatActivity {
         }else if(dto.getDataDespesa().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA);
             editTextDataDespesa.requestFocus();
-        }else if(dto.getDataDespesa().length() < 10){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA_VALIDA);
-            editTextDataDespesa.requestFocus();
-            editTextDataDespesa.setText("");
         }else{
             dto.setDataDespesa(Utilitario.convertBrToUsa(dto.getDataDespesa()));
             dao.editarDespesa(dto, EditarDespesa.this);

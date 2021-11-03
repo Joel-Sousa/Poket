@@ -104,7 +104,7 @@ public class Home extends AppCompatActivity {
         UsuarioDTO dto = dao.obterUsuario();
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, Home.this, textViewContaValor, textViewIdConta);
+        daoC.listaContaSpinner(spinnerConta, Home.this, textViewContaValor, textViewIdConta, true);
 
 //        textViewTst.setText(dto.getUid());
         textViewApelido.setText(dto.getApelido());
@@ -274,7 +274,7 @@ public class Home extends AppCompatActivity {
         textViewContaValor = findViewById(R.id.textViewHomeContaValor);
 
         ContaDAO daoC = new ContaDAO();
-        daoC.listaContaSpinner(spinnerConta, Home.this, textViewContaValor, textViewIdConta);
+        daoC.listaContaSpinner(spinnerConta, Home.this, textViewContaValor, textViewIdConta, true);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();

@@ -3,11 +3,14 @@ package com.example.poket.view.renda;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -25,6 +28,8 @@ import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.despesa.EditarDespesa;
 
+import java.util.Calendar;
+
 public class EditarRenda extends AppCompatActivity {
 
     EditText editTextRenda, editTextDataRenda, editTextObservacao;
@@ -32,12 +37,12 @@ public class EditarRenda extends AppCompatActivity {
     Spinner spinnerTipoRenda;
     ImageView imageViewVoltar;
     Button buttonEditar, buttonExcluir;
+    DatePickerDialog picker;
 
     RendaDAO dao = new RendaDAO();
 
     String idConta = "";
     String valorRendaAntiga = "";
-
     String tipoPF = "";
 
     @Override
@@ -59,8 +64,6 @@ public class EditarRenda extends AppCompatActivity {
         buttonEditar = findViewById(R.id.buttonEditarRendaEditar);
         buttonExcluir = findViewById(R.id.buttonEditarRendaExcluir);
 
-        editTextDataRenda.addTextChangedListener(MaskEditUtil.mask(editTextDataRenda, MaskEditUtil.FORMAT_DATE));
-
         Intent intent = getIntent();
         textViewId.setText(intent.getStringExtra("id"));
         editTextRenda.setText(intent.getStringExtra("renda"));
@@ -73,6 +76,8 @@ public class EditarRenda extends AppCompatActivity {
 
         idConta = intent.getStringExtra("idConta");
         valorRendaAntiga = intent.getStringExtra("valorRenda");
+
+        editTextDataRenda.setInputType(InputType.TYPE_NULL);
 
         Utilitario.listaTipoRenda(spinnerTipoRenda, tipoPF, getApplicationContext());
 
@@ -121,6 +126,26 @@ public class EditarRenda extends AppCompatActivity {
                 finish();
             }
         });
+
+        editTextDataRenda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+
+                picker = new DatePickerDialog(EditarRenda.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+
+                        editTextDataRenda.setText(day + "/" + (i1 + 1) + "/" + i);
+                    }
+                }, year, month, day);
+                picker.show();
+            }
+        });
     }
 
     public void validarCampos(RendaDTO dto){
@@ -139,10 +164,6 @@ public class EditarRenda extends AppCompatActivity {
         }else if(dto.getDataRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
             editTextDataRenda.requestFocus();
-        }else if(dto.getDataRenda().length() < 10){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
-            editTextDataRenda.requestFocus();
-            editTextDataRenda.setText("");
         }else {
             dto.setDataRenda(Utilitario.convertBrToUsa(dto.getDataRenda()));
             dao.editarRenda(dto, EditarRenda.this);
