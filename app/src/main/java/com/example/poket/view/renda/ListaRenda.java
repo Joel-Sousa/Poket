@@ -48,6 +48,8 @@ public class ListaRenda extends AppCompatActivity {
 
     BarChart barChartRenda;
 
+    RendaDAO dao = new RendaDAO();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +66,9 @@ public class ListaRenda extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaRenda);
 
-        RendaDAO dao = new RendaDAO();
         dao.lerRendas(recyclerView, context, textViewRendaValorTotal);
 
-        graficoBarChartRenda();
+        dao.graficoBarChartRenda(barChartRenda);
 
         buttonBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,49 +93,10 @@ public class ListaRenda extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaRenda);
 
-        RendaDAO dao = new RendaDAO();
+//        RendaDAO dao = new RendaDAO();
         dao.lerRendas(recyclerView, context, textViewRendaValorTotal);
-    }
 
-    private void graficoBarChartRenda(){
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(1,1));
-        barEntries.add(new BarEntry(2,2));
-        barEntries.add(new BarEntry(3,3));
-        barEntries.add(new BarEntry(4,4));
-        barEntries.add(new BarEntry(5,5));
-        barEntries.add(new BarEntry(6,6));
-        barEntries.add(new BarEntry(7,7));
-        barEntries.add(new BarEntry(8,8));
-        barEntries.add(new BarEntry(9,9));
-        barEntries.add(new BarEntry(10,10));
-        barEntries.add(new BarEntry(11,11));
-        barEntries.add(new BarEntry(12,12));
-
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Renda");
-        barDataSet.setColor(Color.GREEN);
-        barDataSet.setValueTextSize(10f);
-
-        BarData barData = new BarData();
-        barData.addDataSet(barDataSet);
-
-        barChartRenda.setData(barData);
-
-        String[] mes = new String[]
-                {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
-                        "Jul", "Ago", "Set", "Out", "Nov", "Dez"};
-
-        XAxis xAxis = barChartRenda.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-        xAxis.setLabelCount(12);
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(2);
-        xAxis.setGranularityEnabled(true);
-
-        barChartRenda.getDescription().setEnabled(false);
-
-        barChartRenda.invalidate();
-
+        barChartRenda = findViewById(R.id.barChartListaRenda);
+        dao.graficoBarChartRenda(barChartRenda);
     }
 }

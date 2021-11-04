@@ -60,6 +60,7 @@ public class AdicionarRenda extends AppCompatActivity {
         Utilitario.listaTipoRenda(spinnerTipoRenda, tipoPF, getApplicationContext());
         editTextDataRenda.setText(Utilitario.dataAtual());
         editTextDataRenda.setInputType(InputType.TYPE_NULL);
+//         editTextDataRenda.addTextChangedListener(MaskEditUtil.mask(editTextDataRenda, MaskEditUtil.FORMAT_DATE));
 
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta, false);
@@ -101,9 +102,12 @@ public class AdicionarRenda extends AppCompatActivity {
                 picker = new DatePickerDialog(AdicionarRenda.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+                        int month = i1+1;
 
-                        editTextDataRenda.setText(day + "/" + (i1 + 1) + "/" + i);
+                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+                        String month1 = month<10 ? "0"+month : String.valueOf(month);
+
+                        editTextDataRenda.setText(day + "/" + month1 + "/" + i);
                     }
                 }, year, month, day);
                 picker.show();
@@ -141,7 +145,7 @@ public class AdicionarRenda extends AppCompatActivity {
 
     public void mock(){
         editTextRenda.setText("aluguelTst");
-        editTextValorRenda.setText("200");
+        editTextValorRenda.setText("20");
         editTextObservacao.setText("observacaoTst");
     }
 }

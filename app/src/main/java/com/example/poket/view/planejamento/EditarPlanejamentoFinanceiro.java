@@ -128,9 +128,12 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
                 picker = new DatePickerDialog(EditarPlanejamentoFinanceiro.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+                        int month = i1+1;
 
-                        editTextDataInicial.setText(day + "/" + (i1 + 1) + "/" + i);
+                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+                        String month1 = month<10 ? "0"+month : String.valueOf(month);
+
+                        editTextDataInicial.setText(day + "/" + month1 + "/" + i);
                     }
                 }, year, month, day);
                 picker.show();
@@ -148,9 +151,12 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
                 picker = new DatePickerDialog(EditarPlanejamentoFinanceiro.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+                        int month = i1+1;
 
-                        editTextDataFinal.setText(day + "/" + (i1 + 1) + "/" + i);
+                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+                        String month1 = month<10 ? "0"+month : String.valueOf(month);
+
+                        editTextDataFinal.setText(day + "/" + month1 + "/" + i);
                     }
                 }, year, month, day);
                 picker.show();

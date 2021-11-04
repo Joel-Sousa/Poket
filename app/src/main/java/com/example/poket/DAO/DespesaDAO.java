@@ -2,6 +2,7 @@ package com.example.poket.DAO;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -15,6 +16,12 @@ import com.example.poket.adapter.ContaAdapter;
 import com.example.poket.adapter.DespesaAdapter;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -342,5 +349,102 @@ public class DespesaDAO {
                         }
                     }
                 });
+    }
+
+    public void graficoBarChartDespesa(BarChart barChartDespesa){
+
+        db.collection("despesas").document(user.getUid()).collection(user.getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    Map<Integer, Double> listaMes = new HashMap<>();
+
+                    for(int i=1; i<=12; i++)
+                        listaMes.put(i, 0.0);
+
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                        String dataBD = document.getData().get("dataDespesa").toString();
+                        String[] parts = dataBD.split("-");
+                        Double valor = Double.valueOf(document.getData().get("valorDespesa").toString());
+
+                        if(parts[1].equals("01")){
+                            listaMes.put(1, listaMes.get(1)+valor);
+                        }else if(parts[1].equals("02")){
+                            listaMes.put(2, listaMes.get(2)+valor);
+                        }else if(parts[1].equals("03")){
+                            listaMes.put(3, listaMes.get(3)+valor);
+                        }else if(parts[1].equals("04")){
+                            listaMes.put(4, listaMes.get(4)+valor);
+                        }else if(parts[1].equals("05")){
+                            listaMes.put(5, listaMes.get(5)+valor);
+                        }else if(parts[1].equals("06")){
+                            listaMes.put(6, listaMes.get(6)+valor);
+                        }else if(parts[1].equals("07")){
+                            listaMes.put(7, listaMes.get(7)+valor);
+                        }else if(parts[1].equals("08")){
+                            listaMes.put(8, listaMes.get(8)+valor);
+                        }else if(parts[1].equals("09")){
+                            listaMes.put(9, listaMes.get(9)+valor);
+                        }else if(parts[1].equals("10")){
+                            listaMes.put(10, listaMes.get(10)+valor);
+                        }else if(parts[1].equals("11")){
+                            listaMes.put(11, listaMes.get(11)+valor);
+                        }else if(parts[1].equals("12")){
+                            listaMes.put(12, listaMes.get(12)+valor);
+                        }
+                    }
+
+                    ArrayList<BarEntry> barEntries = new ArrayList<>();
+                    int mesBD = 0;
+                    double valorSomado = 0.0;
+
+                    for(Map.Entry<Integer, Double> entry : listaMes.entrySet()){
+                         mesBD = entry.getKey();
+                         valorSomado = entry.getValue();
+
+                        barEntries.add(new BarEntry(mesBD, (float) valorSomado));
+                    }
+
+                    BarDataSet barDataSet = new BarDataSet(barEntries, "Despesa");
+                    barDataSet.setColor(Color.RED);
+                    barDataSet.setValueTextSize(10f);
+
+                    BarData barData = new BarData();
+                    barData.addDataSet(barDataSet);
+
+                    barChartDespesa.setData(barData);
+
+                    String[] mes = new String[]
+                            {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+                                    "Jul", "Ago", "Set", "Out", "Nov", "Dez"};
+
+                    XAxis xAxis = barChartDespesa.getXAxis();
+                    xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
+                    xAxis.setLabelCount(12);
+                    xAxis.setCenterAxisLabels(true);
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                    xAxis.setGranularity(2);
+                    xAxis.setGranularityEnabled(true);
+
+                    float barSpace = 0.10f;
+                    float groupSpace = 0.10f;
+//        barData.setBarWidth(0.27f);
+
+//        barChartDespesa.getXAxis().setAxisMinimum(0);
+//        barChartDespesa.getXAxis().setAxisMaximum(12);
+//        barChartDespesa.getAxisLeft().setAxisMinimum(0);
+
+//        barChartDespesa.groupBars(0,groupSpace, barSpace);
+
+                    barChartDespesa.getDescription().setEnabled(false);
+
+                    barChartDespesa.invalidate();
+
+                    Log.d("---", listaMes.toString());
+                }
+            }
+        });
     }
 }

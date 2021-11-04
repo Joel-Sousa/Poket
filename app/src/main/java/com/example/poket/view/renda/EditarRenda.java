@@ -138,9 +138,12 @@ public class EditarRenda extends AppCompatActivity {
                 picker = new DatePickerDialog(EditarRenda.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+                        int month = i1+1;
 
-                        editTextDataRenda.setText(day + "/" + (i1 + 1) + "/" + i);
+                        String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+                        String month1 = month<10 ? "0"+month : String.valueOf(month);
+
+                        editTextDataRenda.setText(day + "/" + month1 + "/" + i);
                     }
                 }, year, month, day);
                 picker.show();

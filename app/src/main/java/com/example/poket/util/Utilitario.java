@@ -21,21 +21,8 @@ import java.util.List;
 
 public class Utilitario {
 
-    public static void progresso(boolean e, ProgressBar load){
-        load.setVisibility(e ? View.VISIBLE : View.GONE);
-    }
-
     public static void toast(Context context, String mensagem){
         Toast.makeText(context, mensagem, Toast.LENGTH_LONG).show();
-    }
-
-    public static void semConta(){
-        List<ContaDTO> listConta = new ArrayList<>();
-        ContaDTO d = new ContaDTO();
-        d.setId("0");
-        d.setConta(".:Sem Conta:.");
-        d.setValor("0");
-        listConta.add(d);
     }
 
     public static void listaTipoRenda(Spinner spinner, String tipoPF, Context context) {

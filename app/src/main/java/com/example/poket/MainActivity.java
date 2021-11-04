@@ -43,7 +43,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Map<Integer, Float> listaMes = new HashMap<>();
+        listaMes.put(1, 0.0f);
+
+        Log.d("---", listaMes.get(1).toString());
+        listaMes.put(1, listaMes.get(1)+5);
+        Log.d("---", listaMes.get(1).toString());
 
         editTextEmail = findViewById(R.id.editTexMainActivityEmail);
         editTextSenha = findViewById(R.id.editTextMainActivitySenha);
@@ -100,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-         fb();
+//         fb();
     }
 
     private void validaCampos(UsuarioDTO dto){
@@ -122,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void mock(){
-        editTextEmail.setText("any@email.com");
+        editTextEmail.setText("ana@email.com");
         editTextSenha.setText("123123");
     }
 

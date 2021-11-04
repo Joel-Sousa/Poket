@@ -71,6 +71,10 @@ public class Home extends AppCompatActivity {
     PieChart pieChartDespesa;
     PieChart pieChartRenda;
 
+    UsuarioDAO dao = new UsuarioDAO();
+    UsuarioDTO dto = dao.obterUsuario();
+    ContaDAO daoC = new ContaDAO();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,14 +100,12 @@ public class Home extends AppCompatActivity {
         pieChartDespesa = findViewById(R.id.pieChartHomeDespesa);
         pieChartRenda = findViewById(R.id.pieChartHomeRenda);
 
-        graficoBarChartDespesaRenda();
+        dao.graficoBarChartDespesaRenda(barChart);
+//        graficoBarChartDespesaRenda();
         graficoPieChartDespesa();
         graficoPieChartRenda();
 
-        UsuarioDAO dao = new UsuarioDAO();
-        UsuarioDTO dto = dao.obterUsuario();
 
-        ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, Home.this, textViewContaValor, textViewIdConta, true);
 
 //        textViewTst.setText(dto.getUid());
@@ -313,38 +315,38 @@ public class Home extends AppCompatActivity {
 //        barEntries1.add(new BarEntry(22,11));
 //        barEntries1.add(new BarEntry(24,12));
 
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(1,1));
-        barEntries.add(new BarEntry(2,2));
-        barEntries.add(new BarEntry(3,3));
-        barEntries.add(new BarEntry(4,4));
-        barEntries.add(new BarEntry(5,5));
-        barEntries.add(new BarEntry(6,10));
-        barEntries.add(new BarEntry(7,7));
-        barEntries.add(new BarEntry(8,8));
-        barEntries.add(new BarEntry(9,9));
-        barEntries.add(new BarEntry(10,10));
-        barEntries.add(new BarEntry(11,11));
-        barEntries.add(new BarEntry(12,12));
+        ArrayList<BarEntry> barEntriesDespesa = new ArrayList<>();
+        barEntriesDespesa.add(new BarEntry(1,1));
+        barEntriesDespesa.add(new BarEntry(2,2));
+        barEntriesDespesa.add(new BarEntry(3,3));
+        barEntriesDespesa.add(new BarEntry(4,4));
+        barEntriesDespesa.add(new BarEntry(5,5));
+        barEntriesDespesa.add(new BarEntry(6,10));
+        barEntriesDespesa.add(new BarEntry(7,7));
+        barEntriesDespesa.add(new BarEntry(8,8));
+        barEntriesDespesa.add(new BarEntry(9,9));
+        barEntriesDespesa.add(new BarEntry(10,10));
+        barEntriesDespesa.add(new BarEntry(11,11));
+        barEntriesDespesa.add(new BarEntry(12,12));
 
-        ArrayList<BarEntry> barEntries1= new ArrayList<>();
-        barEntries1.add(new BarEntry(1,1));
-        barEntries1.add(new BarEntry(2,2));
-        barEntries1.add(new BarEntry(3,3));
-        barEntries1.add(new BarEntry(4,4));
-        barEntries1.add(new BarEntry(5,5));
-        barEntries1.add(new BarEntry(6,6));
-        barEntries1.add(new BarEntry(7,7));
-        barEntries1.add(new BarEntry(8,8));
-        barEntries1.add(new BarEntry(9,9));
-        barEntries1.add(new BarEntry(10,10));
-        barEntries1.add(new BarEntry(11,11));
-        barEntries1.add(new BarEntry(12,12));
+        ArrayList<BarEntry> barEntriesRenda= new ArrayList<>();
+        barEntriesRenda.add(new BarEntry(1,1));
+        barEntriesRenda.add(new BarEntry(2,2));
+        barEntriesRenda.add(new BarEntry(3,3));
+        barEntriesRenda.add(new BarEntry(4,4));
+        barEntriesRenda.add(new BarEntry(5,5));
+        barEntriesRenda.add(new BarEntry(6,6));
+        barEntriesRenda.add(new BarEntry(7,7));
+        barEntriesRenda.add(new BarEntry(8,8));
+        barEntriesRenda.add(new BarEntry(9,9));
+        barEntriesRenda.add(new BarEntry(10,10));
+        barEntriesRenda.add(new BarEntry(11,11));
+        barEntriesRenda.add(new BarEntry(12,12));
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Despesa");
+        BarDataSet barDataSet = new BarDataSet(barEntriesDespesa, "Despesa");
         barDataSet.setColor(Color.RED);
 
-        BarDataSet barDataSet1 = new BarDataSet(barEntries1, "Renda");
+        BarDataSet barDataSet1 = new BarDataSet(barEntriesRenda, "Renda");
         barDataSet1.setColor(Color.GREEN);
 
         BarData barData = new BarData();

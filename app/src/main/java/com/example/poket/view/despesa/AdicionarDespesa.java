@@ -106,9 +106,11 @@ public class AdicionarDespesa extends AppCompatActivity {
                 picker = new DatePickerDialog(AdicionarDespesa.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        int month = i1+1;
                         String day = i2<10 ? "0"+i2 : String.valueOf(i2);
+                        String month1 = month<10 ? "0"+month : String.valueOf(month);
 
-                        editTextDataDespesa.setText(day + "/" + (i1 + 1) + "/" + i);
+                        editTextDataDespesa.setText(day + "/" + month1 + "/" + i);
                     }
                 }, year, month, day);
                 picker.show();
@@ -149,7 +151,7 @@ public class AdicionarDespesa extends AppCompatActivity {
 
     public void mock(){
         editTextDespesa.setText("carroTst");
-        editTextValorDespesa.setText("100");
+        editTextValorDespesa.setText("10");
         editTextObservacao.setText("pagoTst");
     }
 }
