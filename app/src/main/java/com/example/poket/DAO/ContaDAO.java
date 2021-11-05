@@ -92,7 +92,6 @@ public class ContaDAO {
                                 dto.setValor(document.getData().get("valor").toString());
                                 valorConta += Double.valueOf(document.getData().get("valor").toString());
                                 listConta.add(dto);
-                                Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
                             }
 
                             textViewContaValor.setText(String.valueOf(valorConta));
@@ -247,7 +246,6 @@ public class ContaDAO {
                                 dto.setConta(document.getData().get("conta").toString());
                                 dto.setValor(document.getData().get("valor").toString());
                                 listConta.add(dto);
-//                                Log.d("---", document.getId() + " => " + document.getData());
                             }
 
                             List<String> idList = new ArrayList<>();
@@ -261,7 +259,6 @@ public class ContaDAO {
                                     contaList.add(conta.getConta());
                                     valorList.add(conta.getValor());
                                     valorConta += Double.valueOf(conta.getValor());
-//                                  Log.i("---", conta.getId());
                                 }else if(busca.equals("")){
                                     lerContas(recyclerView, context ,textViewContaValor);
                                 }

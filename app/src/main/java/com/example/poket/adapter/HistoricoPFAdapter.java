@@ -73,7 +73,6 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(Msg.INFO, "Click");
                 }
             });
         }
@@ -106,7 +105,6 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(Msg.INFO, "Click1");
             }
         });
 

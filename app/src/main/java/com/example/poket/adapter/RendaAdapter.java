@@ -75,7 +75,6 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(Msg.INFO, "Click");
                 }
             });
         }

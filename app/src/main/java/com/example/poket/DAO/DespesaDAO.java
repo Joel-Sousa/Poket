@@ -122,7 +122,6 @@ public class DespesaDAO {
 
                                 listDespesa.add(dto);
                                 valorDespesa += Double.valueOf(document.getData().get("valorDespesa").toString());
-                                Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
                             }
                             DecimalFormat df = new DecimalFormat("#,###.00");
 
@@ -214,7 +213,6 @@ public class DespesaDAO {
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
                                 .document(idConta).update("valor", String.valueOf(valorAntigo1));
 
-                        Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
                     } else {
                         Log.d(Msg.INFO, "No such document");
                     }
@@ -444,7 +442,6 @@ public class DespesaDAO {
 
                     barChartDespesa.invalidate();
 
-                    Log.d("---", listaMes.toString());
                 }
             }
         });

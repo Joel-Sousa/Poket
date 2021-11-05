@@ -56,7 +56,6 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(Msg.INFO, "Click");
             }
         });
     }
@@ -86,7 +85,6 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(Msg.INFO, "Click1");
             }
         });
 

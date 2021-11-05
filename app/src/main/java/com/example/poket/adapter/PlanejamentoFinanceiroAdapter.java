@@ -109,7 +109,6 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(Msg.INFO, "Click");
                 }
             });
         }
@@ -159,7 +158,6 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
         holder.imageViewAdicionarValor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("---", idPFList.get(position));
                 PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
 
                 dao.adicionarValorPF(activity, mView, idPFList.get(position));

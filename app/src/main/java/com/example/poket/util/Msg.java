@@ -40,6 +40,7 @@ public class Msg {
     public static final String EMAIL_SENHA = "Email e senha nao informados.";
     public static final String EMAIL_SENHAI = "Email ou senha invalidos.";
     public static final String VERIFICAR_EMAIL = "Verifique seu email para obter o link de redefinicao de senha.";
+    public static final String EMAIL_V = "Este email nao existe no sistema.";
 
     // Despesa
     public static final String DESPESA = "Preencha o campo de despesa.";

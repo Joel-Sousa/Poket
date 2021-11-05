@@ -288,7 +288,13 @@ public class UsuarioDAO {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Utilitario.toast(activity.getApplicationContext(), Msg.ERRORM);
+                String msg = "The user may have been deleted.";
+
+                if(e.getMessage().contains(msg)){
+                    Utilitario.toast(activity.getApplicationContext(), Msg.EMAIL_V);
+                }else{
+                    Utilitario.toast(activity.getApplicationContext(), Msg.ERRORM);
+                }
             }
         });
     }

@@ -77,7 +77,6 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(Msg.INFO, "Click");
                 }
             });
         }
