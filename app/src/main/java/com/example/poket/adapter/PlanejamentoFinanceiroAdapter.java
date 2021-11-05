@@ -26,6 +26,8 @@ import com.example.poket.view.planejamento.ListaPlanejamentoFinanceiro;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.grpc.okhttp.internal.Util;
+
 public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<PlanejamentoFinanceiroAdapter.ViewHolder>{
 
     Context context;
@@ -160,6 +162,12 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
             public void onClick(View view) {
                 PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
 
+                double valorAtual = Double.parseDouble(valorAtualList.get(position));
+                double valorObjetivado = Double.parseDouble(valorObjetivadoList.get(position));
+
+                if(valorObjetivado <= valorAtual)
+                    Utilitario.toast(activity.getApplicationContext(), Msg.VALOR_PF_ATINGIDO);
+                else
                 dao.adicionarValorPF(activity, mView, idPFList.get(position));
             }
         });

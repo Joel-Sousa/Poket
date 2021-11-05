@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.poket.DAO.ContaDAO;
@@ -41,7 +43,8 @@ public class ListaRenda extends AppCompatActivity {
     EditText editTextBusca;
     ImageView imageViewVoltar;
     TextView textViewRendaValorTotal;
-    Button buttonBuscar, buttonAdicionar;
+    Button buttonBuscar, buttonAdicionar, buttonLimpar;
+    Spinner spinnerMes;
 
     Context context;
     RecyclerView recyclerView;
@@ -63,12 +66,17 @@ public class ListaRenda extends AppCompatActivity {
         buttonBuscar = findViewById(R.id.buttonListaRendaBusca);
         buttonAdicionar = findViewById(R.id.buttonListaRendaAdicionarRenda);
 
+        spinnerMes = findViewById(R.id.spinnerAdicionarRendaMes);
+        buttonLimpar = findViewById(R.id.buttonAdicionarRendaLimpar);
+
         barChartRenda = findViewById(R.id.barChartListaRenda);
 
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaRenda);
 
-        dao.lerRendas(recyclerView, context, textViewRendaValorTotal);
+        Utilitario.meses(spinnerMes, context);
+
+        dao.lerRendas(recyclerView, context, textViewRendaValorTotal,0);
 
         dao.graficoBarChartRenda(barChartRenda);
 
@@ -94,6 +102,25 @@ public class ListaRenda extends AppCompatActivity {
                 finish();
             }
         });
+
+        spinnerMes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                dao.lerRendas(recyclerView,context, textViewRendaValorTotal, i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        buttonLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerMes.setSelection(0);
+            }
+        });
     }
 
     @Override
@@ -104,7 +131,7 @@ public class ListaRenda extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewListaRenda);
 
 //        RendaDAO dao = new RendaDAO();
-        dao.lerRendas(recyclerView, context, textViewRendaValorTotal);
+        dao.lerRendas(recyclerView, context, textViewRendaValorTotal,0);
 
         barChartRenda = findViewById(R.id.barChartListaRenda);
         dao.graficoBarChartRenda(barChartRenda);

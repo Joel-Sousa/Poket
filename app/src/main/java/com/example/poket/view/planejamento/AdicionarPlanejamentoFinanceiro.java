@@ -148,6 +148,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
 
     private void validarConta(PlanejamentoFinanceiroDTO dto, HistoricoPFDTO hdto){
 
+
         if(dto.getNomePF().length() == 0 && dto.getValorAtual().length() == 0 &&
                 dto.getValorObjetivado().length() == 0 && dto.getDataInicial().length() == 0 &&
                 dto.getDataFinal().length() == 0) {
@@ -162,6 +163,10 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         }else if(dto.getValorAtual().equals("0")){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
             editTextValorAtual.requestFocus();
+        }else if(Double.valueOf(dto.getValorAtual()) > Double.valueOf(hdto.getValorConta())){
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_MAIOR_PF);
+            editTextValorAtual.requestFocus();
+            editTextValorAtual.setText("");
         }else if(dto.getValorObjetivado().equals("0")){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
             editTextValorObjetivado.requestFocus();

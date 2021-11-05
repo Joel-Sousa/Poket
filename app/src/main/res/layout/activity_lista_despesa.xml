@@ -169,13 +169,27 @@
 
                     <TextView
                         android:id="@+id/textView65"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:text="Historico"
                         android:textColor="#000000"
                         android:textSize="20sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerAdicionarDespesaMes"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/buttonAdicionarDespesaLimpar"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Limpar" />
                 </LinearLayout>
 
                 <View
@@ -188,7 +202,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewListaDespesa"
                     android:layout_width="match_parent"
-                    android:layout_height="360dp"
+                    android:layout_height="350dp"
                     android:layout_marginTop="10dp" />
             </LinearLayout>
         </ScrollView>

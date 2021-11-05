@@ -35,6 +35,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.DecimalFormat;
+
 public class Home extends AppCompatActivity {
 
     TextView textViewApelido, textViewIdConta, textViewContaValor;
@@ -151,8 +153,8 @@ public class Home extends AppCompatActivity {
                     dialogo.setTitle("Aviso");
                     dialogo.show();
                 }else{
-                intentAdicionarDespesa = new Intent(Home.this, AdicionarDespesa.class);
-                startActivity(intentAdicionarDespesa);
+                            intentAdicionarDespesa = new Intent(Home.this, AdicionarDespesa.class);
+                            startActivity(intentAdicionarDespesa);
                 }
             }
         });
@@ -160,8 +162,24 @@ public class Home extends AppCompatActivity {
         imageViewHistoricoDespesa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intentListaDespesa = new Intent(Home.this, ListaDespesa.class);
-                startActivity(intentListaDespesa);
+                String selecaoConta = spinnerConta.getSelectedItem().toString();
+
+                if(selecaoConta.equals(".:Sem Conta:.")){
+                    AlertDialog.Builder dialogo = new AlertDialog.Builder(Home.this);
+                    dialogo.setMessage("Insira uma conta para visualizar as despesas.");
+                    dialogo.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Home.this, AdicionarConta.class);
+                            startActivity(intent);
+                        }
+                    });
+                    dialogo.setTitle("Aviso");
+                    dialogo.show();
+                }else{
+                          intentListaDespesa = new Intent(Home.this, ListaDespesa.class);
+                          startActivity(intentListaDespesa);
+                }
             }
         });
 
@@ -192,8 +210,24 @@ public class Home extends AppCompatActivity {
         imageViewHistoricoRenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intentListaRenda = new Intent(Home.this, ListaRenda.class);
-                startActivity(intentListaRenda);
+                String selecaoConta = spinnerConta.getSelectedItem().toString();
+
+                if(selecaoConta.equals(".:Sem Conta:.")){
+                    AlertDialog.Builder dialogo = new AlertDialog.Builder(Home.this);
+                    dialogo.setMessage("Insira uma conta para visualizar as rendas.");
+                    dialogo.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Home.this, AdicionarConta.class);
+                            startActivity(intent);
+                        }
+                    });
+                    dialogo.setTitle("Aviso");
+                    dialogo.show();
+                }else{
+                    intentListaRenda = new Intent(Home.this, ListaRenda.class);
+                    startActivity(intentListaRenda);
+                }
             }
         });
 

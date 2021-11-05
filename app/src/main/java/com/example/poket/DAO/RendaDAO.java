@@ -94,7 +94,8 @@ public class RendaDAO {
                 });
     }
 
-    public void lerRendas(RecyclerView recyclerView, Context context, TextView textViewRendaValorTotal){
+    public void lerRendas(RecyclerView recyclerView, Context context,
+                          TextView textViewRendaValorTotal, int mes){
         List<RendaDTO> listRenda = new ArrayList<RendaDTO>();
 
         db.collection("rendas")
@@ -106,22 +107,46 @@ public class RendaDAO {
                             RecyclerView.Adapter  adapter;
                             RecyclerView.LayoutManager layoutManager;
                             double valorRenda = 0.0;
+                            if(mes == 0){
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    RendaDTO dto = new RendaDTO();
+                                    dto.setId(document.getId());
+                                    dto.setRenda(document.getData().get("renda").toString());
+                                    dto.setValorRenda(document.getData().get("valorRenda").toString());
+                                    dto.setTipoRenda(document.getData().get("tipoRenda").toString());
+                                    dto.setDataRenda(document.getData().get("dataRenda").toString());
+                                    dto.setObservacao(document.getData().get("observacao").toString());
 
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                RendaDTO dto = new RendaDTO();
-                                dto.setId(document.getId());
-                                dto.setRenda(document.getData().get("renda").toString());
-                                dto.setValorRenda(document.getData().get("valorRenda").toString());
-                                dto.setTipoRenda(document.getData().get("tipoRenda").toString());
-                                dto.setDataRenda(document.getData().get("dataRenda").toString());
-                                dto.setObservacao(document.getData().get("observacao").toString());
+                                    dto.setIdConta(document.getData().get("idConta").toString());
+                                    dto.setConta(document.getData().get("conta").toString());
 
-                                dto.setIdConta(document.getData().get("idConta").toString());
-                                dto.setConta(document.getData().get("conta").toString());
+                                    listRenda.add(dto);
+                                    valorRenda += Double.valueOf(document.getData().get("valorRenda").toString());
+                                    Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
+                                }
+                            }else{
+                                for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                listRenda.add(dto);
-                                valorRenda += Double.valueOf(document.getData().get("valorRenda").toString());
-                                Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
+                                    String dataMes = document.getData().get("dataRenda").toString();
+                                    String[] parts = dataMes.split("-");
+
+                                    if(mes == Integer.parseInt(parts[1])){
+                                        RendaDTO dto = new RendaDTO();
+                                        dto.setId(document.getId());
+                                        dto.setRenda(document.getData().get("renda").toString());
+                                        dto.setValorRenda(document.getData().get("valorRenda").toString());
+                                        dto.setTipoRenda(document.getData().get("tipoRenda").toString());
+                                        dto.setDataRenda(document.getData().get("dataRenda").toString());
+                                        dto.setObservacao(document.getData().get("observacao").toString());
+
+                                        dto.setIdConta(document.getData().get("idConta").toString());
+                                        dto.setConta(document.getData().get("conta").toString());
+
+                                        listRenda.add(dto);
+                                        valorRenda += Double.valueOf(document.getData().get("valorRenda").toString());
+                                        Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
+                                    }
+                                }
                             }
 
                             DecimalFormat df = new DecimalFormat("#,###.00");
@@ -327,7 +352,7 @@ public class RendaDAO {
 
                                     valorRenda = Double.valueOf(renda.getValorRenda());
                                 }else if(busca.equals("")){
-                                    lerRendas(recyclerView, context ,textViewValor);
+                                    lerRendas(recyclerView, context ,textViewValor,0);
                                 }
                             }
 
@@ -424,7 +449,7 @@ public class RendaDAO {
                     xAxis.setLabelCount(12);
                     xAxis.setCenterAxisLabels(true);
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    xAxis.setGranularity(2);
+                    xAxis.setGranularity(1);
                     xAxis.setGranularityEnabled(true);
 
                     float barSpace = 0.10f;

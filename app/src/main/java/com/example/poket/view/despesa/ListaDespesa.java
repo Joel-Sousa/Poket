@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ListaDespesa extends AppCompatActivity {
@@ -43,7 +47,8 @@ public class ListaDespesa extends AppCompatActivity {
     EditText editTextBusca;
     ImageView imageViewVoltar;
     TextView textViewDespesaValorTotal;
-    Button buttonBuscar, buttonAdicionar;
+    Button buttonBuscar, buttonAdicionar, buttonLimpar;
+    Spinner spinnerMes;
 
     Context context;
     RecyclerView recyclerView;
@@ -63,14 +68,20 @@ public class ListaDespesa extends AppCompatActivity {
         textViewDespesaValorTotal = findViewById(R.id.textViewListaDespesaValorTotal);
 
         buttonBuscar = findViewById(R.id.buttonListaDespesaBusca);
+        buttonLimpar = findViewById(R.id.buttonAdicionarDespesaLimpar);
         buttonAdicionar = findViewById(R.id.buttonListaDespesaAdicionarDespesa);
 
         barChartDespesa = findViewById(R.id.barChartListaDespesa);
 
+        spinnerMes = findViewById(R.id.spinnerAdicionarDespesaMes);
+
+
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaDespesa);
 
-        dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal);
+        Utilitario.meses(spinnerMes, context);
+
+        dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
 
 //        graficoBarChartDespesa();
 
@@ -98,6 +109,28 @@ public class ListaDespesa extends AppCompatActivity {
                 finish();
             }
         });
+
+        spinnerMes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                dao.lerDespesas(recyclerView,context, textViewDespesaValorTotal, i);
+//                    Utilitario.toast(getApplicationContext(), i+"-"+mesList.get(i));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        buttonLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerMes.setSelection(0);
+//                dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
+            }
+        });
     }
 
     @Override
@@ -107,7 +140,7 @@ public class ListaDespesa extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaDespesa);
 
-        dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal);
+        dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
 
         barChartDespesa = findViewById(R.id.barChartListaDespesa);
         dao.graficoBarChartDespesa(barChartDespesa);

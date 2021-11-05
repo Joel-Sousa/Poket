@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -162,7 +163,7 @@ public class ContaDAO {
     }
 
 
-    public void listaContaSpinner(Spinner spinnerConta, Context context, TextView textViewConta,
+    public void listaContaSpinner(Spinner spinnerConta, Context context, TextView textViewContaValor,
                                   TextView textViewIdConta, boolean contaZerada){
 
         db.collection("contas")
@@ -204,11 +205,17 @@ public class ContaDAO {
                                             listConta);
                             spinnerConta.setAdapter(adapterConta);
 
+                            DecimalFormat df = new DecimalFormat("#,###.00");
+//                            df.format(textViewContaValor.getText().toString());
+
                             spinnerConta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                    String valor = df.format(Double.valueOf(listConta.get(i).getValor()));
+
                                     textViewIdConta.setText(listConta.get(i).getId());
-                                    textViewConta.setText(listConta.get(i).getValor());
+                                    textViewContaValor.setText(valor);
                                 }
 
                                 @Override

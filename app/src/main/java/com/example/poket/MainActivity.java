@@ -73,15 +73,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        barChart = findViewById(R.id.barChartHomeDR);
-//            graficoBarChartDespesaRenda();
-
-//        Map<Integer, Float> listaMes = new HashMap<>();
-//        listaMes.put(1, 0.0f);
-//
-//        Log.d("---", listaMes.get(1).toString());
-//        listaMes.put(1, listaMes.get(1)+5);
-//        Log.d("---", listaMes.get(1).toString());
+        barChart = findViewById(R.id.barChartHomeDR);
+            graficoBarChartDespesaRenda();
 
         editTextEmail = findViewById(R.id.editTexMainActivityEmail);
         editTextSenha = findViewById(R.id.editTextMainActivitySenha);
@@ -187,34 +180,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void graficoBarChartDespesaRenda(){
 
-//        ArrayList<BarEntry> barEntries = new ArrayList<>();
-//        barEntries.add(new BarEntry(1,1));
-//        barEntries.add(new BarEntry(3,2));
-//        barEntries.add(new BarEntry(5,3));
-//        barEntries.add(new BarEntry(7,4));
-//        barEntries.add(new BarEntry(9,5));
-//        barEntries.add(new BarEntry(11,6));
-//        barEntries.add(new BarEntry(13,7));
-//        barEntries.add(new BarEntry(15,8));
-//        barEntries.add(new BarEntry(17,9));
-//        barEntries.add(new BarEntry(19,10));
-//        barEntries.add(new BarEntry(21,11));
-//        barEntries.add(new BarEntry(23,12));
-//
-//        ArrayList<BarEntry> barEntries1 = new ArrayList<>();
-//        barEntries1.add(new BarEntry(2,1));
-//        barEntries1.add(new BarEntry(4,2));
-//        barEntries1.add(new BarEntry(6,3));
-//        barEntries1.add(new BarEntry(8,4));
-//        barEntries1.add(new BarEntry(10,5));
-//        barEntries1.add(new BarEntry(12,6));
-//        barEntries1.add(new BarEntry(14,7));
-//        barEntries1.add(new BarEntry(16,8));
-//        barEntries1.add(new BarEntry(18,9));
-//        barEntries1.add(new BarEntry(20,10));
-//        barEntries1.add(new BarEntry(22,11));
-//        barEntries1.add(new BarEntry(24,12));
-
         ArrayList<BarEntry> barEntriesDespesa = new ArrayList<>();
         barEntriesDespesa.add(new BarEntry(1,1));
         barEntriesDespesa.add(new BarEntry(2,2));
@@ -250,8 +215,10 @@ public class MainActivity extends AppCompatActivity {
         barDataSet1.setColor(Color.GREEN);
 
         BarData barData = new BarData();
+
         barData.addDataSet(barDataSet);
         barData.addDataSet(barDataSet1);
+        barData.setValueTextSize(14f);
 
         barChart.setData(barData);
 
@@ -266,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1);
         xAxis.setGranularityEnabled(true);
+        xAxis.setTextSize(14f);
 
         float barSpace = 0.08f;
         float groupSpace = 0.30f;

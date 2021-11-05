@@ -95,7 +95,8 @@ public class DespesaDAO {
                     });
     }
 
-    public void lerDespesas(RecyclerView recyclerView, Context context, TextView textViewDespesaValorTotal){
+    public void lerDespesas(RecyclerView recyclerView, Context context,
+                            TextView textViewDespesaValorTotal, int mes){
         List<DespesaDTO> listDespesa = new ArrayList<DespesaDTO>();
 
         db.collection("despesas")
@@ -108,21 +109,48 @@ public class DespesaDAO {
                             RecyclerView.LayoutManager layoutManager;
                             double valorDespesa = 0.0;
 
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                DespesaDTO dto = new DespesaDTO();
-                                dto.setId(document.getId());
-                                dto.setDespesa(document.getData().get("despesa").toString());
-                                dto.setValorDespesa(document.getData().get("valorDespesa").toString());
-                                dto.setTipoDespesa(document.getData().get("tipoDespesa").toString());
-                                dto.setDataDespesa(document.getData().get("dataDespesa").toString());
-                                dto.setObservacao(document.getData().get("observacao").toString());
+                            if(mes == 0){
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    DespesaDTO dto = new DespesaDTO();
+                                    dto.setId(document.getId());
+                                    dto.setDespesa(document.getData().get("despesa").toString());
+                                    dto.setValorDespesa(document.getData().get("valorDespesa").toString());
+                                    dto.setTipoDespesa(document.getData().get("tipoDespesa").toString());
+                                    dto.setDataDespesa(document.getData().get("dataDespesa").toString());
+                                    dto.setObservacao(document.getData().get("observacao").toString());
 
-                                dto.setIdConta(document.getData().get("idConta").toString());
-                                dto.setConta(document.getData().get("conta").toString());
+                                    dto.setIdConta(document.getData().get("idConta").toString());
+                                    dto.setConta(document.getData().get("conta").toString());
 
-                                listDespesa.add(dto);
-                                valorDespesa += Double.valueOf(document.getData().get("valorDespesa").toString());
+                                    listDespesa.add(dto);
+                                    valorDespesa += Double.valueOf(document.getData().get("valorDespesa").toString());
+                                }
+                            }else{
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                    String dataMes = document.getData().get("dataDespesa").toString();
+                                    String[] parts = dataMes.split("-");
+
+                                    if(mes == Integer.parseInt(parts[1])){
+
+                                    DespesaDTO dto = new DespesaDTO();
+                                    dto.setId(document.getId());
+                                    dto.setDespesa(document.getData().get("despesa").toString());
+                                    dto.setValorDespesa(document.getData().get("valorDespesa").toString());
+                                    dto.setTipoDespesa(document.getData().get("tipoDespesa").toString());
+                                    dto.setDataDespesa(document.getData().get("dataDespesa").toString());
+                                    dto.setObservacao(document.getData().get("observacao").toString());
+
+                                    dto.setIdConta(document.getData().get("idConta").toString());
+                                    dto.setConta(document.getData().get("conta").toString());
+
+                                    listDespesa.add(dto);
+                                    valorDespesa += Double.valueOf(document.getData().get("valorDespesa").toString());
+                                    }
+                                }
                             }
+
+
                             DecimalFormat df = new DecimalFormat("#,###.00");
 
                             textViewDespesaValorTotal.setText(df.format(valorDespesa));
@@ -137,17 +165,18 @@ public class DespesaDAO {
                             List<String> idContaList = new ArrayList<>();
                             List<String> contaList = new ArrayList<>();
 
-                            for(DespesaDTO despesa : listDespesa){
-                                idList.add(despesa.getId());
-                                despesaList.add(despesa.getDespesa());
-                                valorDespesaList.add(despesa.getValorDespesa());
-                                tipoDespesaList.add(despesa.getTipoDespesa());
-                                dataDespesaList.add(despesa.getDataDespesa());
-                                observacaoList.add(despesa.getObservacao());
 
-                                idContaList.add(despesa.getIdConta());
-                                contaList.add(despesa.getConta());
-                            }
+                                for(DespesaDTO despesa : listDespesa){
+                                    idList.add(despesa.getId());
+                                    despesaList.add(despesa.getDespesa());
+                                    valorDespesaList.add(despesa.getValorDespesa());
+                                    tipoDespesaList.add(despesa.getTipoDespesa());
+                                    dataDespesaList.add(despesa.getDataDespesa());
+                                    observacaoList.add(despesa.getObservacao());
+
+                                    idContaList.add(despesa.getIdConta());
+                                    contaList.add(despesa.getConta());
+                                }
 
                             layoutManager = new LinearLayoutManager(context);
                             recyclerView.setLayoutManager((layoutManager));
@@ -329,7 +358,7 @@ public class DespesaDAO {
 
 //                                  Log.i("---", conta.getId());
                                 }else if(busca.equals("")){
-                                    lerDespesas(recyclerView, context ,textViewValor);
+                                    lerDespesas(recyclerView, context ,textViewValor, 0);
                                 }
                             }
 
@@ -425,7 +454,8 @@ public class DespesaDAO {
                     xAxis.setLabelCount(12);
                     xAxis.setCenterAxisLabels(true);
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    xAxis.setGranularity(2);
+                    xAxis.setGranularity(1);
+//                    xAxis.setGranularity(2);
                     xAxis.setGranularityEnabled(true);
 
                     float barSpace = 0.10f;

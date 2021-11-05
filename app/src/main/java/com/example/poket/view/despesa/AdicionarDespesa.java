@@ -137,6 +137,10 @@ public class AdicionarDespesa extends AppCompatActivity {
         }else if(dto.getValorDespesa().equals("0")){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
             editTextValorDespesa.requestFocus();
+        }else if(Double.valueOf(dto.getValorDespesa()) > Double.valueOf(dto.getValorConta())){
+            Utilitario.toast(getApplicationContext(), Msg.VALOR_MAIOR);
+            editTextValorDespesa.requestFocus();
+            editTextValorDespesa.setText("");
         }else if(dto.getTipoDespesa().length() == 0){
             Toast.makeText(getApplicationContext(), Msg.TIPO_DESPESA, Toast.LENGTH_LONG).show();
             spinnerTipoDespesa.requestFocus();

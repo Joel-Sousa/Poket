@@ -460,6 +460,10 @@ public class PlanejamentoFinanceiroDAO {
                 }else if(editTextValor.getText().toString().equals("0")){
                     Utilitario.toast(activity.getApplicationContext(), Msg.VALOR_ZERADO);
                     editTextValor.requestFocus();
+                }else if(Double.valueOf(valorAtual) > Double.valueOf(valorConta)){
+                    Utilitario.toast(activity.getApplicationContext(), Msg.VALOR_MAIOR_PF);
+                    editTextValor.requestFocus();
+                    editTextValor.setText("");
                 }else{
 
                     adicionarValor(idPF, idConta , conta, valorConta, valorAtual);
@@ -713,7 +717,12 @@ public class PlanejamentoFinanceiroDAO {
         double valorNewAtual = Double.valueOf(valorAtual);
         double valorNewObjetivado = Double.valueOf(valorObjetivado);
 
-        return (valorNewAtual / valorNewObjetivado) * 100;
+        double resposta = (valorNewAtual / valorNewObjetivado) * 100;
+
+        if(valorNewObjetivado <= valorNewAtual)
+            resposta = 100.0;
+
+        return resposta;
     }
 
     private double porcentagemData(String dataInicio, String dataAtual, String dataFinal){
@@ -745,8 +754,8 @@ public class PlanejamentoFinanceiroDAO {
 
         double resultado =  ((float) diferencaDias/diferencaDias1) * 100;
 
-//        if(resultado == (0.0))
-//            resultado = 0;
+        if(atual.after(fim))
+            resultado = 100.0;
 
         return resultado;
     }

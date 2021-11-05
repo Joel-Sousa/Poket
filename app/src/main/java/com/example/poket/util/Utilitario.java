@@ -100,4 +100,14 @@ public class Utilitario {
 
         return null;
     }
+
+    public static void meses(Spinner spinner, Context context){
+        List<String> mesList = Arrays.asList(".:Selecione:.",
+                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
+
+        ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
+                android.R.layout.simple_list_item_1, mesList);
+        spinner.setAdapter(adapter_spinner);
+    }
 }
