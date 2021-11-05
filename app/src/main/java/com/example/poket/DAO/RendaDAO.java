@@ -37,10 +37,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class RendaDAO {
 
@@ -122,7 +124,9 @@ public class RendaDAO {
                                 Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
                             }
 
-                            textViewRendaValorTotal.setText(String.valueOf(valorRenda));
+                            DecimalFormat df = new DecimalFormat("#,###.00");
+
+                            textViewRendaValorTotal.setText(df.format(valorRenda));
 
                             List<String> idList = new ArrayList<>();
                             List<String> rendaList = new ArrayList<>();
@@ -352,7 +356,7 @@ public class RendaDAO {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    Map<Integer, Double> listaMes = new HashMap<>();
+                    Map<Integer, Double> listaMes = new TreeMap<>();
 
                     for(int i=1; i<=12; i++)
                         listaMes.put(i, 0.0);
@@ -425,13 +429,13 @@ public class RendaDAO {
 
                     float barSpace = 0.10f;
                     float groupSpace = 0.10f;
-//        barData.setBarWidth(0.27f);
+            //        barData.setBarWidth(0.27f);
 
-//        barChartDespesa.getXAxis().setAxisMinimum(0);
-//        barChartDespesa.getXAxis().setAxisMaximum(12);
-//        barChartDespesa.getAxisLeft().setAxisMinimum(0);
+            //        barChartDespesa.getXAxis().setAxisMinimum(0);
+            //        barChartDespesa.getXAxis().setAxisMaximum(12);
+            //        barChartDespesa.getAxisLeft().setAxisMinimum(0);
 
-//        barChartDespesa.groupBars(0,groupSpace, barSpace);
+            //        barChartDespesa.groupBars(0,groupSpace, barSpace);
 
                     barChartRenda.getDescription().setEnabled(false);
 

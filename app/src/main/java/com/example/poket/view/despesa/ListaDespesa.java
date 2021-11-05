@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -35,13 +36,14 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListaDespesa extends AppCompatActivity {
 
     EditText editTextBusca;
     ImageView imageViewVoltar;
     TextView textViewDespesaValorTotal;
-    Button buttonBuscar;
+    Button buttonBuscar, buttonAdicionar;
 
     Context context;
     RecyclerView recyclerView;
@@ -57,9 +59,11 @@ public class ListaDespesa extends AppCompatActivity {
 
         editTextBusca = findViewById(R.id.editTextListaDespesaBusca);
 
-        buttonBuscar = findViewById(R.id.buttonListaDespesaBusca);
         imageViewVoltar = findViewById(R.id.imageViewListaDespesaVoltar);
         textViewDespesaValorTotal = findViewById(R.id.textViewListaDespesaValorTotal);
+
+        buttonBuscar = findViewById(R.id.buttonListaDespesaBusca);
+        buttonAdicionar = findViewById(R.id.buttonListaDespesaAdicionarDespesa);
 
         barChartDespesa = findViewById(R.id.barChartListaDespesa);
 
@@ -77,6 +81,14 @@ public class ListaDespesa extends AppCompatActivity {
             public void onClick(View view) {
                 String busca = editTextBusca.getText().toString();
                 dao.buscarDespesa(recyclerView, context, textViewDespesaValorTotal, busca);
+            }
+        });
+
+        buttonAdicionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ListaDespesa.this, AdicionarDespesa.class);
+                startActivity(intent);
             }
         });
 

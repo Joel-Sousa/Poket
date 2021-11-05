@@ -41,7 +41,7 @@ public class ListaRenda extends AppCompatActivity {
     EditText editTextBusca;
     ImageView imageViewVoltar;
     TextView textViewRendaValorTotal;
-    Button buttonBuscar;
+    Button buttonBuscar, buttonAdicionar;
 
     Context context;
     RecyclerView recyclerView;
@@ -57,9 +57,11 @@ public class ListaRenda extends AppCompatActivity {
 
         editTextBusca = findViewById(R.id.editTextListaRendaBusca);
 
-        buttonBuscar = findViewById(R.id.buttonListaRendaBusca);
         imageViewVoltar = findViewById(R.id.imageViewListaRendaVoltar);
         textViewRendaValorTotal = findViewById(R.id.textViewListaRendaValorTotal);
+
+        buttonBuscar = findViewById(R.id.buttonListaRendaBusca);
+        buttonAdicionar = findViewById(R.id.buttonListaRendaAdicionarRenda);
 
         barChartRenda = findViewById(R.id.barChartListaRenda);
 
@@ -75,6 +77,14 @@ public class ListaRenda extends AppCompatActivity {
             public void onClick(View view) {
                 String busca = editTextBusca.getText().toString();
                 dao.buscarRenda(recyclerView, context, textViewRendaValorTotal, busca);
+            }
+        });
+
+        buttonAdicionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent  = new Intent(ListaRenda.this, AdicionarRenda.class);
+                startActivity(intent);
             }
         });
 

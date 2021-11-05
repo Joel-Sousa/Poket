@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class DespesaDAO {
 
@@ -123,8 +124,9 @@ public class DespesaDAO {
                                 valorDespesa += Double.valueOf(document.getData().get("valorDespesa").toString());
                                 Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
                             }
+                            DecimalFormat df = new DecimalFormat("#,###.00");
 
-                            textViewDespesaValorTotal.setText(String.valueOf(valorDespesa));
+                            textViewDespesaValorTotal.setText(df.format(valorDespesa));
 
                             List<String> idList = new ArrayList<>();
                             List<String> despesaList = new ArrayList<>();
@@ -358,7 +360,7 @@ public class DespesaDAO {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    Map<Integer, Double> listaMes = new HashMap<>();
+                    Map<Integer, Double> listaMes = new TreeMap<>();
 
                     for(int i=1; i<=12; i++)
                         listaMes.put(i, 0.0);

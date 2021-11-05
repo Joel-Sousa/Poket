@@ -101,7 +101,7 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
         holder.textViewId.setText(idList.get(position));
         holder.textViewRenda.setText(rendaList.get(position));
         holder.textViewConta.setText(contaList.get(position));
-        holder.textViewValorRenda.setText(valorRendaList.get(position));
+        holder.textViewValorRenda.setText(String.valueOf(Double.valueOf(valorRendaList.get(position))));
         holder.textViewDataRenda.setText(Utilitario.convertUsaToBr(dataRendaList.get(position)));
 
         viewOnCreate.setOnClickListener(new View.OnClickListener() {

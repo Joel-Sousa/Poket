@@ -101,11 +101,14 @@ public class Home extends AppCompatActivity {
         pieChartRenda = findViewById(R.id.pieChartHomeRenda);
 
         dao.graficoBarChartDespesaRenda(barChart);
-//        graficoBarChartDespesaRenda();
-        graficoPieChartDespesa();
-        graficoPieChartRenda();
+        dao.graficoPieChartDespesa(pieChartDespesa);
+        dao.graficoPieChartRenda(pieChartRenda);
 
-
+        try {
+            new Thread().sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         daoC.listaContaSpinner(spinnerConta, Home.this, textViewContaValor, textViewIdConta, true);
 
 //        textViewTst.setText(dto.getUid());
@@ -211,21 +214,21 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        pieChartDespesa.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                if (e == null)
-                    return;
-                PieEntry pe = (PieEntry) e;
-                Utilitario.toast(getApplicationContext(),
-                        pe.getLabel() + " R$: " + e.getY());
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
+//        pieChartDespesa.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//            @Override
+//            public void onValueSelected(Entry e, Highlight h) {
+//                if (e == null)
+//                    return;
+//                PieEntry pe = (PieEntry) e;
+//                Utilitario.toast(getApplicationContext(),
+//                        pe.getLabel() + " R$: " + e.getY());
+//            }
+//
+//            @Override
+//            public void onNothingSelected() {
+//
+//            }
+//        });
 
         pieChartRenda.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -283,214 +286,14 @@ public class Home extends AppCompatActivity {
 
         textViewApelido = findViewById(R.id.textViewHomeApelido);
         textViewApelido.setText(user.getDisplayName());
-    }
 
-    private void graficoBarChartDespesaRenda(){
+        barChart = findViewById(R.id.barChartHomeDespesaRenda);
+        dao.graficoBarChartDespesaRenda(barChart);
 
-//        ArrayList<BarEntry> barEntries = new ArrayList<>();
-//        barEntries.add(new BarEntry(1,1));
-//        barEntries.add(new BarEntry(3,2));
-//        barEntries.add(new BarEntry(5,3));
-//        barEntries.add(new BarEntry(7,4));
-//        barEntries.add(new BarEntry(9,5));
-//        barEntries.add(new BarEntry(11,6));
-//        barEntries.add(new BarEntry(13,7));
-//        barEntries.add(new BarEntry(15,8));
-//        barEntries.add(new BarEntry(17,9));
-//        barEntries.add(new BarEntry(19,10));
-//        barEntries.add(new BarEntry(21,11));
-//        barEntries.add(new BarEntry(23,12));
-//
-//        ArrayList<BarEntry> barEntries1 = new ArrayList<>();
-//        barEntries1.add(new BarEntry(2,1));
-//        barEntries1.add(new BarEntry(4,2));
-//        barEntries1.add(new BarEntry(6,3));
-//        barEntries1.add(new BarEntry(8,4));
-//        barEntries1.add(new BarEntry(10,5));
-//        barEntries1.add(new BarEntry(12,6));
-//        barEntries1.add(new BarEntry(14,7));
-//        barEntries1.add(new BarEntry(16,8));
-//        barEntries1.add(new BarEntry(18,9));
-//        barEntries1.add(new BarEntry(20,10));
-//        barEntries1.add(new BarEntry(22,11));
-//        barEntries1.add(new BarEntry(24,12));
+        pieChartDespesa = findViewById(R.id.pieChartHomeDespesa);
+        dao.graficoPieChartDespesa(pieChartDespesa);
 
-        ArrayList<BarEntry> barEntriesDespesa = new ArrayList<>();
-        barEntriesDespesa.add(new BarEntry(1,1));
-        barEntriesDespesa.add(new BarEntry(2,2));
-        barEntriesDespesa.add(new BarEntry(3,3));
-        barEntriesDespesa.add(new BarEntry(4,4));
-        barEntriesDespesa.add(new BarEntry(5,5));
-        barEntriesDespesa.add(new BarEntry(6,10));
-        barEntriesDespesa.add(new BarEntry(7,7));
-        barEntriesDespesa.add(new BarEntry(8,8));
-        barEntriesDespesa.add(new BarEntry(9,9));
-        barEntriesDespesa.add(new BarEntry(10,10));
-        barEntriesDespesa.add(new BarEntry(11,11));
-        barEntriesDespesa.add(new BarEntry(12,12));
-
-        ArrayList<BarEntry> barEntriesRenda= new ArrayList<>();
-        barEntriesRenda.add(new BarEntry(1,1));
-        barEntriesRenda.add(new BarEntry(2,2));
-        barEntriesRenda.add(new BarEntry(3,3));
-        barEntriesRenda.add(new BarEntry(4,4));
-        barEntriesRenda.add(new BarEntry(5,5));
-        barEntriesRenda.add(new BarEntry(6,6));
-        barEntriesRenda.add(new BarEntry(7,7));
-        barEntriesRenda.add(new BarEntry(8,8));
-        barEntriesRenda.add(new BarEntry(9,9));
-        barEntriesRenda.add(new BarEntry(10,10));
-        barEntriesRenda.add(new BarEntry(11,11));
-        barEntriesRenda.add(new BarEntry(12,12));
-
-        BarDataSet barDataSet = new BarDataSet(barEntriesDespesa, "Despesa");
-        barDataSet.setColor(Color.RED);
-
-        BarDataSet barDataSet1 = new BarDataSet(barEntriesRenda, "Renda");
-        barDataSet1.setColor(Color.GREEN);
-
-        BarData barData = new BarData();
-        barData.addDataSet(barDataSet);
-        barData.addDataSet(barDataSet1);
-
-        barChart.setData(barData);
-
-        String[] mes = new String[]
-                {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul",
-                 "Ago", "Set", "Out", "Nov", "Dez"};
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setLabelCount(12);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1);
-        xAxis.setGranularityEnabled(true);
-
-        float barSpace = 0.08f;
-        float groupSpace = 0.30f;
-        barData.setBarWidth(0.27f);
-
-        barChart.getXAxis().setAxisMinimum(0);
-        barChart.getXAxis().setAxisMaximum(12);
-        barChart.getAxisLeft().setAxisMinimum(0);
-        barChart.groupBars(0,groupSpace, barSpace);
-        barChart.getDescription().setEnabled(false);
-
-        barChart.invalidate();
-    }
-
-    private void graficoPieChartDespesa(){
-
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(430, "Alimentaçao"));
-        pieEntries.add(new PieEntry(530, "Veiculo"));
-        pieEntries.add(new PieEntry(330, "Moradia"));
-        pieEntries.add(new PieEntry(230, "Lazer"));
-        pieEntries.add(new PieEntry(630, "Outros"));
-
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieDataSet.setValueTextColor(Color.BLACK);
-        pieDataSet.setValueTextSize(18f);
-
-        PieData pieData = new PieData(pieDataSet);
-        pieData.setValueFormatter(new PercentFormatter(pieChartDespesa));
-//        pieData.setDrawValues(false);
-
-        pieChartDespesa.setData(pieData);
-        pieChartDespesa.getDescription().setEnabled(false);
-        pieChartDespesa.setUsePercentValues(true);
-        pieChartDespesa.setCenterText("R$");
-        pieChartDespesa.setCenterTextSize(18f);
-
-        pieChartDespesa.setHoleRadius(40);
-        pieChartDespesa.setTransparentCircleRadius(10);
-        pieChartDespesa.setEntryLabelColor(Color.BLUE);
-        pieChartDespesa.setDrawEntryLabels(false);
-
-        pieChartDespesa.setExtraOffsets(-80, 5, 1, 5);
-
-//        pieChart.setUsePercentValues(false);
-        pieChartDespesa.animateX(1000);
-
-        Legend l = pieChartDespesa.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setTextSize(18f);
-//        l.setWordWrapEnabled(false);
-//        l.setEnabled(false);
-
-//        l.setDrawInside(false);
-//        l.setXEntrySpace(7f);
-//        l.setYEntrySpace(7f);
-//        l.setYOffset(0f);
-
-//        pieChart.setEntryLabelTypeface(Typeface.DEFAULT);
-//        pieChart.setEntryLabelTextSize(12f);
-
-//        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-////        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
-//        l.setXEntrySpace(8);
-//        l.setYEntrySpace(5);
-
-    }
-
-    private void graficoPieChartRenda(){
-
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(430, "Salario"));
-        pieEntries.add(new PieEntry(530, "Servicos"));
-        pieEntries.add(new PieEntry(330, "Presente"));
-        pieEntries.add(new PieEntry(230, "Aluguel"));
-        pieEntries.add(new PieEntry(630, "Outros"));
-
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieDataSet.setValueTextColor(Color.BLACK);
-        pieDataSet.setValueTextSize(18f);
-
-        PieData pieData = new PieData(pieDataSet);
-        pieData.setValueFormatter(new PercentFormatter(pieChartRenda));
-//        pieData.setDrawValues(false);
-
-        pieChartRenda.setData(pieData);
-        pieChartRenda.getDescription().setEnabled(false);
-        pieChartRenda.setUsePercentValues(true);
-        pieChartRenda.setCenterText("R$");
-        pieChartRenda.setCenterTextSize(18f);
-
-        pieChartRenda.setHoleRadius(40);
-        pieChartRenda.setTransparentCircleRadius(10);
-        pieChartRenda.setEntryLabelColor(Color.BLUE);
-        pieChartRenda.setDrawEntryLabels(false);
-
-        pieChartRenda.setExtraOffsets(-100, 5, 1, 5);
-
-//        pieChart.setUsePercentValues(false);
-        pieChartRenda.animateX(1000);
-
-        Legend l = pieChartRenda.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setTextSize(18f);
-//        l.setWordWrapEnabled(false);
-//        l.setEnabled(false);
-
-//        l.setDrawInside(false);
-//        l.setXEntrySpace(7f);
-//        l.setYEntrySpace(7f);
-//        l.setYOffset(0f);
-
-//        pieChart.setEntryLabelTypeface(Typeface.DEFAULT);
-//        pieChart.setEntryLabelTextSize(12f);
-
-//        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-////        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
-//        l.setXEntrySpace(8);
-//        l.setYEntrySpace(5);
-
+        pieChartRenda = findViewById(R.id.pieChartHomeRenda);
+        dao.graficoPieChartRenda(pieChartRenda);
     }
 }

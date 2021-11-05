@@ -1,6 +1,7 @@
 package com.example.poket;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +33,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -61,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Map<Integer, Float> listaMes = new HashMap<>();
-        listaMes.put(1, 0.0f);
-
-        Log.d("---", listaMes.get(1).toString());
-        listaMes.put(1, listaMes.get(1)+5);
-        Log.d("---", listaMes.get(1).toString());
+//        Map<Integer, Float> listaMes = new HashMap<>();
+//        listaMes.put(1, 0.0f);
+//
+//        Log.d("---", listaMes.get(1).toString());
+//        listaMes.put(1, listaMes.get(1)+5);
+//        Log.d("---", listaMes.get(1).toString());
 
         editTextEmail = findViewById(R.id.editTexMainActivityEmail);
         editTextSenha = findViewById(R.id.editTextMainActivitySenha);
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//         fb();
+         fb();
     }
 
     private void validaCampos(UsuarioDTO dto){
@@ -144,10 +147,29 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+        db.collection("conta").document("cXPEJ6kvlLMGIcTMEsHrFLNnG3E3")
+                .collection("cXPEJ6kvlLMGIcTMEsHrFLNnG3E3")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(!value.isEmpty()){
 
+                        List<String> list = new ArrayList<>();
+                            String v = "";
+                        for (QueryDocumentSnapshot e : value){
+                            list.add(e.getData().get("valor").toString());
+//                            Log.d("---", "tst");
+                        }
 
-        boolean b = mAuth.isSignInWithEmailLink("any@email.com");
-        mAuth. isSignInWithEmailLink("any@email.com");
-        Log.d("---", b+"");
+                        for(String e : list){
+                            Log.d("---", e);
+                        }
+                        }
+                    }
+                });
+
+//        boolean b = mAuth.isSignInWithEmailLink("any@email.com");
+//        mAuth. isSignInWithEmailLink("any@email.com");
+//        Log.d("---", b+"");
     }
 }

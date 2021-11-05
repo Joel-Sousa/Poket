@@ -103,7 +103,7 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
         holder.textViewId.setText(idList.get(position));
         holder.textViewDespesa.setText(despesaList.get(position));
         holder.textViewConta.setText(contaList.get(position));
-        holder.textViewValorDespesa.setText(valorDespesaList.get(position));
+        holder.textViewValorDespesa.setText(String.valueOf(Double.valueOf(valorDespesaList.get(position))));
         holder.textViewDataDespesa.setText(Utilitario.convertUsaToBr(dataDespesaList.get(position)));
 
         viewOnCreate.setOnClickListener(new View.OnClickListener() {

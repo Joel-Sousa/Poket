@@ -16,11 +16,18 @@ import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.Home;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -331,12 +338,6 @@ public class UsuarioDAO {
                         }
                     }
 
-//                    TreeMap<Integer, Double> mapOrdenadoPorChaves = new TreeMap<>(listaMes);
-//
-//                    for (Integer e : mapOrdenadoPorChaves.keySet()) {
-//                        setNewList(e, mapOrdenadoPorChaves.get(e));
-//                    }
-
                     ArrayList<BarEntry> barEntriesDespesa = new ArrayList<>();
                     int mesBD = 0;
                     double valorSomado = 0.0;
@@ -446,71 +447,175 @@ public class UsuarioDAO {
             }
         });
 
-//        Log.d("---", "tst");
+//        db.collection("despesas").document(user.getUid()).collection(user.getUid())
+//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//
+//                        if(!value.isEmpty()){
+//                            Map<Integer, Double> listaMes = new TreeMap<>();
+//
+//                            for(int i=1; i<=12; i++)
+//                                listaMes.put(i, 0.0);
+//
+//                            for (QueryDocumentSnapshot e : value){
+//                                String dataBD = e.getData().get("dataDespesa").toString();
+//                                String[] parts = dataBD.split("-");
+//                                Double valor = Double.valueOf(e.getData().get("valorDespesa").toString());
+//
+//
+//                            }
+////
+//                        }
+//                    }
+//                });
+    }
 
-//        ArrayList<BarEntry> barEntriesDespesa = new ArrayList<>();
-//        barEntriesDespesa.add(new BarEntry(1,1));
-//        barEntriesDespesa.add(new BarEntry(2,2));
-//        barEntriesDespesa.add(new BarEntry(3,3));
-//        barEntriesDespesa.add(new BarEntry(4,4));
-//        barEntriesDespesa.add(new BarEntry(5,5));
-//        barEntriesDespesa.add(new BarEntry(6,10));
-//        barEntriesDespesa.add(new BarEntry(7,7));
-//        barEntriesDespesa.add(new BarEntry(8,8));
-//        barEntriesDespesa.add(new BarEntry(9,9));
-//        barEntriesDespesa.add(new BarEntry(10,10));
-//        barEntriesDespesa.add(new BarEntry(11,11));
-//        barEntriesDespesa.add(new BarEntry(12,12));
-//
-//        ArrayList<BarEntry> barEntriesRenda= new ArrayList<>();
-//        barEntriesRenda.add(new BarEntry(1,1));
-//        barEntriesRenda.add(new BarEntry(2,2));
-//        barEntriesRenda.add(new BarEntry(3,3));
-//        barEntriesRenda.add(new BarEntry(4,4));
-//        barEntriesRenda.add(new BarEntry(5,5));
-//        barEntriesRenda.add(new BarEntry(6,6));
-//        barEntriesRenda.add(new BarEntry(7,7));
-//        barEntriesRenda.add(new BarEntry(8,8));
-//        barEntriesRenda.add(new BarEntry(9,9));
-//        barEntriesRenda.add(new BarEntry(10,10));
-//        barEntriesRenda.add(new BarEntry(11,11));
-//        barEntriesRenda.add(new BarEntry(12,12));
-//
-//        BarDataSet barDataSet = new BarDataSet(barEntriesDespesa, "Despesa");
-//        barDataSet.setColor(Color.RED);
-//
-//        BarDataSet barDataSet1 = new BarDataSet(barEntriesRenda, "Renda");
-//        barDataSet1.setColor(Color.GREEN);
-//
-//        BarData barData = new BarData();
-//
-//        barData.addDataSet(barDataSet);
-//        barData.addDataSet(barDataSet1);
-//
-//        barChart.setData(barData);
-//
-//        String[] mes = new String[]
-//                {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul",
-//                        "Ago", "Set", "Out", "Nov", "Dez"};
-//
-//        XAxis xAxis = barChart.getXAxis();
-//        xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-//        xAxis.setCenterAxisLabels(true);
-//        xAxis.setLabelCount(12);
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setGranularity(1);
-//        xAxis.setGranularityEnabled(true);
-//
-//        float barSpace = 0.08f;
-//        float groupSpace = 0.30f;
-//        barData.setBarWidth(0.27f);
-//
-//        barChart.getXAxis().setAxisMinimum(0);
-//        barChart.getXAxis().setAxisMaximum(12);
-//        barChart.getAxisLeft().setAxisMinimum(0);
-//        barChart.groupBars(0,groupSpace, barSpace);
-//        barChart.getDescription().setEnabled(false);
-//
-//        barChart.invalidate();
+    public void graficoPieChartDespesa(PieChart pieChartDespesa){
+
+        db.collection("despesas").document(user.getUid()).collection(user.getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    Map<String, Double> listaTipoDespesa = new TreeMap<>();
+
+                    listaTipoDespesa.put("Alimentaçao", 0.0);
+                    listaTipoDespesa.put("Veiculo", 0.0);
+                    listaTipoDespesa.put("Moradia", 0.0);
+                    listaTipoDespesa.put("Lazer", 0.0);
+                    listaTipoDespesa.put("Outros", 0.0);
+
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String tipoDespesa = document.getData().get("tipoDespesa").toString();
+                        Double valorDespesa = Double.valueOf(document.getData().get("valorDespesa").toString());
+
+                        if(tipoDespesa.equals("Alimentaçao")){
+                            listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
+                        }else if(tipoDespesa.equals("Veiculo")){
+                            listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
+                        }else if(tipoDespesa.equals("Moradia")){
+                            listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
+                        }else if(tipoDespesa.equals("Lazer")){
+                            listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
+                        }else if(tipoDespesa.equals("Outros")){
+                            listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
+                        }
+                    }
+
+                    ArrayList<PieEntry> pieEntries = new ArrayList<>();
+
+                    double valor = 0.0;
+                    for(Map.Entry<String, Double> e : listaTipoDespesa.entrySet()){
+                        valor = e.getValue();
+                        pieEntries.add(new PieEntry((float) valor, e.getKey()));
+                    }
+
+                    PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
+                    pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                    pieDataSet.setValueTextColor(Color.BLACK);
+                    pieDataSet.setValueTextSize(18f);
+
+                    PieData pieData = new PieData(pieDataSet);
+                    pieData.setValueFormatter(new PercentFormatter(pieChartDespesa));
+
+                    pieChartDespesa.setData(pieData);
+                    pieChartDespesa.getDescription().setEnabled(false);
+                    pieChartDespesa.setUsePercentValues(true);
+                    pieChartDespesa.setCenterText("R$");
+                    pieChartDespesa.setCenterTextSize(18f);
+
+                    pieChartDespesa.setHoleRadius(40);
+                    pieChartDespesa.setTransparentCircleRadius(10);
+                    pieChartDespesa.setEntryLabelColor(Color.BLUE);
+                    pieChartDespesa.setDrawEntryLabels(false);
+
+                    pieChartDespesa.setExtraOffsets(40, 5, 0, 5);
+
+                    pieChartDespesa.animateX(1000);
+
+                    Legend l = pieChartDespesa.getLegend();
+                    l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+                    l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+                    l.setOrientation(Legend.LegendOrientation.VERTICAL);
+                    l.setTextSize(18f);
+                    Log.d("---", "tst");
+                    }
+                }
+            });
+    }
+
+    public void graficoPieChartRenda(PieChart pieChartRenda){
+
+        db.collection("rendas").document(user.getUid()).collection(user.getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    Map<String, Double> listaTipoRenda = new TreeMap<>();
+
+                    listaTipoRenda.put("Salario", 0.0);
+                    listaTipoRenda.put("Servicos", 0.0);
+                    listaTipoRenda.put("Presente", 0.0);
+                    listaTipoRenda.put("Aluguel", 0.0);
+                    listaTipoRenda.put("Outros", 0.0);
+
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String tipoRenda = document.getData().get("tipoRenda").toString();
+                        Double valorRenda = Double.valueOf(document.getData().get("valorRenda").toString());
+
+                        if(tipoRenda.equals("Salario")){
+                            listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
+                        }else if(tipoRenda.equals("Servicos")){
+                            listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
+                        }else if(tipoRenda.equals("Presente")){
+                            listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
+                        }else if(tipoRenda.equals("Aluguel")){
+                            listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
+                        }else if(tipoRenda.equals("Outros")){
+                            listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
+                        }
+                    }
+
+                    ArrayList<PieEntry> pieEntries = new ArrayList<>();
+
+                    double valor = 0.0;
+                    for(Map.Entry<String, Double> e : listaTipoRenda.entrySet()){
+                        valor = e.getValue();
+                        pieEntries.add(new PieEntry((float) valor, e.getKey()));
+                    }
+
+                    PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
+                    pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                    pieDataSet.setValueTextColor(Color.BLACK);
+                    pieDataSet.setValueTextSize(18f);
+
+                    PieData pieData = new PieData(pieDataSet);
+                    pieData.setValueFormatter(new PercentFormatter(pieChartRenda));
+
+                    pieChartRenda.setData(pieData);
+                    pieChartRenda.getDescription().setEnabled(false);
+                    pieChartRenda.setUsePercentValues(true);
+                    pieChartRenda.setCenterText("R$");
+                    pieChartRenda.setCenterTextSize(18f);
+
+                    pieChartRenda.setHoleRadius(40);
+                    pieChartRenda.setTransparentCircleRadius(10);
+                    pieChartRenda.setEntryLabelColor(Color.BLUE);
+                    pieChartRenda.setDrawEntryLabels(false);
+
+                    pieChartRenda.setExtraOffsets(40, 5, 0, 5);
+
+                    pieChartRenda.animateX(1000);
+
+                    Legend l = pieChartRenda.getLegend();
+                    l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+                    l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+                    l.setOrientation(Legend.LegendOrientation.VERTICAL);
+                    l.setTextSize(18f);
+                    Log.d("---", "tst");
+                }
+            }
+        });
     }
 }
