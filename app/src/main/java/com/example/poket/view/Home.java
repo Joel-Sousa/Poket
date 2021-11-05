@@ -5,22 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.poket.DAO.ContaDAO;
-import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
 import com.example.poket.DAO.UsuarioDAO;
 import com.example.poket.DTO.UsuarioDTO;
-import com.example.poket.MainActivity;
 import com.example.poket.R;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.conta.AdicionarConta;
@@ -33,24 +28,12 @@ import com.example.poket.view.renda.ListaRenda;
 import com.example.poket.view.usuario.EditarUsuario;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
 
@@ -96,7 +79,7 @@ public class Home extends AppCompatActivity {
         imageViewAdicionarRenda = findViewById(R.id.imageViewHomeAdicionarRendaAdicionar);
         buttonPF = findViewById(R.id.buttonHomePF);
 
-        barChart = findViewById(R.id.barChartHomeDespesaRenda);
+        barChart = findViewById(R.id.barChartHomeDR);
         pieChartDespesa = findViewById(R.id.pieChartHomeDespesa);
         pieChartRenda = findViewById(R.id.pieChartHomeRenda);
 
@@ -214,21 +197,21 @@ public class Home extends AppCompatActivity {
             }
         });
 
-//        pieChartDespesa.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-//            @Override
-//            public void onValueSelected(Entry e, Highlight h) {
-//                if (e == null)
-//                    return;
-//                PieEntry pe = (PieEntry) e;
-//                Utilitario.toast(getApplicationContext(),
-//                        pe.getLabel() + " R$: " + e.getY());
-//            }
-//
-//            @Override
-//            public void onNothingSelected() {
-//
-//            }
-//        });
+        pieChartDespesa.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                if (e == null)
+                    return;
+                PieEntry pe = (PieEntry) e;
+                Utilitario.toast(getApplicationContext(),
+                        pe.getLabel() + " R$: " + e.getY());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
 
         pieChartRenda.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -287,7 +270,7 @@ public class Home extends AppCompatActivity {
         textViewApelido = findViewById(R.id.textViewHomeApelido);
         textViewApelido.setText(user.getDisplayName());
 
-        barChart = findViewById(R.id.barChartHomeDespesaRenda);
+        barChart = findViewById(R.id.barChartHomeDR);
         dao.graficoBarChartDespesaRenda(barChart);
 
         pieChartDespesa = findViewById(R.id.pieChartHomeDespesa);

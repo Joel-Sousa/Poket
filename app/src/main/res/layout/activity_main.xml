@@ -29,6 +29,20 @@
             android:layout_height="281dp"
             app:srcCompat="@drawable/jaconda_34" />
 
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="@drawable/brd">-->
+
+<!--            <com.github.mikephil.charting.charts.BarChart-->
+<!--                android:id="@+id/barChartHomeDR"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--            </com.github.mikephil.charting.charts.BarChart>-->
+<!--        </LinearLayout>-->
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
