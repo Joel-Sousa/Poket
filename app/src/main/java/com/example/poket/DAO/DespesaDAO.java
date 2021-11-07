@@ -17,6 +17,7 @@ import com.example.poket.adapter.DespesaAdapter;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -438,7 +439,7 @@ public class DespesaDAO {
 
                     BarDataSet barDataSet = new BarDataSet(barEntries, "Despesa");
                     barDataSet.setColor(Color.RED);
-                    barDataSet.setValueTextSize(10f);
+                    barDataSet.setValueTextSize(14f);
 
                     BarData barData = new BarData();
                     barData.addDataSet(barDataSet);
@@ -451,25 +452,17 @@ public class DespesaDAO {
 
                     XAxis xAxis = barChartDespesa.getXAxis();
                     xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-                    xAxis.setLabelCount(12);
                     xAxis.setCenterAxisLabels(true);
+                    xAxis.setLabelCount(12);
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    xAxis.setGranularity(1);
-//                    xAxis.setGranularity(2);
                     xAxis.setGranularityEnabled(true);
+                    xAxis.setGranularity(2);
+                    xAxis.setTextSize(14f);
 
-                    float barSpace = 0.10f;
-                    float groupSpace = 0.10f;
-//        barData.setBarWidth(0.27f);
-
-//        barChartDespesa.getXAxis().setAxisMinimum(0);
-//        barChartDespesa.getXAxis().setAxisMaximum(12);
-//        barChartDespesa.getAxisLeft().setAxisMinimum(0);
-
-//        barChartDespesa.groupBars(0,groupSpace, barSpace);
+                    Legend l = barChartDespesa.getLegend();
+                    l.setTextSize(14f);
 
                     barChartDespesa.getDescription().setEnabled(false);
-
                     barChartDespesa.invalidate();
 
                 }

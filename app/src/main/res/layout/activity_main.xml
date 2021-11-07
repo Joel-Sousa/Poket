@@ -23,30 +23,30 @@
             android:textColor="#000000"
             android:textSize="24sp" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="281dp"-->
-<!--            app:srcCompat="@drawable/jaconda_34" />-->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="281dp"
+            app:srcCompat="@drawable/jaconda_34" />
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
+<!--        <HorizontalScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/brd"
-                android:orientation="vertical">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@drawable/brd"-->
+<!--                android:orientation="vertical">-->
 
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/barChartHomeDR"
-                    android:layout_width="700dp"
-                    android:layout_height="match_parent">
+<!--                <com.github.mikephil.charting.charts.BarChart-->
+<!--                    android:id="@+id/barChartHomeDR"-->
+<!--                    android:layout_width="1000dp"-->
+<!--                    android:layout_height="match_parent">-->
 
-                </com.github.mikephil.charting.charts.BarChart>
-            </LinearLayout>
-        </HorizontalScrollView>
+<!--                </com.github.mikephil.charting.charts.BarChart>-->
+<!--            </LinearLayout>-->
+<!--        </HorizontalScrollView>-->
 
         <LinearLayout
             android:layout_width="wrap_content"

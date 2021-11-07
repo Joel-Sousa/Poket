@@ -30,10 +30,12 @@ import com.example.poket.util.Utilitario;
 import com.example.poket.view.usuario.AdicionarUsuario;
 import com.example.poket.view.usuario.EsqueceuSenha;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -73,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        barChart = findViewById(R.id.barChartHomeDR);
-            graficoBarChartDespesaRenda();
+//        barChart = findViewById(R.id.barChartHomeDR);
+//            graficoBarChartDespesaRenda();
 
         editTextEmail = findViewById(R.id.editTexMainActivityEmail);
         editTextSenha = findViewById(R.id.editTextMainActivitySenha);
@@ -186,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
         barEntriesDespesa.add(new BarEntry(3,3));
         barEntriesDespesa.add(new BarEntry(4,4));
         barEntriesDespesa.add(new BarEntry(5,5));
-        barEntriesDespesa.add(new BarEntry(6,10));
+        barEntriesDespesa.add(new BarEntry(6,1));
         barEntriesDespesa.add(new BarEntry(7,7));
         barEntriesDespesa.add(new BarEntry(8,8));
         barEntriesDespesa.add(new BarEntry(9,9));
@@ -214,6 +216,9 @@ public class MainActivity extends AppCompatActivity {
         BarDataSet barDataSet1 = new BarDataSet(barEntriesRenda, "Renda");
         barDataSet1.setColor(Color.GREEN);
 
+        barDataSet.setValueFormatter(new DefaultValueFormatter(1));
+        barDataSet1.setValueFormatter(new DefaultValueFormatter(1));
+
         BarData barData = new BarData();
 
         barData.addDataSet(barDataSet);
@@ -226,25 +231,51 @@ public class MainActivity extends AppCompatActivity {
                 {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul",
                         "Ago", "Set", "Out", "Nov", "Dez"};
 
+        Legend l = barChart.getLegend();
+        l.setTextSize(14f);
+
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
         xAxis.setCenterAxisLabels(true);
         xAxis.setLabelCount(12);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1);
         xAxis.setGranularityEnabled(true);
-        xAxis.setTextSize(14f);
 
-        float barSpace = 0.08f;
-        float groupSpace = 0.30f;
-        barData.setBarWidth(0.27f);
+        barChart.setDragEnabled(true);
+        barChart.setVisibleXRangeMaximum(12);
+
+        float barSpace = 0.0f;
+        float groupSpace = 0.12f;
+        barData.setBarWidth(0.44f);
 
         barChart.getXAxis().setAxisMinimum(0);
-        barChart.getXAxis().setAxisMaximum(12);
+        barChart.getXAxis().setAxisMaximum(0+barChart.getData().getGroupWidth(groupSpace,  barSpace)*12);
         barChart.getAxisLeft().setAxisMinimum(0);
-        barChart.groupBars(0,groupSpace, barSpace);
-        barChart.getDescription().setEnabled(false);
 
+        barChart.groupBars(0, groupSpace, barSpace);
         barChart.invalidate();
+
+        //
+
+//        XAxis xAxis = barChart.getXAxis();
+//        xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
+//        xAxis.setCenterAxisLabels(true);
+//        xAxis.setLabelCount(12);
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setGranularity(1);
+//        xAxis.setGranularityEnabled(true);
+//        xAxis.setTextSize(14f);
+//
+//        float barSpace = 0.08f;
+//        float groupSpace = 0.30f;
+//        barData.setBarWidth(0.27f);
+//
+//        barChart.getXAxis().setAxisMinimum(0);
+//        barChart.getXAxis().setAxisMaximum(12);
+//        barChart.getAxisLeft().setAxisMinimum(0);
+//        barChart.groupBars(0,groupSpace, barSpace);
+//        barChart.getDescription().setEnabled(false);
+//
+//        barChart.invalidate();
     }
 }

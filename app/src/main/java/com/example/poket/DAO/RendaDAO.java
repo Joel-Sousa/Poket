@@ -20,6 +20,7 @@ import com.example.poket.adapter.RendaAdapter;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -433,7 +434,7 @@ public class RendaDAO {
 
                     BarDataSet barDataSet = new BarDataSet(barEntries, "Renda");
                     barDataSet.setColor(Color.GREEN);
-                    barDataSet.setValueTextSize(10f);
+                    barDataSet.setValueTextSize(14f);
 
                     BarData barData = new BarData();
                     barData.addDataSet(barDataSet);
@@ -444,26 +445,20 @@ public class RendaDAO {
                             {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
                                     "Jul", "Ago", "Set", "Out", "Nov", "Dez"};
 
+
                     XAxis xAxis = barChartRenda.getXAxis();
                     xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-                    xAxis.setLabelCount(12);
                     xAxis.setCenterAxisLabels(true);
+                    xAxis.setLabelCount(12);
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    xAxis.setGranularity(1);
                     xAxis.setGranularityEnabled(true);
+                    xAxis.setGranularity(2);
+                    xAxis.setTextSize(14f);
 
-                    float barSpace = 0.10f;
-                    float groupSpace = 0.10f;
-            //        barData.setBarWidth(0.27f);
-
-            //        barChartDespesa.getXAxis().setAxisMinimum(0);
-            //        barChartDespesa.getXAxis().setAxisMaximum(12);
-            //        barChartDespesa.getAxisLeft().setAxisMinimum(0);
-
-            //        barChartDespesa.groupBars(0,groupSpace, barSpace);
+                    Legend l = barChartRenda.getLegend();
+                    l.setTextSize(14f);
 
                     barChartRenda.getDescription().setEnabled(false);
-
                     barChartRenda.invalidate();
 
                     Log.d("---", listaMes.toString());

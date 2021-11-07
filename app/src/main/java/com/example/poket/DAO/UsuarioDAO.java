@@ -25,6 +25,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -306,16 +307,16 @@ public class UsuarioDAO {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    Map<Integer, Double> listaMes = new TreeMap<>();
+                    Map<Integer, Float> listaMes = new TreeMap<>();
 
                     for(int i=1; i<=12; i++)
-                        listaMes.put(i, 0.0);
+                        listaMes.put(i, 0.0f);
 
                     for (QueryDocumentSnapshot document : task.getResult()) {
 
                         String dataBD = document.getData().get("dataDespesa").toString();
                         String[] parts = dataBD.split("-");
-                        Double valor = Double.valueOf(document.getData().get("valorDespesa").toString());
+                        float valor = Float.parseFloat(document.getData().get("valorDespesa").toString());
 
                         if(parts[1].equals("01")){
                             listaMes.put(1, listaMes.get(1)+valor);
@@ -346,13 +347,13 @@ public class UsuarioDAO {
 
                     ArrayList<BarEntry> barEntriesDespesa = new ArrayList<>();
                     int mesBD = 0;
-                    double valorSomado = 0.0;
+                    float valorSomado = 0.0f;
 
-                    for(Map.Entry<Integer, Double> entry : listaMes.entrySet()){
+                    for(Map.Entry<Integer, Float> entry : listaMes.entrySet()){
                         mesBD = entry.getKey();
                         valorSomado = entry.getValue();
 
-                        barEntriesDespesa.add(new BarEntry(mesBD, (float) valorSomado));
+                        barEntriesDespesa.add(new BarEntry(mesBD, entry.getValue()));
                     }
 
                     // rendas
@@ -361,16 +362,16 @@ public class UsuarioDAO {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task1) {
                             if (task1.isSuccessful()) {
-                                Map<Integer, Double> listaMes1 = new TreeMap<>();
+                                Map<Integer, Float> listaMes1 = new TreeMap<>();
 
                                 for(int i=1; i<=12; i++)
-                                    listaMes1.put(i, 0.0);
+                                    listaMes1.put(i, 0.0f);
 
                                 for (QueryDocumentSnapshot document1 : task1.getResult()) {
 
                                     String dataBD1 = document1.getData().get("dataRenda").toString();
                                     String[] parts1 = dataBD1.split("-");
-                                    Double valor1 = Double.valueOf(document1.getData().get("valorRenda").toString());
+                                    float valor1 = Float.parseFloat(document1.getData().get("valorRenda").toString());
 
                                     if(parts1[1].equals("01")){
                                         listaMes1.put(1, listaMes1.get(1)+valor1);
@@ -401,14 +402,49 @@ public class UsuarioDAO {
 
                                 ArrayList<BarEntry> barEntriesRenda= new ArrayList<>();
                                 int mesBD1 = 0;
-                                double valorSomado1 = 0.0;
+                                float valorSomado1 = 0.0f;
 
-                                for(Map.Entry<Integer, Double> entry1 : listaMes1.entrySet()){
+                                for(Map.Entry<Integer, Float> entry1 : listaMes1.entrySet()){
                                     mesBD1 = entry1.getKey();
                                     valorSomado1 = entry1.getValue();
 
-                                    barEntriesRenda.add(new BarEntry(mesBD1, (float) valorSomado1));
+                                    barEntriesRenda.add(new BarEntry(mesBD1, entry1.getValue()));
                                 }
+
+                                //
+                                ArrayList<BarEntry> barEntriesDespesa1 = new ArrayList<>();
+                                barEntriesDespesa1.add(new BarEntry(1,1.0f));
+                                barEntriesDespesa1.add(new BarEntry(2,2.0f));
+                                barEntriesDespesa1.add(new BarEntry(3,3.0f));
+                                barEntriesDespesa1.add(new BarEntry(4,4.0f));
+                                barEntriesDespesa1.add(new BarEntry(5,5.0f));
+                                barEntriesDespesa1.add(new BarEntry(6,10.0f));
+                                barEntriesDespesa1.add(new BarEntry(7,7.0f));
+                                barEntriesDespesa1.add(new BarEntry(8,8.0f));
+                                barEntriesDespesa1.add(new BarEntry(9,9.0f));
+                                barEntriesDespesa1.add(new BarEntry(10,10.0f));
+                                barEntriesDespesa1.add(new BarEntry(11,11.0f));
+                                barEntriesDespesa1.add(new BarEntry(12,12.0f));
+
+                                ArrayList<BarEntry> barEntriesRenda1 = new ArrayList<>();
+                                barEntriesRenda1.add(new BarEntry(1,1.0f));
+                                barEntriesRenda1.add(new BarEntry(2,2.0f));
+                                barEntriesRenda1.add(new BarEntry(3,3.0f));
+                                barEntriesRenda1.add(new BarEntry(4,4.0f));
+                                barEntriesRenda1.add(new BarEntry(5,5.0f));
+                                barEntriesRenda1.add(new BarEntry(6,6.0f));
+                                barEntriesRenda1.add(new BarEntry(7,7.0f));
+                                barEntriesRenda1.add(new BarEntry(8,8.0f));
+                                barEntriesRenda1.add(new BarEntry(9,9.0f));
+                                barEntriesRenda1.add(new BarEntry(10,10.0f));
+                                barEntriesRenda1.add(new BarEntry(11,11.0f));
+                                barEntriesRenda1.add(new BarEntry(12,12.0f));
+
+//                                BarDataSet barDataSet = new BarDataSet(barEntriesDespesa1, "Despesa");
+//                                barDataSet.setColor(Color.RED);
+//
+//                                BarDataSet barDataSet1 = new BarDataSet(barEntriesRenda1, "Renda");
+//                                barDataSet1.setColor(Color.GREEN);
 
                                 BarDataSet barDataSet = new BarDataSet(barEntriesDespesa, "Despesa");
                                 barDataSet.setColor(Color.RED);
@@ -416,10 +452,14 @@ public class UsuarioDAO {
                                 BarDataSet barDataSet1 = new BarDataSet(barEntriesRenda, "Renda");
                                 barDataSet1.setColor(Color.GREEN);
 
+                                barDataSet.setValueFormatter(new DefaultValueFormatter(1));
+                                barDataSet1.setValueFormatter(new DefaultValueFormatter(1));
+
                                 BarData barData = new BarData();
 
                                 barData.addDataSet(barDataSet);
                                 barData.addDataSet(barDataSet1);
+                                barData.setValueTextSize(14f);
 
                                 barChart.setData(barData);
 
@@ -427,22 +467,28 @@ public class UsuarioDAO {
                                         {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul",
                                                 "Ago", "Set", "Out", "Nov", "Dez"};
 
+                                Legend l = barChart.getLegend();
+                                l.setTextSize(14f);
+
                                 XAxis xAxis = barChart.getXAxis();
                                 xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
                                 xAxis.setCenterAxisLabels(true);
                                 xAxis.setLabelCount(12);
                                 xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                                xAxis.setGranularity(1);
                                 xAxis.setGranularityEnabled(true);
+                                xAxis.setTextSize(14f);
 
-                                float barSpace = 0.08f;
-                                float groupSpace = 0.30f;
-                                barData.setBarWidth(0.27f);
+                                barChart.setDragEnabled(true);
+                                barChart.setVisibleXRangeMaximum(12);
+
+                                float barSpace = 0.0f;
+                                float groupSpace = 0.12f;
+                                barData.setBarWidth(0.44f);
 
                                 barChart.getXAxis().setAxisMinimum(0);
-                                barChart.getXAxis().setAxisMaximum(12);
+                                barChart.getXAxis().setAxisMaximum(0+barChart.getData().getGroupWidth(groupSpace,  barSpace)*12);
                                 barChart.getAxisLeft().setAxisMinimum(0);
-                                barChart.groupBars(0,groupSpace, barSpace);
+                                barChart.groupBars(0, groupSpace, barSpace);
                                 barChart.getDescription().setEnabled(false);
 
                                 barChart.invalidate();
