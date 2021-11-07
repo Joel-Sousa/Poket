@@ -53,7 +53,7 @@
             android:visibility="gone" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -61,22 +61,20 @@
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView61"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Nome PF: "
-                android:textColor="#000000"
-                android:textSize="20sp" />
+                android:hint="Nome do planejamento financeiro">
 
-            <EditText
-                android:id="@+id/editTextAdicionarPFNomePF"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAdicionarPFNomePF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -150,7 +148,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -158,26 +156,24 @@
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView68"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Valor atual R$: "
-                android:textColor="#000000"
-                android:textSize="20sp" />
+                android:hint="Valor atual R$">
 
-            <EditText
-                android:id="@+id/editTextAdicionarPFValorAtual"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="number|numberDecimal" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAdicionarPFValorAtual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="number|numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -185,26 +181,24 @@
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView69"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Valor Objetivado R$: "
-                android:textColor="#000000"
-                android:textSize="20sp" />
+                android:hint="Valor Objetivado R$">
 
-            <EditText
-                android:id="@+id/editTextAdicionarPFValorObjetivado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="number|numberDecimal" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAdicionarPFValorObjetivado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="number|numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -212,26 +206,24 @@
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView70"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Data Inicial: "
-                android:textColor="#000000"
-                android:textSize="20sp" />
+                android:hint="Data Inicial">
 
-            <EditText
-                android:id="@+id/editTextAdicionarPFDataInicial"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="number" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAdicionarPFDataInicial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -239,22 +231,20 @@
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView71"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Data Final: "
-                android:textColor="#000000"
-                android:textSize="20sp" />
+                android:hint="Data Final">
 
-            <EditText
-                android:id="@+id/editTextAdicionarPFDataFinal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="number" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAdicionarPFDataFinal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 

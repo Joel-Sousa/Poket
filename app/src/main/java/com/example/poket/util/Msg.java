@@ -28,6 +28,7 @@ public class Msg {
     // Usuario
     public static final String APELIDO = "Preencha o campo de Apelido.";
     public static final String EMAIL = "Preencha o campo de email.";
+    public static final String EMAIL_VALIDAR = "Insira o email no campo de email para redefinir a senha.";
     public static final String CONTA = "Preencha o campo de conta.";
     public static final String VALOR_CONTA = "Informe um valor valor.";
     public static final String EMAIL_VALIDO = "Informe um email valido.";

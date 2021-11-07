@@ -49,14 +49,20 @@
             android:focusableInTouchMode="true"
             android:focusable="true">
 
-            <EditText
-                android:id="@+id/editTextListagemPFBuscaPF"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName" />
-<!--                android:focusable="false"-->
+                android:hint="Buscar planejamento financeiro">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextListagemPFBuscaPF"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/buttonListagemPFBuscar"

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     Intent intentEsqueceuSenha, intentCadastrarUsuario, intentLogin;
     TextView textViewEsqueceuSenha, textViewCadastrarUsuario;
     EditText editTextEmail, editTextSenha, editTextDt;
-    Button buttonLogin;
+    Button buttonLogin, buttonES;
     DatePickerDialog picker;
 
     BarChart barChart;
@@ -78,6 +78,16 @@ public class MainActivity extends AppCompatActivity {
 //        barChart = findViewById(R.id.barChartHomeDR);
 //            graficoBarChartDespesaRenda();
 
+        buttonES = findViewById(R.id.buttonES);
+
+        buttonES.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, EsqueceuSenha.class);
+                startActivity(intent);
+            }
+        });
+
         editTextEmail = findViewById(R.id.editTexMainActivityEmail);
         editTextSenha = findViewById(R.id.editTextMainActivitySenha);
         textViewEsqueceuSenha = findViewById(R.id.textViewMainActivityEsqueceuSenha);
@@ -90,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(editTextEmail.length() == 0){
-                    Utilitario.toast(getApplicationContext(), Msg.EMAIL);
+                Utilitario.toast(getApplicationContext(), Msg.EMAIL_VALIDAR);
+//                    Utilitario.toast(getApplicationContext(), Msg.EMAIL);
                     editTextEmail.requestFocus();
                 }else if(!editTextEmail.getText().toString().trim().contains("@")){
                     Utilitario.toast(getApplicationContext(), Msg.EMAIL_VALIDO);

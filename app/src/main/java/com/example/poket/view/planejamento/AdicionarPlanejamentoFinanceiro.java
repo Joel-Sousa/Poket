@@ -198,6 +198,6 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         editTextNomePF.setText("nomeTst");
         editTextValorAtual.setText("10");
         editTextValorObjetivado.setText("900");
-//        editTextDataFinal.setText("12/12/2021");
+        editTextDataFinal.setText("12/12/2021");
     }
 }

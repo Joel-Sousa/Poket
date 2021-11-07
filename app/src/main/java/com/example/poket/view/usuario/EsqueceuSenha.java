@@ -28,15 +28,6 @@ public class EsqueceuSenha extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esqueceu_senha);
 
-        editTextEmail = findViewById(R.id.editTextRecuperarSenhaEmail);
 
-        buttonRecuperar = findViewById(R.id.buttonRecuperarSenhaRecuperar);
-
-        buttonRecuperar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 }
