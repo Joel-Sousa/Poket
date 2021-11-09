@@ -27,6 +27,8 @@ import com.example.poket.DTO.UsuarioDTO;
 import com.example.poket.adapter.ContaAdapter;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
+import com.example.poket.view.despesa.AdicionarDespesa;
+import com.example.poket.view.despesa.ListaDespesa;
 import com.example.poket.view.usuario.AdicionarUsuario;
 import com.example.poket.view.usuario.EsqueceuSenha;
 import com.github.mikephil.charting.charts.BarChart;
@@ -75,18 +77,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(MainActivity.this, ListaDespesa.class);
+        startActivity(intent);
+
 //        barChart = findViewById(R.id.barChartHomeDR);
 //            graficoBarChartDespesaRenda();
-
-        buttonES = findViewById(R.id.buttonES);
-
-        buttonES.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EsqueceuSenha.class);
-                startActivity(intent);
-            }
-        });
 
         editTextEmail = findViewById(R.id.editTexMainActivityEmail);
         editTextSenha = findViewById(R.id.editTextMainActivitySenha);

@@ -184,12 +184,29 @@
                         android:textColor="#000000"
                         android:textSize="20sp" />
 
-                    <Spinner
-                        android:id="@+id/spinnerAdicionarDespesaMes"
-                        android:layout_width="110dp"
+<!--                    <Spinner-->
+<!--                        android:id="@+id/spinnerAdicionarDespesaMes"-->
+<!--                        android:layout_width="110dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="40dp"-->
+<!--                        android:layout_weight="1" />-->
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editTextListaDespesaMes"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="40dp"
-                        android:layout_weight="1" />
+                        android:hint="Mes"
+                        app:boxBackgroundMode="outline"
+                        app:endIconMode="dropdown_menu">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/dropdown_menu"
+                            android:layout_width="210dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="textNoSuggestions"></AutoCompleteTextView>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/buttonAdicionarDespesaLimpar"

@@ -22,6 +22,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -97,7 +98,7 @@ public class DespesaDAO {
     }
 
     public void lerDespesas(RecyclerView recyclerView, Context context,
-                            TextView textViewDespesaValorTotal, int mes){
+                            TextView textViewDespesaValorTotal, String mes){
         List<DespesaDTO> listDespesa = new ArrayList<DespesaDTO>();
 
         db.collection("despesas")
@@ -110,7 +111,7 @@ public class DespesaDAO {
                             RecyclerView.LayoutManager layoutManager;
                             double valorDespesa = 0.0;
 
-                            if(mes == 0){
+                            if(mes.equals("")){
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     DespesaDTO dto = new DespesaDTO();
                                     dto.setId(document.getId());
@@ -127,12 +128,27 @@ public class DespesaDAO {
                                     valorDespesa += Double.valueOf(document.getData().get("valorDespesa").toString());
                                 }
                             }else{
+
+                                int mesNumero = 0;
+                                if(mes.equals("Janeiro")) mesNumero = 1;
+                                else if(mes.equals("Fevereiro")) mesNumero = 2;
+                                else if(mes.equals("Março")) mesNumero = 3;
+                                else if(mes.equals("Abril")) mesNumero = 4;
+                                else if(mes.equals("Maio")) mesNumero = 5;
+                                else if(mes.equals("Junho")) mesNumero = 6;
+                                else if(mes.equals("Julho")) mesNumero = 7;
+                                else if(mes.equals("Agosto")) mesNumero = 8;
+                                else if(mes.equals("Setembro")) mesNumero = 9;
+                                else if(mes.equals("Outubro")) mesNumero = 10;
+                                else if(mes.equals("Novembro")) mesNumero = 11;
+                                else if(mes.equals("Dezembro")) mesNumero = 12;
+
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 
                                     String dataMes = document.getData().get("dataDespesa").toString();
                                     String[] parts = dataMes.split("-");
 
-                                    if(mes == Integer.parseInt(parts[1])){
+                                    if(mesNumero == Integer.parseInt(parts[1])){
 
                                     DespesaDTO dto = new DespesaDTO();
                                     dto.setId(document.getId());
@@ -359,7 +375,7 @@ public class DespesaDAO {
 
 //                                  Log.i("---", conta.getId());
                                 }else if(busca.equals("")){
-                                    lerDespesas(recyclerView, context ,textViewValor, 0);
+                                    lerDespesas(recyclerView, context ,textViewValor, "");
                                 }
                             }
 
@@ -441,8 +457,11 @@ public class DespesaDAO {
                     barDataSet.setColor(Color.RED);
                     barDataSet.setValueTextSize(14f);
 
+                    barDataSet.setValueFormatter(new DefaultValueFormatter(1));
+
                     BarData barData = new BarData();
                     barData.addDataSet(barDataSet);
+
 
                     barChartDespesa.setData(barData);
 

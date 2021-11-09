@@ -48,7 +48,6 @@ public class Msg {
     public static final String VALOR_DESPESA = "Preencha o campo de valor de despesa.";
     public static final String TIPO_DESPESA = "Selecione um tipo de despesa.";
     public static final String DATA_DESPESA = "Preencha o campo de data da despesa.";
-    public static final String DATA_DESPESA_VALIDA = "Insira uma data valida.";
     public static final String VALOR_MAIOR = "O valor da despesa e maior que o valor da conta disponivel.";
 
     // Renda
@@ -66,5 +65,6 @@ public class Msg {
     public static final String DATA_INICIAL_VALIDA = "Insira uma data inicial valida.";
     public static final String DATA_FINAL_VALIDA = "Insira uma data final valida.";
     public static final String VALOR_MAIOR_PF = "O valor atual do planejamento financeiro e maior que o valor da conta disponivel.";
+    public static final String TIPO_PF = "Selecione um planejamento financeiro.";
     public static final String VALOR_PF_ATINGIDO = "O valor do planejamento financeiro ja foi atingido.";
 }

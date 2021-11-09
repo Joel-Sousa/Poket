@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.poket.DAO.ContaDAO;
 import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
@@ -22,9 +25,14 @@ import com.example.poket.R;
 import com.example.poket.util.MaskEditUtil;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
+import com.example.poket.view.despesa.AdicionarDespesa;
 import com.example.poket.view.despesa.EditarDespesa;
+import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
 
@@ -32,15 +40,18 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
     TextView textViewIdConta, textViewContaValor;
     EditText editTextNomePF, editTextValorAtual, editTextValorObjetivado,
     editTextDataInicial, editTextDataFinal;
-    Spinner spinnerConta, spinnerTipoPF;
+    Spinner spinnerConta;
     Button buttonSalvar;
     DatePickerDialog picker;
+    TextInputLayout textInputLayoutTipoPF;
+    AutoCompleteTextView autoCompleteTextViewTipoPF;
 
     PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
     PlanejamentoFinanceiroDTO dto = new PlanejamentoFinanceiroDTO();
     HistoricoPFDTO hdto = new HistoricoPFDTO();
 
     String tipoPF = "";
+    List<String> tipoPFList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +63,10 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         textViewContaValor= findViewById(R.id.textViewAdicionarPFContaValor);
 
         editTextNomePF = findViewById(R.id.editTextAdicionarPFNomePF);
-        spinnerTipoPF = findViewById(R.id.spinnerAdicionarPFTipoPF);
+
+        textInputLayoutTipoPF = findViewById(R.id.editTextAdicionarPFTipoPF);
+        autoCompleteTextViewTipoPF = findViewById(R.id.dropdown_menu);
+
         editTextValorAtual = findViewById(R.id.editTextAdicionarPFValorAtual);
         editTextValorObjetivado = findViewById(R.id.editTextAdicionarPFValorObjetivado);
         editTextDataInicial = findViewById(R.id.editTextAdicionarPFDataInicial);
@@ -61,11 +75,18 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         buttonSalvar = findViewById(R.id.buttonAdicionarPFSalvar);
         imageViewVoltar = findViewById(R.id.imageViewAdicionarPFVoltar);
 
-        Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
+//        Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
 
         editTextDataInicial.setText(Utilitario.dataAtual());
         editTextDataInicial.setInputType(InputType.TYPE_NULL);
         editTextDataFinal.setInputType(InputType.TYPE_NULL);
+
+        tipoPFList = Arrays.asList("Curto Prazo", "Medio Prazo", "Longo Prazo");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                AdicionarPlanejamentoFinanceiro.this, R.layout.dropdown_item, tipoPFList);
+
+        autoCompleteTextViewTipoPF.setAdapter(adapter);
 
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarPlanejamentoFinanceiro.this, textViewContaValor, textViewIdConta, true);
@@ -76,7 +97,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dto.setNomePF(editTextNomePF.getText().toString());
-                dto.setTipoPF(spinnerTipoPF.getSelectedItem().toString());
+                dto.setTipoPF(autoCompleteTextViewTipoPF.getText().toString());
                 dto.setValorAtual(editTextValorAtual.getText().toString());
                 dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
                 dto.setDataInicial(editTextDataInicial.getText().toString());
@@ -157,6 +178,13 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         }else if(dto.getNomePF().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.NOME_PF);
             editTextNomePF.requestFocus();
+        }else if(dto.getTipoPF().length() == 0){
+            Toast.makeText(getApplicationContext(), Msg.TIPO_PF, Toast.LENGTH_LONG).show();
+            autoCompleteTextViewTipoPF.requestFocus();
+        }else if(!tipoPFList.contains(dto.getTipoPF())){
+            Toast.makeText(getApplicationContext(), Msg.TIPO_PF, Toast.LENGTH_LONG).show();
+            autoCompleteTextViewTipoPF.setText("");
+            autoCompleteTextViewTipoPF.requestFocus();
         }else if(dto.getValorAtual().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ATUAL);
             editTextValorAtual.requestFocus();

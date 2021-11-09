@@ -71,7 +71,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
@@ -79,20 +79,36 @@
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView83"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Tipo PF: "
-                android:textColor="#000000"
-                android:textSize="20sp" />
+            <!--            <TextView-->
+            <!--                android:id="@+id/textView83"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:text="Tipo PF: "-->
+            <!--                android:textColor="#000000"-->
+            <!--                android:textSize="20sp" />-->
 
-            <Spinner
-                android:id="@+id/spinnerEditarPFTipoPF"
+            <!--            <Spinner-->
+            <!--                android:id="@+id/spinnerEditarPFTipoPF"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="1" />-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextEditarPFTipoPF"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:hint="Tipo de planejamento financeiro"
+                app:boxBackgroundMode="outline"
+                app:endIconMode="dropdown_menu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions"></AutoCompleteTextView>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 

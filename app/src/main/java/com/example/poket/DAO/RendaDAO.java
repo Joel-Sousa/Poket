@@ -25,6 +25,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -435,6 +436,8 @@ public class RendaDAO {
                     BarDataSet barDataSet = new BarDataSet(barEntries, "Renda");
                     barDataSet.setColor(Color.GREEN);
                     barDataSet.setValueTextSize(14f);
+
+                    barDataSet.setValueFormatter(new DefaultValueFormatter(1));
 
                     BarData barData = new BarData();
                     barData.addDataSet(barDataSet);

@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,23 +29,30 @@ import com.example.poket.util.MaskEditUtil;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.despesa.EditarDespesa;
+import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class EditarRenda extends AppCompatActivity {
 
     EditText editTextRenda, editTextDataRenda, editTextObservacao;
     TextView textViewId, textViewConta, textViewValorRenda;
-    Spinner spinnerTipoRenda;
     ImageView imageViewVoltar;
     Button buttonEditar, buttonExcluir;
     DatePickerDialog picker;
+    TextInputLayout textInputLayoutTipoRenda;
+    AutoCompleteTextView autoCompleteTextViewTipoRenda;
 
     RendaDAO dao = new RendaDAO();
 
     String idConta = "";
     String valorRendaAntiga = "";
     String tipoPF = "";
+    List<String> tipoRendaList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +63,10 @@ public class EditarRenda extends AppCompatActivity {
 
         editTextRenda = findViewById(R.id.editTextEditarRendaRenda);
         textViewValorRenda = findViewById(R.id.textViewEditarRendaValorRenda);
-        spinnerTipoRenda = findViewById(R.id.spinnerEditarRendaTipoRenda);
+
+        textInputLayoutTipoRenda = findViewById(R.id.editTextEditarRendaTipoRenda);
+        autoCompleteTextViewTipoRenda = findViewById(R.id.dropdown_menu);
+
         editTextDataRenda = findViewById(R.id.editTextEditarRendaDataRenda);
         editTextObservacao = findViewById(R.id.editTextEditarRendaObservacao);
 
@@ -77,9 +89,18 @@ public class EditarRenda extends AppCompatActivity {
         idConta = intent.getStringExtra("idConta");
         valorRendaAntiga = intent.getStringExtra("valorRenda");
 
+        tipoRendaList = Arrays.asList("Salario", "Servicos", "Presente", "Aluguel", "Outros");
+
         editTextDataRenda.setInputType(InputType.TYPE_NULL);
 
-        Utilitario.listaTipoRenda(spinnerTipoRenda, tipoPF, getApplicationContext());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                EditarRenda.this, R.layout.dropdown_item, tipoRendaList);
+
+        autoCompleteTextViewTipoRenda.setAdapter(adapter);
+
+        autoCompleteTextViewTipoRenda.setText(tipoPF);
+
+//        Utilitario.listaTipoRenda(spinnerTipoRenda, tipoPF, getApplicationContext());
 
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +109,7 @@ public class EditarRenda extends AppCompatActivity {
                 dto.setId(textViewId.getText().toString());
                 dto.setRenda(editTextRenda.getText().toString());
                 dto.setValorRenda(textViewValorRenda.getText().toString());
-                dto.setTipoRenda(spinnerTipoRenda.getSelectedItem().toString());
+                dto.setTipoRenda(autoCompleteTextViewTipoRenda.getText().toString());
                 dto.setDataRenda(editTextDataRenda.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
 
@@ -161,9 +182,13 @@ public class EditarRenda extends AppCompatActivity {
         }else if(dto.getRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.RENDA);
             editTextRenda.requestFocus();
-        }else if(spinnerTipoRenda.getSelectedItem().toString().equals(".:Selecione:.")){
-            Utilitario.toast(getApplicationContext(), Msg.TIPO_RENDA);
-            spinnerTipoRenda.performClick();
+        }else if(dto.getTipoRenda().length() == 0){
+            Toast.makeText(getApplicationContext(), Msg.TIPO_RENDA, Toast.LENGTH_LONG).show();
+            autoCompleteTextViewTipoRenda.requestFocus();
+        }else if(!tipoRendaList.contains(dto.getTipoRenda())){
+            Toast.makeText(getApplicationContext(), Msg.TIPO_RENDA, Toast.LENGTH_LONG).show();
+            autoCompleteTextViewTipoRenda.setText("");
+            autoCompleteTextViewTipoRenda.requestFocus();
         }else if(dto.getDataRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
             editTextDataRenda.requestFocus();

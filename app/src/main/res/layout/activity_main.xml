@@ -134,12 +134,6 @@
                 android:layout_marginLeft="50dp"
                 android:text="Login" />
 
-            <Button
-                android:id="@+id/buttonES"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
-
 
         </LinearLayout>
 

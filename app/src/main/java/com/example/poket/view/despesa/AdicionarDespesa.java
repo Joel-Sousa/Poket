@@ -3,9 +3,13 @@ package com.example.poket.view.despesa;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,34 +26,47 @@ import com.example.poket.R;
 import com.example.poket.util.MaskEditUtil;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
+import com.example.poket.view.usuario.EsqueceuSenha;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class AdicionarDespesa extends AppCompatActivity {
 
     EditText editTextDespesa, editTextValorDespesa, editTextDataDespesa, editTextObservacao;
     TextView textViewIdConta, textViewValorConta;
-    Spinner spinnerConta, spinnerTipoDespesa;
+    Spinner spinnerConta;
     ImageView imageViewVoltar;
     Button buttonSalvar;
     DatePickerDialog picker;
+
+    TextInputLayout textInputLayoutTipoDespesa;
+    AutoCompleteTextView autoCompleteTextViewTipoDespesa;
 
     DespesaDAO dao = new DespesaDAO();
     DespesaDTO dto = new DespesaDTO();
 
     String tipoPF = "";
+    List<String> tipoDespesaList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_despesa);
+//editTextAdicionarDespesaNomeDespesa
 
         editTextDespesa = findViewById(R.id.editTextAdicionarDespesaDespesa);
         editTextValorDespesa = findViewById(R.id.editTextAdicionarDespesaValorDespesa);
-        spinnerTipoDespesa = findViewById(R.id.spinnerAdicionarDespesaTipoDespesa);
+
+        textInputLayoutTipoDespesa = findViewById(R.id.editTextAdicionarDespesaTipoDespesa);
+        autoCompleteTextViewTipoDespesa = findViewById(R.id.dropdown_menu);
+
         editTextDataDespesa = findViewById(R.id.editTextAdicionarDespesaDataDespesa);
         editTextObservacao = findViewById(R.id.editTextAdicionarDespesaObservacao);
 
@@ -63,12 +80,29 @@ public class AdicionarDespesa extends AppCompatActivity {
         editTextDataDespesa.setText(Utilitario.dataAtual());
         editTextDataDespesa.setInputType(InputType.TYPE_NULL);
 
-        Utilitario.listaTipoDespesa(spinnerTipoDespesa, tipoPF, getApplicationContext());
+//        Utilitario.listaTipoDespesa(spinnerTipoDespesa, tipoPF, getApplicationContext());
+
+        tipoDespesaList = Arrays.asList("Alimentaçao", "Veiculo", "Moradia", "Lazer", "Outros");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                AdicionarDespesa.this, R.layout.dropdown_item, tipoDespesaList);
+
+        autoCompleteTextViewTipoDespesa.setAdapter(adapter);
+
+        editTextDataDespesa.setInputType(InputType.TYPE_NULL);
 
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarDespesa.this, textViewValorConta, textViewIdConta, true);
 
         mock();
+
+        autoCompleteTextViewTipoDespesa.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(autoCompleteTextViewTipoDespesa.getWindowToken(), 0);
+            }
+        });
 
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +110,7 @@ public class AdicionarDespesa extends AppCompatActivity {
 
                 dto.setDespesa(editTextDespesa.getText().toString());
                 dto.setValorDespesa(editTextValorDespesa.getText().toString());
-                dto.setTipoDespesa(spinnerTipoDespesa.getSelectedItem().toString());
+                dto.setTipoDespesa(autoCompleteTextViewTipoDespesa.getText().toString());
                 dto.setDataDespesa(editTextDataDespesa.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
 
@@ -131,9 +165,13 @@ public class AdicionarDespesa extends AppCompatActivity {
         }else if(dto.getValorDespesa().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_DESPESA);
             editTextValorDespesa.requestFocus();
-        }else if(spinnerTipoDespesa.getSelectedItem().toString().equals(".:Selecione:.")){
-            Utilitario.toast(getApplicationContext(), Msg.TIPO_DESPESA);
-            spinnerTipoDespesa.performClick();
+        }else if(dto.getTipoDespesa().length() == 0){
+            Toast.makeText(getApplicationContext(), Msg.TIPO_DESPESA, Toast.LENGTH_LONG).show();
+            autoCompleteTextViewTipoDespesa.requestFocus();
+        }else if(!tipoDespesaList.contains(dto.getTipoDespesa())){
+            Toast.makeText(getApplicationContext(), Msg.TIPO_DESPESA, Toast.LENGTH_LONG).show();
+            autoCompleteTextViewTipoDespesa.setText("");
+            autoCompleteTextViewTipoDespesa.requestFocus();
         }else if(dto.getValorDespesa().equals("0")){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
             editTextValorDespesa.requestFocus();
@@ -141,9 +179,6 @@ public class AdicionarDespesa extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_MAIOR);
             editTextValorDespesa.requestFocus();
             editTextValorDespesa.setText("");
-        }else if(dto.getTipoDespesa().length() == 0){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_DESPESA, Toast.LENGTH_LONG).show();
-            spinnerTipoDespesa.requestFocus();
         }else if(dto.getDataDespesa().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA);
             editTextDataDespesa.requestFocus();

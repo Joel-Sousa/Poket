@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -25,21 +27,27 @@ import com.example.poket.util.MaskEditUtil;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.renda.EditarRenda;
+import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
 
     TextView textViewIdPF, textViewValorAtual;
     EditText editTextNomePF, editTextValorObjetivado, editTextDataFinal, editTextDataInicial;
-    Spinner spinnerTipoPF;
     ImageView imageViewVoltar;
     Button buttonEditar, buttonExcluir;
     DatePickerDialog picker;
+    TextInputLayout textInputLayoutTipoPF;
+    AutoCompleteTextView autoCompleteTextViewTipoPF;
 
     PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
 
     String tipoPF = "";
+    List<String> tipoPFList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,10 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         textViewIdPF = findViewById(R.id.textViewEditarPFId);
 
         editTextNomePF = findViewById(R.id.editTextEditarPFNomePF);
-        spinnerTipoPF = findViewById(R.id.spinnerEditarPFTipoPF);
+
+        textInputLayoutTipoPF = findViewById(R.id.editTextEditarPFTipoPF);
+        autoCompleteTextViewTipoPF = findViewById(R.id.dropdown_menu);
+
         textViewValorAtual = findViewById(R.id.textViewEditarPFValorAtual);
         editTextValorObjetivado = findViewById(R.id.editTextEditarPFValorObjetivado);
         editTextDataInicial = findViewById(R.id.editTextEditarPFDataInicial);
@@ -69,7 +80,16 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         editTextDataInicial.setText(intent.getStringExtra("dataInicio"));
         editTextDataFinal.setText(intent.getStringExtra("dataFinal"));
 
-        Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
+//        Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
+
+        tipoPFList = Arrays.asList("Curto Prazo", "Medio Prazo", "Longo Prazo");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                EditarPlanejamentoFinanceiro.this, R.layout.dropdown_item, tipoPFList);
+
+        autoCompleteTextViewTipoPF.setAdapter(adapter);
+
+        autoCompleteTextViewTipoPF.setText(tipoPF);
 
         editTextDataInicial.setInputType(InputType.TYPE_NULL);
         editTextDataFinal.setInputType(InputType.TYPE_NULL);
@@ -88,7 +108,7 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
                 PlanejamentoFinanceiroDTO dto = new PlanejamentoFinanceiroDTO();
                 dto.setIdPF(textViewIdPF.getText().toString());
                 dto.setNomePF(editTextNomePF.getText().toString());
-                dto.setTipoPF(spinnerTipoPF.getSelectedItem().toString());
+                dto.setTipoPF(autoCompleteTextViewTipoPF.getText().toString());
                 dto.setValorAtual(textViewValorAtual.getText().toString());
                 dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
                 dto.setDataInicial(editTextDataInicial.getText().toString());
@@ -174,6 +194,13 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         }else if(dto.getNomePF().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.NOME_PF);
             editTextNomePF.requestFocus();
+        }else if(dto.getTipoPF().length() == 0){
+            Toast.makeText(getApplicationContext(), Msg.TIPO_PF, Toast.LENGTH_LONG).show();
+            autoCompleteTextViewTipoPF.requestFocus();
+        }else if(!tipoPFList.contains(dto.getTipoPF())){
+            Toast.makeText(getApplicationContext(), Msg.TIPO_PF, Toast.LENGTH_LONG).show();
+            autoCompleteTextViewTipoPF.setText("");
+            autoCompleteTextViewTipoPF.requestFocus();
         }else if(dto.getValorObjetivado().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
             editTextValorObjetivado.requestFocus();
