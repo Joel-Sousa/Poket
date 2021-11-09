@@ -3,9 +3,11 @@ package com.example.poket.view.renda;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -82,10 +84,22 @@ public class AdicionarRenda extends AppCompatActivity {
 
         autoCompleteTextViewTipoRenda.setAdapter(adapter);
 
+        autoCompleteTextViewTipoRenda.setInputType(InputType.TYPE_NULL);
+
+        editTextDataRenda.setInputType(InputType.TYPE_NULL);
+
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta, false);
 
         mock();
+
+        autoCompleteTextViewTipoRenda.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(autoCompleteTextViewTipoRenda.getWindowToken(), 0);
+            }
+        });
 
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override

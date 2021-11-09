@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -40,6 +40,14 @@
                 android:text="Planejamento Financeiro"
                 android:textColor="#000000"
                 android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/imageViewListagemPFAdicionarPF"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_add1" />
         </LinearLayout>
 
         <LinearLayout
@@ -53,7 +61,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Buscar planejamento financeiro">
+                android:hint="Buscar planejamento financeiro"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextListagemPFBuscaPF"
@@ -64,20 +73,15 @@
                     android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/buttonListagemPFBuscar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/imageViewListagemPFBuscar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text="Buscar" />
-        </LinearLayout>
+                app:srcCompat="@drawable/ic_buscar" />
 
-        <Button
-            android:id="@+id/buttonListagemPFAdicionarPF"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:text="Adicionar Planejamento" />
+        </LinearLayout>
 
         <View
             android:id="@+id/view3"

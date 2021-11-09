@@ -94,6 +94,7 @@ public class Home extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         daoC.listaContaSpinner(spinnerConta, Home.this, textViewContaValor, textViewIdConta, true);
 
 //        textViewTst.setText(dto.getUid());

@@ -109,6 +109,7 @@ public class RendaDAO {
                             RecyclerView.Adapter  adapter;
                             RecyclerView.LayoutManager layoutManager;
                             double valorRenda = 0.0;
+
                             if(mes == 0){
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     RendaDTO dto = new RendaDTO();

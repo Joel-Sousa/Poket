@@ -4,12 +4,32 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/back.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/borderspinner.xml" value="0.14351851851851852" />
         <entry key="app/src/main/res/drawable/brd.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/edit.xml" value="0.10520833333333333" />
         <entry key="app/src/main/res/drawable/editar.xml" value="0.10520833333333333" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_add1.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_add2.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_address_card_solid.xml" value="0.14629629629629629" />
+        <entry key="app/src/main/res/drawable/ic_broom_solid.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_buscar.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_conta.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_edit1.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_editar.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_excluir.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_excluir1.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_exit.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_g0c8m.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_historic.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_historico.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_listar.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_sair.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_salvar.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_voltar.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/icon.xml" value="0.109375" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.14453125" />
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.144921875" />

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,9 +19,8 @@ import com.example.poket.R;
 
 public class ListaConta extends AppCompatActivity {
 
-    Button buttonAdicionar, buttonBuscar;
     EditText editTextBusca;
-    ImageView imageViewVoltar;
+    ImageView imageViewVoltar, imageViewAdicionarConta, imageViewBuscar;
     TextView textViewContaValor;
     Intent intentAdicionarConta;
 
@@ -34,8 +34,8 @@ public class ListaConta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_conta);
 
-        buttonAdicionar = findViewById(R.id.buttonListaContaAdicionar);
-        buttonBuscar = findViewById(R.id.buttonListaContaBuscar);
+        imageViewAdicionarConta = findViewById(R.id.imageViewListaContaAdicionarConta);
+        imageViewBuscar = findViewById(R.id.imageViewListaContaBuscar);
         editTextBusca = findViewById(R.id.editTextListaContaBuscar);
         imageViewVoltar = findViewById(R.id.imageViewListaContaVoltar);
 
@@ -46,7 +46,7 @@ public class ListaConta extends AppCompatActivity {
 
         dao.lerContas(recyclerView, context, textViewContaValor);
 
-        buttonAdicionar.setOnClickListener(new View.OnClickListener() {
+        imageViewAdicionarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intentAdicionarConta = new Intent(ListaConta.this, AdicionarConta.class);
@@ -54,9 +54,12 @@ public class ListaConta extends AppCompatActivity {
             }
         });
 
-        buttonBuscar.setOnClickListener(new View.OnClickListener() {
+        imageViewBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextBusca.getWindowToken(), 0);
+
                 String busca = editTextBusca.getText().toString();
                 dao.buscarConta(recyclerView, context, textViewContaValor, busca);
             }

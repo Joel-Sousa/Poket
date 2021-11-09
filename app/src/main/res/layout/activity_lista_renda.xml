@@ -8,8 +8,12 @@
     tools:context=".view.renda.ListaRenda">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -24,13 +28,21 @@
 
         <TextView
             android:id="@+id/textView5322"
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:text="Lista Renda"
             android:textColor="#0E0303"
             android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/imageViewListaRendaAdicionarRenda"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_add1" />
     </LinearLayout>
 
         <LinearLayout
@@ -57,7 +69,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Buscar renda">
+                    android:hint="Buscar renda"
+                    app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextListaRendaBusca"
@@ -68,20 +81,15 @@
                         android:inputType="textPersonName" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/buttonListaRendaBusca"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/imageViewListaRendaBuscar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:text="Buscar" />
-            </LinearLayout>
+                    app:srcCompat="@drawable/ic_buscar" />
 
-            <Button
-                android:id="@+id/buttonListaRendaAdicionarRenda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="280dp"
-                android:text="Adicionar" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -183,19 +191,37 @@
                             android:textColor="#000000"
                             android:textSize="20sp" />
 
-                        <Spinner
-                            android:id="@+id/spinnerAdicionarRendaMes"
-                            android:layout_width="110dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="40dp"
-                            android:layout_weight="1" />
+<!--                        <Spinner-->
+<!--                            android:id="@+id/spinnerAdicionarRendaMes"-->
+<!--                            android:layout_width="110dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="40dp"-->
+<!--                            android:layout_weight="1" />-->
 
-                        <Button
-                            android:id="@+id/buttonAdicionarRendaLimpar"
-                            android:layout_width="30dp"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/editTextListaRendaMes"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:hint="Mes"
+                            app:boxBackgroundMode="outline"
+                            app:endIconMode="dropdown_menu">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/dropdown_menu"
+                                android:layout_width="210dp"
+                                android:layout_height="wrap_content"
+                                android:inputType="textNoSuggestions"></AutoCompleteTextView>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/imageViewListaRendaLimpar"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:text="Limpar" />
+                            app:srcCompat="@drawable/ic_broom_solid" />
+
                     </LinearLayout>
 
                     <View

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -31,7 +32,7 @@ public class EsqueceuSenha extends AppCompatActivity {
 
     EditText editTextEmail;
     Button button;
-    Spinner spinnerTST;
+    Spinner spinner;
 
     TextInputLayout textInputLayout;
     AutoCompleteTextView autoCompleteTextView;
@@ -41,37 +42,43 @@ public class EsqueceuSenha extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esqueceu_senha);
 
-        textInputLayout = findViewById(R.id.text_input_layout);
-        autoCompleteTextView = findViewById(R.id.dropdown_menu);
-        button = findViewById(R.id.buttonTst);
+        spinner = findViewById(R.id.spinnerTst);
 
-        List<String> nome = Arrays.asList("one", "two", "three");
+        Utilitario.listaTipoDespesa(spinner, "", getApplicationContext());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                EsqueceuSenha.this, R.layout.dropdown_item, nome);
 
-        autoCompleteTextView.setAdapter(adapter);
 
-        autoCompleteTextView.setText("two", false);
+//        textInputLayout = findViewById(R.id.text_input_layout);
+//        autoCompleteTextView = findViewById(R.id.dropdown_menu);
+//        button = findViewById(R.id.buttonTst);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String ed =  autoCompleteTextView.getText().toString();
-
-                if(!nome.contains(ed)){
-
-                    Log.d("----", "Selecione um item da lista");
-                    autoCompleteTextView.setText("");
-                    autoCompleteTextView.requestFocus();
-                }
+//        List<String> nome = Arrays.asList("one", "two", "three");
 //
-//                for(String e : nome){
-//                  if(ed.equals(e)){
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+//                EsqueceuSenha.this, R.layout.dropdown_item, nome);
+
+//        autoCompleteTextView.setAdapter(adapter);
+
+//        autoCompleteTextView.setText("two", false);
+
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                String ed =  autoCompleteTextView.getText().toString();
+////
+////                if(!nome.contains(ed)){
+////
+////                    Log.d("----", "Selecione um item da lista");
 ////                    autoCompleteTextView.setText("");
-//                  }
-//                 }
-            }
-        });
+////                    autoCompleteTextView.requestFocus();
+////                }
+//////
+////                for(String e : nome){
+////                  if(ed.equals(e)){
+//////                    autoCompleteTextView.setText("");
+////                  }
+////                 }
+//            }
+//        });
     }
 }

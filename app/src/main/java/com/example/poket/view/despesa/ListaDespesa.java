@@ -51,9 +51,8 @@ import java.util.List;
 public class ListaDespesa extends AppCompatActivity {
 
     EditText editTextBusca;
-    ImageView imageViewVoltar;
+    ImageView imageViewVoltar, imageViewAdicionarDespesa, imageViewBuscar, imageViewLimpar;
     TextView textViewDespesaValorTotal;
-    Button buttonBuscar, buttonAdicionar, buttonLimpar;
     TextInputLayout textInputLayoutMes;
     AutoCompleteTextView autoCompleteTextViewMes;
 
@@ -76,9 +75,9 @@ public class ListaDespesa extends AppCompatActivity {
         imageViewVoltar = findViewById(R.id.imageViewListaDespesaVoltar);
         textViewDespesaValorTotal = findViewById(R.id.textViewListaDespesaValorTotal);
 
-        buttonBuscar = findViewById(R.id.buttonListaDespesaBusca);
-        buttonLimpar = findViewById(R.id.buttonAdicionarDespesaLimpar);
-        buttonAdicionar = findViewById(R.id.buttonListaDespesaAdicionarDespesa);
+        imageViewBuscar = findViewById(R.id.imageViewListaDespesaBuscar);
+        imageViewLimpar = findViewById(R.id.imageViewListaDespesaLimpar);
+        imageViewAdicionarDespesa = findViewById(R.id.imageViewListaDespesaAdicionarDespesa);
 
         barChartDespesa = findViewById(R.id.barChartListaDespesa);
 
@@ -98,25 +97,24 @@ public class ListaDespesa extends AppCompatActivity {
         autoCompleteTextViewMes.setAdapter(adapter);
 //        Utilitario.meses(spinnerMes, context);
 
-        dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, "");
-
-//        graficoBarChartDespesa();
-
         autoCompleteTextViewMes.setInputType(InputType.TYPE_NULL);
-//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.hideSoftInputFromWindow(autoCompleteTextViewMes.getWindowToken(), 0);
+
+        dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
 
         dao.graficoBarChartDespesa(barChartDespesa);
 
-        buttonBuscar.setOnClickListener(new View.OnClickListener() {
+        imageViewBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextBusca.getWindowToken(), 0);
+
                 String busca = editTextBusca.getText().toString();
                 dao.buscarDespesa(recyclerView, context, textViewDespesaValorTotal, busca);
             }
         });
 
-        buttonAdicionar.setOnClickListener(new View.OnClickListener() {
+        imageViewAdicionarDespesa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ListaDespesa.this, AdicionarDespesa.class);
@@ -145,16 +143,16 @@ public class ListaDespesa extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(autoCompleteTextViewMes.getWindowToken(), 0);
 
-                dao.lerDespesas(recyclerView,context, textViewDespesaValorTotal, autoCompleteTextViewMes.getText().toString());
+                dao.lerDespesas(recyclerView,context, textViewDespesaValorTotal, 1+i);
             }
         });
 
-        buttonLimpar.setOnClickListener(new View.OnClickListener() {
+        imageViewLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                spinnerMes.setSelection(0);
                 autoCompleteTextViewMes.setText("");
-                dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, "");
+                dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
 //                dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
             }
         });
@@ -167,7 +165,7 @@ public class ListaDespesa extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaDespesa);
 
-        dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, "");
+        dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
 
         barChartDespesa = findViewById(R.id.barChartListaDespesa);
         dao.graficoBarChartDespesa(barChartDespesa);

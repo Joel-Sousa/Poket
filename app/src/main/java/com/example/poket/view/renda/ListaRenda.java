@@ -7,8 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +23,7 @@ import com.example.poket.DAO.ContaDAO;
 import com.example.poket.DAO.RendaDAO;
 import com.example.poket.R;
 import com.example.poket.util.Utilitario;
+import com.example.poket.view.despesa.ListaDespesa;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -35,16 +40,19 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ListaRenda extends AppCompatActivity {
 
     EditText editTextBusca;
-    ImageView imageViewVoltar;
+    ImageView imageViewVoltar, imageViewBuscar, imageViewAdicionarRenda, imageViewLimpar;
     TextView textViewRendaValorTotal;
-    Button buttonBuscar, buttonAdicionar, buttonLimpar;
-    Spinner spinnerMes;
+    TextInputLayout textInputLayoutMes;
+    AutoCompleteTextView autoCompleteTextViewMes;
 
     Context context;
     RecyclerView recyclerView;
@@ -52,6 +60,7 @@ public class ListaRenda extends AppCompatActivity {
     BarChart barChartRenda;
 
     RendaDAO dao = new RendaDAO();
+    List<String> mesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,32 +72,49 @@ public class ListaRenda extends AppCompatActivity {
         imageViewVoltar = findViewById(R.id.imageViewListaRendaVoltar);
         textViewRendaValorTotal = findViewById(R.id.textViewListaRendaValorTotal);
 
-        buttonBuscar = findViewById(R.id.buttonListaRendaBusca);
-        buttonAdicionar = findViewById(R.id.buttonListaRendaAdicionarRenda);
+        imageViewBuscar = findViewById(R.id.imageViewListaRendaBuscar);
+        imageViewAdicionarRenda = findViewById(R.id.imageViewListaRendaAdicionarRenda);
+        imageViewLimpar = findViewById(R.id.imageViewListaRendaLimpar);
 
-        spinnerMes = findViewById(R.id.spinnerAdicionarRendaMes);
-        buttonLimpar = findViewById(R.id.buttonAdicionarRendaLimpar);
+        textInputLayoutMes = findViewById(R.id.editTextListaRendaMes);
+        autoCompleteTextViewMes = findViewById(R.id.dropdown_menu);
+
 
         barChartRenda = findViewById(R.id.barChartListaRenda);
 
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaRenda);
 
-        Utilitario.meses(spinnerMes, context);
+//        Utilitario.meses(spinnerMes, context);
+
+        mesList = Arrays.asList(
+                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                ListaRenda.this, R.layout.dropdown_item, mesList);
+
+        autoCompleteTextViewMes.setAdapter(adapter);
+//        Utilitario.meses(spinnerMes, context);
+
+        autoCompleteTextViewMes.setInputType(InputType.TYPE_NULL);
 
         dao.lerRendas(recyclerView, context, textViewRendaValorTotal,0);
 
         dao.graficoBarChartRenda(barChartRenda);
 
-        buttonBuscar.setOnClickListener(new View.OnClickListener() {
+        imageViewBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextBusca.getWindowToken(), 0);
+
                 String busca = editTextBusca.getText().toString();
                 dao.buscarRenda(recyclerView, context, textViewRendaValorTotal, busca);
             }
         });
 
-        buttonAdicionar.setOnClickListener(new View.OnClickListener() {
+        imageViewAdicionarRenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent  = new Intent(ListaRenda.this, AdicionarRenda.class);
@@ -103,22 +129,31 @@ public class ListaRenda extends AppCompatActivity {
             }
         });
 
-        spinnerMes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        autoCompleteTextViewMes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                dao.lerRendas(recyclerView,context, textViewRendaValorTotal, i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onFocusChange(View view, boolean b) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(autoCompleteTextViewMes.getWindowToken(), 0);
             }
         });
 
-        buttonLimpar.setOnClickListener(new View.OnClickListener() {
+        autoCompleteTextViewMes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(autoCompleteTextViewMes.getWindowToken(), 0);
+
+                dao.lerRendas(recyclerView,context, textViewRendaValorTotal, 1+i);
+            }
+        });
+
+        imageViewLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spinnerMes.setSelection(0);
+//                spinnerMes.setSelection(0);
+                autoCompleteTextViewMes.setText("");
+                dao.lerRendas(recyclerView, context, textViewRendaValorTotal, 0);
+//                dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
             }
         });
     }

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,8 +24,7 @@ import com.example.poket.util.Utilitario;
 
 public class ListagemPlanejamentoFinanceiro extends AppCompatActivity {
 
-    Button buttonAdicionarPF, buttonBuscar;
-    ImageView imageViewVoltar;
+    ImageView imageViewVoltar, imageViewAdicionarRenda, imageViewBuscar;
     EditText editTextBusca;
 
     Context context;
@@ -41,8 +41,9 @@ public class ListagemPlanejamentoFinanceiro extends AppCompatActivity {
 
         editTextBusca = findViewById(R.id.editTextListagemPFBuscaPF);
 
-        buttonAdicionarPF = findViewById(R.id.buttonListagemPFAdicionarPF);
-        buttonBuscar = findViewById(R.id.buttonListagemPFBuscar);
+        imageViewAdicionarRenda = findViewById(R.id.imageViewListagemPFAdicionarPF);
+        imageViewBuscar = findViewById(R.id.imageViewListagemPFBuscar);
+
         imageViewVoltar = findViewById(R.id.imageViewListagemPFVoltar);
 
         context = getApplicationContext();
@@ -51,9 +52,12 @@ public class ListagemPlanejamentoFinanceiro extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
         dao.lerPlanejamentoFinanceiro(recyclerView, context , ListagemPlanejamentoFinanceiro.this, view);
 
-        buttonBuscar.setOnClickListener(new View.OnClickListener() {
+        imageViewBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextBusca.getWindowToken(), 0);
+
                 View view1 = getLayoutInflater().inflate(R.layout.dialog_addpf, null);
                 busca = editTextBusca.getText().toString();
 
@@ -63,7 +67,7 @@ public class ListagemPlanejamentoFinanceiro extends AppCompatActivity {
             }
         });
 
-        buttonAdicionarPF.setOnClickListener(new View.OnClickListener() {
+        imageViewAdicionarRenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentAdicionarPF = new Intent(ListagemPlanejamentoFinanceiro.this, AdicionarPlanejamentoFinanceiro.class);

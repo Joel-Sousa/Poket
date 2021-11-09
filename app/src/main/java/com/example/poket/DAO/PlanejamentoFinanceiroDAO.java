@@ -433,8 +433,8 @@ public class PlanejamentoFinanceiroDAO {
 
 //        textViewIdPF.setText(idPF);
 
-//        ContaDAO daoC = new ContaDAO();
-//        daoC.listaContaSpinner(spinnerConta, activity, textViewContaValor, textViewIdConta, true);
+        ContaDAO daoC = new ContaDAO();
+        daoC.listaContaSpinner(spinnerConta, activity, textViewContaValor, textViewIdConta, true);
 
         mBuilder.setView(view);
         final AlertDialog dialog = mBuilder.create();
@@ -481,8 +481,6 @@ public class PlanejamentoFinanceiroDAO {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-
                 }
             }
         });

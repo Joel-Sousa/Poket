@@ -33,7 +33,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/edit" />
+            app:srcCompat="@drawable/ic_editar" />
 
         <TextView
             android:id="@+id/textViewHomeApelido"
@@ -50,7 +50,7 @@
             android:layout_width="1dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_exit" />
+            app:srcCompat="@drawable/ic_sair" />
 
     </LinearLayout>
 
@@ -61,19 +61,24 @@
 
         <ImageView
             android:id="@+id/imageViewHomeConta"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_conta" />
 
-        <Spinner
-            android:id="@+id/spinnerHomeContas"
-            style="@android:style/Widget.Material.Light.Spinner.Underlined"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="14dp"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/borderspinner"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinnerHomeContas"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView74"
@@ -81,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:layout_weight="1"
-            android:text="R$: "
+            android:text=" R$: "
             android:textColor="#000000"
             android:textSize="20sp" />
 
@@ -279,14 +284,14 @@
                             android:layout_height="30dp"
                             android:layout_marginTop="50dp"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/ic_add" />
+                            app:srcCompat="@drawable/ic_add1" />
 
                         <ImageView
                             android:id="@+id/imageViewHomeHistoricoDespesa"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/ic_historic" />
+                            app:srcCompat="@drawable/ic_listar" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -368,14 +373,14 @@
                             android:layout_height="30dp"
                             android:layout_marginTop="50dp"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/ic_add" />
+                            app:srcCompat="@drawable/ic_add1" />
 
                         <ImageView
                             android:id="@+id/imageViewHomeHistoricoRenda"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/ic_historic" />
+                            app:srcCompat="@drawable/ic_listar" />
                     </LinearLayout>
 
                 </LinearLayout>

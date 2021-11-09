@@ -89,6 +89,8 @@ public class AdicionarDespesa extends AppCompatActivity {
 
         autoCompleteTextViewTipoDespesa.setAdapter(adapter);
 
+        autoCompleteTextViewTipoDespesa.setInputType(InputType.TYPE_NULL);
+
         editTextDataDespesa.setInputType(InputType.TYPE_NULL);
 
         ContaDAO daoC = new ContaDAO();

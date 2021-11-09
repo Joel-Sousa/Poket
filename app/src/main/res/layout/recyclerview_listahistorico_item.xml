@@ -93,6 +93,7 @@
                 android:id="@+id/imageViewRecyclerListaHistoricoExcluir"
                 android:layout_width="31dp"
                 android:layout_height="48dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_excluir" />
 

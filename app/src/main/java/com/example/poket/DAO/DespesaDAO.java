@@ -98,7 +98,7 @@ public class DespesaDAO {
     }
 
     public void lerDespesas(RecyclerView recyclerView, Context context,
-                            TextView textViewDespesaValorTotal, String mes){
+                            TextView textViewDespesaValorTotal, int mes){
         List<DespesaDTO> listDespesa = new ArrayList<DespesaDTO>();
 
         db.collection("despesas")
@@ -111,7 +111,7 @@ public class DespesaDAO {
                             RecyclerView.LayoutManager layoutManager;
                             double valorDespesa = 0.0;
 
-                            if(mes.equals("")){
+                            if(mes == 0){
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     DespesaDTO dto = new DespesaDTO();
                                     dto.setId(document.getId());
@@ -129,26 +129,26 @@ public class DespesaDAO {
                                 }
                             }else{
 
-                                int mesNumero = 0;
-                                if(mes.equals("Janeiro")) mesNumero = 1;
-                                else if(mes.equals("Fevereiro")) mesNumero = 2;
-                                else if(mes.equals("Março")) mesNumero = 3;
-                                else if(mes.equals("Abril")) mesNumero = 4;
-                                else if(mes.equals("Maio")) mesNumero = 5;
-                                else if(mes.equals("Junho")) mesNumero = 6;
-                                else if(mes.equals("Julho")) mesNumero = 7;
-                                else if(mes.equals("Agosto")) mesNumero = 8;
-                                else if(mes.equals("Setembro")) mesNumero = 9;
-                                else if(mes.equals("Outubro")) mesNumero = 10;
-                                else if(mes.equals("Novembro")) mesNumero = 11;
-                                else if(mes.equals("Dezembro")) mesNumero = 12;
+//                                int mesNumero = 0;
+//                                if(mes.equals("Janeiro")) mesNumero = 1;
+//                                else if(mes.equals("Fevereiro")) mesNumero = 2;
+//                                else if(mes.equals("Março")) mesNumero = 3;
+//                                else if(mes.equals("Abril")) mesNumero = 4;
+//                                else if(mes.equals("Maio")) mesNumero = 5;
+//                                else if(mes.equals("Junho")) mesNumero = 6;
+//                                else if(mes.equals("Julho")) mesNumero = 7;
+//                                else if(mes.equals("Agosto")) mesNumero = 8;
+//                                else if(mes.equals("Setembro")) mesNumero = 9;
+//                                else if(mes.equals("Outubro")) mesNumero = 10;
+//                                else if(mes.equals("Novembro")) mesNumero = 11;
+//                                else if(mes.equals("Dezembro")) mesNumero = 12;
 
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 
                                     String dataMes = document.getData().get("dataDespesa").toString();
                                     String[] parts = dataMes.split("-");
 
-                                    if(mesNumero == Integer.parseInt(parts[1])){
+                                    if(mes == Integer.parseInt(parts[1])){
 
                                     DespesaDTO dto = new DespesaDTO();
                                     dto.setId(document.getId());
@@ -375,7 +375,7 @@ public class DespesaDAO {
 
 //                                  Log.i("---", conta.getId());
                                 }else if(busca.equals("")){
-                                    lerDespesas(recyclerView, context ,textViewValor, "");
+                                    lerDespesas(recyclerView, context ,textViewValor, 0);
                                 }
                             }
 

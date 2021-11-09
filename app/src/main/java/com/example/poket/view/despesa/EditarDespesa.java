@@ -98,14 +98,9 @@ public class EditarDespesa extends AppCompatActivity {
         idConta = intent.getStringExtra("idConta");
         valorDespesaAntiga = intent.getStringExtra("valorDespesa");
 
-        editTextDataDespesa.setInputType(InputType.TYPE_NULL);
         autoCompleteTextViewTipoDespesa.setText(tipoDespesa, false);
 
-//        autoCompleteTextViewTipoDespesa.setThreshold(tipoDespesaList.indexOf(tipoDespesa));
-
-//        Log.d("---", tipoDespesaList.indexOf(tipoDespesa)+"");
-
-//        Utilitario.listaTipoDespesa(spinnerTipoDespesa, tipoPF, getApplicationContext());
+        editTextDataDespesa.setInputType(InputType.TYPE_NULL);
 
         autoCompleteTextViewTipoDespesa.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

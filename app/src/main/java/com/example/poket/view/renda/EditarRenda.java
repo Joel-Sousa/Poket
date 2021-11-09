@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -91,16 +93,25 @@ public class EditarRenda extends AppCompatActivity {
 
         tipoRendaList = Arrays.asList("Salario", "Servicos", "Presente", "Aluguel", "Outros");
 
-        editTextDataRenda.setInputType(InputType.TYPE_NULL);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 EditarRenda.this, R.layout.dropdown_item, tipoRendaList);
 
         autoCompleteTextViewTipoRenda.setAdapter(adapter);
 
-        autoCompleteTextViewTipoRenda.setText(tipoPF);
+        editTextDataRenda.setInputType(InputType.TYPE_NULL);
 
-//        Utilitario.listaTipoRenda(spinnerTipoRenda, tipoPF, getApplicationContext());
+        autoCompleteTextViewTipoRenda.setText(tipoPF, false);
+
+        editTextDataRenda.setInputType(InputType.TYPE_NULL);
+
+        autoCompleteTextViewTipoRenda.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(autoCompleteTextViewTipoRenda.getWindowToken(), 0);
+            }
+        });
 
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override
