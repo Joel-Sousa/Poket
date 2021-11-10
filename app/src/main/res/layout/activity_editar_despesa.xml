@@ -189,7 +189,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Data da despesa">
+                        android:hint="Data de pagamento">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextEditarDespesaDataDespesa"

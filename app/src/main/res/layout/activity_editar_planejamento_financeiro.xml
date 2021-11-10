@@ -67,7 +67,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nome do planejamento financeiro"
+                        android:hint="Nome"
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -217,7 +217,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Data Final">
+                        android:hint="Data Objetivada">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextEditarPFDataFinal"

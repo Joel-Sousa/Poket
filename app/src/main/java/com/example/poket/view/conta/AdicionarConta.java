@@ -30,7 +30,7 @@ public class AdicionarConta extends AppCompatActivity {
         buttonCadastar = findViewById(R.id.buttonAdicionarContaSalvar);
         imageViewVoltar = findViewById(R.id.imageViewCadastrarContaVoltar);
 
-//        mock();
+        mock();
 
         buttonCadastar.setOnClickListener(new View.OnClickListener() {
             @Override

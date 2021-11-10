@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void mock(){
         editTextEmail.setText("ana@email.com");
+//        editTextEmail.setText("joelfsousa95@gmail.com");
         editTextSenha.setText("123123");
     }
 

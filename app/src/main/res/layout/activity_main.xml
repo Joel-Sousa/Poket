@@ -139,7 +139,7 @@
                     android:layout_height="40dp"
                     android:layout_marginLeft="50dp"
                     android:background="@drawable/btnr"
-                    android:text="Login" />
+                    android:text="Acessar" />
 
 
             </LinearLayout>

@@ -96,7 +96,7 @@ public class AdicionarDespesa extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarDespesa.this, textViewValorConta, textViewIdConta, true);
 
-//        mock();
+        mock();
 
         autoCompleteTextViewTipoDespesa.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

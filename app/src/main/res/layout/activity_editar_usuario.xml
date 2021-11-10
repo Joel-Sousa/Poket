@@ -142,7 +142,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Repetir Senha"
+                        android:hint="Confirmaçao de senha"
                         app:endIconMode="password_toggle">
 
                         <com.google.android.material.textfield.TextInputEditText

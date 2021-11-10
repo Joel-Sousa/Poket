@@ -214,26 +214,26 @@ public class UsuarioDAO {
     }
 
     public void excluirUsuario(Context context){
-//        user.delete()
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if (task.isSuccessful()) {
-//                            Log.d(Msg.INFO, Msg.DELETADO);
-//
-//                            sairUsuario();
-//                        }
-//                    }
-//                });
+        user.delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(Msg.INFO, Msg.DELETADO);
 
-//        deleteCollection(db.collection("contas").document(user.getUid())
-//                .collection(user.getUid()), 50, EXECUTOR);
-//
-//        deleteCollection(db.collection("despesas").document(user.getUid())
-//                .collection(user.getUid()), 50, EXECUTOR);
-//
-//        deleteCollection(db.collection("rendas").document(user.getUid())
-//                .collection(user.getUid()), 50, EXECUTOR);
+                            sairUsuario();
+                        }
+                    }
+                });
+
+        deleteCollection(db.collection("contas").document(user.getUid())
+                .collection(user.getUid()), 50, EXECUTOR);
+
+        deleteCollection(db.collection("despesas").document(user.getUid())
+                .collection(user.getUid()), 50, EXECUTOR);
+
+        deleteCollection(db.collection("rendas").document(user.getUid())
+                .collection(user.getUid()), 50, EXECUTOR);
 
         deletarPFAll(user.getUid());
 
@@ -241,10 +241,10 @@ public class UsuarioDAO {
 //                .collection(user.getUid()), 50, EXECUTOR);
 
 
-//        Intent intent = new Intent(context, MainActivity.class);
-//        context.startActivity(intent);
-//        Toast.makeText(context, Msg.DELETADO, Toast.LENGTH_LONG).show();
-//        mAuth.getInstance().signOut();
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+        Toast.makeText(context, Msg.DELETADO, Toast.LENGTH_LONG).show();
+        mAuth.getInstance().signOut();
     }
 
     public void deletarPFAll(String uid){
@@ -255,45 +255,62 @@ public class UsuarioDAO {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            List<String> idHPFList = new ArrayList<>();
+                            List<String> idPFList = new ArrayList<>();
 
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                idHPFList.add(document.getId());
-                            }
+                            for (QueryDocumentSnapshot document : task.getResult())
+                                idPFList.add(document.getId());
 
-                            for(String e : idHPFList){
+                            for(String e : idPFList){
                                 db.collection("planejamentoFinanceiro").document(uid)
                                         .collection(uid).document(e).collection(e)
                                         .get()
                                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
                                             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
-                                                if(task1.isSuccessful()){
-                                                    for (QueryDocumentSnapshot document1 : task1.getResult()) {
-                                                        // TODO IMPLEMENTAR A EXCLUSAO DO HISTORICO
+                                                if(task1.isSuccessful()) {
+                                                    List<String> idHPFList = new ArrayList<>();
+
+                                                    for (QueryDocumentSnapshot document1 : task1.getResult())
+                                                        idHPFList.add(document1.getId());
+
+                                                    for (String e1 : idHPFList) {
+
+                                                    db.collection("planejamentoFinanceiro").document(uid)
+                                                            .collection(uid).document(e).collection(e)
+                                                            .document(e1)
+                                                            .delete()
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+                                                                }
+                                                            });
                                                     }
                                                 }
                                             }
                                         });
 
-
-//                                db.collection("planejamentoFinanceiro").document(uid)
-//                                        .collection(uid).document(idPF).collection(idPF)
-//                                        .document(idHPF)
-//                                        .delete()
-//                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                            @Override
-//                                            public void onSuccess(Void aVoid) {
-//                                                Log.d(Msg.INFO, Msg.DOCUMENTO_S);
-////                        activity.finish();
-//                                            }
-//                                        })
-//                                        .addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
-//                                            }
-//                                        });
+                                        db.collection("planejamentoFinanceiro").document(uid)
+                                                .collection(uid).document(e)
+                                                .delete()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+                                                    }
+                                                });
                             }
 
                             Log.d("---", "Tst");

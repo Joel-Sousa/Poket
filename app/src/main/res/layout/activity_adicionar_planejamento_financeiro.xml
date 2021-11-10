@@ -76,7 +76,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nome do planejamento financeiro"
+                        android:hint="Nome"
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -129,9 +129,8 @@
                         android:id="@+id/textView67"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="1"
-                        android:text="Conta: "
+                        android:text="Meio de\nretirada:"
                         android:textColor="#000000"
                         android:textSize="20sp" />
 
@@ -183,7 +182,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Valor atual R$"
+                        android:hint="Valor para depositar R$"
                         app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -260,7 +259,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Data Final">
+                        android:hint="Data Objetivada">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextAdicionarPFDataFinal"
