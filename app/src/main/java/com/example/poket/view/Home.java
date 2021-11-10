@@ -39,7 +39,8 @@ import java.text.DecimalFormat;
 
 public class Home extends AppCompatActivity {
 
-    TextView textViewApelido, textViewIdConta, textViewContaValor;
+    TextView textViewApelido, textViewIdConta, textViewContaValor,
+            textViewDR, textViewD, textViewR;
 
     Spinner spinnerConta;
     ImageView imageViewEditarUsuario, imageViewConta, imageViewSair,
@@ -67,6 +68,16 @@ public class Home extends AppCompatActivity {
 
 //        textViewTst = findViewById(R.id.textViewTst);
         textViewIdConta = findViewById(R.id.textViewHomeIdConta);
+
+        textViewDR = findViewById(R.id.textViewHomeDataAnoDR);
+        textViewD = findViewById(R.id.textViewHomeDataAnoD);
+        textViewR = findViewById(R.id.textViewHomeDataAnoR);
+
+        String[] parts = Utilitario.dataAtual().split("/");
+
+        textViewDR.setText(parts[2]);
+        textViewD.setText(parts[2]);
+        textViewR.setText(parts[2]);
 
         textViewApelido = findViewById(R.id.textViewHomeApelido);
         textViewContaValor = findViewById(R.id.textViewHomeContaValor);

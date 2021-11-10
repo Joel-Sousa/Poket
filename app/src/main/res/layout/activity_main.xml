@@ -15,18 +15,17 @@
         android:layout_marginRight="10dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:textColor="#000000"
-            android:textSize="24sp" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            app:srcCompat="@drawable/logopoket" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="281dp"
+            android:layout_height="260dp"
             app:srcCompat="@drawable/jaconda_34" />
 
 <!--        <HorizontalScrollView-->
@@ -132,8 +131,9 @@
             <Button
                 android:id="@+id/buttonMainActivityLogin"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="50dp"
+                android:background="@drawable/btnr"
                 android:text="Login" />
 
 

@@ -131,6 +131,7 @@
                     android:id="@+id/textView89"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:text="Valor Atual R$: "
                     android:textColor="#000000"
@@ -236,19 +237,22 @@
                 <Button
                     android:id="@+id/buttonEditarPFEditar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:background="@drawable/btnr"
                     android:text="Editar" />
 
                 <Button
                     android:id="@+id/buttonEditarPFExcluir"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:text="Excluir" />
+                    android:background="@drawable/btnr"
+                    android:text="Excluir"
+                    app:backgroundTint="@android:color/holo_red_dark" />
             </LinearLayout>
         </LinearLayout>
 

@@ -53,9 +53,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:focusable="true"
             android:focusableInTouchMode="true"
-            android:focusable="true">
+            android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

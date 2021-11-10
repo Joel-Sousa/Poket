@@ -1,36 +1,24 @@
 package com.example.poket;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.poket.DAO.UsuarioDAO;
-import com.example.poket.DTO.ContaDTO;
 import com.example.poket.DTO.UsuarioDTO;
-import com.example.poket.adapter.ContaAdapter;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
-import com.example.poket.view.despesa.AdicionarDespesa;
-import com.example.poket.view.despesa.ListaDespesa;
 import com.example.poket.view.usuario.AdicionarUsuario;
-import com.example.poket.view.usuario.EsqueceuSenha;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -39,27 +27,16 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.type.DateTime;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -94,16 +71,46 @@ public class MainActivity extends AppCompatActivity {
         textViewEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(editTextEmail.length() == 0){
-                Utilitario.toast(getApplicationContext(), Msg.EMAIL_VALIDAR);
-//                    Utilitario.toast(getApplicationContext(), Msg.EMAIL);
-                    editTextEmail.requestFocus();
-                }else if(!editTextEmail.getText().toString().trim().contains("@")){
-                    Utilitario.toast(getApplicationContext(), Msg.EMAIL_VALIDO);
-                    editTextEmail.requestFocus();
-                }else{
-                    dao.resetSenha(editTextEmail.getText().toString(), MainActivity.this);
-                }
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+                View view1 = getLayoutInflater().inflate(R.layout.dialog_esqueceusenha, null);
+
+                final EditText editTextEmail = view1.findViewById(R.id.editTextDialogEsqueceuSenhaEmail);
+                Button buttonAdicionar = view1.findViewById(R.id.buttonDialogEsqueceuSenhaEnviar);
+                Button buttonVoltar = view1.findViewById(R.id.buttonDialogEsqueceuSenhaVoltar);
+
+                mBuilder.setView(view1);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+
+                buttonAdicionar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String email = editTextEmail.getText().toString();
+
+                        if(email.length() == 0){
+                            Utilitario.toast(getApplicationContext(), "Insira um email.");
+                            editTextEmail.requestFocus();
+                        }else if(!email.contains("@")){
+                            Utilitario.toast(getApplicationContext(), Msg.EMAIL_VALIDO);
+                            editTextEmail.requestFocus();
+                        }else{
+                            dao.resetSenha(editTextEmail.getText().toString(), MainActivity.this);
+                            dialog.dismiss();
+                        }
+                    }
+                });
+
+                buttonVoltar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+//                        activity.finish();
+//                        activity.overridePendingTransition(0, 0);
+//                        activity.startActivity(activity.getIntent());
+//                        activity.overridePendingTransition(0, 0);
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 

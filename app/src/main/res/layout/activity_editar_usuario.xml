@@ -157,20 +157,23 @@
             <Button
                 android:id="@+id/buttonEditarUsuarioEditar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:text="Editar" />
+                android:text="Editar"
+                android:background="@drawable/btnr"/>
 
             <Button
                 android:id="@+id/buttonEditarUsuarioExcluir"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:text="Excluir" />
+                android:text="Excluir"
+                android:background="@drawable/btnr"
+                app:backgroundTint="@android:color/holo_red_dark"/>
 
         </LinearLayout>
 

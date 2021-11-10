@@ -7,7 +7,11 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/back.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/borderspinner.xml" value="0.14351851851851852" />
+        <entry key="app/src/main/res/drawable/botaoredondo.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/brd.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/btnr.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/btnverde.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/btnvermelho.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/edit.xml" value="0.10520833333333333" />
         <entry key="app/src/main/res/drawable/editar.xml" value="0.10520833333333333" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1" />
@@ -31,6 +35,7 @@
         <entry key="app/src/main/res/drawable/ic_salvar.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_voltar.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/icon.xml" value="0.109375" />
+        <entry key="app/src/main/res/drawable/layout_bg.xml" value="0.209375" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.14453125" />
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.144921875" />
         <entry key="app/src/main/res/layout/activity_adicionar_conta.xml" value="0.25" />
@@ -50,7 +55,7 @@
         <entry key="app/src/main/res/layout/activity_grafico_renda.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_graficos_despesa.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_graficos_renda.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_lista_conta.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_lista_contas.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_lista_despesa.xml" value="0.25" />
@@ -59,10 +64,11 @@
         <entry key="app/src/main/res/layout/activity_lista_renda.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_listagem_planejamento_financeiro.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_ver_despesa.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_ver_renda.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_addpf.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_esqueceusenha.xml" value="0.18" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recyclerview_items_conta.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recyclerview_listaconta_item.xml" value="0.25" />

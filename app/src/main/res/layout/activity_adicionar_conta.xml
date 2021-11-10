@@ -14,7 +14,9 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -108,8 +110,9 @@
             <Button
                 android:id="@+id/buttonAdicionarContaSalvar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
+                android:background="@drawable/btnr"
                 android:text="Salvar" />
 
         </LinearLayout>

@@ -93,7 +93,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView473"
@@ -122,7 +123,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView483"
@@ -233,20 +235,23 @@
                 <Button
                     android:id="@+id/buttonEditarDespesaEditar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:text="Editar" />
+                    android:text="Editar"
+                    android:background="@drawable/btnr"/>
 
                 <Button
                     android:id="@+id/buttonEditarDespesaExcluir"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:text="Excluir" />
+                    android:background="@drawable/btnr"
+                    android:text="Excluir"
+                    app:backgroundTint="@android:color/holo_red_dark" />
             </LinearLayout>
         </LinearLayout>
 

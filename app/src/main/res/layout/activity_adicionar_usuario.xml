@@ -157,9 +157,10 @@
       <Button
           android:id="@+id/buttonAdicionarUsuarioAdicionar"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_height="40dp"
           android:layout_weight="1"
-          android:text="Salvar" />
+          android:text="Salvar"
+          android:background="@drawable/btnr"/>
 
     </LinearLayout>
   </LinearLayout>
