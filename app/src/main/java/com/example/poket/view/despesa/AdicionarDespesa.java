@@ -106,6 +106,14 @@ public class AdicionarDespesa extends AppCompatActivity {
             }
         });
 
+        editTextDataDespesa.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextDataDespesa.getWindowToken(), 0);
+            }
+        });
+
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

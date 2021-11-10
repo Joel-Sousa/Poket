@@ -82,7 +82,6 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         editTextDataInicial.setText(intent.getStringExtra("dataInicio"));
         editTextDataFinal.setText(intent.getStringExtra("dataFinal"));
 
-//        Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
 
         tipoPFList = Arrays.asList("Curto Prazo", "Medio Prazo", "Longo Prazo");
 
@@ -103,6 +102,21 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(autoCompleteTextViewTipoPF.getWindowToken(), 0);
+            }
+        });
+
+        editTextDataInicial.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextDataInicial.getWindowToken(), 0);
+            }
+        });
+        editTextDataFinal.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextDataFinal.getWindowToken(), 0);
             }
         });
 

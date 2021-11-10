@@ -73,11 +73,9 @@ public class Home extends AppCompatActivity {
         textViewD = findViewById(R.id.textViewHomeDataAnoD);
         textViewR = findViewById(R.id.textViewHomeDataAnoR);
 
-        String[] parts = Utilitario.dataAtual().split("/");
-
-        textViewDR.setText(parts[2]);
-        textViewD.setText(parts[2]);
-        textViewR.setText(parts[2]);
+        textViewDR.setText(Utilitario.ano());
+        textViewD.setText(Utilitario.ano());
+        textViewR.setText(Utilitario.ano());
 
         textViewApelido = findViewById(R.id.textViewHomeApelido);
         textViewContaValor = findViewById(R.id.textViewHomeContaValor);

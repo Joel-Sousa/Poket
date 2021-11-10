@@ -67,6 +67,9 @@ public class ListaRenda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_renda);
 
+        TextView textViewAno = findViewById(R.id.textViewListaRendaDataAno);
+        textViewAno.setText(Utilitario.ano());
+
         editTextBusca = findViewById(R.id.editTextListaRendaBusca);
 
         imageViewVoltar = findViewById(R.id.imageViewListaRendaVoltar);
@@ -79,13 +82,10 @@ public class ListaRenda extends AppCompatActivity {
         textInputLayoutMes = findViewById(R.id.editTextListaRendaMes);
         autoCompleteTextViewMes = findViewById(R.id.dropdown_menu);
 
-
         barChartRenda = findViewById(R.id.barChartListaRenda);
 
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaRenda);
-
-//        Utilitario.meses(spinnerMes, context);
 
         mesList = Arrays.asList(
                 "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",

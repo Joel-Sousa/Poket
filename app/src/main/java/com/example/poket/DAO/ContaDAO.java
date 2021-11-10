@@ -205,7 +205,7 @@ public class ContaDAO {
                                             listConta);
                             spinnerConta.setAdapter(adapterConta);
 
-                            DecimalFormat df = new DecimalFormat("#,###.00");
+                            DecimalFormat df = new DecimalFormat("###.00");
 //                            df.format(textViewContaValor.getText().toString());
 
                             spinnerConta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -285,29 +285,29 @@ public class PlanejamentoFinanceiroDAO {
                                 devolverValorConta(conta.getKey(), conta.getValue());
                             }
 
-                            for(String id : idHistoricoPFList)
-                                deletaHistoricoPF(id, activity);
+                            for(String idHPF : idHistoricoPFList)
+                                deletaHistoricoPF(idPF, idHPF, activity);
 
+                            db.collection("planejamentoFinanceiro").document(user.getUid())
+                                    .collection(user.getUid())
+                                    .document(idPF)
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+                                            activity.finish();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+                                        }
+                                    });
                         } else {
                             Log.w(Msg.ERRORM, "Error getting documents.", task.getException());
                         }
-                    }
-                });
-
-        db.collection("planejamentoFinanceiro").document(user.getUid())
-                .collection(user.getUid())
-                .document(idPF)
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(Msg.INFO, Msg.DOCUMENTO_S);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
                     }
                 });
     }
@@ -343,16 +343,16 @@ public class PlanejamentoFinanceiroDAO {
                 });
     }
 
-        private void deletaHistoricoPF(String idPF, Activity activity){
+        private void deletaHistoricoPF(String idPF, String idHPF, Activity activity){
         db.collection("planejamentoFinanceiro").document(user.getUid())
                 .collection(user.getUid()).document(idPF).collection(idPF)
-                .document(idPF)
+                .document(idHPF)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(Msg.INFO, Msg.DOCUMENTO_S);
-                        activity.finish();
+//                        activity.finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -589,7 +589,7 @@ public class PlanejamentoFinanceiroDAO {
                             List<Integer> porcentagemBarValorList = new ArrayList<>();
                             List<Integer> porcentagemBarDataList = new ArrayList<>();
 
-                            DecimalFormat df = new DecimalFormat("#,###.00");
+                            DecimalFormat df = new DecimalFormat("###.00");
 
                             for(PlanejamentoFinanceiroDTO pf : pfList){
                                 if(pf.getNomePF().equals(busca)){

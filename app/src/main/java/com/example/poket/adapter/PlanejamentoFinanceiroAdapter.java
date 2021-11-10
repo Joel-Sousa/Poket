@@ -161,13 +161,6 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
             @Override
             public void onClick(View view) {
                 PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
-
-//                double valorAtual = Double.parseDouble(valorAtualList.get(position));
-//                double valorObjetivado = Double.parseDouble(valorObjetivadoList.get(position));
-//
-//                if(valorObjetivado <= valorAtual)
-//                    Utilitario.toast(activity.getApplicationContext(), Msg.VALOR_PF_ATINGIDO);
-//                else
                 dao.adicionarValorPF(activity, mView, idPFList.get(position));
             }
         });

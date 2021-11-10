@@ -70,6 +70,9 @@ public class ListaDespesa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_despesa);
 
+        TextView textViewAno =  findViewById(R.id.textViewListaDespesaDataAno);
+        textViewAno.setText(Utilitario.ano());
+
         editTextBusca = findViewById(R.id.editTextListaDespesaBusca);
 
         imageViewVoltar = findViewById(R.id.imageViewListaDespesaVoltar);

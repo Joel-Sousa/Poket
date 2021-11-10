@@ -113,6 +113,14 @@ public class EditarRenda extends AppCompatActivity {
             }
         });
 
+        editTextDataRenda.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextDataRenda.getWindowToken(), 0);
+            }
+        });
+
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

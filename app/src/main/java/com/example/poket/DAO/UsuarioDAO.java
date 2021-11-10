@@ -318,29 +318,29 @@ public class UsuarioDAO {
                         String[] parts = dataBD.split("-");
                         float valor = Float.parseFloat(document.getData().get("valorDespesa").toString());
 
-                        if(parts[1].equals("01")){
+                        if(parts[1].equals("01") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(1, listaMes.get(1)+valor);
-                        }else if(parts[1].equals("02")){
+                        }else if(parts[1].equals("02")  && parts[0].equals(Utilitario.ano())){
                             listaMes.put(2, listaMes.get(2)+valor);
-                        }else if(parts[1].equals("03")){
+                        }else if(parts[1].equals("03")  && parts[0].equals(Utilitario.ano())){
                             listaMes.put(3, listaMes.get(3)+valor);
-                        }else if(parts[1].equals("04")){
+                        }else if(parts[1].equals("04") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(4, listaMes.get(4)+valor);
-                        }else if(parts[1].equals("05")){
+                        }else if(parts[1].equals("05") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(5, listaMes.get(5)+valor);
-                        }else if(parts[1].equals("06")){
+                        }else if(parts[1].equals("06") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(6, listaMes.get(6)+valor);
-                        }else if(parts[1].equals("07")){
+                        }else if(parts[1].equals("07") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(7, listaMes.get(7)+valor);
-                        }else if(parts[1].equals("08")){
+                        }else if(parts[1].equals("08") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(8, listaMes.get(8)+valor);
-                        }else if(parts[1].equals("09")){
+                        }else if(parts[1].equals("09") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(9, listaMes.get(9)+valor);
-                        }else if(parts[1].equals("10")){
+                        }else if(parts[1].equals("10") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(10, listaMes.get(10)+valor);
-                        }else if(parts[1].equals("11")){
+                        }else if(parts[1].equals("11") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(11, listaMes.get(11)+valor);
-                        }else if(parts[1].equals("12")){
+                        }else if(parts[1].equals("12") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(12, listaMes.get(12)+valor);
                         }
                     }
@@ -373,29 +373,29 @@ public class UsuarioDAO {
                                     String[] parts1 = dataBD1.split("-");
                                     float valor1 = Float.parseFloat(document1.getData().get("valorRenda").toString());
 
-                                    if(parts1[1].equals("01")){
+                                    if(parts1[1].equals("01") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(1, listaMes1.get(1)+valor1);
-                                    }else if(parts1[1].equals("02")){
+                                    }else if(parts1[1].equals("02") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(2, listaMes1.get(2)+valor1);
-                                    }else if(parts1[1].equals("03")){
+                                    }else if(parts1[1].equals("03") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(3, listaMes1.get(3)+valor1);
-                                    }else if(parts1[1].equals("04")){
+                                    }else if(parts1[1].equals("04") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(4, listaMes1.get(4)+valor1);
-                                    }else if(parts1[1].equals("05")){
+                                    }else if(parts1[1].equals("05") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(5, listaMes1.get(5)+valor1);
-                                    }else if(parts1[1].equals("06")){
+                                    }else if(parts1[1].equals("06") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(6, listaMes1.get(6)+valor1);
-                                    }else if(parts1[1].equals("07")){
+                                    }else if(parts1[1].equals("07") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(7, listaMes1.get(7)+valor1);
-                                    }else if(parts1[1].equals("08")){
+                                    }else if(parts1[1].equals("08") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(8, listaMes1.get(8)+valor1);
-                                    }else if(parts1[1].equals("09")){
+                                    }else if(parts1[1].equals("09") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(9, listaMes1.get(9)+valor1);
-                                    }else if(parts1[1].equals("10")){
+                                    }else if(parts1[1].equals("10") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(10, listaMes1.get(10)+valor1);
-                                    }else if(parts1[1].equals("11")){
+                                    }else if(parts1[1].equals("11") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(11, listaMes1.get(11)+valor1);
-                                    }else if(parts1[1].equals("12")){
+                                    }else if(parts1[1].equals("12") && parts1[0].equals(Utilitario.ano())){
                                         listaMes1.put(12, listaMes1.get(12)+valor1);
                                     }
                                 }
@@ -541,16 +541,17 @@ public class UsuarioDAO {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String tipoDespesa = document.getData().get("tipoDespesa").toString();
                         Double valorDespesa = Double.valueOf(document.getData().get("valorDespesa").toString());
+                        String[] parts = document.getData().get("dataDespesa").toString().split("-");
 
-                        if(tipoDespesa.equals("Alimentaçao")){
+                        if(tipoDespesa.equals("Alimentaçao") && parts[0].equals(Utilitario.ano())){
                             listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
-                        }else if(tipoDespesa.equals("Veiculo")){
+                        }else if(tipoDespesa.equals("Veiculo") && parts[0].equals(Utilitario.ano())){
                             listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
-                        }else if(tipoDespesa.equals("Moradia")){
+                        }else if(tipoDespesa.equals("Moradia") && parts[0].equals(Utilitario.ano())){
                             listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
-                        }else if(tipoDespesa.equals("Lazer")){
+                        }else if(tipoDespesa.equals("Lazer") && parts[0].equals(Utilitario.ano())){
                             listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
-                        }else if(tipoDespesa.equals("Outros")){
+                        }else if(tipoDespesa.equals("Outros") && parts[0].equals(Utilitario.ano())){
                             listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
                         }
                     }
@@ -615,16 +616,17 @@ public class UsuarioDAO {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String tipoRenda = document.getData().get("tipoRenda").toString();
                         Double valorRenda = Double.valueOf(document.getData().get("valorRenda").toString());
+                        String[] parts = document.getData().get("dataRenda").toString().split("-");
 
-                        if(tipoRenda.equals("Salario")){
+                        if(tipoRenda.equals("Salario") && parts[0].equals(Utilitario.ano())){
                             listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
-                        }else if(tipoRenda.equals("Servicos")){
+                        }else if(tipoRenda.equals("Servicos") && parts[0].equals(Utilitario.ano())){
                             listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
-                        }else if(tipoRenda.equals("Presente")){
+                        }else if(tipoRenda.equals("Presente") && parts[0].equals(Utilitario.ano())){
                             listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
-                        }else if(tipoRenda.equals("Aluguel")){
+                        }else if(tipoRenda.equals("Aluguel") && parts[0].equals(Utilitario.ano())){
                             listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
-                        }else if(tipoRenda.equals("Outros")){
+                        }else if(tipoRenda.equals("Outros") && parts[0].equals(Utilitario.ano())){
                             listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
                         }
                     }

@@ -110,4 +110,9 @@ public class Utilitario {
                 android.R.layout.simple_list_item_1, mesList);
         spinner.setAdapter(adapter_spinner);
     }
+
+    public static String ano(){
+        String[] parts = Utilitario.dataAtual().split("/");
+        return parts[2];
+    }
 }

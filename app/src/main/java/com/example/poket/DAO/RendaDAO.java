@@ -152,7 +152,7 @@ public class RendaDAO {
                                 }
                             }
 
-                            DecimalFormat df = new DecimalFormat("#,###.00");
+                            DecimalFormat df = new DecimalFormat("###.00");
 
                             textViewRendaValorTotal.setText(df.format(valorRenda));
 
@@ -396,29 +396,29 @@ public class RendaDAO {
                         String[] parts = dataBD.split("-");
                         Double valor = Double.valueOf(document.getData().get("valorRenda").toString());
 
-                        if(parts[1].equals("01")){
+                        if(parts[1].equals("01") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(1, listaMes.get(1)+valor);
-                        }else if(parts[1].equals("02")){
+                        }else if(parts[1].equals("02") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(2, listaMes.get(2)+valor);
-                        }else if(parts[1].equals("03")){
+                        }else if(parts[1].equals("03") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(3, listaMes.get(3)+valor);
-                        }else if(parts[1].equals("04")){
+                        }else if(parts[1].equals("04") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(4, listaMes.get(4)+valor);
-                        }else if(parts[1].equals("05")){
+                        }else if(parts[1].equals("05") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(5, listaMes.get(5)+valor);
-                        }else if(parts[1].equals("06")){
+                        }else if(parts[1].equals("06") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(6, listaMes.get(6)+valor);
-                        }else if(parts[1].equals("07")){
+                        }else if(parts[1].equals("07") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(7, listaMes.get(7)+valor);
-                        }else if(parts[1].equals("08")){
+                        }else if(parts[1].equals("08") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(8, listaMes.get(8)+valor);
-                        }else if(parts[1].equals("09")){
+                        }else if(parts[1].equals("09") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(9, listaMes.get(9)+valor);
-                        }else if(parts[1].equals("10")){
+                        }else if(parts[1].equals("10") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(10, listaMes.get(10)+valor);
-                        }else if(parts[1].equals("11")){
+                        }else if(parts[1].equals("11") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(11, listaMes.get(11)+valor);
-                        }else if(parts[1].equals("12")){
+                        }else if(parts[1].equals("12") && parts[0].equals(Utilitario.ano())){
                             listaMes.put(12, listaMes.get(12)+valor);
                         }
                     }
