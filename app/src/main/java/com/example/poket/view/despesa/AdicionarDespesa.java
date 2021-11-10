@@ -82,7 +82,7 @@ public class AdicionarDespesa extends AppCompatActivity {
 
 //        Utilitario.listaTipoDespesa(spinnerTipoDespesa, tipoPF, getApplicationContext());
 
-        tipoDespesaList = Arrays.asList("Alimentaçao", "Veiculo", "Moradia", "Lazer", "Outros");
+        tipoDespesaList = Arrays.asList("Alimentação", "Veículo", "Moradia", "Lazer", "Outros");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 AdicionarDespesa.this, R.layout.dropdown_item, tipoDespesaList);
@@ -96,7 +96,7 @@ public class AdicionarDespesa extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarDespesa.this, textViewValorConta, textViewIdConta, true);
 
-        mock();
+//        mock();
 
         autoCompleteTextViewTipoDespesa.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -201,6 +201,7 @@ public class AdicionarDespesa extends AppCompatActivity {
     public void mock(){
         editTextDespesa.setText("carroTst");
         editTextValorDespesa.setText("10");
+        autoCompleteTextViewTipoDespesa.setText("Veículo", false);
         editTextObservacao.setText("pagoTst");
     }
 }

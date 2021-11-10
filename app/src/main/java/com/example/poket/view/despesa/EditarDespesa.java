@@ -76,7 +76,7 @@ public class EditarDespesa extends AppCompatActivity {
         buttonEditar = findViewById(R.id.buttonEditarDespesaEditar);
         buttonExcluir = findViewById(R.id.buttonEditarDespesaExcluir);
 
-        tipoDespesaList = Arrays.asList("Alimentaçao", "Veiculo", "Moradia", "Lazer", "Outros");
+        tipoDespesaList = Arrays.asList("Alimentação", "Veículo", "Moradia", "Lazer", "Outros");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 EditarDespesa.this, R.layout.dropdown_item, tipoDespesaList);

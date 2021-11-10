@@ -83,7 +83,7 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         editTextDataFinal.setText(intent.getStringExtra("dataFinal"));
 
 
-        tipoPFList = Arrays.asList("Curto Prazo", "Medio Prazo", "Longo Prazo");
+        tipoPFList = Arrays.asList("Curto Prazo", "Médio Prazo", "Longo Prazo");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 EditarPlanejamentoFinanceiro.this, R.layout.dropdown_item, tipoPFList);

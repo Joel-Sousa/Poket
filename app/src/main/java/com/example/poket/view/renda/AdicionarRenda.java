@@ -77,7 +77,7 @@ public class AdicionarRenda extends AppCompatActivity {
         editTextDataRenda.setInputType(InputType.TYPE_NULL);
 //         editTextDataRenda.addTextChangedListener(MaskEditUtil.mask(editTextDataRenda, MaskEditUtil.FORMAT_DATE));
 
-        tipoRendaList = Arrays.asList("Salario", "Servicos", "Presente", "Aluguel", "Outros");
+        tipoRendaList = Arrays.asList("Salário", "Serviços", "Presente", "Aluguel", "Outros");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 AdicionarRenda.this, R.layout.dropdown_item, tipoRendaList);
@@ -91,7 +91,7 @@ public class AdicionarRenda extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta, false);
 
-        mock();
+//        mock();
 
         autoCompleteTextViewTipoRenda.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -192,6 +192,8 @@ public class AdicionarRenda extends AppCompatActivity {
     public void mock(){
         editTextRenda.setText("aluguelTst");
         editTextValorRenda.setText("20");
+        autoCompleteTextViewTipoRenda.setText("Presente", false);
+
         editTextObservacao.setText("observacaoTst");
     }
 }

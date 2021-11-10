@@ -175,7 +175,7 @@ public class PlanejamentoFinanceiroDAO {
                             List<Integer> porcentagemBarValorList = new ArrayList<>();
                             List<Integer> porcentagemBarDataList = new ArrayList<>();
 
-                            DecimalFormat df = new DecimalFormat("#,###.00");
+                            DecimalFormat df = new DecimalFormat("###.00");
                             for(PlanejamentoFinanceiroDTO pf : pfList){
 
                                 idPFList.add(pf.getIdPF());

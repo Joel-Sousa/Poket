@@ -91,7 +91,7 @@ public class EditarRenda extends AppCompatActivity {
         idConta = intent.getStringExtra("idConta");
         valorRendaAntiga = intent.getStringExtra("valorRenda");
 
-        tipoRendaList = Arrays.asList("Salario", "Servicos", "Presente", "Aluguel", "Outros");
+        tipoRendaList = Arrays.asList("Salário", "Serviços", "Presente", "Aluguel", "Outros");
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(

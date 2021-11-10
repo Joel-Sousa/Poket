@@ -9,9 +9,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.poket.DTO.PlanejamentoFinanceiroDTO;
 import com.example.poket.DTO.UsuarioDTO;
 import com.example.poket.MainActivity;
+import com.example.poket.adapter.PlanejamentoFinanceiroAdapter;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.Home;
@@ -54,6 +58,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -208,30 +213,97 @@ public class UsuarioDAO {
         }
     }
 
-
-
     public void excluirUsuario(Context context){
-        user.delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(Msg.INFO, Msg.DELETADO);
+//        user.delete()
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()) {
+//                            Log.d(Msg.INFO, Msg.DELETADO);
+//
+//                            sairUsuario();
+//                        }
+//                    }
+//                });
 
-                            sairUsuario();
+//        deleteCollection(db.collection("contas").document(user.getUid())
+//                .collection(user.getUid()), 50, EXECUTOR);
+//
+//        deleteCollection(db.collection("despesas").document(user.getUid())
+//                .collection(user.getUid()), 50, EXECUTOR);
+//
+//        deleteCollection(db.collection("rendas").document(user.getUid())
+//                .collection(user.getUid()), 50, EXECUTOR);
+
+        deletarPFAll(user.getUid());
+
+//        deleteCollection(db.collection("planejamentoFinanceiro").document(user.getUid())
+//                .collection(user.getUid()), 50, EXECUTOR);
+
+
+//        Intent intent = new Intent(context, MainActivity.class);
+//        context.startActivity(intent);
+//        Toast.makeText(context, Msg.DELETADO, Toast.LENGTH_LONG).show();
+//        mAuth.getInstance().signOut();
+    }
+
+    public void deletarPFAll(String uid){
+
+        db.collection("planejamentoFinanceiro")
+                .document(user.getUid()).collection(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<String> idHPFList = new ArrayList<>();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                idHPFList.add(document.getId());
+                            }
+
+                            for(String e : idHPFList){
+                                db.collection("planejamentoFinanceiro").document(uid)
+                                        .collection(uid).document(e).collection(e)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task1) {
+                                                if(task1.isSuccessful()){
+                                                    for (QueryDocumentSnapshot document1 : task1.getResult()) {
+                                                        // TODO IMPLEMENTAR A EXCLUSAO DO HISTORICO
+                                                    }
+                                                }
+                                            }
+                                        });
+
+
+//                                db.collection("planejamentoFinanceiro").document(uid)
+//                                        .collection(uid).document(idPF).collection(idPF)
+//                                        .document(idHPF)
+//                                        .delete()
+//                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                            @Override
+//                                            public void onSuccess(Void aVoid) {
+//                                                Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+////                        activity.finish();
+//                                            }
+//                                        })
+//                                        .addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+//                                            }
+//                                        });
+                            }
+
+                            Log.d("---", "Tst");
+
+                        } else {
+                            Log.w(Msg.ERROR, Msg.ERRORM, task.getException());
                         }
                     }
+
                 });
-
-        String path = db.collection("contas").document(user.getUid())
-                .collection(user.getUid()).getPath();
-
-        deleteCollection(db.collection(path), 50, EXECUTOR);
-
-        Intent intent = new Intent(context, MainActivity.class);
-        context.startActivity(intent);
-        Toast.makeText(context, Msg.DELETADO, Toast.LENGTH_LONG).show();
-        mAuth.getInstance().signOut();
     }
 
     private Task<Void> deleteCollection(final CollectionReference collection, final int batchSize,
@@ -268,6 +340,7 @@ public class UsuarioDAO {
 
         return querySnapshot.getDocuments();
     }
+
 
     public void sairUsuario(){
         FirebaseAuth.getInstance().signOut();
@@ -411,41 +484,6 @@ public class UsuarioDAO {
                                     barEntriesRenda.add(new BarEntry(mesBD1, entry1.getValue()));
                                 }
 
-                                //
-                                ArrayList<BarEntry> barEntriesDespesa1 = new ArrayList<>();
-                                barEntriesDespesa1.add(new BarEntry(1,1.0f));
-                                barEntriesDespesa1.add(new BarEntry(2,2.0f));
-                                barEntriesDespesa1.add(new BarEntry(3,3.0f));
-                                barEntriesDespesa1.add(new BarEntry(4,4.0f));
-                                barEntriesDespesa1.add(new BarEntry(5,5.0f));
-                                barEntriesDespesa1.add(new BarEntry(6,10.0f));
-                                barEntriesDespesa1.add(new BarEntry(7,7.0f));
-                                barEntriesDespesa1.add(new BarEntry(8,8.0f));
-                                barEntriesDespesa1.add(new BarEntry(9,9.0f));
-                                barEntriesDespesa1.add(new BarEntry(10,10.0f));
-                                barEntriesDespesa1.add(new BarEntry(11,11.0f));
-                                barEntriesDespesa1.add(new BarEntry(12,12.0f));
-
-                                ArrayList<BarEntry> barEntriesRenda1 = new ArrayList<>();
-                                barEntriesRenda1.add(new BarEntry(1,1.0f));
-                                barEntriesRenda1.add(new BarEntry(2,2.0f));
-                                barEntriesRenda1.add(new BarEntry(3,3.0f));
-                                barEntriesRenda1.add(new BarEntry(4,4.0f));
-                                barEntriesRenda1.add(new BarEntry(5,5.0f));
-                                barEntriesRenda1.add(new BarEntry(6,6.0f));
-                                barEntriesRenda1.add(new BarEntry(7,7.0f));
-                                barEntriesRenda1.add(new BarEntry(8,8.0f));
-                                barEntriesRenda1.add(new BarEntry(9,9.0f));
-                                barEntriesRenda1.add(new BarEntry(10,10.0f));
-                                barEntriesRenda1.add(new BarEntry(11,11.0f));
-                                barEntriesRenda1.add(new BarEntry(12,12.0f));
-
-//                                BarDataSet barDataSet = new BarDataSet(barEntriesDespesa1, "Despesa");
-//                                barDataSet.setColor(Color.RED);
-//
-//                                BarDataSet barDataSet1 = new BarDataSet(barEntriesRenda1, "Renda");
-//                                barDataSet1.setColor(Color.GREEN);
-
                                 BarDataSet barDataSet = new BarDataSet(barEntriesDespesa, "Despesa");
                                 barDataSet.setColor(Color.RED);
 
@@ -532,8 +570,8 @@ public class UsuarioDAO {
                 if (task.isSuccessful()) {
                     Map<String, Double> listaTipoDespesa = new TreeMap<>();
 
-                    listaTipoDespesa.put("Alimentaçao", 0.0);
-                    listaTipoDespesa.put("Veiculo", 0.0);
+                    listaTipoDespesa.put("Alimentação", 0.0);
+                    listaTipoDespesa.put("Veículo", 0.0);
                     listaTipoDespesa.put("Moradia", 0.0);
                     listaTipoDespesa.put("Lazer", 0.0);
                     listaTipoDespesa.put("Outros", 0.0);
@@ -543,9 +581,9 @@ public class UsuarioDAO {
                         Double valorDespesa = Double.valueOf(document.getData().get("valorDespesa").toString());
                         String[] parts = document.getData().get("dataDespesa").toString().split("-");
 
-                        if(tipoDespesa.equals("Alimentaçao") && parts[0].equals(Utilitario.ano())){
+                        if(tipoDespesa.equals("Alimentação") && parts[0].equals(Utilitario.ano())){
                             listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
-                        }else if(tipoDespesa.equals("Veiculo") && parts[0].equals(Utilitario.ano())){
+                        }else if(tipoDespesa.equals("Veículo") && parts[0].equals(Utilitario.ano())){
                             listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
                         }else if(tipoDespesa.equals("Moradia") && parts[0].equals(Utilitario.ano())){
                             listaTipoDespesa.put(tipoDespesa, listaTipoDespesa.get(tipoDespesa)+valorDespesa);
@@ -607,8 +645,8 @@ public class UsuarioDAO {
                 if (task.isSuccessful()) {
                     Map<String, Double> listaTipoRenda = new TreeMap<>();
 
-                    listaTipoRenda.put("Salario", 0.0);
-                    listaTipoRenda.put("Servicos", 0.0);
+                    listaTipoRenda.put("Salário", 0.0);
+                    listaTipoRenda.put("Serviços", 0.0);
                     listaTipoRenda.put("Presente", 0.0);
                     listaTipoRenda.put("Aluguel", 0.0);
                     listaTipoRenda.put("Outros", 0.0);
@@ -618,9 +656,9 @@ public class UsuarioDAO {
                         Double valorRenda = Double.valueOf(document.getData().get("valorRenda").toString());
                         String[] parts = document.getData().get("dataRenda").toString().split("-");
 
-                        if(tipoRenda.equals("Salario") && parts[0].equals(Utilitario.ano())){
+                        if(tipoRenda.equals("Salário") && parts[0].equals(Utilitario.ano())){
                             listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
-                        }else if(tipoRenda.equals("Servicos") && parts[0].equals(Utilitario.ano())){
+                        }else if(tipoRenda.equals("Serviços") && parts[0].equals(Utilitario.ano())){
                             listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);
                         }else if(tipoRenda.equals("Presente") && parts[0].equals(Utilitario.ano())){
                             listaTipoRenda.put(tipoRenda, listaTipoRenda.get(tipoRenda)+valorRenda);

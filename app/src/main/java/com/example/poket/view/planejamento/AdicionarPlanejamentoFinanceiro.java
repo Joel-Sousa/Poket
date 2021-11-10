@@ -83,7 +83,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         editTextDataInicial.setInputType(InputType.TYPE_NULL);
         editTextDataFinal.setInputType(InputType.TYPE_NULL);
 
-        tipoPFList = Arrays.asList("Curto Prazo", "Medio Prazo", "Longo Prazo");
+        tipoPFList = Arrays.asList("Curto Prazo", "Médio Prazo", "Longo Prazo");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 AdicionarPlanejamentoFinanceiro.this, R.layout.dropdown_item, tipoPFList);
@@ -95,7 +95,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarPlanejamentoFinanceiro.this, textViewContaValor, textViewIdConta, true);
 
-        mock();
+//        mock();
 
         autoCompleteTextViewTipoPF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -252,6 +252,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
     public void mock(){
         editTextNomePF.setText("nomeTst");
         editTextValorAtual.setText("10");
+        autoCompleteTextViewTipoPF.setText("Médio Prazo", false);
         editTextValorObjetivado.setText("900");
         editTextDataFinal.setText("12/12/2021");
     }
