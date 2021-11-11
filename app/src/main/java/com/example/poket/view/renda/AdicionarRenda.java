@@ -190,10 +190,10 @@ public class AdicionarRenda extends AppCompatActivity {
     }
 
     public void mock(){
-        editTextRenda.setText("aluguelTst");
+        editTextRenda.setText("Aluguel");
         editTextValorRenda.setText("20");
-        autoCompleteTextViewTipoRenda.setText("Presente", false);
+        autoCompleteTextViewTipoRenda.setText("Aluguel", false);
 
-        editTextObservacao.setText("observacaoTst");
+        editTextObservacao.setText("baixo");
     }
 }

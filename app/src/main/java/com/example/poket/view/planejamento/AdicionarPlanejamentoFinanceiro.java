@@ -250,7 +250,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
     }
 
     public void mock(){
-        editTextNomePF.setText("nomeTst");
+        editTextNomePF.setText("viajar");
         editTextValorAtual.setText("10");
         autoCompleteTextViewTipoPF.setText("Médio Prazo", false);
         editTextValorObjetivado.setText("900");

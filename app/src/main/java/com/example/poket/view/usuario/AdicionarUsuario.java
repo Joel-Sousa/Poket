@@ -35,7 +35,7 @@ public class AdicionarUsuario extends AppCompatActivity {
         buttonCadastrar = findViewById(R.id.buttonAdicionarUsuarioAdicionar);
         imageViewVoltar = findViewById(R.id.imageViewAdicionarUsuarioVoltar);
 
-//        mock();
+        mock();
 
         buttonCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -199,9 +199,9 @@ public class AdicionarDespesa extends AppCompatActivity {
     }
 
     public void mock(){
-        editTextDespesa.setText("carroTst");
+        editTextDespesa.setText("Carro");
         editTextValorDespesa.setText("10");
         autoCompleteTextViewTipoDespesa.setText("Veículo", false);
-        editTextObservacao.setText("pagoTst");
+        editTextObservacao.setText("foi barato");
     }
 }
