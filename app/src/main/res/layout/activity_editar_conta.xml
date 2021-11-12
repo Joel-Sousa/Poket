@@ -81,7 +81,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:maxLength="20" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -106,7 +107,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
                             android:ems="10"
-                            android:inputType="number|numberDecimal" />
+                            android:inputType="number|numberDecimal"
+                            android:maxLength="8" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 

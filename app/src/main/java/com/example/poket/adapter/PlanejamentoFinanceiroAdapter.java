@@ -3,7 +3,6 @@ package com.example.poket.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.poket.DAO.PlanejamentoFinanceiroDAO;
 import com.example.poket.R;
-import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
-import com.example.poket.view.despesa.EditarDespesa;
 import com.example.poket.view.planejamento.EditarPlanejamentoFinanceiro;
 import com.example.poket.view.planejamento.ListaHistoricoPF;
-import com.example.poket.view.planejamento.ListaPlanejamentoFinanceiro;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.grpc.okhttp.internal.Util;
 
 public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<PlanejamentoFinanceiroAdapter.ViewHolder>{
 

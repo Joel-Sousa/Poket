@@ -18,6 +18,8 @@
         <entry key="app/src/main/res/drawable/ic_add1.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_add2.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_address_card_solid.xml" value="0.14629629629629629" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_241.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_broom_solid.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_buscar.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_conta.xml" value="0.209375" />
@@ -31,6 +33,7 @@
         <entry key="app/src/main/res/drawable/ic_historico.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_listar.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_sair.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_salvar.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_voltar.xml" value="0.209375" />

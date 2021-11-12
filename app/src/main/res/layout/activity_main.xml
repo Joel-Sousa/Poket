@@ -72,7 +72,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:maxLength="20" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -97,7 +98,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:maxLength="10" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -140,11 +142,11 @@
                     android:layout_marginLeft="50dp"
                     android:background="@drawable/btnr"
                     android:text="Acessar" />
-
-
             </LinearLayout>
-
         </LinearLayout>
+
+
     </ScrollView>
+
 
 </LinearLayout>

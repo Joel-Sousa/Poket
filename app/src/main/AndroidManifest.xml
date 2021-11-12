@@ -25,16 +25,7 @@
             android:name=".view.planejamento.EditarPlanejamentoFinanceiro"
             android:exported="true" />
         <activity
-            android:name=".view.planejamento.ListaPlanejamentoFinanceiro"
-            android:exported="true" />
-        <activity
             android:name=".view.planejamento.AdicionarPlanejamentoFinanceiro"
-            android:exported="true" />
-        <activity
-            android:name=".view.renda.GraficoRenda"
-            android:exported="true" />
-        <activity
-            android:name=".view.despesa.GraficoDespesa"
             android:exported="true" />
         <activity
             android:name=".view.renda.EditarRenda"
@@ -68,9 +59,6 @@
             android:exported="true" />
         <activity
             android:name=".view.Home"
-            android:exported="true" />
-        <activity
-            android:name=".view.usuario.EsqueceuSenha"
             android:exported="true" />
         <activity
             android:name=".view.usuario.AdicionarUsuario"

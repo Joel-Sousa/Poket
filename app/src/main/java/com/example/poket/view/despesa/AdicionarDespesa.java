@@ -21,20 +21,14 @@ import android.widget.Toast;
 import com.example.poket.DAO.ContaDAO;
 import com.example.poket.DAO.DespesaDAO;
 import com.example.poket.DTO.DespesaDTO;
-import com.example.poket.MainActivity;
 import com.example.poket.R;
-import com.example.poket.util.MaskEditUtil;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
-import com.example.poket.view.usuario.EsqueceuSenha;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class AdicionarDespesa extends AppCompatActivity {

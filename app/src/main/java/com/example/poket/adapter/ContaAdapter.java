@@ -2,22 +2,17 @@ package com.example.poket.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.poket.DTO.ContaDTO;
 import com.example.poket.R;
-import com.example.poket.util.Msg;
 import com.example.poket.view.conta.EditarConta;
-import com.example.poket.view.planejamento.ListaPlanejamentoFinanceiro;
 
 import java.util.ArrayList;
 import java.util.List;
