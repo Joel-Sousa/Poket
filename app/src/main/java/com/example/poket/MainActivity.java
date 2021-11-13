@@ -18,6 +18,7 @@ import com.example.poket.DAO.UsuarioDAO;
 import com.example.poket.DTO.UsuarioDTO;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
+import com.example.poket.view.conta.ListaConta;
 import com.example.poket.view.usuario.AdicionarUsuario;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Intent intent = new Intent(MainActivity.this, EsqueceuSenha.class);
+//        Intent intent = new Intent(MainActivity.this, ListaConta.class);
 //        startActivity(intent);
 
 //        barChart = findViewById(R.id.barChartHomeDR);

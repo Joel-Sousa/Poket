@@ -53,7 +53,7 @@
             android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:background="@drawable/borderspinner"
             android:orientation="horizontal">

@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -143,10 +144,10 @@ public class ContaDAO {
                 });
     }
 
-    public void deletarConta(String id){
+    public void deletarConta(String idc){
 
         db.collection("contas").document(user.getUid()).collection(user.getUid())
-                .document(id)
+                .document(idc)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -158,6 +159,180 @@ public class ContaDAO {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+                    }
+                });
+
+        db.collection("despesas")
+                .document(user.getUid()).collection(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<String> despesasList = new ArrayList<>();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                if(idc.equals(document.getData().get("idConta").toString())){
+                                    despesasList.add(document.getId());
+                                }
+                            }
+
+                            for(String e : despesasList){
+                                db.collection("despesas").document(user.getUid())
+                                        .collection(user.getUid())
+                                        .document(e)
+                                        .delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
+
+        db.collection("rendas")
+                .document(user.getUid()).collection(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<String> rendasList = new ArrayList<>();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                if(idc.equals(document.getData().get("idConta").toString())){
+                                    rendasList.add(document.getId());
+                                }
+//                                document.getData().get("despesa").toString();
+                            }
+
+                            for(String e : rendasList){
+                                db.collection("rendas").document(user.getUid())
+                                        .collection(user.getUid())
+                                        .document(e)
+                                        .delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+                                            }
+                                        });
+                            }
+
+                            Log.i("---", "tst");
+                        }
+                    }
+                });
+
+        db.collection("planejamentoFinanceiro")
+                .document(user.getUid()).collection(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<String> idpfList = new ArrayList<>();
+
+                            for (QueryDocumentSnapshot document : task.getResult())
+                                idpfList.add(document.getId());
+
+                            List<String> hpfidList = new ArrayList<>();
+                            Map<String, Double> idpfvList = new HashMap<>();
+
+                            for(String e : idpfList){
+                                db.collection("planejamentoFinanceiro")
+                                    .document(user.getUid()).collection(user.getUid())
+                                    .document(e).collection(e).get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task1) {
+                                            if (task1.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document1 : task1.getResult()){
+                                                    if(idc.equals(document1.getData().get("idConta").toString())){
+
+                                                        String idpf1 = document1.getData().get("idPF").toString();
+                                                        Double valorH = Double.valueOf(document1.getData().get("valorHistoricoPF").toString());
+                                                        hpfidList.add(document1.getId());
+
+                                                        if(!idpfvList.containsKey(idpf1))
+                                                            idpfvList.put(idpf1, valorH);
+                                                        else
+                                                            idpfvList.put(idpf1, Double.valueOf(idpfvList.get(idpf1)) + valorH);
+
+
+                                                        db.collection("planejamentoFinanceiro")
+                                                            .document(user.getUid()).collection(user.getUid())
+                                                            .document(e).collection(e)
+                                                                .document(document1.getId())
+                                                            .delete()
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void unused) {
+                                                                    Log.d(Msg.INFO, Msg.DOCUMENTO_S);
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                    Log.w(Msg.INFO, Msg.DOCUMENTO_F, e);
+                                                            }
+                                                        });
+                                                    }
+                                                }//
+
+//                                                for(String e2: idpfList){
+//
+//                                                    Log.i("---", "tst");
+//                                                }
+
+                                                if(!hpfidList.isEmpty()){
+
+                                                        for(Map.Entry<String, Double> e1 : idpfvList.entrySet()){
+
+                                                        db.collection("planejamentoFinanceiro")
+                                                                    .document(user.getUid()).collection(user.getUid())
+                                                                    .document(e1.getKey())
+                                                                    .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task2) {
+                                                                DocumentSnapshot document2 = task2.getResult();
+
+                                                                Double valor = 0.0;
+                                                                Double valorAtual = 0.0;
+                                                                Double result = 0.0;
+                                                                if(task2.isSuccessful()){
+                                                                     valor = e1.getValue();
+                                                                     valorAtual = Double.parseDouble(document2.getData().get("valorAtual").toString());
+
+                                                                     result = valorAtual - valor;
+
+                                                                    db.collection("planejamentoFinanceiro").document(user.getUid()).collection(user.getUid())
+                                                                            .document(e1.getKey()).update("valorAtual", String.valueOf(result));
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                    hpfidList.remove(0);
+                                                    idpfvList.clear();
+                                                }
+                                            }
+                                        }
+                                    });
+                            }
+                        }
                     }
                 });
     }
