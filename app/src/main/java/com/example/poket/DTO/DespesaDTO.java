@@ -4,14 +4,14 @@ public class DespesaDTO {
 
     private String id;
     private String despesa;
-    private String valorDespesa;
+    private Double valorDespesa;
     private String tipoDespesa;
     private String dataDespesa;
     private String observacao;
 
     private String idConta;
     private String conta;
-    private String valorConta;
+    private Double valorConta;
 
     public String getId() {
         return id;
@@ -29,11 +29,11 @@ public class DespesaDTO {
         this.despesa = despesa;
     }
 
-    public String getValorDespesa() {
+    public Double getValorDespesa() {
         return valorDespesa;
     }
 
-    public void setValorDespesa(String valorDespesa) {
+    public void setValorDespesa(Double valorDespesa) {
         this.valorDespesa = valorDespesa;
     }
 
@@ -61,6 +61,7 @@ public class DespesaDTO {
         this.observacao = observacao;
     }
 
+
     public String getConta() {
         return conta;
     }
@@ -69,11 +70,11 @@ public class DespesaDTO {
         this.conta = conta;
     }
 
-    public String getValorConta() {
+    public Double getValorConta() {
         return valorConta;
     }
 
-    public void setValorConta(String contaValor) {
+    public void setValorConta(Double contaValor) {
         this.valorConta = contaValor;
     }
 

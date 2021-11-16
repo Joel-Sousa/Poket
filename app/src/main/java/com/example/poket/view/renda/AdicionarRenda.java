@@ -113,14 +113,14 @@ public class AdicionarRenda extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dto.setRenda(editTextRenda.getText().toString());
-                dto.setValorRenda(editTextValorRenda.getText().toString());
+                dto.setValorRenda(Double.parseDouble(editTextValorRenda.getText().toString()));
                 dto.setTipoRenda(autoCompleteTextViewTipoRenda.getText().toString());
                 dto.setDataRenda(editTextDataRenda.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
 
                 dto.setIdConta(textViewIdConta.getText().toString());
                 dto.setConta(spinnerConta.getSelectedItem().toString());
-                dto.setValorConta(textViewValorConta.getText().toString());
+                dto.setValorConta(Double.parseDouble(textViewValorConta.getText().toString()));
 
                 validarConta(dto);
             }
@@ -159,7 +159,7 @@ public class AdicionarRenda extends AppCompatActivity {
 
     private void validarConta(RendaDTO dto){
 
-        if(dto.getRenda().length() == 0 && dto.getValorRenda().length() == 0 &&
+        if(dto.getRenda().length() == 0 && dto.getValorRenda() == 0 &&
                 dto.getDataRenda().length() == 0 ) {
             Utilitario.toast(getApplicationContext(),
                     Msg.DADOS_INFORMADOS_N);
@@ -167,7 +167,7 @@ public class AdicionarRenda extends AppCompatActivity {
         }else if(dto.getRenda().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.RENDA);
             editTextRenda.requestFocus();
-        }else if(dto.getValorRenda().length() == 0){
+        }else if(dto.getValorRenda() == 0){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_RENDA);
             editTextValorRenda.requestFocus();
         }else if(dto.getTipoRenda().length() == 0){

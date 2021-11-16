@@ -29,8 +29,8 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
     List<String> idPFList = new ArrayList<>();
     List<String> nomePFList = new ArrayList<>();
     List<String> tipoPFList = new ArrayList<>();
-    List<String> valorAtualList = new ArrayList<>();
-    List<String> valorObjetivadoList = new ArrayList<>();
+    List<Double> valorAtualList = new ArrayList<>();
+    List<Double> valorObjetivadoList = new ArrayList<>();
     List<String> dataInicialList = new ArrayList<>();
     List<String> dataFinalList = new ArrayList<>();
 
@@ -48,11 +48,12 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
 
     public PlanejamentoFinanceiroAdapter(Context context,
                           List<String> idPFList, List<String> nomePFList, List<String> tipoPFList,
-                          List<String> valorAtualList, List<String> valorObjetivadoList,
+                          List<Double> valorAtualList, List<Double> valorObjetivadoList,
                           List<String>  dataIncialList,List<String>  dataFinalList,
                           List<String> porcentagemValorList, List<String> porcentagemDataList,
                           List<Integer> porcentagemBarValorList, List<Integer> porcentagemBarDataList,
                           Activity activity, View mView){
+
         this.context = context;
         this.idPFList.addAll(idPFList);
         this.nomePFList.addAll(nomePFList);
@@ -130,8 +131,8 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
         holder.textViewIdPF.setText(idPFList.get(position));
         holder.textViewNomePF.setText(nomePFList.get(position));
         holder.textViewTipoPF.setText(tipoPFList.get(position));
-        holder.textViewValorAtual.setText(valorAtualList.get(position));
-        holder.textViewValorObjetivado.setText(valorObjetivadoList.get(position));
+        holder.textViewValorAtual.setText(String.valueOf(valorAtualList.get(position)));
+        holder.textViewValorObjetivado.setText(String.valueOf(valorObjetivadoList.get(position)));
         holder.textViewDataInicial.setText(Utilitario.convertUsaToBr(dataInicialList.get(position)));
         holder.textViewDataFinal.setText(Utilitario.convertUsaToBr(dataFinalList.get(position)));
 
@@ -166,8 +167,8 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
                 intent.putExtra("idPF", idPFList.get(position));
                 intent.putExtra("nomePF", nomePFList.get(position));
                 intent.putExtra("tipoPF", tipoPFList.get(position));
-                intent.putExtra("valorAtual", valorAtualList.get(position));
-                intent.putExtra("valorObjetivado", valorObjetivadoList.get(position));
+                intent.putExtra("valorAtual", String.valueOf(valorAtualList.get(position)));
+                intent.putExtra("valorObjetivado", String.valueOf(valorObjetivadoList.get(position)));
                 intent.putExtra("dataInicio", Utilitario.convertUsaToBr(dataInicialList.get(position)));
                 intent.putExtra("dataFinal", Utilitario.convertUsaToBr(dataFinalList.get(position)));
 

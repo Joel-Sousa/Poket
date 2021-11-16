@@ -51,7 +51,7 @@ public class EditarConta extends AppCompatActivity {
                 ContaDTO dto = new ContaDTO();
                 dto.setId(textViewId.getText().toString());
                 dto.setConta(editTextConta.getText().toString());
-                dto.setValor(editTextValorConta.getText().toString());
+                dto.setValor(Double.parseDouble(editTextValorConta.getText().toString()));
                 validarCampos(dto);
             }
         });
@@ -86,7 +86,7 @@ public class EditarConta extends AppCompatActivity {
     }
 
     public void validarCampos(ContaDTO dto){
-        if(dto.getConta().length() == 0 && dto.getValor().length() == 0){
+        if(dto.getConta().length() == 0 && dto.getValor() == 0){
             Utilitario.toast(getApplicationContext(),
                     Msg.DADOS_INFORMADOS_N);
             editTextConta.requestFocus();
@@ -94,7 +94,7 @@ public class EditarConta extends AppCompatActivity {
             Utilitario.toast(getApplicationContext(),
                     Msg.CONTA);
             editTextConta.requestFocus();
-        }else if(dto.getValor().length() == 0){
+        }else if(dto.getValor() == 0){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_CONTA);
             editTextValorConta.requestFocus();
         }else{

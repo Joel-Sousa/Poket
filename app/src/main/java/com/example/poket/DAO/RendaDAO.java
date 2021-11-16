@@ -59,7 +59,7 @@ public class RendaDAO {
     }
 
     public void cadastarRenda(RendaDTO dto, Activity activity) {
-        Map<String, String> dadosRenda = new HashMap<>();
+        Map<String, Object> dadosRenda = new HashMap<>();
         dadosRenda.put("renda", dto.getRenda());
         dadosRenda.put("valorRenda", dto.getValorRenda());
         dadosRenda.put("tipoRenda", dto.getTipoRenda());
@@ -78,11 +78,11 @@ public class RendaDAO {
                         Log.d(Msg.SUCESSO, Msg.DOCUMENTO_S);
 
                         double resultado = Double.valueOf(dto.getValorConta()) + Double.valueOf(dto.getValorRenda());
-                        String valorContaTotal = String.valueOf(resultado);
+//                        String valorContaTotal = String.valueOf(resultado);
 
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
                                 .document(dto.getIdConta())
-                                .update("valor", valorContaTotal);
+                                .update("valor", resultado);
 
                         Utilitario.toast(activity.getApplicationContext(), Msg.CADASTRADO);
                         activity.finish();
@@ -115,7 +115,7 @@ public class RendaDAO {
                                     RendaDTO dto = new RendaDTO();
                                     dto.setId(document.getId());
                                     dto.setRenda(document.getData().get("renda").toString());
-                                    dto.setValorRenda(document.getData().get("valorRenda").toString());
+                                    dto.setValorRenda(Double.parseDouble(document.getData().get("valorRenda").toString()));
                                     dto.setTipoRenda(document.getData().get("tipoRenda").toString());
                                     dto.setDataRenda(document.getData().get("dataRenda").toString());
                                     dto.setObservacao(document.getData().get("observacao").toString());
@@ -137,7 +137,7 @@ public class RendaDAO {
                                         RendaDTO dto = new RendaDTO();
                                         dto.setId(document.getId());
                                         dto.setRenda(document.getData().get("renda").toString());
-                                        dto.setValorRenda(document.getData().get("valorRenda").toString());
+                                        dto.setValorRenda(Double.parseDouble(document.getData().get("valorRenda").toString()));
                                         dto.setTipoRenda(document.getData().get("tipoRenda").toString());
                                         dto.setDataRenda(document.getData().get("dataRenda").toString());
                                         dto.setObservacao(document.getData().get("observacao").toString());
@@ -158,7 +158,7 @@ public class RendaDAO {
 
                             List<String> idList = new ArrayList<>();
                             List<String> rendaList = new ArrayList<>();
-                            List<String> valorRendaList = new ArrayList<>();
+                            List<Double> valorRendaList = new ArrayList<>();
                             List<String> tipoRendaList = new ArrayList<>();
                             List<String> dataRendaList = new ArrayList<>();
                             List<String> observacaoList = new ArrayList<>();
@@ -194,7 +194,7 @@ public class RendaDAO {
     }
     public void editarRenda(RendaDTO dto, Activity activity){
 
-        Map<String, String> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
 
         data.put("renda", dto.getRenda());
         data.put("valorRenda", dto.getValorRenda());
@@ -241,7 +241,7 @@ public class RendaDAO {
                             valorAntigo1 = 0;
 
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
-                                .document(idConta).update("valor", String.valueOf(valorAntigo1));
+                                .document(idConta).update("valor", valorAntigo1);
 
                         Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
                     } else {
@@ -322,7 +322,7 @@ public class RendaDAO {
                                 RendaDTO dto = new RendaDTO();
                                 dto.setId(document.getId());
                                 dto.setRenda(document.getData().get("renda").toString());
-                                dto.setValorRenda(document.getData().get("valorRenda").toString());
+                                dto.setValorRenda(Double.parseDouble(document.getData().get("valorRenda").toString()));
                                 dto.setTipoRenda(document.getData().get("tipoRenda").toString());
                                 dto.setDataRenda(document.getData().get("dataRenda").toString());
                                 dto.setObservacao(document.getData().get("observacao").toString());
@@ -337,7 +337,7 @@ public class RendaDAO {
 
                             List<String> idList = new ArrayList<>();
                             List<String> rendaList = new ArrayList<>();
-                            List<String> valorRendaList = new ArrayList<>();
+                            List<Double> valorRendaList = new ArrayList<>();
                             List<String> tipoRendaList = new ArrayList<>();
                             List<String> dataRendaList = new ArrayList<>();
                             List<String> observacaoList = new ArrayList<>();
@@ -346,7 +346,7 @@ public class RendaDAO {
                             List<String> contaList = new ArrayList<>();
 
                             for(RendaDTO renda : listRenda){
-                                if(renda.getRenda().equalsIgnoreCase(busca)){
+                                if(renda.getRenda().contains(busca)){
 //                                if(conta.getConta().contains(busca)){
                                     idList.add(renda.getId());
                                     rendaList.add(renda.getRenda());
@@ -470,7 +470,7 @@ public class RendaDAO {
                     barChartRenda.getDescription().setEnabled(false);
                     barChartRenda.invalidate();
 
-                    Log.d("---", listaMes.toString());
+//                    Log.d("---", listaMes.toString());
                 }
             }
         });

@@ -125,16 +125,16 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
             public void onClick(View view) {
                 dto.setNomePF(editTextNomePF.getText().toString());
                 dto.setTipoPF(autoCompleteTextViewTipoPF.getText().toString());
-                dto.setValorAtual(editTextValorAtual.getText().toString());
-                dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
+                dto.setValorAtual(Double.parseDouble(editTextValorAtual.getText().toString()));
+                dto.setValorObjetivado(Double.parseDouble(editTextValorObjetivado.getText().toString()));
                 dto.setDataInicial(editTextDataInicial.getText().toString());
                 dto.setDataFinal(editTextDataFinal.getText().toString());
 
                 hdto.setIdConta(textViewIdConta.getText().toString());
                 hdto.setConta(spinnerConta.getSelectedItem().toString());
-                hdto.setValorConta(textViewContaValor.getText().toString());
+                hdto.setValorConta(Double.parseDouble(textViewContaValor.getText().toString()));
 
-                hdto.setValorHistoricoPF(editTextValorAtual.getText().toString());
+                hdto.setValorHistoricoPF(Double.parseDouble(editTextValorAtual.getText().toString()));
 
                 validarConta(dto, hdto);
             }
@@ -197,8 +197,8 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
     private void validarConta(PlanejamentoFinanceiroDTO dto, HistoricoPFDTO hdto){
 
 
-        if(dto.getNomePF().length() == 0 && dto.getValorAtual().length() == 0 &&
-                dto.getValorObjetivado().length() == 0 && dto.getDataInicial().length() == 0 &&
+        if(dto.getNomePF().length() == 0 && dto.getValorAtual() == 0 &&
+                dto.getValorObjetivado() == 0 && dto.getDataInicial().length() == 0 &&
                 dto.getDataFinal().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
             editTextNomePF.requestFocus();
@@ -212,7 +212,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), Msg.TIPO_PF, Toast.LENGTH_LONG).show();
             autoCompleteTextViewTipoPF.setText("");
             autoCompleteTextViewTipoPF.requestFocus();
-        }else if(dto.getValorAtual().length() == 0) {
+        }else if(dto.getValorAtual() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ATUAL);
             editTextValorAtual.requestFocus();
         }else if(dto.getValorAtual().equals("0")){
@@ -225,7 +225,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         }else if(dto.getValorObjetivado().equals("0")){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
             editTextValorObjetivado.requestFocus();
-        }else if(dto.getValorObjetivado().length() == 0) {
+        }else if(dto.getValorObjetivado() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
             editTextValorObjetivado.requestFocus();
         }else if(dto.getDataInicial().length() == 0) {

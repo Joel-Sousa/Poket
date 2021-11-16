@@ -57,7 +57,7 @@ public class PlanejamentoFinanceiroDAO {
     public void cadastrarPlanejamentoFinanceiro(PlanejamentoFinanceiroDTO dto, HistoricoPFDTO hdto,
                                                 Activity activity){
 
-        Map<String, String> dadosPF = new HashMap<>();
+        Map<String, Object> dadosPF = new HashMap<>();
         dadosPF.put("nomePF", dto.getNomePF());
         dadosPF.put("tipoPF", dto.getTipoPF());
         dadosPF.put("valorAtual", dto.getValorAtual());
@@ -73,11 +73,11 @@ public class PlanejamentoFinanceiroDAO {
                     public void onSuccess(DocumentReference documentReference) {
 
                         double resultado = Double.valueOf(hdto.getValorConta()) - Double.valueOf(dto.getValorAtual());
-                        String valorContaTotal = String.valueOf(resultado);
+//                        String valorContaTotal = String.valueOf(resultado);
 
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
                                 .document(hdto.getIdConta())
-                                .update("valor", valorContaTotal);
+                                .update("valor", resultado);
 
                         hdto.setIdPF(documentReference.getId());
 
@@ -97,7 +97,7 @@ public class PlanejamentoFinanceiroDAO {
 
     private void salvarHistoricoPF(HistoricoPFDTO hdto){
 
-        Map<String, String> dadosHistoricoPF = new HashMap<>();
+        Map<String, Object> dadosHistoricoPF = new HashMap<>();
         dadosHistoricoPF.put("idPF", hdto.getIdPF());
         dadosHistoricoPF.put("idConta", hdto.getIdConta());
         dadosHistoricoPF.put("conta", hdto.getConta());
@@ -140,8 +140,8 @@ public class PlanejamentoFinanceiroDAO {
                                 dto.setIdPF(document.getId());
                                 dto.setNomePF(document.getData().get("nomePF").toString());
                                 dto.setTipoPF(document.getData().get("tipoPF").toString());
-                                dto.setValorAtual(document.getData().get("valorAtual").toString());
-                                dto.setValorObjetivado(document.getData().get("valorObjetivado").toString());
+                                dto.setValorAtual(Double.parseDouble(document.getData().get("valorAtual").toString()));
+                                dto.setValorObjetivado(Double.parseDouble(document.getData().get("valorObjetivado").toString()));
                                 dto.setDataInicial(document.getData().get("dataInicial").toString());
                                 dto.setDataFinal(document.getData().get("dataFinal").toString());
                                 pfList.add(dto);
@@ -151,8 +151,8 @@ public class PlanejamentoFinanceiroDAO {
                             List<String> idPFList = new ArrayList<>();
                             List<String> nomePFList = new ArrayList<>();
                             List<String> tipoPFList = new ArrayList<>();
-                            List<String> valorAtualList = new ArrayList<>();
-                            List<String> valorObjetivadoList = new ArrayList<>();
+                            List<Double> valorAtualList = new ArrayList<>();
+                            List<Double> valorObjetivadoList = new ArrayList<>();
                             List<String> dataInicialList = new ArrayList<>();
                             List<String> dataFinalList = new ArrayList<>();
 
@@ -172,7 +172,7 @@ public class PlanejamentoFinanceiroDAO {
                                 dataInicialList.add(pf.getDataInicial());
                                 dataFinalList.add(pf.getDataFinal());
 
-                                double porcentagemValor = porcentagemValor(pf.getValorAtual(), pf.getValorObjetivado());
+                                double porcentagemValor = porcentagemValor(String.valueOf(pf.getValorAtual()), String.valueOf(pf.getValorObjetivado()));
 
                                 String dataInicial = Utilitario.convertUsaToBr(pf.getDataInicial());
                                 String dataAtual = Utilitario.dataAtual();
@@ -211,7 +211,7 @@ public class PlanejamentoFinanceiroDAO {
 
     public void editarPlanejamentoFinanceiro(PlanejamentoFinanceiroDTO dto, Activity activity){
 
-        Map<String, String> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
 
         data.put("nomePF", dto.getNomePF());
         data.put("tipoPF", dto.getTipoPF());
@@ -314,11 +314,11 @@ public class PlanejamentoFinanceiroDAO {
                                 double valorTotal = Double.valueOf(document.getData().get("valor").toString());
 
                                 double resultado =  valorTotal + valorAtual;
-                                String valorContaTotal = String.valueOf(resultado);
+//                                String valorContaTotal = String.valueOf(resultado);
 
                                 db.collection("contas").document(user.getUid()).collection(user.getUid())
                                         .document(idConta)
-                                        .update("valor", valorContaTotal);
+                                        .update("valor", resultado);
                             } else {
                                 Log.d("TAG", "No such document");
                             }
@@ -368,7 +368,7 @@ public class PlanejamentoFinanceiroDAO {
                                 dto.setIdPF(document.getData().get("idPF").toString());
                                 dto.setIdConta(document.getData().get("idConta").toString());
                                 dto.setConta(document.getData().get("conta").toString());
-                                dto.setValorConta(document.getData().get("valorHistoricoPF").toString());
+                                dto.setValorConta(Double.parseDouble(document.getData().get("valorHistoricoPF").toString()));
                                 dto.setDataHistorico(document.getData().get("dataHistorico").toString());
                                 historicoPFList.add(dto);
                                 Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
@@ -378,7 +378,7 @@ public class PlanejamentoFinanceiroDAO {
                             List<String> idPFList = new ArrayList<>();
                             List<String> idContaList = new ArrayList<>();
                             List<String> contaList = new ArrayList<>();
-                            List<String> valorContaList = new ArrayList<>();
+                            List<Double> valorContaList = new ArrayList<>();
                             List<String> dataHistoricoList = new ArrayList<>();
 
                             for(HistoricoPFDTO historico : historicoPFList){
@@ -453,7 +453,7 @@ public class PlanejamentoFinanceiroDAO {
                 }else{
 
                     adicionarValor(idPF, idConta , conta, valorConta, valorAtual);
-                    Utilitario.toast(activity.getApplicationContext(), "Adicionado");
+                    Utilitario.toast(activity.getApplicationContext(), "Adicionado.");
 
                     try {
                         new Thread().sleep(1000);
@@ -489,11 +489,11 @@ public class PlanejamentoFinanceiroDAO {
                                 String valorAtual){
 
         double resultado = Double.valueOf(valorConta) - Double.valueOf(valorAtual);
-        String valorContaTotal = String.valueOf(resultado);
+//        String valorContaTotal = String.valueOf(resultado);
 
         db.collection("contas").document(user.getUid()).collection(user.getUid())
                 .document(idConta)
-                .update("valor", valorContaTotal);
+                .update("valor", resultado);
 
 
         db.collection("planejamentoFinanceiro").document(user.getUid())
@@ -516,13 +516,13 @@ public class PlanejamentoFinanceiroDAO {
 
                                 db.collection("planejamentoFinanceiro").document(user.getUid()).collection(user.getUid())
                                         .document(idPF)
-                                        .update("valorAtual", valorContaTotal);
+                                        .update("valorAtual", resultado);
 
                                 HistoricoPFDTO hdto = new HistoricoPFDTO();
                                 hdto.setIdPF(idPF);
                                 hdto.setIdConta(idConta);
                                 hdto.setConta(conta);
-                                hdto.setValorHistoricoPF(valorAtual);
+                                hdto.setValorHistoricoPF(Double.parseDouble(valorAtual));
 
                                 salvarHistoricoPF(hdto);
                             } else {
@@ -555,8 +555,8 @@ public class PlanejamentoFinanceiroDAO {
                                 dto.setIdPF(document.getId());
                                 dto.setNomePF(document.getData().get("nomePF").toString());
                                 dto.setTipoPF(document.getData().get("tipoPF").toString());
-                                dto.setValorAtual(document.getData().get("valorAtual").toString());
-                                dto.setValorObjetivado(document.getData().get("valorObjetivado").toString());
+                                dto.setValorAtual(Double.parseDouble(document.getData().get("valorAtual").toString()));
+                                dto.setValorObjetivado(Double.parseDouble(document.getData().get("valorObjetivado").toString()));
                                 dto.setDataInicial(document.getData().get("dataInicial").toString());
                                 dto.setDataFinal(document.getData().get("dataFinal").toString());
                                 pfList.add(dto);
@@ -565,8 +565,8 @@ public class PlanejamentoFinanceiroDAO {
                             List<String> idPFList = new ArrayList<>();
                             List<String> nomePFList = new ArrayList<>();
                             List<String> tipoPFList = new ArrayList<>();
-                            List<String> valorAtualList = new ArrayList<>();
-                            List<String> valorObjetivadoList = new ArrayList<>();
+                            List<Double> valorAtualList = new ArrayList<>();
+                            List<Double> valorObjetivadoList = new ArrayList<>();
                             List<String> dataInicialList = new ArrayList<>();
                             List<String> dataFinalList = new ArrayList<>();
 
@@ -578,7 +578,7 @@ public class PlanejamentoFinanceiroDAO {
                             DecimalFormat df = new DecimalFormat("###.00");
 
                             for(PlanejamentoFinanceiroDTO pf : pfList){
-                                if(pf.getNomePF().equals(busca)){
+                                if(pf.getNomePF().contains(busca)){
 
                                     idPFList.add(pf.getIdPF());
                                     nomePFList.add(pf.getNomePF());
@@ -588,7 +588,7 @@ public class PlanejamentoFinanceiroDAO {
                                     dataInicialList.add(pf.getDataInicial());
                                     dataFinalList.add(pf.getDataFinal());
 
-                                    double porcentagemValor = porcentagemValor(pf.getValorAtual(), pf.getValorObjetivado());
+                                    double porcentagemValor = porcentagemValor(String.valueOf(pf.getValorAtual()), String.valueOf(pf.getValorObjetivado()));
 
                                     String dataInicial = Utilitario.convertUsaToBr(pf.getDataInicial());
                                     String dataAtual = Utilitario.dataAtual();
@@ -643,7 +643,7 @@ public class PlanejamentoFinanceiroDAO {
 
                         double valorAntigo1 = Double.valueOf(document.getData().get("valor").toString()) + Double.valueOf(valorHistorico);
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
-                                .document(idConta).update("valor", String.valueOf(valorAntigo1));
+                                .document(idConta).update("valor", valorAntigo1);
 
                         Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
                     } else {
@@ -666,7 +666,7 @@ public class PlanejamentoFinanceiroDAO {
 
                         double valorAntigo1 = Double.valueOf(document.getData().get("valorAtual").toString()) - Double.valueOf(valorHistorico);
                         db.collection("planejamentoFinanceiro").document(user.getUid()).collection(user.getUid())
-                                .document(idPF).update("valorAtual", String.valueOf(valorAntigo1));
+                                .document(idPF).update("valorAtual", valorAntigo1);
 
                         Log.d(Msg.INFO, "DocumentSnapshot data: " + document.getData());
                     } else {

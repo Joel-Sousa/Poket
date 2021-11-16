@@ -5,8 +5,8 @@ public class PlanejamentoFinanceiroDTO {
     private String idPF;
     private String nomePF;
     private String tipoPF;
-    private String valorAtual;
-    private String valorObjetivado;
+    private Double valorAtual;
+    private Double valorObjetivado;
     private String dataInicial;
     private String dataFinal;
 
@@ -34,19 +34,19 @@ public class PlanejamentoFinanceiroDTO {
         this.tipoPF = tipoPF;
     }
 
-    public String getValorAtual() {
+    public Double getValorAtual() {
         return valorAtual;
     }
 
-    public void setValorAtual(String valorAtual) {
+    public void setValorAtual(Double valorAtual) {
         this.valorAtual = valorAtual;
     }
 
-    public String getValorObjetivado() {
+    public Double getValorObjetivado() {
         return valorObjetivado;
     }
 
-    public void setValorObjetivado(String valorObjetivado) {
+    public void setValorObjetivado(Double valorObjetivado) {
         this.valorObjetivado = valorObjetivado;
     }
 

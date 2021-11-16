@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,7 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
 
     List<String> idList = new ArrayList<>();
     List<String> rendaList = new ArrayList<>();
-    List<String> valorRendaList = new ArrayList<>();
+    List<Double> valorRendaList = new ArrayList<>();
     List<String> tipoRendaList = new ArrayList<>();
     List<String> dataRendaList = new ArrayList<>();
     List<String> observacaoList = new ArrayList<>();
@@ -40,7 +41,7 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
     RendaAdapter.ViewHolder viewHolderLocal;
 
     public RendaAdapter(Context context,
-                        List<String> idList, List<String> rendaList,List<String>  valorRendaList,
+                        List<String> idList, List<String> rendaList,List<Double>  valorRendaList,
                         List<String>  tipoRendaList, List<String>  dataRendaList,
                         List<String>  observacaoList,
                         List<String> idContaList, List<String> contaList){
@@ -61,6 +62,7 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
         public TextView textViewId, textViewRenda, textViewConta, textViewValorRenda,
         textViewDataRenda;
         public ImageView imageViewEditar;
+        public LinearLayout linearLayoutVerRenda;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +73,7 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
             textViewValorRenda = itemView.findViewById(R.id.textViewRecyclerRendaValorRenda);
             textViewDataRenda = itemView.findViewById(R.id.textViewRecyclerRendaDataRenda);
             imageViewEditar = itemView.findViewById(R.id.imageViewListaRendaEditar);
+            linearLayoutVerRenda = itemView.findViewById(R.id.layoutVerRenda);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,10 +103,17 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
         holder.textViewId.setText(idList.get(position));
         holder.textViewRenda.setText(rendaList.get(position));
         holder.textViewConta.setText(contaList.get(position));
-        holder.textViewValorRenda.setText(String.valueOf(Double.valueOf(valorRendaList.get(position))));
+        holder.textViewValorRenda.setText(String.valueOf(valorRendaList.get(position)));
         holder.textViewDataRenda.setText(Utilitario.convertUsaToBr(dataRendaList.get(position)));
 
-        viewOnCreate.setOnClickListener(new View.OnClickListener() {
+//        viewOnCreate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+
+        holder.linearLayoutVerRenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, VerRenda.class);
@@ -119,7 +129,7 @@ public class RendaAdapter extends RecyclerView.Adapter<RendaAdapter.ViewHolder>{
                 Intent intent = new Intent(context, EditarRenda.class);
                 intent.putExtra("id", idList.get(position));
                 intent.putExtra("renda", rendaList.get(position));
-                intent.putExtra("valorRenda", valorRendaList.get(position));
+                intent.putExtra("valorRenda", String.valueOf(valorRendaList.get(position)));
                 intent.putExtra("tipoRenda", tipoRendaList.get(position));
                 intent.putExtra("dataRenda", dataRendaList.get(position));
                 intent.putExtra("observacao", observacaoList.get(position));

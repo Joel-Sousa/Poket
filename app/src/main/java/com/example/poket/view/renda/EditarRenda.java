@@ -127,7 +127,7 @@ public class EditarRenda extends AppCompatActivity {
                 RendaDTO dto = new RendaDTO();
                 dto.setId(textViewId.getText().toString());
                 dto.setRenda(editTextRenda.getText().toString());
-                dto.setValorRenda(textViewValorRenda.getText().toString());
+                dto.setValorRenda(Double.parseDouble(textViewValorRenda.getText().toString()));
                 dto.setTipoRenda(autoCompleteTextViewTipoRenda.getText().toString());
                 dto.setDataRenda(editTextDataRenda.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
@@ -193,7 +193,7 @@ public class EditarRenda extends AppCompatActivity {
 
     public void validarCampos(RendaDTO dto){
 
-        if(dto.getRenda().length() == 0 && dto.getValorRenda().length() == 0 &&
+        if(dto.getRenda().length() == 0 && dto.getValorRenda() == 0 &&
                 dto.getDataRenda().length() == 0 ) {
             Utilitario.toast(getApplicationContext(),
                     Msg.DADOS_INFORMADOS_N);

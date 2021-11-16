@@ -37,7 +37,7 @@ public class AdicionarConta extends AppCompatActivity {
             public void onClick(View view) {
                 ContaDTO dto = new ContaDTO();
                 dto.setConta(editTextConta.getText().toString());
-                dto.setValor(editTextValorConta.getText().toString());
+                dto.setValor(Double.parseDouble(editTextValorConta.getText().toString()));
                 validarConta(dto);
             }
         });
@@ -52,19 +52,19 @@ public class AdicionarConta extends AppCompatActivity {
 
     private void validarConta(ContaDTO dto){
 
-        if(dto.getConta().length() == 0 && dto.getValor().length() == 0){
+        if(dto.getConta().length() == 0 && dto.getValor() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
             editTextConta.requestFocus();
         }else if(dto.getConta().length() == 0 || dto.getConta().length() < 3){
             Utilitario.toast(getApplicationContext(),
                     Msg.CONTA);
             editTextConta.requestFocus();
-        }else if(dto.getValor().length() == 0){
+        }else if(dto.getValor() == 0){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_CONTA);
             editTextValorConta.requestFocus();
         }else{
-        ContaDAO dao = new ContaDAO();
-        dao.cadastarConta(dto, AdicionarConta.this);
+            ContaDAO dao = new ContaDAO();
+            dao.cadastarConta(dto, AdicionarConta.this);
         }
     }
 

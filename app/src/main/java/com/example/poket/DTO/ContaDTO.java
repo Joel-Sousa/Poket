@@ -5,7 +5,7 @@ import java.util.Objects;
 public class ContaDTO {
     private String id;
     private String conta;
-    private String valor;
+    private Double valor;
 
      public String getConta() {
         return conta;
@@ -15,11 +15,11 @@ public class ContaDTO {
         this.conta = conta;
     }
 
-    public String getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 

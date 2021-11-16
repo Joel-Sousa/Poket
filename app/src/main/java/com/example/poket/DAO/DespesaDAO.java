@@ -59,7 +59,7 @@ public class DespesaDAO {
 
     public void cadastarDespesa(DespesaDTO dto, Activity activity) {
 
-        Map<String, String> dadosDespesa = new HashMap<>();
+        Map<String, Object> dadosDespesa = new HashMap<>();
 
         dadosDespesa.put("despesa", dto.getDespesa());
         dadosDespesa.put("valorDespesa", dto.getValorDespesa());
@@ -79,11 +79,11 @@ public class DespesaDAO {
                             Log.d(Msg.SUCESSO, Msg.DOCUMENTO_S);
 
                             double resultado = Double.valueOf(dto.getValorConta()) - Double.valueOf(dto.getValorDespesa());
-                            String valorContaTotal = String.valueOf(resultado);
+//                            String valorContaTotal = String.valueOf(resultado);
 
                             db.collection("contas").document(user.getUid()).collection(user.getUid())
                                     .document(dto.getIdConta())
-                                    .update("valor", valorContaTotal);
+                                    .update("valor", resultado);
 
                             Utilitario.toast(activity.getApplicationContext(), Msg.CADASTRADO);
                             activity.finish();
@@ -116,7 +116,7 @@ public class DespesaDAO {
                                     DespesaDTO dto = new DespesaDTO();
                                     dto.setId(document.getId());
                                     dto.setDespesa(document.getData().get("despesa").toString());
-                                    dto.setValorDespesa(document.getData().get("valorDespesa").toString());
+                                    dto.setValorDespesa(Double.parseDouble(document.getData().get("valorDespesa").toString()));
                                     dto.setTipoDespesa(document.getData().get("tipoDespesa").toString());
                                     dto.setDataDespesa(document.getData().get("dataDespesa").toString());
                                     dto.setObservacao(document.getData().get("observacao").toString());
@@ -153,7 +153,7 @@ public class DespesaDAO {
                                     DespesaDTO dto = new DespesaDTO();
                                     dto.setId(document.getId());
                                     dto.setDespesa(document.getData().get("despesa").toString());
-                                    dto.setValorDespesa(document.getData().get("valorDespesa").toString());
+                                    dto.setValorDespesa(Double.parseDouble(document.getData().get("valorDespesa").toString()));
                                     dto.setTipoDespesa(document.getData().get("tipoDespesa").toString());
                                     dto.setDataDespesa(document.getData().get("dataDespesa").toString());
                                     dto.setObservacao(document.getData().get("observacao").toString());
@@ -167,21 +167,19 @@ public class DespesaDAO {
                                 }
                             }
 
-
                             DecimalFormat df = new DecimalFormat("###.00");
 
                             textViewDespesaValorTotal.setText(df.format(valorDespesa));
 
                             List<String> idList = new ArrayList<>();
                             List<String> despesaList = new ArrayList<>();
-                            List<String> valorDespesaList = new ArrayList<>();
+                            List<Double> valorDespesaList = new ArrayList<>();
                             List<String> tipoDespesaList = new ArrayList<>();
                             List<String> dataDespesaList = new ArrayList<>();
                             List<String> observacaoList = new ArrayList<>();
 
                             List<String> idContaList = new ArrayList<>();
                             List<String> contaList = new ArrayList<>();
-
 
                                 for(DespesaDTO despesa : listDespesa){
                                     idList.add(despesa.getId());
@@ -213,7 +211,7 @@ public class DespesaDAO {
 
     public void editarDespesa(DespesaDTO dto, Activity activity){
 
-        Map<String, String> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
 
         data.put("despesa", dto.getDespesa());
         data.put("valorDespesa", dto.getValorDespesa());
@@ -257,7 +255,7 @@ public class DespesaDAO {
 
                         double valorAntigo1 = Double.valueOf(document.getData().get("valor").toString()) + Double.valueOf(valorDespesa);
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
-                                .document(idConta).update("valor", String.valueOf(valorAntigo1));
+                                .document(idConta).update("valor", valorAntigo1);
 
                     } else {
                         Log.d(Msg.INFO, "No such document");
@@ -335,7 +333,7 @@ public class DespesaDAO {
                                 DespesaDTO dto = new DespesaDTO();
                                 dto.setId(document.getId());
                                 dto.setDespesa(document.getData().get("despesa").toString());
-                                dto.setValorDespesa(document.getData().get("valorDespesa").toString());
+                                dto.setValorDespesa(Double.parseDouble(document.getData().get("valorDespesa").toString()));
                                 dto.setTipoDespesa(document.getData().get("tipoDespesa").toString());
                                 dto.setDataDespesa(document.getData().get("dataDespesa").toString());
                                 dto.setObservacao(document.getData().get("observacao").toString());
@@ -350,7 +348,7 @@ public class DespesaDAO {
 
                             List<String> idList = new ArrayList<>();
                             List<String> despesaList = new ArrayList<>();
-                            List<String> valorDespesaList = new ArrayList<>();
+                            List<Double> valorDespesaList = new ArrayList<>();
                             List<String> tipoDespesaList = new ArrayList<>();
                             List<String> dataDespesaList = new ArrayList<>();
                             List<String> observacaoList = new ArrayList<>();
@@ -359,7 +357,7 @@ public class DespesaDAO {
                             List<String> contaList = new ArrayList<>();
 
                             for(DespesaDTO despesa : listDespesa){
-                                if(despesa.getDespesa().equalsIgnoreCase(busca)){
+                                if(despesa.getDespesa().contains(busca)){
 //                                if(conta.getConta().contains(busca)){
                                     idList.add(despesa.getId());
                                     despesaList.add(despesa.getDespesa());
@@ -373,7 +371,6 @@ public class DespesaDAO {
 
                                     valorDespesa = Double.valueOf(despesa.getValorDespesa());
 
-//                                  Log.i("---", conta.getId());
                                 }else if(busca.equals("")){
                                     lerDespesas(recyclerView, context ,textViewValor, 0);
                                 }

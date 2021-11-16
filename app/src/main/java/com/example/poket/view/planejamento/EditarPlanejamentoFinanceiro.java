@@ -135,8 +135,8 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
                 dto.setIdPF(textViewIdPF.getText().toString());
                 dto.setNomePF(editTextNomePF.getText().toString());
                 dto.setTipoPF(autoCompleteTextViewTipoPF.getText().toString());
-                dto.setValorAtual(textViewValorAtual.getText().toString());
-                dto.setValorObjetivado(editTextValorObjetivado.getText().toString());
+                dto.setValorAtual(Double.parseDouble(textViewValorAtual.getText().toString()));
+                dto.setValorObjetivado(Double.parseDouble(editTextValorObjetivado.getText().toString()));
                 dto.setDataInicial(editTextDataInicial.getText().toString());
                 dto.setDataFinal(editTextDataFinal.getText().toString());
 
@@ -212,8 +212,8 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
 
     private void validarConta(PlanejamentoFinanceiroDTO dto){
 
-        if(dto.getNomePF().length() == 0 && dto.getValorAtual().length() == 0 &&
-                dto.getValorObjetivado().length() == 0 && dto.getDataInicial().length() == 0 &&
+        if(dto.getNomePF().length() == 0 && dto.getValorAtual() == 0 &&
+                dto.getValorObjetivado() == 0 && dto.getDataInicial().length() == 0 &&
                 dto.getDataFinal().length() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
             editTextNomePF.requestFocus();
@@ -227,7 +227,7 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), Msg.TIPO_PF, Toast.LENGTH_LONG).show();
             autoCompleteTextViewTipoPF.setText("");
             autoCompleteTextViewTipoPF.requestFocus();
-        }else if(dto.getValorObjetivado().length() == 0) {
+        }else if(dto.getValorObjetivado() == 0) {
             Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
             editTextValorObjetivado.requestFocus();
         }else if(dto.getValorObjetivado().equals("0")){

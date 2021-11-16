@@ -23,13 +23,13 @@ public class ContaAdapter extends RecyclerView.Adapter<ContaAdapter.ViewHolder>{
 
     List<String> idList = new ArrayList<>();
     List<String> contaList = new ArrayList<>();
-    List<String> valorList = new ArrayList<>();
+    List<Double> valorList = new ArrayList<>();
 
     View viewOnCreate;
     ViewHolder viewHolderLocal;
 
     public ContaAdapter(Context context, List<String> idList, List<String> contaList,
-                        List<String> valorList){
+                        List<Double> valorList){
         this.context = context;
         this.idList.addAll(idList);
         this.contaList.addAll(contaList);
@@ -75,7 +75,7 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
 
         holder.textViewId.setText(idList.get(position));
         holder.textViewConta.setText(contaList.get(position));
-        holder.textViewValor.setText(valorList.get(position));
+        holder.textViewValor.setText(String.valueOf(valorList.get(position)));
 
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +89,7 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
                 Intent intent = new Intent(context, EditarConta.class);
                 intent.putExtra("uidc", idList.get(position));
                 intent.putExtra("conta", contaList.get(position));
-                intent.putExtra("valor", valorList.get(position));
+                intent.putExtra("valor", String.valueOf(valorList.get(position)));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 view.getContext().startActivity(intent);
             }

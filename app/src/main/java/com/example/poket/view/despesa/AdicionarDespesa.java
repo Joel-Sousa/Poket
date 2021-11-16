@@ -113,14 +113,14 @@ public class AdicionarDespesa extends AppCompatActivity {
             public void onClick(View view) {
 
                 dto.setDespesa(editTextDespesa.getText().toString());
-                dto.setValorDespesa(editTextValorDespesa.getText().toString());
+                dto.setValorDespesa(Double.parseDouble(editTextValorDespesa.getText().toString()));
                 dto.setTipoDespesa(autoCompleteTextViewTipoDespesa.getText().toString());
                 dto.setDataDespesa(editTextDataDespesa.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
 
                 dto.setIdConta(textViewIdConta.getText().toString());
                 dto.setConta(spinnerConta.getSelectedItem().toString());
-                dto.setValorConta(textViewValorConta.getText().toString());
+                dto.setValorConta(Double.parseDouble(textViewValorConta.getText().toString()));
 
                 validarConta(dto);
             }
@@ -159,14 +159,14 @@ public class AdicionarDespesa extends AppCompatActivity {
 
     private void validarConta(DespesaDTO dto){
 
-        if(dto.getDespesa().length() == 0 && dto.getValorDespesa().length() == 0 &&
+        if(dto.getDespesa().length() == 0 && dto.getValorDespesa() == 0 &&
                 dto.getDataDespesa().length() == 0 ) {
             Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
             editTextDespesa.requestFocus();
         }else if(dto.getDespesa().length() == 0){
             Utilitario.toast(getApplicationContext(), Msg.DESPESA);
             editTextDespesa.requestFocus();
-        }else if(dto.getValorDespesa().length() == 0){
+        }else if(dto.getValorDespesa() == 0){
             Utilitario.toast(getApplicationContext(), Msg.VALOR_DESPESA);
             editTextValorDespesa.requestFocus();
         }else if(dto.getTipoDespesa().length() == 0){

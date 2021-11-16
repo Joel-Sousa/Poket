@@ -124,7 +124,7 @@ public class EditarDespesa extends AppCompatActivity {
                 DespesaDTO dto = new DespesaDTO();
                 dto.setId(textViewId.getText().toString());
                 dto.setDespesa(editTextDespesa.getText().toString());
-                dto.setValorDespesa(textViewValorDespesa.getText().toString());
+                dto.setValorDespesa(Double.parseDouble(textViewValorDespesa.getText().toString()));
                 dto.setTipoDespesa(autoCompleteTextViewTipoDespesa.getText().toString());
                 dto.setDataDespesa(editTextDataDespesa.getText().toString());
                 dto.setObservacao(editTextObservacao.getText().toString());
@@ -190,7 +190,7 @@ public class EditarDespesa extends AppCompatActivity {
 
     public void validarCampos(DespesaDTO dto) {
 
-        if(dto.getDespesa().length() == 0 && dto.getValorDespesa().length() == 0 &&
+        if(dto.getDespesa().length() == 0 && dto.getValorDespesa() == 0 &&
                 dto.getDataDespesa().length() == 0 ) {
             Utilitario.toast(getApplicationContext(),
                     Msg.DADOS_INFORMADOS_N);

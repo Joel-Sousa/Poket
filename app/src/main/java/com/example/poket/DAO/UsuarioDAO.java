@@ -313,7 +313,6 @@ public class UsuarioDAO {
                                                 });
                             }
 
-                            Log.d("---", "Tst");
 
                         } else {
                             Log.w(Msg.ERROR, Msg.ERRORM, task.getException());
@@ -647,7 +646,6 @@ public class UsuarioDAO {
                     l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
                     l.setOrientation(Legend.LegendOrientation.VERTICAL);
                     l.setTextSize(18f);
-                    Log.d("---", "tst");
                     }
                 }
             });
@@ -722,7 +720,6 @@ public class UsuarioDAO {
                     l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
                     l.setOrientation(Legend.LegendOrientation.VERTICAL);
                     l.setTextSize(18f);
-                    Log.d("---", "tst");
                 }
             }
         });

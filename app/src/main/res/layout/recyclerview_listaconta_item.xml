@@ -23,6 +23,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/layoutVerConta"
                 android:layout_width="262dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

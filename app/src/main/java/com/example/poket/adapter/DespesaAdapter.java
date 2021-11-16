@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
 
     List<String> idList = new ArrayList<>();
     List<String> despesaList = new ArrayList<>();
-    List<String> valorDespesaList = new ArrayList<>();
+    List<Double> valorDespesaList = new ArrayList<>();
     List<String> tipoDespesaList = new ArrayList<>();
     List<String> dataDespesaList = new ArrayList<>();
     List<String> observacaoList = new ArrayList<>();
@@ -37,7 +38,7 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
     DespesaAdapter.ViewHolder viewHolderLocal;
 
     public DespesaAdapter(Context context,
-                          List<String> idList, List<String> despesaList,List<String>  valorDespesaList,
+                          List<String> idList, List<String> despesaList,List<Double>  valorDespesaList,
                           List<String>  tipoDespesaList, List<String>  dataDespesaList,
                           List<String>  observacaoList,
                           List<String> idContaList, List<String> contaList){
@@ -59,6 +60,7 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
         public TextView textViewId, textViewDespesa, textViewConta, textViewValorDespesa,
                 textViewDataDespesa;
         public ImageView imageViewEditar;
+        public LinearLayout linearLayoutVerDespesa;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +71,7 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
             textViewValorDespesa = itemView.findViewById(R.id.textViewRecyclerDespesaValorDespesa);
             textViewDataDespesa = itemView.findViewById(R.id.textViewRecyclerDespesaDataDespesa);
             imageViewEditar = itemView.findViewById(R.id.imageViewListaDespesaEditar);
+            linearLayoutVerDespesa = itemView.findViewById(R.id.layoutVerDespesa);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -98,16 +101,28 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
         holder.textViewId.setText(idList.get(position));
         holder.textViewDespesa.setText(despesaList.get(position));
         holder.textViewConta.setText(contaList.get(position));
-        holder.textViewValorDespesa.setText(String.valueOf(Double.valueOf(valorDespesaList.get(position))));
+        holder.textViewValorDespesa.setText(String.valueOf(valorDespesaList.get(position)));
         holder.textViewDataDespesa.setText(Utilitario.convertUsaToBr(dataDespesaList.get(position)));
 
-        viewOnCreate.setOnClickListener(new View.OnClickListener() {
+//        viewOnCreate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(context, VerDespesa.class);
+////                intent.putExtra("id", idList.get(position));
+////                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                view.getContext().startActivity(intent);
+//            }
+//        });
+
+        holder.linearLayoutVerDespesa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, VerDespesa.class);
                 intent.putExtra("id", idList.get(position));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 view.getContext().startActivity(intent);
+//                Log.d("---", idList.get(position));
+
             }
         });
 
@@ -117,7 +132,7 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
                 Intent intent = new Intent(context, EditarDespesa.class);
                 intent.putExtra("id", idList.get(position));
                 intent.putExtra("despesa", despesaList.get(position));
-                intent.putExtra("valorDespesa", valorDespesaList.get(position));
+                intent.putExtra("valorDespesa", String.valueOf(valorDespesaList.get(position)));
                 intent.putExtra("tipoDespesa", tipoDespesaList.get(position));
                 intent.putExtra("dataDespesa", dataDespesaList.get(position));
                 intent.putExtra("observacao", observacaoList.get(position));

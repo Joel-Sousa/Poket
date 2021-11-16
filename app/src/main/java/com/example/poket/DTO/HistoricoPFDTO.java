@@ -3,12 +3,12 @@ package com.example.poket.DTO;
 public class HistoricoPFDTO {
     private String idHistorico;
     private String idPF;
-    private String valorHistoricoPF;
+    private Double valorHistoricoPF;
     private String dataHistorico;
 
     private String idConta;
     private String conta;
-    private String valorConta;
+    private Double valorConta;
 
     public String getIdHistorico() {
         return idHistorico;
@@ -42,11 +42,11 @@ public class HistoricoPFDTO {
         this.conta = conta;
     }
 
-    public String getValorHistoricoPF() {
+    public Double getValorHistoricoPF() {
         return valorHistoricoPF;
     }
 
-    public void setValorHistoricoPF(String valorHistoricoPF) {
+    public void setValorHistoricoPF(Double valorHistoricoPF) {
         this.valorHistoricoPF = valorHistoricoPF;
     }
 
@@ -58,11 +58,11 @@ public class HistoricoPFDTO {
         this.dataHistorico = dataHistorico;
     }
 
-    public String getValorConta() {
+    public Double getValorConta() {
         return valorConta;
     }
 
-    public void setValorConta(String valorConta) {
+    public void setValorConta(Double valorConta) {
         this.valorConta = valorConta;
     }
 }

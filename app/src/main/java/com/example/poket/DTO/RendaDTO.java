@@ -4,14 +4,14 @@ public class RendaDTO{
 
     private String id;
     private String renda;
-    private String valorRenda;
+    private Double valorRenda;
     private String tipoRenda;
     private String dataRenda;
     private String observacao;
 
     private String idConta;
     private String conta;
-    private String valorConta;
+    private Double valorConta;
 
     public String getId() {
         return id;
@@ -37,19 +37,19 @@ public class RendaDTO{
         this.conta = conta;
     }
 
-    public String getValorConta() {
+    public Double getValorConta() {
         return valorConta;
     }
 
-    public void setValorConta(String contaValor) {
+    public void setValorConta(Double contaValor) {
         this.valorConta = contaValor;
     }
 
-    public String getValorRenda() {
+    public Double getValorRenda() {
         return valorRenda;
     }
 
-    public void setValorRenda(String valorRenda) {
+    public void setValorRenda(Double valorRenda) {
         this.valorRenda = valorRenda;
     }
 

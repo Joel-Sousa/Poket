@@ -34,7 +34,7 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
     List<String> idPFList = new ArrayList<>();
     List<String> idContaList = new ArrayList<>();
     List<String> contaList = new ArrayList<>();
-    List<String> valorContaList = new ArrayList<>();
+    List<Double> valorContaList = new ArrayList<>();
     List<String> dataHistoricoList = new ArrayList<>();
 
     View viewOnCreate;
@@ -42,7 +42,7 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
 
     public HistoricoPFAdapter(Context context, Activity activity,
                           List<String> idHistoricoList, List<String> idPFList, List<String> idContaList,
-                          List<String> contaList, List<String> valorContaList, List<String> dataHistoricoList){
+                          List<String> contaList, List<Double> valorContaList, List<String> dataHistoricoList){
         this.context = context;
         this.activity = activity;
         this.idHistoricoList.addAll(idHistoricoList);
@@ -99,7 +99,7 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
         holder.textViewIdPF.setText(idPFList.get(position));
         holder.textViewIdConta.setText(idContaList.get(position));
         holder.textViewConta.setText(contaList.get(position));
-        holder.textViewValorConta.setText(valorContaList.get(position));
+        holder.textViewValorConta.setText(String.valueOf(valorContaList.get(position)));
         holder.textViewdataHistorico.setText(Utilitario.convertUsaToBr(dataHistoricoList.get(position)));
 
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +122,7 @@ public class HistoricoPFAdapter extends RecyclerView.Adapter<HistoricoPFAdapter.
                         String idPF = idPFList.get(position);
                         String idPFH = idHistoricoList.get(position);
                         String idConta = idContaList.get(position);
-                        String valorHistorico = valorContaList.get(position);
+                        String valorHistorico = String.valueOf(valorContaList.get(position));
 
                         PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
                         dao.deletarHistoricoPF(idPF, idPFH, idConta, valorHistorico);

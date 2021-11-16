@@ -50,7 +50,7 @@ public class ContaDAO {
 
     public void cadastarConta(ContaDTO dto, Activity activity){
 
-        Map<String, String> dadosConta = new HashMap<>();
+        Map<String, Object> dadosConta = new HashMap<>();
         dadosConta.put("conta", dto.getConta());
         dadosConta.put("valor", dto.getValor());
 
@@ -91,8 +91,8 @@ public class ContaDAO {
                                 ContaDTO dto = new ContaDTO();
                                 dto.setId(document.getId());
                                 dto.setConta(document.getData().get("conta").toString());
-                                dto.setValor(document.getData().get("valor").toString());
-                                valorConta += Double.valueOf(document.getData().get("valor").toString());
+                                dto.setValor(Double.parseDouble(document.getData().get("valor").toString()));
+                                valorConta += Double.parseDouble(document.getData().get("valor").toString());
                                 listConta.add(dto);
                             }
 
@@ -100,7 +100,7 @@ public class ContaDAO {
 
                             List<String> idList = new ArrayList<>();
                             List<String> contaList = new ArrayList<>();
-                            List<String> valorList = new ArrayList<>();
+                            List<Double> valorList = new ArrayList<>();
 
                             for(ContaDTO conta : listConta){
                                 idList.add(conta.getId());
@@ -123,7 +123,7 @@ public class ContaDAO {
 
     public void editarConta(ContaDTO dto){
 
-        Map<String, String> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
         data.put("conta", dto.getConta());
         data.put("valor", dto.getValor());
 
@@ -233,8 +233,6 @@ public class ContaDAO {
                                             }
                                         });
                             }
-
-                            Log.i("---", "tst");
                         }
                     }
                 });
@@ -295,7 +293,6 @@ public class ContaDAO {
 
 //                                                for(String e2: idpfList){
 //
-//                                                    Log.i("---", "tst");
 //                                                }
 
                                                 if(!hpfidList.isEmpty()){
@@ -356,13 +353,13 @@ public class ContaDAO {
                                     if(valor > 0){
                                         dto.setId(document.getId());
                                         dto.setConta(document.getData().get("conta").toString());
-                                        dto.setValor(document.getData().get("valor").toString());
+                                        dto.setValor(Double.parseDouble(document.getData().get("valor").toString()));
                                         listConta.add(dto);
                                     }
                                 }else{
                                     dto.setId(document.getId());
                                     dto.setConta(document.getData().get("conta").toString());
-                                    dto.setValor(document.getData().get("valor").toString());
+                                    dto.setValor(Double.parseDouble(document.getData().get("valor").toString()));
                                     listConta.add(dto);
                                 }
                             }
@@ -371,7 +368,7 @@ public class ContaDAO {
                                 ContaDTO d = new ContaDTO();
                                 d.setId("0");
                                 d.setConta(".:Sem Conta:.");
-                                d.setValor("0");
+                                d.setValor(0.0);
                                 listConta.add(d);
                             }
 
@@ -426,16 +423,16 @@ public class ContaDAO {
                                 ContaDTO dto = new ContaDTO();
                                 dto.setId(document.getId());
                                 dto.setConta(document.getData().get("conta").toString());
-                                dto.setValor(document.getData().get("valor").toString());
+                                dto.setValor(Double.parseDouble(document.getData().get("valor").toString()));
                                 listConta.add(dto);
                             }
 
                             List<String> idList = new ArrayList<>();
                             List<String> contaList = new ArrayList<>();
-                            List<String> valorList = new ArrayList<>();
+                            List<Double> valorList = new ArrayList<>();
 
                             for(ContaDTO conta : listConta){
-                                if(conta.getConta().equalsIgnoreCase(busca)){
+                                if(conta.getConta().contains(busca)){
 //                                if(conta.getConta().contains(busca)){
                                     idList.add(conta.getId());
                                     contaList.add(conta.getConta());
