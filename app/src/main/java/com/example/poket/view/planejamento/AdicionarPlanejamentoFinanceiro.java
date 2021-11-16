@@ -95,7 +95,7 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarPlanejamentoFinanceiro.this, textViewContaValor, textViewIdConta, true);
 
-        mock();
+//        mock();
 
         autoCompleteTextViewTipoPF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         textViewCadastrarUsuario = findViewById(R.id.textViewMainActivityCadastrarUsuario);
         buttonLogin = findViewById(R.id.buttonMainActivityLogin);
 
-        mock();
+//        mock();
 
         textViewEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -91,7 +91,7 @@ public class AdicionarRenda extends AppCompatActivity {
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta, false);
 
-        mock();
+//        mock();
 
         autoCompleteTextViewTipoRenda.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
