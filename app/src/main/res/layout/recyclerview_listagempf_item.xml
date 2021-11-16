@@ -12,11 +12,13 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg_recycler">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -37,6 +39,7 @@
                     android:id="@+id/textViewRecyclerListagemPFNomePF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:text="nomepf"
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -45,6 +48,7 @@
                     android:id="@+id/textViewRecyclerListagemPFTipoPF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:text="tipopf"
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -101,6 +105,7 @@
                         android:id="@+id/textView95"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:text="R$: "
                         android:textColor="#000000"
@@ -121,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="                                                                   " />
+                    android:text="                                                           " />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -143,8 +148,9 @@
                         android:id="@+id/textViewRecyclerListagemPFValorObjetivado"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
-                        android:text="100,00"
+                        android:text="10000,00"
                         android:textColor="#000000"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -161,7 +167,7 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp" />
 
@@ -193,6 +199,7 @@
                     android:id="@+id/textViewRecyclerListagemPFDataInicial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:text="11/11/1111"
                     android:textColor="#000000"
@@ -209,7 +216,7 @@
                     android:id="@+id/textViewRecyclerListagemPFDataFinal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="10dp"
                     android:text="11/11/1111"
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -226,7 +233,7 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp" />
 
@@ -250,12 +257,12 @@
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/view5"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/black"
-            android:focusable="false" />
+<!--        <View-->
+<!--            android:id="@+id/view5"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@color/black"-->
+<!--            android:focusable="false" />-->
 
     </LinearLayout>
 

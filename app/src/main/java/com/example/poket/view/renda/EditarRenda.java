@@ -149,7 +149,7 @@ public class EditarRenda extends AppCompatActivity {
                 confirmacao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dao.deletarRenda(textViewId.getText().toString(), idConta, valorRendaAntiga);
+                        dao.deletarRenda(textViewId.getText().toString(), idConta, Double.parseDouble(valorRendaAntiga));
                         Toast.makeText(getApplicationContext(), "Dados excluídos com sucesso!", Toast.LENGTH_LONG).show();
 
                         finish();

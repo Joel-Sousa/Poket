@@ -39,6 +39,7 @@
         <entry key="app/src/main/res/drawable/ic_voltar.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/icon.xml" value="0.109375" />
         <entry key="app/src/main/res/drawable/layout_bg.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/layout_bg_recycler.xml" value="0.209375" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.14453125" />
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.144921875" />
         <entry key="app/src/main/res/layout/activity_adicionar_conta.xml" value="0.25" />

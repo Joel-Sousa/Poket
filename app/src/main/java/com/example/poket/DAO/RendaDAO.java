@@ -224,7 +224,7 @@ public class RendaDAO {
                 });
     }
 
-    public void deletarRenda(String id, String idConta, String valorRenda){
+    public void deletarRenda(String id, String idConta, double valorRenda){
 
         db.collection("contas").document(user.getUid()).collection(user.getUid())
                 .document(idConta).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -233,8 +233,13 @@ public class RendaDAO {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        double valorConta = Double.valueOf(document.getData().get("valor").toString());
 
-                        double valorAntigo1 = Double.valueOf(document.getData().get("valor").toString()) - Double.valueOf(valorRenda);
+                        double valorAntigo1 = valorConta - valorRenda;
+
+                        if(valorAntigo1 <= 0)
+                            valorAntigo1 = 0;
+
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
                                 .document(idConta).update("valor", String.valueOf(valorAntigo1));
 
