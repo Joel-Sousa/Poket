@@ -112,17 +112,50 @@ public class AdicionarDespesa extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                dto.setDespesa(editTextDespesa.getText().toString());
-                dto.setValorDespesa(Double.parseDouble(editTextValorDespesa.getText().toString()));
-                dto.setTipoDespesa(autoCompleteTextViewTipoDespesa.getText().toString());
-                dto.setDataDespesa(editTextDataDespesa.getText().toString());
-                dto.setObservacao(editTextObservacao.getText().toString());
+                int despesa = editTextDespesa.getText().toString().length();
+                int valorDespesa = editTextValorDespesa.getText().toString().length();
+                int tipoDespesa = autoCompleteTextViewTipoDespesa.getText().toString().length();
+                int dataDespesa = editTextDespesa.getText().toString().length();
+//                String valor = editTextValorDespesa.getText().toString();
 
-                dto.setIdConta(textViewIdConta.getText().toString());
-                dto.setConta(spinnerConta.getSelectedItem().toString());
-                dto.setValorConta(Double.parseDouble(textViewValorConta.getText().toString()));
+                if(despesa == 0 && valorDespesa == 0 &&
+                        dataDespesa == 0 ) {
+                    Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
+                    editTextDespesa.requestFocus();
+                }else if(despesa == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.DESPESA);
+                    editTextDespesa.requestFocus();
+                }else if(valorDespesa == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.VALOR_DESPESA);
+                    editTextValorDespesa.requestFocus();
+                }else if(editTextValorDespesa.getText().toString().equals("0")){
+                    Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+                    editTextValorDespesa.requestFocus();
+                    editTextValorDespesa.setText("");
+                }else if(Double.valueOf(editTextValorDespesa.getText().toString()) > Double.valueOf(textViewValorConta.getText().toString())){
+                    Utilitario.toast(getApplicationContext(), Msg.VALOR_MAIOR);
+                    editTextValorDespesa.requestFocus();
+                    editTextValorDespesa.setText("");
+                }else if(tipoDespesa == 0){
+                    Toast.makeText(getApplicationContext(), Msg.TIPO_DESPESA, Toast.LENGTH_LONG).show();
+                    autoCompleteTextViewTipoDespesa.requestFocus();
+                }else if(dataDespesa == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA);
+                    editTextDataDespesa.requestFocus();
+                }else{
+                    dto.setDespesa(editTextDespesa.getText().toString());
+                    dto.setValorDespesa(Double.parseDouble(editTextValorDespesa.getText().toString()));
+                    dto.setTipoDespesa(autoCompleteTextViewTipoDespesa.getText().toString());
+                    dto.setDataDespesa(editTextDataDespesa.getText().toString());
+                    dto.setObservacao(editTextObservacao.getText().toString());
 
-                validarConta(dto);
+                    dto.setIdConta(textViewIdConta.getText().toString());
+                    dto.setConta(spinnerConta.getSelectedItem().toString());
+                    dto.setValorConta(Double.parseDouble(textViewValorConta.getText().toString()));
+                    dto.setDataDespesa(Utilitario.convertBrToUsa(dto.getDataDespesa()));
+
+                    dao.cadastarDespesa(dto, AdicionarDespesa.this);
+                }
             }
         });
 
@@ -155,41 +188,6 @@ public class AdicionarDespesa extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void validarConta(DespesaDTO dto){
-
-        if(dto.getDespesa().length() == 0 && dto.getValorDespesa() == 0 &&
-                dto.getDataDespesa().length() == 0 ) {
-            Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
-            editTextDespesa.requestFocus();
-        }else if(dto.getDespesa().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.DESPESA);
-            editTextDespesa.requestFocus();
-        }else if(dto.getValorDespesa() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_DESPESA);
-            editTextValorDespesa.requestFocus();
-        }else if(dto.getTipoDespesa().length() == 0){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_DESPESA, Toast.LENGTH_LONG).show();
-            autoCompleteTextViewTipoDespesa.requestFocus();
-        }else if(!tipoDespesaList.contains(dto.getTipoDespesa())){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_DESPESA, Toast.LENGTH_LONG).show();
-            autoCompleteTextViewTipoDespesa.setText("");
-            autoCompleteTextViewTipoDespesa.requestFocus();
-        }else if(dto.getValorDespesa().equals("0")){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
-            editTextValorDespesa.requestFocus();
-        }else if(Double.valueOf(dto.getValorDespesa()) > Double.valueOf(dto.getValorConta())){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_MAIOR);
-            editTextValorDespesa.requestFocus();
-            editTextValorDespesa.setText("");
-        }else if(dto.getDataDespesa().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA);
-            editTextDataDespesa.requestFocus();
-        }else{
-            dto.setDataDespesa(Utilitario.convertBrToUsa(dto.getDataDespesa()));
-            dao.cadastarDespesa(dto, AdicionarDespesa.this);
-        }
     }
 
     public void mock(){

@@ -24,6 +24,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -459,24 +460,23 @@ public class DespesaDAO {
                     BarData barData = new BarData();
                     barData.addDataSet(barDataSet);
 
-
                     barChartDespesa.setData(barData);
 
                     String[] mes = new String[]
-                            {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+                            {"Jan", "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
                                     "Jul", "Ago", "Set", "Out", "Nov", "Dez"};
-
-                    XAxis xAxis = barChartDespesa.getXAxis();
-                    xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-                    xAxis.setCenterAxisLabels(true);
-                    xAxis.setLabelCount(12);
-                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    xAxis.setGranularityEnabled(true);
-                    xAxis.setGranularity(2);
-                    xAxis.setTextSize(14f);
 
                     Legend l = barChartDespesa.getLegend();
                     l.setTextSize(14f);
+
+                    XAxis xAxis = barChartDespesa.getXAxis();
+                    xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
+//                    xAxis.setCenterAxisLabels(true);
+                    xAxis.setLabelCount(12);
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                    xAxis.setGranularityEnabled(true);
+                    xAxis.setGranularity(1);
+                    xAxis.setTextSize(14f);
 
                     barChartDespesa.getDescription().setEnabled(false);
                     barChartDespesa.invalidate();

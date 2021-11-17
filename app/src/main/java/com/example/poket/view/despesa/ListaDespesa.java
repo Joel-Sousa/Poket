@@ -51,10 +51,11 @@ import java.util.List;
 public class ListaDespesa extends AppCompatActivity {
 
     EditText editTextBusca;
-    ImageView imageViewVoltar, imageViewAdicionarDespesa, imageViewBuscar, imageViewLimpar;
+    ImageView imageViewVoltar, imageViewAdicionarDespesa, imageViewBuscar;
     TextView textViewDespesaValorTotal;
     TextInputLayout textInputLayoutMes;
     AutoCompleteTextView autoCompleteTextViewMes;
+    Button buttonLimpar;
 
     Context context;
     RecyclerView recyclerView;
@@ -63,7 +64,6 @@ public class ListaDespesa extends AppCompatActivity {
 
     DespesaDAO dao = new DespesaDAO();
     List<String> mesList = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,8 @@ public class ListaDespesa extends AppCompatActivity {
         textViewDespesaValorTotal = findViewById(R.id.textViewListaDespesaValorTotal);
 
         imageViewBuscar = findViewById(R.id.imageViewListaDespesaBuscar);
-        imageViewLimpar = findViewById(R.id.imageViewListaDespesaLimpar);
+
+        buttonLimpar = findViewById(R.id.buttonListaDespesaLimpar);
         imageViewAdicionarDespesa = findViewById(R.id.imageViewListaDespesaAdicionarDespesa);
 
         barChartDespesa = findViewById(R.id.barChartListaDespesa);
@@ -150,7 +151,7 @@ public class ListaDespesa extends AppCompatActivity {
             }
         });
 
-        imageViewLimpar.setOnClickListener(new View.OnClickListener() {
+        buttonLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                spinnerMes.setSelection(0);

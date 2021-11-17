@@ -220,18 +220,17 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/dropdown_menu"
-                            android:layout_width="220dp"
+                            android:layout_width="210dp"
                             android:layout_height="wrap_content"
                             android:inputType="textNoSuggestions"></AutoCompleteTextView>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageView
-                        android:id="@+id/imageViewListaDespesaLimpar"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="5dp"
+                    <Button
+                        android:id="@+id/buttonListaDespesaLimpar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_broom_solid" />
+                        android:text="Limpar" />
 
                 </LinearLayout>
 

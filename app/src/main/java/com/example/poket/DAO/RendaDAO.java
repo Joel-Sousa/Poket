@@ -451,21 +451,20 @@ public class RendaDAO {
                     barChartRenda.setData(barData);
 
                     String[] mes = new String[]
-                            {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+                            {"Jan", "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
                                     "Jul", "Ago", "Set", "Out", "Nov", "Dez"};
-
-
-                    XAxis xAxis = barChartRenda.getXAxis();
-                    xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-                    xAxis.setCenterAxisLabels(true);
-                    xAxis.setLabelCount(12);
-                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    xAxis.setGranularityEnabled(true);
-                    xAxis.setGranularity(2);
-                    xAxis.setTextSize(14f);
 
                     Legend l = barChartRenda.getLegend();
                     l.setTextSize(14f);
+
+                    XAxis xAxis = barChartRenda.getXAxis();
+                    xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
+//                    xAxis.setCenterAxisLabels(true);
+                    xAxis.setLabelCount(12);
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                    xAxis.setGranularityEnabled(true);
+                    xAxis.setGranularity(1);
+                    xAxis.setTextSize(14f);
 
                     barChartRenda.getDescription().setEnabled(false);
                     barChartRenda.invalidate();

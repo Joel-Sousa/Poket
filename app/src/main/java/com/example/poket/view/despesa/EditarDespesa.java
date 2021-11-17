@@ -121,18 +121,39 @@ public class EditarDespesa extends AppCompatActivity {
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DespesaDTO dto = new DespesaDTO();
-                dto.setId(textViewId.getText().toString());
-                dto.setDespesa(editTextDespesa.getText().toString());
-                dto.setValorDespesa(Double.parseDouble(textViewValorDespesa.getText().toString()));
-                dto.setTipoDespesa(autoCompleteTextViewTipoDespesa.getText().toString());
-                dto.setDataDespesa(editTextDataDespesa.getText().toString());
-                dto.setObservacao(editTextObservacao.getText().toString());
 
-                dto.setIdConta(idConta);
-                dto.setConta(textViewConta.getText().toString());
+                int despesa  = editTextDespesa.getText().toString().length();
+                int tipoDespesa  = autoCompleteTextViewTipoDespesa.getText().toString().length();
+                int dataDespesa  = editTextDataDespesa.getText().toString().length();
 
-                validarCampos(dto);
+                if(despesa == 0 && dataDespesa == 0 ) {
+                    Utilitario.toast(getApplicationContext(),
+                            Msg.DADOS_INFORMADOS_N);
+                    editTextDespesa.requestFocus();
+                }else if(despesa == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.DESPESA);
+                    editTextDespesa.requestFocus();
+                }else if(tipoDespesa == 0){
+                    Toast.makeText(getApplicationContext(), Msg.TIPO_DESPESA, Toast.LENGTH_LONG).show();
+                    autoCompleteTextViewTipoDespesa.requestFocus();
+                }else if(dataDespesa == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA);
+                    editTextDataDespesa.requestFocus();
+                }else{
+                    DespesaDTO dto = new DespesaDTO();
+                    dto.setId(textViewId.getText().toString());
+                    dto.setDespesa(editTextDespesa.getText().toString());
+                    dto.setValorDespesa(Double.parseDouble(textViewValorDespesa.getText().toString()));
+                    dto.setTipoDespesa(autoCompleteTextViewTipoDespesa.getText().toString());
+                    dto.setDataDespesa(editTextDataDespesa.getText().toString());
+                    dto.setObservacao(editTextObservacao.getText().toString());
+
+                    dto.setIdConta(idConta);
+                    dto.setConta(textViewConta.getText().toString());
+
+                    dto.setDataDespesa(Utilitario.convertBrToUsa(dto.getDataDespesa()));
+                    dao.editarDespesa(dto, EditarDespesa.this);
+                }
             }
         });
 
@@ -186,31 +207,5 @@ public class EditarDespesa extends AppCompatActivity {
                 picker.show();
             }
         });
-    }
-
-    public void validarCampos(DespesaDTO dto) {
-
-        if(dto.getDespesa().length() == 0 && dto.getValorDespesa() == 0 &&
-                dto.getDataDespesa().length() == 0 ) {
-            Utilitario.toast(getApplicationContext(),
-                    Msg.DADOS_INFORMADOS_N);
-            editTextDespesa.requestFocus();
-        }else if(dto.getDespesa().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.DESPESA);
-            editTextDespesa.requestFocus();
-        }else if(dto.getTipoDespesa().length() == 0){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_DESPESA, Toast.LENGTH_LONG).show();
-            autoCompleteTextViewTipoDespesa.requestFocus();
-        }else if(!tipoDespesaList.contains(dto.getTipoDespesa())){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_DESPESA, Toast.LENGTH_LONG).show();
-            autoCompleteTextViewTipoDespesa.setText("");
-            autoCompleteTextViewTipoDespesa.requestFocus();
-        }else if(dto.getDataDespesa().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_DESPESA);
-            editTextDataDespesa.requestFocus();
-        }else{
-            dto.setDataDespesa(Utilitario.convertBrToUsa(dto.getDataDespesa()));
-            dao.editarDespesa(dto, EditarDespesa.this);
-        }
     }
 }

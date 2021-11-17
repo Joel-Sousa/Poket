@@ -123,20 +123,76 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dto.setNomePF(editTextNomePF.getText().toString());
-                dto.setTipoPF(autoCompleteTextViewTipoPF.getText().toString());
-                dto.setValorAtual(Double.parseDouble(editTextValorAtual.getText().toString()));
-                dto.setValorObjetivado(Double.parseDouble(editTextValorObjetivado.getText().toString()));
-                dto.setDataInicial(editTextDataInicial.getText().toString());
-                dto.setDataFinal(editTextDataFinal.getText().toString());
 
-                hdto.setIdConta(textViewIdConta.getText().toString());
-                hdto.setConta(spinnerConta.getSelectedItem().toString());
-                hdto.setValorConta(Double.parseDouble(textViewContaValor.getText().toString()));
+                int nomePF = editTextNomePF.getText().toString().length();
+                int tipoPF = autoCompleteTextViewTipoPF.getText().toString().length();
+                int valorAtual = editTextValorAtual.getText().toString().length();
+                int valorObjetivado = editTextValorObjetivado.getText().toString().length();
+                int dataInicial = editTextDataInicial.getText().toString().length();
+                int dataObjetivada = editTextDataFinal.getText().toString().length();
 
-                hdto.setValorHistoricoPF(Double.parseDouble(editTextValorAtual.getText().toString()));
+                if(nomePF == 0 && valorAtual == 0 && valorObjetivado == 0 && dataInicial == 0 &&
+                        dataObjetivada == 0) {
+                    Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
+                    editTextNomePF.requestFocus();
+                }else if(nomePF == 0) {
+                    Utilitario.toast(getApplicationContext(), Msg.NOME_PF);
+                    editTextNomePF.requestFocus();
+                }else if(tipoPF == 0){
+                    Toast.makeText(getApplicationContext(), Msg.TIPO_PF, Toast.LENGTH_LONG).show();
+                    autoCompleteTextViewTipoPF.requestFocus();
+                }else if(valorAtual == 0) {
+                    Utilitario.toast(getApplicationContext(), Msg.VALOR_ATUAL);
+                    editTextValorAtual.requestFocus();
+                }else if(editTextValorAtual.getText().toString().equals("0")){
+                    Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+                    editTextValorAtual.requestFocus();
+                    editTextValorAtual.setText("");
+                }else if(Double.valueOf(editTextValorAtual.getText().toString()) > Double.valueOf(textViewContaValor.getText().toString())){
+                    Utilitario.toast(getApplicationContext(), Msg.VALOR_MAIOR_PF);
+                    editTextValorAtual.requestFocus();
+                    editTextValorAtual.setText("");
+                }else if(editTextValorObjetivado.getText().toString().equals("0")){
+                    Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+                    editTextValorObjetivado.requestFocus();
+                    editTextValorObjetivado.setText("");
+                }else if(valorObjetivado == 0) {
+                    Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
+                    editTextValorObjetivado.requestFocus();
+                }else if(dataInicial == 0) {
+                    Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL);
+                    editTextDataInicial.requestFocus();
+                }else if(dataObjetivada == 0) {
+                    Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
+                    editTextDataFinal.requestFocus();
+                }else if(Utilitario.comparaDatas(editTextDataFinal.getText().toString() , Utilitario.dataAtual())){
+                    Utilitario.toast(getApplicationContext(), Msg.DATA_ATUAL);
+                    editTextDataFinal.requestFocus();
+                    editTextDataFinal.setText("");
+                }else if(editTextDataFinal.getText().toString().equals(Utilitario.dataAtual())){
+                    Utilitario.toast(getApplicationContext(), Msg.DATA_IGUAL);
+                    editTextDataFinal.requestFocus();
+                    editTextDataFinal.setText("");
+                }else{
 
-                validarConta(dto, hdto);
+                    dto.setNomePF(editTextNomePF.getText().toString());
+                    dto.setTipoPF(autoCompleteTextViewTipoPF.getText().toString());
+                    dto.setValorAtual(Double.parseDouble(editTextValorAtual.getText().toString()));
+                    dto.setValorObjetivado(Double.parseDouble(editTextValorObjetivado.getText().toString()));
+                    dto.setDataInicial(editTextDataInicial.getText().toString());
+                    dto.setDataFinal(editTextDataFinal.getText().toString());
+
+                    hdto.setIdConta(textViewIdConta.getText().toString());
+                    hdto.setConta(spinnerConta.getSelectedItem().toString());
+                    hdto.setValorConta(Double.parseDouble(textViewContaValor.getText().toString()));
+
+                    hdto.setValorHistoricoPF(Double.parseDouble(editTextValorAtual.getText().toString()));
+
+                    dto.setDataInicial(Utilitario.convertBrToUsa(dto.getDataInicial()));
+                    dto.setDataFinal(Utilitario.convertBrToUsa(dto.getDataFinal()));
+
+                    dao.cadastrarPlanejamentoFinanceiro(dto, hdto, AdicionarPlanejamentoFinanceiro.this);
+                }
             }
         });
 
@@ -192,61 +248,6 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
                 picker.show();
             }
         });
-    }
-
-    private void validarConta(PlanejamentoFinanceiroDTO dto, HistoricoPFDTO hdto){
-
-
-        if(dto.getNomePF().length() == 0 && dto.getValorAtual() == 0 &&
-                dto.getValorObjetivado() == 0 && dto.getDataInicial().length() == 0 &&
-                dto.getDataFinal().length() == 0) {
-            Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
-            editTextNomePF.requestFocus();
-        }else if(dto.getNomePF().length() == 0) {
-            Utilitario.toast(getApplicationContext(), Msg.NOME_PF);
-            editTextNomePF.requestFocus();
-        }else if(dto.getTipoPF().length() == 0){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_PF, Toast.LENGTH_LONG).show();
-            autoCompleteTextViewTipoPF.requestFocus();
-        }else if(!tipoPFList.contains(dto.getTipoPF())){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_PF, Toast.LENGTH_LONG).show();
-            autoCompleteTextViewTipoPF.setText("");
-            autoCompleteTextViewTipoPF.requestFocus();
-        }else if(dto.getValorAtual() == 0) {
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_ATUAL);
-            editTextValorAtual.requestFocus();
-        }else if(dto.getValorAtual().equals("0")){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
-            editTextValorAtual.requestFocus();
-        }else if(Double.valueOf(dto.getValorAtual()) > Double.valueOf(hdto.getValorConta())){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_MAIOR_PF);
-            editTextValorAtual.requestFocus();
-            editTextValorAtual.setText("");
-        }else if(dto.getValorObjetivado().equals("0")){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
-            editTextValorObjetivado.requestFocus();
-        }else if(dto.getValorObjetivado() == 0) {
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_OBJETIVADO);
-            editTextValorObjetivado.requestFocus();
-        }else if(dto.getDataInicial().length() == 0) {
-            Utilitario.toast(getApplicationContext(), Msg.DATA_INICIAL);
-            editTextDataInicial.requestFocus();
-        }else if(dto.getDataFinal().length() == 0) {
-            Utilitario.toast(getApplicationContext(), Msg.DATA_FINAL);
-            editTextDataFinal.requestFocus();
-        }else if(Utilitario.comparaDatas(editTextDataFinal.getText().toString() , Utilitario.dataAtual())){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_ATUAL);
-            editTextDataFinal.requestFocus();
-            editTextDataFinal.setText("");
-        }else if(editTextDataFinal.getText().toString().equals(Utilitario.dataAtual())){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_IGUAL);
-            editTextDataFinal.requestFocus();
-            editTextDataFinal.setText("");
-        }else{
-            dto.setDataInicial(Utilitario.convertBrToUsa(dto.getDataInicial()));
-            dto.setDataFinal(Utilitario.convertBrToUsa(dto.getDataFinal()));
-            dao.cadastrarPlanejamentoFinanceiro(dto, hdto, AdicionarPlanejamentoFinanceiro.this);
-        }
     }
 
     public void mock(){

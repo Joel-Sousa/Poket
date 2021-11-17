@@ -49,12 +49,12 @@ public class EditarRenda extends AppCompatActivity {
     AutoCompleteTextView autoCompleteTextViewTipoRenda;
 
     RendaDAO dao = new RendaDAO();
+    RendaDTO dto = new RendaDTO();
 
     String idConta = "";
     String valorRendaAntiga = "";
     String tipoPF = "";
     List<String> tipoRendaList = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,18 +124,37 @@ public class EditarRenda extends AppCompatActivity {
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RendaDTO dto = new RendaDTO();
-                dto.setId(textViewId.getText().toString());
-                dto.setRenda(editTextRenda.getText().toString());
-                dto.setValorRenda(Double.parseDouble(textViewValorRenda.getText().toString()));
-                dto.setTipoRenda(autoCompleteTextViewTipoRenda.getText().toString());
-                dto.setDataRenda(editTextDataRenda.getText().toString());
-                dto.setObservacao(editTextObservacao.getText().toString());
 
-                dto.setIdConta(idConta);
-                dto.setConta(textViewConta.getText().toString());
+                int renda = editTextRenda.getText().toString().length();
+                int tipoRenda = autoCompleteTextViewTipoRenda.getText().toString().length();
+                int dataRenda = editTextDataRenda.getText().toString().length();
 
-                validarCampos(dto);
+                if(renda == 0 && dataRenda == 0 ) {
+                    Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
+                    editTextRenda.requestFocus();
+                }else if(renda == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.RENDA);
+                    editTextRenda.requestFocus();
+                }else if(tipoRenda == 0){
+                    Toast.makeText(getApplicationContext(), Msg.TIPO_RENDA, Toast.LENGTH_LONG).show();
+                    autoCompleteTextViewTipoRenda.requestFocus();
+                }else if(dataRenda == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
+                    editTextDataRenda.requestFocus();
+                }else {
+                    dto.setId(textViewId.getText().toString());
+                    dto.setRenda(editTextRenda.getText().toString());
+                    dto.setValorRenda(Double.parseDouble(textViewValorRenda.getText().toString()));
+                    dto.setTipoRenda(autoCompleteTextViewTipoRenda.getText().toString());
+                    dto.setDataRenda(editTextDataRenda.getText().toString());
+                    dto.setObservacao(editTextObservacao.getText().toString());
+
+                    dto.setIdConta(idConta);
+                    dto.setConta(textViewConta.getText().toString());
+
+                    dto.setDataRenda(Utilitario.convertBrToUsa(dto.getDataRenda()));
+                    dao.editarRenda(dto, EditarRenda.this);
+                }
             }
         });
 
@@ -189,31 +208,5 @@ public class EditarRenda extends AppCompatActivity {
                 picker.show();
             }
         });
-    }
-
-    public void validarCampos(RendaDTO dto){
-
-        if(dto.getRenda().length() == 0 && dto.getValorRenda() == 0 &&
-                dto.getDataRenda().length() == 0 ) {
-            Utilitario.toast(getApplicationContext(),
-                    Msg.DADOS_INFORMADOS_N);
-            editTextRenda.requestFocus();
-        }else if(dto.getRenda().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.RENDA);
-            editTextRenda.requestFocus();
-        }else if(dto.getTipoRenda().length() == 0){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_RENDA, Toast.LENGTH_LONG).show();
-            autoCompleteTextViewTipoRenda.requestFocus();
-        }else if(!tipoRendaList.contains(dto.getTipoRenda())){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_RENDA, Toast.LENGTH_LONG).show();
-            autoCompleteTextViewTipoRenda.setText("");
-            autoCompleteTextViewTipoRenda.requestFocus();
-        }else if(dto.getDataRenda().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
-            editTextDataRenda.requestFocus();
-        }else {
-            dto.setDataRenda(Utilitario.convertBrToUsa(dto.getDataRenda()));
-            dao.editarRenda(dto, EditarRenda.this);
-        }
     }
 }

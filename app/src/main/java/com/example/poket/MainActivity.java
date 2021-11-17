@@ -21,6 +21,7 @@ import com.example.poket.DTO.UsuarioDTO;
 import com.example.poket.util.Msg;
 import com.example.poket.util.Utilitario;
 import com.example.poket.view.conta.ListaConta;
+import com.example.poket.view.despesa.ListaDespesa;
 import com.example.poket.view.usuario.AdicionarUsuario;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Intent intent = new Intent(MainActivity.this, ListaConta.class);
+//        Intent intent = new Intent(MainActivity.this, ListaDespesa.class);
 //        startActivity(intent);
 
 //        barChart = findViewById(R.id.barChartHomeDR);
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         textViewCadastrarUsuario = findViewById(R.id.textViewMainActivityCadastrarUsuario);
         buttonLogin = findViewById(R.id.buttonMainActivityLogin);
 
-//        mock();
+        mock();
 
         textViewEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-         fb();
+//         fb();
     }
 
     private void validaCampos(UsuarioDTO dto){
@@ -159,8 +160,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void mock(){
         editTextEmail.setText("ana@email.com");
-//        editTextEmail.setText("joelfsousa95@gmail.com");
         editTextSenha.setText("123123");
+//        editTextEmail.setText("joelfsousa95@gmail.com");
+//        editTextSenha.setText("111222");
     }
 
     private void fb(){
@@ -196,104 +198,5 @@ public class MainActivity extends AppCompatActivity {
 //        boolean b = mAuth.isSignInWithEmailLink("any@email.com");
 //        mAuth. isSignInWithEmailLink("any@email.com");
 //        Log.d("---", b+"");
-    }
-
-    private void graficoBarChartDespesaRenda(){
-
-        ArrayList<BarEntry> barEntriesDespesa = new ArrayList<>();
-        barEntriesDespesa.add(new BarEntry(1,1));
-        barEntriesDespesa.add(new BarEntry(2,2));
-        barEntriesDespesa.add(new BarEntry(3,3));
-        barEntriesDespesa.add(new BarEntry(4,4));
-        barEntriesDespesa.add(new BarEntry(5,5));
-        barEntriesDespesa.add(new BarEntry(6,1));
-        barEntriesDespesa.add(new BarEntry(7,7));
-        barEntriesDespesa.add(new BarEntry(8,8));
-        barEntriesDespesa.add(new BarEntry(9,9));
-        barEntriesDespesa.add(new BarEntry(10,10));
-        barEntriesDespesa.add(new BarEntry(11,11));
-        barEntriesDespesa.add(new BarEntry(12,12));
-
-        ArrayList<BarEntry> barEntriesRenda= new ArrayList<>();
-        barEntriesRenda.add(new BarEntry(1,1));
-        barEntriesRenda.add(new BarEntry(2,2));
-        barEntriesRenda.add(new BarEntry(3,3));
-        barEntriesRenda.add(new BarEntry(4,4));
-        barEntriesRenda.add(new BarEntry(5,5));
-        barEntriesRenda.add(new BarEntry(6,6));
-        barEntriesRenda.add(new BarEntry(7,7));
-        barEntriesRenda.add(new BarEntry(8,8));
-        barEntriesRenda.add(new BarEntry(9,9));
-        barEntriesRenda.add(new BarEntry(10,10));
-        barEntriesRenda.add(new BarEntry(11,11));
-        barEntriesRenda.add(new BarEntry(12,12));
-
-        BarDataSet barDataSet = new BarDataSet(barEntriesDespesa, "Despesa");
-        barDataSet.setColor(Color.RED);
-
-        BarDataSet barDataSet1 = new BarDataSet(barEntriesRenda, "Renda");
-        barDataSet1.setColor(Color.GREEN);
-
-        barDataSet.setValueFormatter(new DefaultValueFormatter(1));
-        barDataSet1.setValueFormatter(new DefaultValueFormatter(1));
-
-        BarData barData = new BarData();
-
-        barData.addDataSet(barDataSet);
-        barData.addDataSet(barDataSet1);
-        barData.setValueTextSize(14f);
-
-        barChart.setData(barData);
-
-        String[] mes = new String[]
-                {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul",
-                        "Ago", "Set", "Out", "Nov", "Dez"};
-
-        Legend l = barChart.getLegend();
-        l.setTextSize(14f);
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setLabelCount(12);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularityEnabled(true);
-
-        barChart.setDragEnabled(true);
-        barChart.setVisibleXRangeMaximum(12);
-
-        float barSpace = 0.0f;
-        float groupSpace = 0.12f;
-        barData.setBarWidth(0.44f);
-
-        barChart.getXAxis().setAxisMinimum(0);
-        barChart.getXAxis().setAxisMaximum(0+barChart.getData().getGroupWidth(groupSpace,  barSpace)*12);
-        barChart.getAxisLeft().setAxisMinimum(0);
-
-        barChart.groupBars(0, groupSpace, barSpace);
-        barChart.invalidate();
-
-        //
-
-//        XAxis xAxis = barChart.getXAxis();
-//        xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-//        xAxis.setCenterAxisLabels(true);
-//        xAxis.setLabelCount(12);
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setGranularity(1);
-//        xAxis.setGranularityEnabled(true);
-//        xAxis.setTextSize(14f);
-//
-//        float barSpace = 0.08f;
-//        float groupSpace = 0.30f;
-//        barData.setBarWidth(0.27f);
-//
-//        barChart.getXAxis().setAxisMinimum(0);
-//        barChart.getXAxis().setAxisMaximum(12);
-//        barChart.getAxisLeft().setAxisMinimum(0);
-//        barChart.groupBars(0,groupSpace, barSpace);
-//        barChart.getDescription().setEnabled(false);
-//
-//        barChart.invalidate();
     }
 }

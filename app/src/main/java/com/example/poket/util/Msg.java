@@ -58,10 +58,10 @@ public class Msg {
 
     // Planejamento financeiro
     public static final String NOME_PF = "Preencha o campo de Planejamento financeiro.";
-    public static final String VALOR_ATUAL = "Preencha o campo de valor atual.";
+    public static final String VALOR_ATUAL = "Preencha o campo de valor para depositar.";
     public static final String VALOR_OBJETIVADO = "Preencha o campo de valor objetivado.";
     public static final String DATA_INICIAL = "Preencha o campo de data inicial.";
-    public static final String DATA_FINAL = "Preencha o campo de data final.";
+    public static final String DATA_FINAL = "Preencha o campo de data objetivada.";
     public static final String DATA_INICIAL_VALIDA = "Insira uma data inicial valida.";
     public static final String DATA_FINAL_VALIDA = "Insira uma data final valida.";
     public static final String VALOR_MAIOR_PF = "O valor atual do planejamento financeiro e maior que o valor da conta disponivel.";

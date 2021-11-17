@@ -112,17 +112,46 @@ public class AdicionarRenda extends AppCompatActivity {
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dto.setRenda(editTextRenda.getText().toString());
-                dto.setValorRenda(Double.parseDouble(editTextValorRenda.getText().toString()));
-                dto.setTipoRenda(autoCompleteTextViewTipoRenda.getText().toString());
-                dto.setDataRenda(editTextDataRenda.getText().toString());
-                dto.setObservacao(editTextObservacao.getText().toString());
 
-                dto.setIdConta(textViewIdConta.getText().toString());
-                dto.setConta(spinnerConta.getSelectedItem().toString());
-                dto.setValorConta(Double.parseDouble(textViewValorConta.getText().toString()));
+                int renda = editTextRenda.getText().toString().length();
+                int valorRenda = editTextValorRenda.getText().toString().length();
+                int tipoRenda = autoCompleteTextViewTipoRenda.getText().toString().length();
+                int dataRenda = editTextRenda.getText().toString().length();
 
-                validarConta(dto);
+                if(renda == 0 && valorRenda == 0 && dataRenda == 0 ) {
+                    Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
+                    editTextRenda.requestFocus();
+                }else if(renda == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.RENDA);
+                    editTextRenda.requestFocus();
+                }else if(valorRenda == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.VALOR_RENDA);
+                    editTextValorRenda.requestFocus();
+                }else if(editTextValorRenda.getText().toString().equals("0")){
+                    Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
+                    editTextValorRenda.requestFocus();
+                    editTextValorRenda.setText("");
+                }else if(tipoRenda == 0){
+                    Toast.makeText(getApplicationContext(), Msg.TIPO_RENDA, Toast.LENGTH_LONG).show();
+                    autoCompleteTextViewTipoRenda.requestFocus();
+                }else if(dataRenda == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
+                    editTextDataRenda.requestFocus();
+                }else{
+
+                    dto.setRenda(editTextRenda.getText().toString());
+                    dto.setValorRenda(Double.parseDouble(editTextValorRenda.getText().toString()));
+                    dto.setTipoRenda(autoCompleteTextViewTipoRenda.getText().toString());
+                    dto.setDataRenda(editTextDataRenda.getText().toString());
+                    dto.setObservacao(editTextObservacao.getText().toString());
+
+                    dto.setIdConta(textViewIdConta.getText().toString());
+                    dto.setConta(spinnerConta.getSelectedItem().toString());
+                    dto.setValorConta(Double.parseDouble(textViewValorConta.getText().toString()));
+                    dto.setDataRenda(Utilitario.convertBrToUsa(dto.getDataRenda()));
+
+                    dao.cadastarRenda(dto, AdicionarRenda.this);
+                }
             }
         });
 
@@ -155,38 +184,6 @@ public class AdicionarRenda extends AppCompatActivity {
                 picker.show();
             }
         });
-    }
-
-    private void validarConta(RendaDTO dto){
-
-        if(dto.getRenda().length() == 0 && dto.getValorRenda() == 0 &&
-                dto.getDataRenda().length() == 0 ) {
-            Utilitario.toast(getApplicationContext(),
-                    Msg.DADOS_INFORMADOS_N);
-            editTextRenda.requestFocus();
-        }else if(dto.getRenda().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.RENDA);
-            editTextRenda.requestFocus();
-        }else if(dto.getValorRenda() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_RENDA);
-            editTextValorRenda.requestFocus();
-        }else if(dto.getTipoRenda().length() == 0){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_RENDA, Toast.LENGTH_LONG).show();
-            autoCompleteTextViewTipoRenda.requestFocus();
-        }else if(!tipoRendaList.contains(dto.getTipoRenda())){
-            Toast.makeText(getApplicationContext(), Msg.TIPO_RENDA, Toast.LENGTH_LONG).show();
-            autoCompleteTextViewTipoRenda.setText("");
-            autoCompleteTextViewTipoRenda.requestFocus();
-        }else if(dto.getValorRenda().equals("0")){
-            Utilitario.toast(getApplicationContext(), Msg.VALOR_ZERADO);
-            editTextValorRenda.requestFocus();
-        }else if(dto.getDataRenda().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.DATA_RENDA);
-            editTextDataRenda.requestFocus();
-        }else{
-            dto.setDataRenda(Utilitario.convertBrToUsa(dto.getDataRenda()));
-            dao.cadastarRenda(dto, AdicionarRenda.this);
-        }
     }
 
     public void mock(){

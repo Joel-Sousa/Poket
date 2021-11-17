@@ -49,10 +49,11 @@ import java.util.List;
 public class ListaRenda extends AppCompatActivity {
 
     EditText editTextBusca;
-    ImageView imageViewVoltar, imageViewBuscar, imageViewAdicionarRenda, imageViewLimpar;
+    ImageView imageViewVoltar, imageViewBuscar, imageViewAdicionarRenda;
     TextView textViewRendaValorTotal;
     TextInputLayout textInputLayoutMes;
     AutoCompleteTextView autoCompleteTextViewMes;
+    Button buttonLimpar;
 
     Context context;
     RecyclerView recyclerView;
@@ -77,7 +78,7 @@ public class ListaRenda extends AppCompatActivity {
 
         imageViewBuscar = findViewById(R.id.imageViewListaRendaBuscar);
         imageViewAdicionarRenda = findViewById(R.id.imageViewListaRendaAdicionarRenda);
-        imageViewLimpar = findViewById(R.id.imageViewListaRendaLimpar);
+        buttonLimpar = findViewById(R.id.buttonListaRendaLimpar);
 
         textInputLayoutMes = findViewById(R.id.editTextListaRendaMes);
         autoCompleteTextViewMes = findViewById(R.id.dropdown_menu);
@@ -147,7 +148,7 @@ public class ListaRenda extends AppCompatActivity {
             }
         });
 
-        imageViewLimpar.setOnClickListener(new View.OnClickListener() {
+        buttonLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                spinnerMes.setSelection(0);
