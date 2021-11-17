@@ -56,11 +56,51 @@ public class EditarUsuario extends AppCompatActivity {
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            dto.setApelido(editTextApelido.getText().toString());
-            dto.setEmail(editTextEmail.getText().toString().trim());
-            dto.setSenha(editTextSenha.getText().toString());
-            dto.setRepetirSenha(editTextRepetirSenha.getText().toString());
-            validarCampos(dto);
+
+                int apelido = editTextApelido.getText().toString().length();
+                int email = editTextEmail.getText().toString().length();
+                int senha = editTextSenha.getText().toString().length();
+                int confirmarSenha = editTextRepetirSenha.getText().toString().length();
+
+                if(apelido == 0 && email == 0 && senha == 0 && confirmarSenha == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
+                    editTextApelido.requestFocus();
+                }else if(apelido == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.APELIDO);
+                    editTextApelido.requestFocus();
+                }else if(email == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.EMAIL);
+                    editTextEmail.requestFocus();
+                }else if(!editTextEmail.getText().toString().contains("@")){
+                    Utilitario.toast(getApplicationContext(), Msg.EMAIL_VALIDO);
+                    editTextEmail.requestFocus();
+                }else if(senha == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.SENHA);
+                    editTextSenha.requestFocus();
+                }else if(senha <= 5){
+                    Utilitario.toast(getApplicationContext(), Msg.SENHA_INSUFICIENTE);
+                    editTextSenha.setText("");
+                    editTextSenha.requestFocus();
+                }else if(confirmarSenha == 0){
+                    Utilitario.toast(getApplicationContext(), Msg.REPETIR_SENHA);
+                    editTextRepetirSenha.requestFocus();
+                }else if(confirmarSenha <= 5){
+                    Utilitario.toast(getApplicationContext(), Msg.SENHA_INSUFICIENTE_R);
+                    editTextRepetirSenha.setText("");
+                    editTextRepetirSenha.requestFocus();
+                }else if(!editTextSenha.getText().toString().equals(editTextRepetirSenha.getText().toString())){
+                    Utilitario.toast(getApplicationContext(), Msg.COMPARAR_SENHA);
+                    editTextSenha.requestFocus();
+                    editTextSenha.setText("");
+                }else{
+                    UsuarioDAO dao = new UsuarioDAO();
+                    dto.setApelido(editTextApelido.getText().toString());
+                    dto.setEmail(editTextEmail.getText().toString().trim());
+                    dto.setSenha(editTextSenha.getText().toString());
+                    dto.setRepetirSenha(editTextRepetirSenha.getText().toString());
+
+                    dao.atualizarUsuario(dto, EditarUsuario.this);
+                }
             }
         });
 
@@ -91,36 +131,6 @@ public class EditarUsuario extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    private void validarCampos(UsuarioDTO dto){
-
-        if(dto.getApelido().length() == 0 && dto.getEmail().length() == 0 &&
-                dto.getSenha().length() == 0 && dto.getRepetirSenha().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.DADOS_INFORMADOS_N);
-            editTextApelido.requestFocus();
-        }else if(dto.getApelido().length() == 0 || dto.getApelido().length() < 3){
-            Utilitario.toast(getApplicationContext(), Msg.APELIDO);
-            editTextApelido.requestFocus();
-        }else if(dto.getEmail().length() == 0){
-            Utilitario.toast(getApplicationContext(), Msg.EMAIL);
-            editTextEmail.requestFocus();
-        }else if(!dto.getEmail().contains("@")){
-            Utilitario.toast(getApplicationContext(), Msg.EMAIL_VALIDO);
-            editTextEmail.requestFocus();
-        }else if(dto.getSenha().length() == 0 || dto.getSenha().length() <= 5){
-            Utilitario.toast(getApplicationContext(), Msg.SENHA);
-            editTextSenha.requestFocus();
-        }else if(dto.getRepetirSenha().length() == 0 || dto.getRepetirSenha().length() <= 5){
-            Utilitario.toast(getApplicationContext(), Msg.REPETIR_SENHA);
-            editTextRepetirSenha.requestFocus();
-        }else if(!dto.getSenha().equals(dto.getRepetirSenha())){
-            Utilitario.toast(getApplicationContext(), Msg.COMPARAR_SENHA);
-            editTextSenha.requestFocus();
-        }else{
-            UsuarioDAO dao = new UsuarioDAO();
-            dao.atualizarUsuario(dto, EditarUsuario.this);
-        }
     }
 
     public void mock(){
