@@ -31,7 +31,6 @@ public class AdicionarConta extends AppCompatActivity {
         buttonCadastar = findViewById(R.id.buttonAdicionarContaSalvar);
         imageViewVoltar = findViewById(R.id.imageViewCadastrarContaVoltar);
 
-//        mock();
 
         buttonCadastar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,10 +65,5 @@ public class AdicionarConta extends AppCompatActivity {
              finish();
             }
         });
-    }
-
-    public void mock(){
-        editTextConta.setText("Nubank");
-        editTextValorConta.setText("500");
     }
 }

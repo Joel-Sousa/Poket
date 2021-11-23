@@ -66,7 +66,6 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        textViewTst = findViewById(R.id.textViewTst);
         textViewIdConta = findViewById(R.id.textViewHomeIdConta);
 
         textViewDR = findViewById(R.id.textViewHomeDataAnoDR);
@@ -106,7 +105,6 @@ public class Home extends AppCompatActivity {
 
         daoC.listaContaSpinner(spinnerConta, Home.this, textViewContaValor, textViewIdConta, true);
 
-//        textViewTst.setText(dto.getUid());
         textViewApelido.setText(dto.getApelido());
 
         imageViewEditarUsuario.setOnClickListener(new View.OnClickListener() {

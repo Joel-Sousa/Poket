@@ -77,8 +77,6 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
         buttonSalvar = findViewById(R.id.buttonAdicionarPFSalvar);
         imageViewVoltar = findViewById(R.id.imageViewAdicionarPFVoltar);
 
-//        Utilitario.listaTipoPF(spinnerTipoPF, tipoPF, getApplicationContext());
-
         editTextDataInicial.setText(Utilitario.dataAtual());
         editTextDataInicial.setInputType(InputType.TYPE_NULL);
         editTextDataFinal.setInputType(InputType.TYPE_NULL);
@@ -94,8 +92,6 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
 
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarPlanejamentoFinanceiro.this, textViewContaValor, textViewIdConta, true);
-
-//        mock();
 
         autoCompleteTextViewTipoPF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -248,13 +244,5 @@ public class AdicionarPlanejamentoFinanceiro extends AppCompatActivity {
                 picker.show();
             }
         });
-    }
-
-    public void mock(){
-        editTextNomePF.setText("viajar");
-        editTextValorAtual.setText("10");
-        autoCompleteTextViewTipoPF.setText("Médio Prazo", false);
-        editTextValorObjetivado.setText("900");
-        editTextDataFinal.setText("12/12/2021");
     }
 }

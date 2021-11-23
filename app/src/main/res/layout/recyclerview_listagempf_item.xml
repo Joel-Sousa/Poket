@@ -256,14 +256,6 @@
             android:orientation="horizontal">
 
         </LinearLayout>
-
-<!--        <View-->
-<!--            android:id="@+id/view5"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:background="@color/black"-->
-<!--            android:focusable="false" />-->
-
     </LinearLayout>
 
 </LinearLayout>

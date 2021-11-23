@@ -25,42 +25,6 @@ public class Utilitario {
         Toast.makeText(context, mensagem, Toast.LENGTH_LONG).show();
     }
 
-    public static void listaTipoRenda(Spinner spinner, String tipoPF, Context context) {
-        List<String> listTipoGasto = Arrays.asList(
-                ".:Selecione:.", "Salario", "Servicos", "Presente", "Aluguel", "Outros");
-
-        ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
-                android.R.layout.simple_list_item_1, listTipoGasto);
-        spinner.setAdapter(adapter_spinner);
-
-        if(!tipoPF.equals(""))
-            spinner.setSelection(adapter_spinner.getPosition(tipoPF));
-    }
-
-    public static void listaTipoDespesa(Spinner spinner, String tipoPF, Context context) {
-        List<String> listTipoGasto = Arrays.asList(
-               ".:Selecione:.", "Alimentaçao", "Veiculo", "Moradia", "Lazer", "Outros");
-
-        ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
-                android.R.layout.simple_list_item_1, listTipoGasto);
-        spinner.setAdapter(adapter_spinner);
-
-        if(!tipoPF.equals(""))
-            spinner.setSelection(adapter_spinner.getPosition(tipoPF));
-    }
-
-    public static void listaTipoPF(Spinner spinner, String tipoPF, Context context) {
-        List<String> listTipoPF = Arrays.asList(
-                "Curto Prazo", "Medio Prazo", "Longo Prazo");
-
-        ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
-                android.R.layout.simple_list_item_1, listTipoPF);
-        spinner.setAdapter(adapter_spinner);
-
-        if(!tipoPF.equals(""))
-            spinner.setSelection(adapter_spinner.getPosition(tipoPF));
-    }
-
     public static String dataAtual(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(new Date());
@@ -92,23 +56,6 @@ public class Utilitario {
         } else {
             return false;
         }
-    }
-
-    public static String maiuscula(String palavra){
-        String nome = ""+palavra.charAt(0);
-        nome = nome.toUpperCase();
-
-        return null;
-    }
-
-    public static void meses(Spinner spinner, Context context){
-        List<String> mesList = Arrays.asList(".:Selecione:.",
-                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
-
-        ArrayAdapter<String> adapter_spinner = new ArrayAdapter<String>(context,
-                android.R.layout.simple_list_item_1, mesList);
-        spinner.setAdapter(adapter_spinner);
     }
 
     public static String ano(){

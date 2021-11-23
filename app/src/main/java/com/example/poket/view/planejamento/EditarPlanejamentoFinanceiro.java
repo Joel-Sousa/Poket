@@ -66,7 +66,6 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         textViewValorAtual = findViewById(R.id.textViewEditarPFValorAtual);
         editTextValorObjetivado = findViewById(R.id.editTextEditarPFValorObjetivado);
         editTextDataInicial = findViewById(R.id.editTextEditarPFDataInicial);
-//        textViewDataInicial = findViewById(R.id.textViewEditarPFDataInicial);
         editTextDataFinal = findViewById(R.id.editTextEditarPFDataFinal);
 
         buttonEditar = findViewById(R.id.buttonEditarPFEditar);
@@ -81,7 +80,6 @@ public class EditarPlanejamentoFinanceiro extends AppCompatActivity {
         editTextValorObjetivado.setText(intent.getStringExtra("valorObjetivado"));
         editTextDataInicial.setText(intent.getStringExtra("dataInicio"));
         editTextDataFinal.setText(intent.getStringExtra("dataFinal"));
-
 
         tipoPFList = Arrays.asList("Curto Prazo", "Médio Prazo", "Longo Prazo");
 

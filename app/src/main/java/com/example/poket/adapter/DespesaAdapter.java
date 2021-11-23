@@ -53,7 +53,6 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
 
         this.idContaList.addAll(idContaList);
         this.contaList.addAll(contaList);
-//        this.contaValorList.addAll(contaValorList);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -104,16 +103,6 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
         holder.textViewValorDespesa.setText(String.valueOf(valorDespesaList.get(position)));
         holder.textViewDataDespesa.setText(Utilitario.convertUsaToBr(dataDespesaList.get(position)));
 
-//        viewOnCreate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(context, VerDespesa.class);
-////                intent.putExtra("id", idList.get(position));
-////                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                view.getContext().startActivity(intent);
-//            }
-//        });
-
         holder.linearLayoutVerDespesa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +110,6 @@ public class DespesaAdapter extends RecyclerView.Adapter<DespesaAdapter.ViewHold
                 intent.putExtra("id", idList.get(position));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 view.getContext().startActivity(intent);
-//                Log.d("---", idList.get(position));
 
             }
         });

@@ -45,8 +45,6 @@ public class EditarUsuario extends AppCompatActivity {
         buttonExcluir = findViewById(R.id.buttonEditarUsuarioExcluir);
         imageViewVoltar = findViewById(R.id.imageViewEditarUsuarioVoltar);
 
-        mock();
-
         UsuarioDAO dao = new UsuarioDAO();
         UsuarioDTO dto = dao.obterUsuario();
 
@@ -120,8 +118,6 @@ public class EditarUsuario extends AppCompatActivity {
                    });
                    confirmacao.setNegativeButton("Nao",null);
                    confirmacao.create().show();
-
-
                }
            });
 
@@ -132,10 +128,4 @@ public class EditarUsuario extends AppCompatActivity {
             }
         });
     }
-
-    public void mock(){
-        editTextSenha.setText("123123");
-        editTextRepetirSenha.setText("123123");
-    }
-
 }

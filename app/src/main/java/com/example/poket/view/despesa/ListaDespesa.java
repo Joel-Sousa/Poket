@@ -99,7 +99,6 @@ public class ListaDespesa extends AppCompatActivity {
                 ListaDespesa.this, R.layout.dropdown_item, mesList);
 
         autoCompleteTextViewMes.setAdapter(adapter);
-//        Utilitario.meses(spinnerMes, context);
 
         autoCompleteTextViewMes.setInputType(InputType.TYPE_NULL);
 
@@ -154,10 +153,8 @@ public class ListaDespesa extends AppCompatActivity {
         buttonLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                spinnerMes.setSelection(0);
                 autoCompleteTextViewMes.setText("");
                 dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
-//                dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
             }
         });
     }

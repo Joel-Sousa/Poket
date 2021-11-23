@@ -35,8 +35,6 @@ public class AdicionarUsuario extends AppCompatActivity {
         buttonCadastrar = findViewById(R.id.buttonAdicionarUsuarioAdicionar);
         imageViewVoltar = findViewById(R.id.imageViewAdicionarUsuarioVoltar);
 
-//        mock();
-
         buttonCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,12 +90,5 @@ public class AdicionarUsuario extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    public void mock(){
-        editTextApelido.setText("ana");
-        editTextEmail.setText("ana@email.com");
-        editTextSenha.setText("123123");
-        editTextRepetirSenha.setText("123123");
     }
 }

@@ -53,7 +53,6 @@ public class AdicionarDespesa extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_despesa);
-//editTextAdicionarDespesaNomeDespesa
 
         editTextDespesa = findViewById(R.id.editTextAdicionarDespesaDespesa);
         editTextValorDespesa = findViewById(R.id.editTextAdicionarDespesaValorDespesa);
@@ -74,7 +73,6 @@ public class AdicionarDespesa extends AppCompatActivity {
         editTextDataDespesa.setText(Utilitario.dataAtual());
         editTextDataDespesa.setInputType(InputType.TYPE_NULL);
 
-//        Utilitario.listaTipoDespesa(spinnerTipoDespesa, tipoPF, getApplicationContext());
 
         tipoDespesaList = Arrays.asList("Alimentação", "Veículo", "Moradia", "Lazer", "Outros");
 
@@ -89,8 +87,6 @@ public class AdicionarDespesa extends AppCompatActivity {
 
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarDespesa.this, textViewValorConta, textViewIdConta, true);
-
-//        mock();
 
         autoCompleteTextViewTipoDespesa.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -116,7 +112,6 @@ public class AdicionarDespesa extends AppCompatActivity {
                 int valorDespesa = editTextValorDespesa.getText().toString().length();
                 int tipoDespesa = autoCompleteTextViewTipoDespesa.getText().toString().length();
                 int dataDespesa = editTextDespesa.getText().toString().length();
-//                String valor = editTextValorDespesa.getText().toString();
 
                 if(despesa == 0 && valorDespesa == 0 &&
                         dataDespesa == 0 ) {
@@ -188,12 +183,5 @@ public class AdicionarDespesa extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void mock(){
-        editTextDespesa.setText("Carro");
-        editTextValorDespesa.setText("10");
-        autoCompleteTextViewTipoDespesa.setText("Veículo", false);
-        editTextObservacao.setText("foi barato");
     }
 }

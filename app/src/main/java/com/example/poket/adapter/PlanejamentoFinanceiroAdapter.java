@@ -145,10 +145,6 @@ public class PlanejamentoFinanceiroAdapter extends RecyclerView.Adapter<Planejam
         viewOnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(context, ListaPlanejamentoFinanceiro.class);
-//                intent.putExtra("idPF", idPFList.get(position));
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                view.getContext().startActivity(intent);
             }
         });
 

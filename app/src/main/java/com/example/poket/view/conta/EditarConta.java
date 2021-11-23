@@ -103,8 +103,4 @@ public class EditarConta extends AppCompatActivity {
             }
         });
     }
-
-    public void validarConta1(ContaDTO dto){
-
-    }
 }

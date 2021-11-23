@@ -45,13 +45,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    Intent intentEsqueceuSenha, intentCadastrarUsuario, intentLogin;
+    Intent intentCadastrarUsuario;
     TextView textViewEsqueceuSenha, textViewCadastrarUsuario;
-    EditText editTextEmail, editTextSenha, editTextDt;
-    Button buttonLogin, buttonES;
-    DatePickerDialog picker;
-
-    BarChart barChart;
+    EditText editTextEmail, editTextSenha;
+    Button buttonLogin;
 
     UsuarioDAO dao = new UsuarioDAO();
     @Override
@@ -59,19 +56,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Intent intent = new Intent(MainActivity.this, ListaDespesa.class);
-//        startActivity(intent);
-
-//        barChart = findViewById(R.id.barChartHomeDR);
-//            graficoBarChartDespesaRenda();
-
         editTextEmail = findViewById(R.id.editTexMainActivityEmail);
         editTextSenha = findViewById(R.id.editTextMainActivitySenha);
         textViewEsqueceuSenha = findViewById(R.id.textViewMainActivityEsqueceuSenha);
         textViewCadastrarUsuario = findViewById(R.id.textViewMainActivityCadastrarUsuario);
         buttonLogin = findViewById(R.id.buttonMainActivityLogin);
-
-        mock();
 
         textViewEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,11 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 buttonVoltar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-//                        activity.finish();
-//                        activity.overridePendingTransition(0, 0);
-//                        activity.startActivity(activity.getIntent());
-//                        activity.overridePendingTransition(0, 0);
                         dialog.dismiss();
                     }
                 });
@@ -136,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 validaCampos(dto);
             }
         });
-
-//         fb();
     }
 
     private void validaCampos(UsuarioDTO dto){
@@ -156,47 +138,5 @@ public class MainActivity extends AppCompatActivity {
         }else{
             dao.autenticarUsuario(dto, MainActivity.this);
         }
-    }
-
-    public void mock(){
-        editTextEmail.setText("ana@email.com");
-        editTextSenha.setText("123123");
-//        editTextEmail.setText("joelfsousa95@gmail.com");
-//        editTextSenha.setText("111222");
-    }
-
-    private void fb(){
-        FirebaseFirestore db;
-        FirebaseAuth mAuth;
-        FirebaseUser user;
-
-        db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
-
-        db.collection("conta").document("cXPEJ6kvlLMGIcTMEsHrFLNnG3E3")
-                .collection("cXPEJ6kvlLMGIcTMEsHrFLNnG3E3")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if(!value.isEmpty()){
-
-                        List<String> list = new ArrayList<>();
-                            String v = "";
-                        for (QueryDocumentSnapshot e : value){
-                            list.add(e.getData().get("valor").toString());
-//                            Log.d("---", "tst");
-                        }
-
-                        for(String e : list){
-                            Log.d("---", e);
-                        }
-                        }
-                    }
-                });
-
-//        boolean b = mAuth.isSignInWithEmailLink("any@email.com");
-//        mAuth. isSignInWithEmailLink("any@email.com");
-//        Log.d("---", b+"");
     }
 }

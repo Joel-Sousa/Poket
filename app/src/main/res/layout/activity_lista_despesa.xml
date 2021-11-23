@@ -79,7 +79,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:maxLength="10" />
+                    android:maxLength="30" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
@@ -200,14 +200,6 @@
                         android:text="Historico"
                         android:textColor="#000000"
                         android:textSize="20sp" />
-
-<!--                    <Spinner-->
-<!--                        android:id="@+id/spinnerAdicionarDespesaMes"-->
-<!--                        android:layout_width="110dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginLeft="40dp"-->
-<!--                        android:layout_weight="1" />-->
-
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/editTextListaDespesaMes"

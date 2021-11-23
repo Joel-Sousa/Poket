@@ -80,7 +80,6 @@ public class DespesaDAO {
                             Log.d(Msg.SUCESSO, Msg.DOCUMENTO_S);
 
                             double resultado = Double.valueOf(dto.getValorConta()) - Double.valueOf(dto.getValorDespesa());
-//                            String valorContaTotal = String.valueOf(resultado);
 
                             db.collection("contas").document(user.getUid()).collection(user.getUid())
                                     .document(dto.getIdConta())
@@ -129,21 +128,6 @@ public class DespesaDAO {
                                     valorDespesa += Double.valueOf(document.getData().get("valorDespesa").toString());
                                 }
                             }else{
-
-//                                int mesNumero = 0;
-//                                if(mes.equals("Janeiro")) mesNumero = 1;
-//                                else if(mes.equals("Fevereiro")) mesNumero = 2;
-//                                else if(mes.equals("Março")) mesNumero = 3;
-//                                else if(mes.equals("Abril")) mesNumero = 4;
-//                                else if(mes.equals("Maio")) mesNumero = 5;
-//                                else if(mes.equals("Junho")) mesNumero = 6;
-//                                else if(mes.equals("Julho")) mesNumero = 7;
-//                                else if(mes.equals("Agosto")) mesNumero = 8;
-//                                else if(mes.equals("Setembro")) mesNumero = 9;
-//                                else if(mes.equals("Outubro")) mesNumero = 10;
-//                                else if(mes.equals("Novembro")) mesNumero = 11;
-//                                else if(mes.equals("Dezembro")) mesNumero = 12;
-
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 
                                     String dataMes = document.getData().get("dataDespesa").toString();
@@ -343,8 +327,6 @@ public class DespesaDAO {
                                 dto.setConta(document.getData().get("conta").toString());
 
                                 listDespesa.add(dto);
-//                                valorDespesa += Double.valueOf(document.getData().get("valorDespesa").toString());
-//                                Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
                             }
 
                             List<String> idList = new ArrayList<>();
@@ -359,7 +341,6 @@ public class DespesaDAO {
 
                             for(DespesaDTO despesa : listDespesa){
                                 if(despesa.getDespesa().contains(busca)){
-//                                if(conta.getConta().contains(busca)){
                                     idList.add(despesa.getId());
                                     despesaList.add(despesa.getDespesa());
                                     valorDespesaList.add(despesa.getValorDespesa());
@@ -471,7 +452,6 @@ public class DespesaDAO {
 
                     XAxis xAxis = barChartDespesa.getXAxis();
                     xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-//                    xAxis.setCenterAxisLabels(true);
                     xAxis.setLabelCount(12);
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     xAxis.setGranularityEnabled(true);

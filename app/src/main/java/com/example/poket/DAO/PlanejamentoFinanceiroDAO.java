@@ -73,7 +73,6 @@ public class PlanejamentoFinanceiroDAO {
                     public void onSuccess(DocumentReference documentReference) {
 
                         double resultado = Double.valueOf(hdto.getValorConta()) - Double.valueOf(dto.getValorAtual());
-//                        String valorContaTotal = String.valueOf(resultado);
 
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
                                 .document(hdto.getIdConta())
@@ -90,7 +89,6 @@ public class PlanejamentoFinanceiroDAO {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-//                        Log.w(TAG, "Error adding document", e);
                     }
                 });
     }
@@ -314,7 +312,6 @@ public class PlanejamentoFinanceiroDAO {
                                 double valorTotal = Double.valueOf(document.getData().get("valor").toString());
 
                                 double resultado =  valorTotal + valorAtual;
-//                                String valorContaTotal = String.valueOf(resultado);
 
                                 db.collection("contas").document(user.getUid()).collection(user.getUid())
                                         .document(idConta)
@@ -338,7 +335,6 @@ public class PlanejamentoFinanceiroDAO {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(Msg.INFO, Msg.DOCUMENTO_S);
-//                        activity.finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -408,7 +404,6 @@ public class PlanejamentoFinanceiroDAO {
     public void adicionarValorPF(Activity activity, View view, String idPF){
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
-//        final TextView textViewIdPF = view.findViewById(R.id.textViewDialogPFUidPF);
 
         final TextView textViewIdConta = view.findViewById(R.id.textViewDialogAddPFIdConta);
         final Spinner spinnerConta = view.findViewById(R.id.spinnerDialogAddPFConta);
@@ -417,7 +412,6 @@ public class PlanejamentoFinanceiroDAO {
         Button buttonAdicionar = view.findViewById(R.id.buttonDialogAddPFAdicionar);
         Button buttonVoltar = view.findViewById(R.id.buttonDialogAddPFVoltar);
 
-//        textViewIdPF.setText(idPF);
 
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, activity, textViewContaValor, textViewIdConta, true);
@@ -434,7 +428,6 @@ public class PlanejamentoFinanceiroDAO {
         buttonAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String idPF = tipoPFList.get(0);
                 String idConta = textViewIdConta.getText().toString();
                 String conta = spinnerConta.getSelectedItem().toString();
                 String valorConta = textViewContaValor.getText().toString();
@@ -489,7 +482,6 @@ public class PlanejamentoFinanceiroDAO {
                                 String valorAtual){
 
         double resultado = Double.valueOf(valorConta) - Double.valueOf(valorAtual);
-//        String valorContaTotal = String.valueOf(resultado);
 
         db.collection("contas").document(user.getUid()).collection(user.getUid())
                 .document(idConta)
@@ -686,7 +678,6 @@ public class PlanejamentoFinanceiroDAO {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(Msg.INFO, Msg.DOCUMENTO_S);
-//                        activity.finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -712,7 +703,6 @@ public class PlanejamentoFinanceiroDAO {
     private double porcentagemData(String dataInicio, String dataAtual, String dataFinal){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-//        String dataAtual = Utilitario.dataAtual();
 
         Date inicio = null;
         Date atual = null;

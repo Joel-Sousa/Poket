@@ -78,7 +78,6 @@ public class RendaDAO {
                         Log.d(Msg.SUCESSO, Msg.DOCUMENTO_S);
 
                         double resultado = Double.valueOf(dto.getValorConta()) + Double.valueOf(dto.getValorRenda());
-//                        String valorContaTotal = String.valueOf(resultado);
 
                         db.collection("contas").document(user.getUid()).collection(user.getUid())
                                 .document(dto.getIdConta())
@@ -331,8 +330,6 @@ public class RendaDAO {
                                 dto.setConta(document.getData().get("conta").toString());
 
                                 listRenda.add(dto);
-//                                valorRenda += Double.valueOf(document.getData().get("valorRenda").toString());
-//                                Log.d(Msg.INFO, document.getId() + " -> " + document.getData());
                             }
 
                             List<String> idList = new ArrayList<>();
@@ -347,7 +344,6 @@ public class RendaDAO {
 
                             for(RendaDTO renda : listRenda){
                                 if(renda.getRenda().contains(busca)){
-//                                if(conta.getConta().contains(busca)){
                                     idList.add(renda.getId());
                                     rendaList.add(renda.getRenda());
                                     valorRendaList.add(renda.getValorRenda());
@@ -459,7 +455,6 @@ public class RendaDAO {
 
                     XAxis xAxis = barChartRenda.getXAxis();
                     xAxis.setValueFormatter(new IndexAxisValueFormatter(mes));
-//                    xAxis.setCenterAxisLabels(true);
                     xAxis.setLabelCount(12);
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     xAxis.setGranularityEnabled(true);
@@ -468,8 +463,6 @@ public class RendaDAO {
 
                     barChartRenda.getDescription().setEnabled(false);
                     barChartRenda.invalidate();
-
-//                    Log.d("---", listaMes.toString());
                 }
             }
         });

@@ -50,8 +50,5 @@ public class ListaHistoricoPF extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-//        PlanejamentoFinanceiroDAO dao = new PlanejamentoFinanceiroDAO();
-//        dao.lerHistorico(recyclerView, context, ListaHistoricoPF.this, idPF);
     }
 }

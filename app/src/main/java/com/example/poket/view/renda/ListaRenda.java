@@ -96,7 +96,6 @@ public class ListaRenda extends AppCompatActivity {
                 ListaRenda.this, R.layout.dropdown_item, mesList);
 
         autoCompleteTextViewMes.setAdapter(adapter);
-//        Utilitario.meses(spinnerMes, context);
 
         autoCompleteTextViewMes.setInputType(InputType.TYPE_NULL);
 
@@ -151,10 +150,8 @@ public class ListaRenda extends AppCompatActivity {
         buttonLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                spinnerMes.setSelection(0);
                 autoCompleteTextViewMes.setText("");
                 dao.lerRendas(recyclerView, context, textViewRendaValorTotal, 0);
-//                dao.lerDespesas(recyclerView, context, textViewDespesaValorTotal, 0);
             }
         });
     }
@@ -166,7 +163,6 @@ public class ListaRenda extends AppCompatActivity {
         context = getApplicationContext();
         recyclerView = findViewById(R.id.recyclerViewListaRenda);
 
-//        RendaDAO dao = new RendaDAO();
         dao.lerRendas(recyclerView, context, textViewRendaValorTotal,0);
 
         barChartRenda = findViewById(R.id.barChartListaRenda);

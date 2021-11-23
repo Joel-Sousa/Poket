@@ -48,7 +48,6 @@ public class AdicionarRenda extends AppCompatActivity {
     RendaDTO dto = new RendaDTO();
     RendaDAO dao = new RendaDAO();
 
-    String tipoPF = "";
     List<String> tipoRendaList = new ArrayList<>();
 
     @Override
@@ -72,10 +71,8 @@ public class AdicionarRenda extends AppCompatActivity {
         imageViewVoltar = findViewById(R.id.imageViewAdidionarRendaVoltar);
         buttonSalvar = findViewById(R.id.buttonAdicionarRendaSalvar);
 
-//        Utilitario.listaTipoRenda(spinnerTipoRenda, tipoPF, getApplicationContext());
         editTextDataRenda.setText(Utilitario.dataAtual());
         editTextDataRenda.setInputType(InputType.TYPE_NULL);
-//         editTextDataRenda.addTextChangedListener(MaskEditUtil.mask(editTextDataRenda, MaskEditUtil.FORMAT_DATE));
 
         tipoRendaList = Arrays.asList("Salário", "Serviços", "Presente", "Aluguel", "Outros");
 
@@ -90,8 +87,6 @@ public class AdicionarRenda extends AppCompatActivity {
 
         ContaDAO daoC = new ContaDAO();
         daoC.listaContaSpinner(spinnerConta, AdicionarRenda.this, textViewValorConta, textViewIdConta, false);
-
-//        mock();
 
         autoCompleteTextViewTipoRenda.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -184,13 +179,5 @@ public class AdicionarRenda extends AppCompatActivity {
                 picker.show();
             }
         });
-    }
-
-    public void mock(){
-        editTextRenda.setText("Aluguel");
-        editTextValorRenda.setText("20");
-        autoCompleteTextViewTipoRenda.setText("Aluguel", false);
-
-        editTextObservacao.setText("baixo");
     }
 }

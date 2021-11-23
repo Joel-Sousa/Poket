@@ -194,7 +194,6 @@ public class UsuarioDAO {
                             if (task.isSuccessful()) {
                                 Log.d(Msg.INFO, "User email address updated.");
                                     user.updateProfile(profileUpdates);
-//                                    user.updateEmail(dto.getEmail());
                                     user.updatePassword(dto.getSenha());
 
                                     reautenticacao(dto.getApelido(), dto.getEmail(), dto.getSenha(), false);
@@ -236,10 +235,6 @@ public class UsuarioDAO {
                 .collection(user.getUid()), 50, EXECUTOR);
 
         deletarPFAll(user.getUid());
-
-//        deleteCollection(db.collection("planejamentoFinanceiro").document(user.getUid())
-//                .collection(user.getUid()), 50, EXECUTOR);
-
 
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
@@ -552,29 +547,6 @@ public class UsuarioDAO {
                 }
             }
         });
-
-//        db.collection("despesas").document(user.getUid()).collection(user.getUid())
-//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//
-//                        if(!value.isEmpty()){
-//                            Map<Integer, Double> listaMes = new TreeMap<>();
-//
-//                            for(int i=1; i<=12; i++)
-//                                listaMes.put(i, 0.0);
-//
-//                            for (QueryDocumentSnapshot e : value){
-//                                String dataBD = e.getData().get("dataDespesa").toString();
-//                                String[] parts = dataBD.split("-");
-//                                Double valor = Double.valueOf(e.getData().get("valorDespesa").toString());
-//
-//
-//                            }
-////
-//                        }
-//                    }
-//                });
     }
 
     public void graficoPieChartDespesa(PieChart pieChartDespesa){

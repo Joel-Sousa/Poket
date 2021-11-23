@@ -110,12 +110,6 @@
                         android:textColor="#070505"
                         android:textSize="20sp" />
 
-                    <!--            <Spinner-->
-                    <!--                android:id="@+id/spinnerEditarRendaConta"-->
-                    <!--                android:layout_width="100dp"-->
-                    <!--                android:layout_height="wrap_content"-->
-                    <!--                android:layout_weight="1" />-->
-
                     <TextView
                         android:id="@+id/textViewEditarRendaNomeConta"
                         android:layout_width="wrap_content"

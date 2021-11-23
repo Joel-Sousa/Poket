@@ -212,7 +212,6 @@ public class ContaDAO {
                                 if(idc.equals(document.getData().get("idConta").toString())){
                                     rendasList.add(document.getId());
                                 }
-//                                document.getData().get("despesa").toString();
                             }
 
                             for(String e : rendasList){
@@ -289,11 +288,7 @@ public class ContaDAO {
                                                             }
                                                         });
                                                     }
-                                                }//
-
-//                                                for(String e2: idpfList){
-//
-//                                                }
+                                                }
 
                                                 if(!hpfidList.isEmpty()){
 
@@ -378,7 +373,6 @@ public class ContaDAO {
                             spinnerConta.setAdapter(adapterConta);
 
                             DecimalFormat df = new DecimalFormat("###.00");
-//                            df.format(textViewContaValor.getText().toString());
 
                             spinnerConta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
@@ -433,7 +427,6 @@ public class ContaDAO {
 
                             for(ContaDTO conta : listConta){
                                 if(conta.getConta().contains(busca)){
-//                                if(conta.getConta().contains(busca)){
                                     idList.add(conta.getId());
                                     contaList.add(conta.getConta());
                                     valorList.add(conta.getValor());
